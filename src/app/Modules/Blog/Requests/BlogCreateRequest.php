@@ -28,16 +28,22 @@ class BlogCreateRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:500',
+            'author_name' => 'required|string|max:500',
+            'published_on' => 'required|string|max:500',
             'slug' => 'required|string|max:500|unique:blogs,slug',
             'heading' => 'required|string|max:500',
             'description' => 'required|string',
             'description_unfiltered' => 'required|string',
             'image' => 'required|image|min:1|max:5000',
+            'image_alt' => 'nullable|string|max:500',
+            'image_title' => 'nullable|string|max:500',
             'is_active' => 'required|boolean',
             'is_popular' => 'required|boolean',
+            'is_updated' => 'required|boolean',
             'meta_title' => 'nullable|string',
             'meta_description' => 'nullable|string',
             'meta_keywords' => 'nullable|string',
+            'meta_scripts' => 'nullable|string',
         ];
     }
 
@@ -51,6 +57,7 @@ class BlogCreateRequest extends FormRequest
         return [
             'is_active' => 'Active',
             'is_popular' => 'Popular',
+            'is_updated' => 'Updated',
         ];
     }
 
@@ -62,10 +69,10 @@ class BlogCreateRequest extends FormRequest
     protected function passedValidation()
     {
         $request = Purify::clean(
-            $this->validated()
+            $this->except(['meta_scripts'])
         );
         $this->replace(
-            [...$request]
+            [...$request, ...$this->only(['meta_scripts'])]
         );
     }
 }

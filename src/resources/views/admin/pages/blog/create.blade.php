@@ -27,18 +27,21 @@
                                         @include('admin.includes.input', ['key'=>'name', 'label'=>'Name', 'value'=>old('name')])
                                     </div>
                                     <div class="col-xxl-6 col-md-6">
-                                        @include('admin.includes.input', ['key'=>'slug', 'label'=>'Slug', 'value'=>old('slug')])
-                                    </div>
-                                    <div class="col-xxl-6 col-md-6">
                                         @include('admin.includes.input', ['key'=>'heading', 'label'=>'Heading', 'value'=>old('heading')])
                                     </div>
-                                    <div class="col-xxl-6 col-md-6">
-                                        @include('admin.includes.file_input', ['key'=>'image', 'label'=>'Image'])
+                                    <div class="col-xxl-4 col-md-4">
+                                        @include('admin.includes.input', ['key'=>'slug', 'label'=>'Slug', 'value'=>old('slug')])
+                                    </div>
+                                    <div class="col-xxl-4 col-md-4">
+                                        @include('admin.includes.input', ['key'=>'author_name', 'label'=>'Author Name', 'value'=>old('author_name')])
+                                    </div>
+                                    <div class="col-xxl-4 col-md-4">
+                                        @include('admin.includes.date', ['key'=>'published_on', 'label'=>'Published On', 'value'=>old('published_on')])
                                     </div>
                                     <div class="col-xxl-12 col-md-12">
                                         @include('admin.includes.quill', ['key'=>'description', 'label'=>'Description', 'value'=>old('description')])
                                     </div>
-                                    <div class="col-lg-6 col-md-12">
+                                    <div class="col-lg-4 col-md-12">
                                         <div class="mt-4 mt-md-0">
                                             <div>
                                                 <div class="form-check form-switch form-check-right mb-2">
@@ -49,7 +52,7 @@
 
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 col-md-12">
+                                    <div class="col-lg-4 col-md-12">
                                         <div class="mt-4 mt-md-0">
                                             <div>
                                                 <div class="form-check form-switch form-check-right mb-2">
@@ -59,6 +62,41 @@
                                             </div>
 
                                         </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-12">
+                                        <div class="mt-4 mt-md-0">
+                                            <div>
+                                                <div class="form-check form-switch form-check-right mb-2">
+                                                    <input class="form-check-input" type="checkbox" role="switch" id="is_updated" name="is_updated">
+                                                    <label class="form-check-label" for="is_updated">Is Blog Updated?</label>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!--end row-->
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header align-items-center d-flex justify-content-between">
+                            <h4 class="card-title mb-0">Blog Image</h4>
+                        </div><!-- end card header -->
+                        <div class="card-body">
+                            <div class="live-preview">
+                                <div class="row gy-4" id="image_row">
+                                    <div class="col-xxl-4 col-md-4">
+                                        @include('admin.includes.file_input', ['key'=>'image', 'label'=>'Image'])
+                                    </div>
+                                    <div class="col-xxl-4 col-md-4">
+                                        @include('admin.includes.input', ['key'=>'image_alt', 'label'=>'Image Alt', 'value'=>old('image_alt')])
+                                    </div>
+                                    <div class="col-xxl-4 col-md-4">
+                                        @include('admin.includes.input', ['key'=>'image_title', 'label'=>'Image Title', 'value'=>old('image_title')])
                                     </div>
 
                                 </div>
@@ -75,14 +113,17 @@
                         <div class="card-body">
                             <div class="live-preview">
                                 <div class="row gy-4">
-                                    <div class="col-xxl-4 col-md-4">
+                                    <div class="col-xxl-6 col-md-6">
                                         @include('admin.includes.textarea', ['key'=>'meta_title', 'label'=>'Meta Title', 'value'=>old('meta_title')])
                                     </div>
-                                    <div class="col-xxl-4 col-md-4">
+                                    <div class="col-xxl-6 col-md-6">
                                         @include('admin.includes.textarea', ['key'=>'meta_keywords', 'label'=>'Meta Keywords', 'value'=>old('meta_keywords')])
                                     </div>
-                                    <div class="col-xxl-4 col-md-4">
+                                    <div class="col-xxl-6 col-md-6">
                                         @include('admin.includes.textarea', ['key'=>'meta_description', 'label'=>'Meta Description', 'value'=>old('meta_description')])
+                                    </div>
+                                    <div class="col-xxl-6 col-md-6">
+                                        @include('admin.includes.textarea', ['key'=>'meta_scripts', 'label'=>'Meta Script', 'value'=>old('meta_scripts')])
                                     </div>
                                     <div class="col-xxl-12 col-md-12">
                                         <button type="submit" class="btn btn-primary waves-effect waves-light" id="submitBtn">Create</button>
@@ -189,6 +230,17 @@ validation
         errorMessage: 'Name is invalid',
     },
   ])
+  .addField('#author_name', [
+    {
+      rule: 'required',
+      errorMessage: 'Author Name is required',
+    },
+    {
+        rule: 'customRegexp',
+        value: COMMON_REGEX,
+        errorMessage: 'Author Name is invalid',
+    },
+  ])
   .addField('#slug', [
     {
       rule: 'required',
@@ -249,6 +301,26 @@ validation
         validator: (value, fields) => true,
     },
   ])
+  .addField('#meta_scripts', [
+    {
+        validator: (value, fields) => true,
+    },
+  ])
+  .addField('#image_title', [
+    {
+        validator: (value, fields) => true,
+    },
+  ])
+  .addField('#image_alt', [
+    {
+        validator: (value, fields) => true,
+    },
+  ])
+  .addField('#published_on', [
+    {
+        validator: (value, fields) => true,
+    },
+  ])
   .onSuccess(async (event) => {
     var submitBtn = document.getElementById('submitBtn')
     submitBtn.innerHTML = spinner
@@ -257,7 +329,10 @@ validation
         var formData = new FormData();
         formData.append('is_active',document.getElementById('is_active').checked ? 1 : 0)
         formData.append('is_popular',document.getElementById('is_popular').checked ? 1 : 0)
+        formData.append('is_updated',document.getElementById('is_updated').checked ? 1 : 0)
         formData.append('name',document.getElementById('name').value)
+        formData.append('author_name',document.getElementById('author_name').value)
+        formData.append('published_on',document.getElementById('published_on').value)
         formData.append('slug',document.getElementById('slug').value)
         formData.append('heading',document.getElementById('heading').value)
         formData.append('description',quillDescription.root.innerHTML)
@@ -265,6 +340,9 @@ validation
         formData.append('meta_title',document.getElementById('meta_title').value)
         formData.append('meta_keywords',document.getElementById('meta_keywords').value)
         formData.append('meta_description',document.getElementById('meta_description').value)
+        formData.append('meta_scripts',document.getElementById('meta_scripts').value)
+        formData.append('image_title',document.getElementById('image_title').value)
+        formData.append('image_alt',document.getElementById('image_alt').value)
         if((document.getElementById('image').files).length>0){
             formData.append('image',document.getElementById('image').files[0])
         }
@@ -275,6 +353,12 @@ validation
     }catch (error){
         if(error?.response?.data?.errors?.name){
             validation.showErrors({'#name': error?.response?.data?.errors?.name[0]})
+        }
+        if(error?.response?.data?.errors?.author_name){
+            validation.showErrors({'#author_name': error?.response?.data?.errors?.author_name[0]})
+        }
+        if(error?.response?.data?.errors?.published_on){
+            validation.showErrors({'#published_on': error?.response?.data?.errors?.published_on[0]})
         }
         if(error?.response?.data?.errors?.slug){
             validation.showErrors({'#slug': error?.response?.data?.errors?.slug[0]})
@@ -288,6 +372,12 @@ validation
         if(error?.response?.data?.errors?.image){
             validation.showErrors({'#image': error?.response?.data?.errors?.image[0]})
         }
+        if(error?.response?.data?.errors?.image_title){
+            validation.showErrors({'#image_title': error?.response?.data?.errors?.image_title[0]})
+        }
+        if(error?.response?.data?.errors?.image_alt){
+            validation.showErrors({'#image_alt': error?.response?.data?.errors?.image_alt[0]})
+        }
         if(error?.response?.data?.errors?.meta_title){
             validation.showErrors({'#meta_title': error?.response?.data?.errors?.meta_title[0]})
         }
@@ -296,6 +386,9 @@ validation
         }
         if(error?.response?.data?.errors?.meta_description){
             validation.showErrors({'#meta_description': error?.response?.data?.errors?.meta_description[0]})
+        }
+        if(error?.response?.data?.errors?.meta_scripts){
+            validation.showErrors({'#meta_scripts': error?.response?.data?.errors?.meta_scripts[0]})
         }
         if(error?.response?.data?.message){
             errorToast(error?.response?.data?.message)

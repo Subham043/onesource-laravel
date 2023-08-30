@@ -24,23 +24,31 @@ class Blog extends Model implements Sitemapable
      */
     protected $fillable = [
         'name',
+        'author_name',
         'slug',
         'heading',
         'description',
         'description_unfiltered',
         'image',
+        'image_alt',
+        'image_title',
         'is_active',
         'is_popular',
+        'is_updated',
         'meta_title',
         'meta_description',
         'meta_keywords',
+        'meta_scripts',
+        'published_on',
     ];
 
     protected $casts = [
         'is_active' => 'boolean',
         'is_popular' => 'boolean',
+        'is_updated' => 'boolean',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
+        'published_on' => 'datetime',
     ];
 
     public $image_path = 'blogs';

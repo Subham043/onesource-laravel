@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('image_title', 500)->nullable();
             $table->boolean('is_active')->default(0);
             $table->boolean('is_popular')->default(0);
+            $table->boolean('is_updated')->default(0);
             $table->text('meta_title')->nullable();
             $table->text('meta_description')->nullable();
             $table->text('meta_keywords')->nullable();
