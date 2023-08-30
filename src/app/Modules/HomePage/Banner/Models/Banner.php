@@ -22,12 +22,19 @@ class Banner extends Model
      */
     protected $fillable = [
         'title',
+        'heading',
         'button_link',
         'button_text',
         'banner_image',
         'banner_image_alt',
         'banner_image_title',
         'description',
+        'counter_title_1',
+        'counter_description_1',
+        'counter_image_1',
+        'counter_title_2',
+        'counter_description_2',
+        'counter_image_2',
         'is_active'
     ];
 
@@ -39,7 +46,7 @@ class Banner extends Model
 
     public $image_path = 'home_page_banners';
 
-    protected $appends = ['banner_image_link'];
+    protected $appends = ['banner_image_url', 'counter_image_one_link', 'counter_image_two_link'];
 
     public static function boot()
     {
@@ -56,10 +63,38 @@ class Banner extends Model
         );
     }
 
-    protected function bannerImageLink(): Attribute
+    protected function bannerImageUrl(): Attribute
     {
         return new Attribute(
             get: fn () => asset($this->banner_image),
+        );
+    }
+
+    protected function counterImage1(): Attribute
+    {
+        return Attribute::make(
+            set: fn (string $value) => 'storage/'.$this->image_path.'/'.$value,
+        );
+    }
+
+    protected function counterImageOneLink(): Attribute
+    {
+        return new Attribute(
+            get: fn () => asset($this->counter_image_1),
+        );
+    }
+
+    protected function counterImage2(): Attribute
+    {
+        return Attribute::make(
+            set: fn (string $value) => 'storage/'.$this->image_path.'/'.$value,
+        );
+    }
+
+    protected function counterImageTwoLink(): Attribute
+    {
+        return new Attribute(
+            get: fn () => asset($this->counter_image_2),
         );
     }
 

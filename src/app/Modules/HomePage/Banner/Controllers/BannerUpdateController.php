@@ -26,10 +26,16 @@ class BannerUpdateController extends Controller
         try {
             //code...
             $this->bannerService->update(
-                $request->except('banner_image'),
+                $request->except(['banner_image', 'counter_image_1', 'counter_image_2']),
                 $banner
             );
             if($request->hasFile('banner_image')){
+                $this->bannerService->saveImage($banner);
+            }
+            if($request->hasFile('counter_image_1')){
+                $this->bannerService->saveImage($banner);
+            }
+            if($request->hasFile('counter_image_2')){
                 $this->bannerService->saveImage($banner);
             }
             return response()->json(["message" => "Banner updated successfully."], 201);

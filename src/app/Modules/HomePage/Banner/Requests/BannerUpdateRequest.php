@@ -26,7 +26,8 @@ class BannerUpdateRequest extends BannerCreateRequest
     public function rules()
     {
         return [
-            'title' => 'nullable|string|max:250',
+            'title' => 'required|string|max:250',
+            'heading' => 'required|string|max:250',
             'button_link' => 'nullable|required_with:button_text|url|max:500',
             'button_text' => 'nullable|required_with:button_link|string|max:250',
             'description' => 'required|string|max:500',
@@ -37,6 +38,12 @@ class BannerUpdateRequest extends BannerCreateRequest
             }),],
             'banner_image_alt' => 'nullable|string|max:500',
             'banner_image_title' => 'nullable|string|max:500',
+            'counter_image_1' => 'nullable|image|min:1|max:500',
+            'counter_title_1' => 'required|string|max:500',
+            'counter_description_1' => 'required|string|max:500',
+            'counter_image_2' => 'nullable|image|min:1|max:500',
+            'counter_title_2' => 'required|string|max:500',
+            'counter_description_2' => 'required|string|max:500',
         ];
     }
 

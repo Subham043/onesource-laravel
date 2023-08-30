@@ -28,6 +28,7 @@ class BannerCreateRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:250',
+            'heading' => 'required|string|max:250',
             'button_link' => 'nullable|required_with:button_text|url|max:500',
             'button_text' => 'nullable|required_with:button_link|string|max:250',
             'description' => 'required|string|max:500',
@@ -35,6 +36,12 @@ class BannerCreateRequest extends FormRequest
             'banner_image' => 'required|image|min:1|max:500',
             'banner_image_alt' => 'nullable|string|max:500',
             'banner_image_title' => 'nullable|string|max:500',
+            'counter_image_1' => 'required|image|min:1|max:500',
+            'counter_title_1' => 'required|string|max:500',
+            'counter_description_1' => 'required|string|max:500',
+            'counter_image_2' => 'required|image|min:1|max:500',
+            'counter_title_2' => 'required|string|max:500',
+            'counter_description_2' => 'required|string|max:500',
         ];
     }
 
@@ -50,6 +57,12 @@ class BannerCreateRequest extends FormRequest
             'banner_image' => 'Image',
             'banner_image_alt' => 'Image Alt',
             'banner_image_title' => 'Image Title',
+            'counter_image_1' => 'Image',
+            'counter_title_1' => 'Title',
+            'counter_description_1' => 'Description',
+            'counter_image_2' => 'Image',
+            'counter_title_2' => 'Title',
+            'counter_description_2' => 'Description',
         ];
     }
 

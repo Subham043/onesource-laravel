@@ -58,9 +58,29 @@ class BannerService
         ], $banner);
     }
 
+    public function saveCounterImage1(Banner $banner): Banner
+    {
+        $this->deleteCounterImage1($banner);
+        $counter_image_1 = (new FileService)->save_file('counter_image_1', (new Banner)->image_path);
+        return $this->update([
+            'counter_image_1' => $counter_image_1,
+        ], $banner);
+    }
+
+    public function saveCounterImage2(Banner $banner): Banner
+    {
+        $this->deleteCounterImage2($banner);
+        $counter_image_2 = (new FileService)->save_file('counter_image_2', (new Banner)->image_path);
+        return $this->update([
+            'counter_image_2' => $counter_image_2,
+        ], $banner);
+    }
+
     public function delete(Banner $banner): bool|null
     {
         $this->deleteImage($banner);
+        $this->deleteCounterImage1($banner);
+        $this->deleteCounterImage2($banner);
         return $banner->delete();
     }
 
@@ -68,6 +88,22 @@ class BannerService
     {
         if($banner->banner_image){
             $path = str_replace("storage","app/public",$banner->banner_image);
+            (new FileService)->delete_file($path);
+        }
+    }
+
+    public function deleteCounterImage1(Banner $banner): void
+    {
+        if($banner->counter_image_1){
+            $path = str_replace("storage","app/public",$banner->counter_image_1);
+            (new FileService)->delete_file($path);
+        }
+    }
+
+    public function deleteCounterImage2(Banner $banner): void
+    {
+        if($banner->counter_image_2){
+            $path = str_replace("storage","app/public",$banner->counter_image_2);
             (new FileService)->delete_file($path);
         }
     }

@@ -38,6 +38,7 @@
                                     <thead class="table-light">
                                         <tr>
                                             <th class="sort" data-sort="customer_name">Title</th>
+                                            <th class="sort" data-sort="customer_name">Heading</th>
                                             <th class="sort" data-sort="customer_name">Image</th>
                                             <th class="sort" data-sort="customer_name">Status</th>
                                             <th class="sort" data-sort="date">Created On</th>
@@ -48,8 +49,9 @@
                                         @foreach ($data->items() as $item)
                                         <tr>
                                             <td class="customer_name">{{$item->title}}</td>
+                                            <td class="customer_name">{{$item->heading}}</td>
                                             <td class="customer_name">
-                                                <img src="{{$item->banner_image_link}}" alt="" class="img-preview">
+                                                <img src="{{$item->banner_image_url}}" alt="" class="img-preview">
                                             </td>
                                             @if($item->is_active == 1)
                                             <td class="status"><span class="badge badge-soft-success text-uppercase">Active</span></td>
