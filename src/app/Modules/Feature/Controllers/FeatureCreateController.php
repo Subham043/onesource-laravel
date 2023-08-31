@@ -16,16 +16,17 @@ class FeatureCreateController extends Controller
         $this->featureService = $featureService;
     }
 
-    public function get(){
-        return view('admin.pages.feature.create');
+    public function get($page){
+        return view('admin.pages.feature.create', compact('page'));
     }
 
-    public function post(FeatureCreateRequest $request){
+    public function post(FeatureCreateRequest $request, $page){
 
         try {
             //code...
             $feature = $this->featureService->create(
-                $request->except('image')
+                $request->except('image'),
+                $page
             );
             if($request->hasFile('image')){
                 $this->featureService->saveImage($feature);

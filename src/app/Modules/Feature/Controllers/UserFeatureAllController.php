@@ -15,8 +15,8 @@ class UserFeatureAllController extends Controller
         $this->featureService = $featureService;
     }
 
-    public function get(){
-        $feature = $this->featureService->main_all();
+    public function get($page){
+        $feature = $this->featureService->main_all($page);
         return response()->json([
             'message' => "Feature recieved successfully.",
             'feature' => UserFeatureCollection::collection($feature),

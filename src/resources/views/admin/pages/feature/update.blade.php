@@ -7,14 +7,14 @@
 
         <!-- start page title -->
         @can('list features')
-        @include('admin.includes.breadcrumb', ['page'=>'Feature', 'page_link'=>route('feature.paginate.get'), 'list'=>['Update']])
+        @include('admin.includes.breadcrumb', ['page'=>'Feature', 'page_link'=>route('feature.paginate.get', $page), 'list'=>['Update']])
         @endcan
         <!-- end page title -->
 
         <div class="row" id="image-container">
-            @include('admin.includes.back_button', ['link'=>route('feature.paginate.get')])
+            @include('admin.includes.back_button', ['link'=>route('feature.paginate.get', $page)])
             <div class="col-lg-12">
-                <form id="countryForm" method="post" action="{{route('feature.update.post', $data->id)}}" enctype="multipart/form-data">
+                <form id="countryForm" method="post" action="{{route('feature.update.post', [$page, $data->id])}}" enctype="multipart/form-data">
                 @csrf
                     <div class="card">
                         <div class="card-header align-items-center d-flex">
@@ -155,7 +155,7 @@ validation
         if((document.getElementById('image').files).length>0){
             formData.append('image',document.getElementById('image').files[0])
         }
-        const response = await axios.post('{{route('feature.update.post', $data->id)}}', formData)
+        const response = await axios.post('{{route('feature.update.post', [$page, $data->id])}}', formData)
         successToast(response.data.message)
     }catch (error){
         if(error?.response?.data?.errors?.title){

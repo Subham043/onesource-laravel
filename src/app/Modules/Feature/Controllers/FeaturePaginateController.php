@@ -16,9 +16,9 @@ class FeaturePaginateController extends Controller
         $this->featureService = $featureService;
     }
 
-    public function get(Request $request){
-        $data = $this->featureService->paginate($request->total ?? 10);
-        return view('admin.pages.feature.paginate', compact(['data']))
+    public function get(Request $request, $page){
+        $data = $this->featureService->paginate($request->total ?? 10, $page);
+        return view('admin.pages.feature.paginate', compact(['data', 'page']))
             ->with('search', $request->query('filter')['search'] ?? '');
     }
 

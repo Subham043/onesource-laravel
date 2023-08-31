@@ -15,7 +15,7 @@
     <div class="container-fluid">
 
         <!-- start page title -->
-        @include('admin.includes.breadcrumb', ['page'=>$slug, 'page_link'=>route('about.main.get', $slug), 'list'=>['Update']])
+        @include('admin.includes.breadcrumb', ['page'=>$slug, 'page_link'=>route('about.main.get', $slug), 'list'=>['About Section']])
         <!-- end page title -->
 
         <div class="row" id="image-container">
@@ -24,7 +24,7 @@
                 @csrf
                     <div class="card">
                         <div class="card-header align-items-center d-flex">
-                            <h4 class="card-title mb-0 flex-grow-1">{{$slug}} About Section Detail</h4>
+                            <h4 class="card-title mb-0 flex-grow-1">About Section Detail</h4>
                         </div><!-- end card header -->
                         <div class="card-body">
                             <div class="live-preview">

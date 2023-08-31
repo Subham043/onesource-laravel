@@ -7,14 +7,14 @@
 
         <!-- start page title -->
         @can('list features')
-        @include('admin.includes.breadcrumb', ['page'=>'Feature', 'page_link'=>route('feature.paginate.get'), 'list'=>['Create']])
+        @include('admin.includes.breadcrumb', ['page'=>'Feature', 'page_link'=>route('feature.paginate.get', $page), 'list'=>['Create']])
         @endcan
         <!-- end page title -->
 
         <div class="row">
-            @include('admin.includes.back_button', ['link'=>route('feature.paginate.get')])
+            @include('admin.includes.back_button', ['link'=>route('feature.paginate.get', $page)])
             <div class="col-lg-12">
-                <form id="countryForm" method="post" action="{{route('feature.create.post')}}" enctype="multipart/form-data">
+                <form id="countryForm" method="post" action="{{route('feature.create.post', $page)}}" enctype="multipart/form-data">
                 @csrf
                     <div class="card">
                         <div class="card-header align-items-center d-flex">
@@ -133,7 +133,7 @@ validation
         if((document.getElementById('image').files).length>0){
             formData.append('image',document.getElementById('image').files[0])
         }
-        const response = await axios.post('{{route('feature.create.post')}}', formData)
+        const response = await axios.post('{{route('feature.create.post', $page)}}', formData)
         successToast(response.data.message)
         event.target.reset();
     }catch (error){

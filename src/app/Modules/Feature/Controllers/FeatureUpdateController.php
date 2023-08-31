@@ -16,12 +16,12 @@ class FeatureUpdateController extends Controller
         $this->featureService = $featureService;
     }
 
-    public function get($id){
+    public function get($page, $id){
         $data = $this->featureService->getById($id);
-        return view('admin.pages.feature.update', compact('data'));
+        return view('admin.pages.feature.update', compact('data', 'page'));
     }
 
-    public function post(FeatureUpdateRequest $request, $id){
+    public function post(FeatureUpdateRequest $request, $page, $id){
         $feature = $this->featureService->getById($id);
         try {
             //code...

@@ -8,7 +8,7 @@
     <div class="container-fluid">
 
         <!-- start page title -->
-        @include('admin.includes.breadcrumb', ['page'=>'Feature', 'page_link'=>route('feature.paginate.get'), 'list'=>['List']])
+        @include('admin.includes.breadcrumb', ['page'=>'Feature', 'page_link'=>route('feature.paginate.get', $page), 'list'=>['List']])
         <!-- end page title -->
 
         <div class="row">
@@ -24,12 +24,12 @@
                                 <div class="col-sm-auto">
                                     <div>
                                         @can('create features')
-                                        <a href="{{route('feature.create.get')}}" type="button" class="btn btn-success add-btn" id="create-btn"><i class="ri-add-line align-bottom me-1"></i> Create</a>
+                                        <a href="{{route('feature.create.get', $page)}}" type="button" class="btn btn-success add-btn" id="create-btn"><i class="ri-add-line align-bottom me-1"></i> Create</a>
                                         @endcan
                                     </div>
                                 </div>
                                 <div class="col-sm">
-                                    @include('admin.includes.search_list', ['link'=>route('feature.paginate.get'), 'search'=>$search])
+                                    @include('admin.includes.search_list', ['link'=>route('feature.paginate.get', $page), 'search'=>$search])
                                 </div>
                             </div>
                             <div class="table-responsive table-card mt-3 mb-1">
@@ -59,13 +59,13 @@
                                                 <div class="d-flex gap-2">
                                                     @can('edit features')
                                                     <div class="edit">
-                                                        <a href="{{route('feature.update.get', $item->id)}}" class="btn btn-sm btn-primary edit-item-btn">Edit</a>
+                                                        <a href="{{route('feature.update.get', [$page, $item->id])}}" class="btn btn-sm btn-primary edit-item-btn">Edit</a>
                                                     </div>
                                                     @endcan
 
                                                     @can('delete features')
                                                     <div class="remove">
-                                                        <button class="btn btn-sm btn-danger remove-item-btn" data-link="{{route('feature.delete.get', $item->id)}}">Delete</button>
+                                                        <button class="btn btn-sm btn-danger remove-item-btn" data-link="{{route('feature.delete.get', [$page, $item->id])}}">Delete</button>
                                                     </div>
                                                     @endcan
                                                 </div>

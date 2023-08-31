@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('title', 250);
             $table->string('description', 500)->nullable();
             $table->string('image', 500)->nullable();
+            $table->string('page', 500)->nullable();
             $table->boolean('is_active')->default(0);
             $table->foreignId('user_id')->nullable()->constrained('users')->nullOnDelete();
             $table->timestamps();

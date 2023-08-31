@@ -14,14 +14,14 @@ use Spatie\QueryBuilder\AllowedFilter;
 class FeatureService
 {
 
-    public function all(): Collection
+    public function all(string $page): Collection
     {
-        return Feature::all();
+        return Feature::where('page', $page)->get();
     }
 
-    public function paginate(Int $total = 10): LengthAwarePaginator
+    public function paginate(Int $total = 10, string $page): LengthAwarePaginator
     {
-        $query = Feature::latest();
+        $query = Feature::where('page', $page)->latest();
         return QueryBuilder::for($query)
                 ->allowedFilters([
                     AllowedFilter::custom('search', new CommonFilter),
@@ -35,10 +35,11 @@ class FeatureService
         return Feature::findOrFail($id);
     }
 
-    public function create(array $data): Feature
+    public function create(array $data, string $page): Feature
     {
         $feature = Feature::create($data);
         $feature->user_id = auth()->user()->id;
+        $feature->page = $page;
         $feature->save();
         return $feature;
     }
@@ -71,9 +72,9 @@ class FeatureService
         }
     }
 
-    public function main_all(): Collection
+    public function main_all(string $page): Collection
     {
-        return Feature::where('is_active', true)->get();
+        return Feature::where('page', $page)->where('is_active', true)->get();
     }
 
 }

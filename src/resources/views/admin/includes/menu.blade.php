@@ -107,7 +107,7 @@
 
                             @can('list features')
                             <li class="nav-item">
-                                <a class="nav-link menu-link {{strpos(url()->current(),route('feature.paginate.get')) !== false ? 'active' : ''}}" href="{{route('feature.paginate.get')}}">
+                                <a class="nav-link menu-link {{strpos(url()->current(),route('feature.paginate.get', 'common')) !== false ? 'active' : ''}}" href="{{route('feature.paginate.get', 'common')}}">
                                     <i class="ri-function-line"></i> <span data-key="t-widgets">Feature</span>
                                 </a>
                             </li>
@@ -140,6 +140,14 @@
                                             </li>
                                         @endcan
 
+                                        @can('list features')
+                                            <li class="nav-item">
+                                                <a class="nav-link {{strpos(url()->current(),route('feature.paginate.get', 'home-page')) !== false ? 'active' : ''}}" href="{{route('feature.paginate.get', 'home-page')}}">
+                                                    Feature
+                                                </a>
+                                            </li>
+                                        @endcan
+
                                     </ul>
                                 </div>
                             </li>
@@ -154,6 +162,14 @@
                                         @can('list about section content')
                                             <li class="nav-item">
                                                 <a href="{{route('about.main.get', 'about-page')}}" class="nav-link {{strpos(url()->current(), route('about.main.get', 'about-page')) !== false ? 'active' : ''}}" data-key="t-analytics"> About Section </a>
+                                            </li>
+                                        @endcan
+
+                                        @can('list features')
+                                            <li class="nav-item">
+                                                <a class="nav-link {{strpos(url()->current(),route('feature.paginate.get', 'about-page')) !== false ? 'active' : ''}}" href="{{route('feature.paginate.get', 'about-page')}}">
+                                                    Feature
+                                                </a>
                                             </li>
                                         @endcan
 

@@ -176,7 +176,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/}', [AboutMainController::class, 'post', 'as' => 'about.main.post'])->name('about.main.post');
     });
 
-    Route::prefix('/feature')->group(function () {
+    Route::prefix('/feature/{page}')->group(function () {
         Route::get('/', [FeaturePaginateController::class, 'get', 'as' => 'feature.paginate.get'])->name('feature.paginate.get');
         Route::get('/create', [FeatureCreateController::class, 'get', 'as' => 'feature.create.get'])->name('feature.create.get');
         Route::post('/create', [FeatureCreateController::class, 'post', 'as' => 'feature.create.post'])->name('feature.create.post');

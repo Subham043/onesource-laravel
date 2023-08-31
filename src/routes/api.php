@@ -62,7 +62,7 @@ Route::prefix('testimonial')->group(function () {
 });
 
 Route::prefix('feature')->group(function () {
-    Route::get('/', [UserFeatureAllController::class, 'get'])->name('user.feature.all');
+    Route::get('/{page}', [UserFeatureAllController::class, 'get'])->name('user.feature.all');
 });
 
 Route::prefix('about-section')->group(function () {

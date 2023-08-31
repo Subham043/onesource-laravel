@@ -15,7 +15,7 @@ class FeatureDeleteController extends Controller
         $this->featureService = $featureService;
     }
 
-    public function get($id){
+    public function get($page, $id){
         $feature = $this->featureService->getById($id);
 
         try {
