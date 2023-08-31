@@ -64,14 +64,17 @@
                         <div class="card-body">
                             <div class="live-preview">
                                 <div class="row gy-4">
-                                    <div class="col-xxl-4 col-md-4">
+                                    <div class="col-xxl-6 col-md-6">
                                         @include('admin.includes.textarea', ['key'=>'meta_title', 'label'=>'Meta Title', 'value'=>$data->meta_title])
                                     </div>
-                                    <div class="col-xxl-4 col-md-4">
+                                    <div class="col-xxl-6 col-md-6">
                                         @include('admin.includes.textarea', ['key'=>'meta_keywords', 'label'=>'Meta Keywords', 'value'=>$data->meta_keywords])
                                     </div>
-                                    <div class="col-xxl-4 col-md-4">
+                                    <div class="col-xxl-6 col-md-6">
                                         @include('admin.includes.textarea', ['key'=>'meta_description', 'label'=>'Meta Description', 'value'=>$data->meta_description])
+                                    </div>
+                                    <div class="col-xxl-6 col-md-6">
+                                        @include('admin.includes.textarea', ['key'=>'meta_scripts', 'label'=>'Meta Scripts', 'value'=>$data->meta_scripts])
                                     </div>
                                     <div class="col-xxl-12 col-md-12">
                                         <button type="submit" class="btn btn-primary waves-effect waves-light" id="submitBtn">Update</button>
@@ -101,21 +104,16 @@
 
 
 @section('javascript')
-<script src="{{ asset('admin/js/pages/plugins/quill.min.js' ) }}"></script>
 
 <script type="text/javascript" nonce="{{ csp_nonce() }}">
 
-var quillDescription = new Quill('#description_quill', {
-    theme: 'snow',
-    modules: {
-        toolbar: QUILL_TOOLBAR_OPTIONS
-    },
-});
-
-quillDescription.on('text-change', function(delta, oldDelta, source) {
-  if (source == 'user') {
-    document.getElementById('description').value = quillDescription.root.innerHTML
-  }
+CKEDITOR.ClassicEditor
+.create(document.getElementById("description_quill"), CKEDITOR_OPTIONS)
+.then( newEditor => {
+    editor = newEditor;
+    editor.model.document.on( 'change:data', () => {
+        document.getElementById('description').value = editor.getData()
+    } );
 });
 
 // initialize the validation library
@@ -167,6 +165,11 @@ validation
         validator: (value, fields) => true,
     },
   ])
+  .addField('#meta_scripts', [
+    {
+        validator: (value, fields) => true,
+    },
+  ])
   .onSuccess(async (event) => {
     var submitBtn = document.getElementById('submitBtn')
     submitBtn.innerHTML = spinner
@@ -176,11 +179,12 @@ validation
         formData.append('is_active',document.getElementById('is_active').checked ? 1 : 0)
         formData.append('heading',document.getElementById('heading').value)
         formData.append('page_name',document.getElementById('page_name').value)
-        formData.append('description',quillDescription.root.innerHTML)
-        formData.append('description_unfiltered',quillDescription.getText())
+        formData.append('description',editor.getData())
+        formData.append('description_unfiltered',editor.getData().replace(/<[^>]*>/g, ''))
         formData.append('meta_title',document.getElementById('meta_title').value)
         formData.append('meta_keywords',document.getElementById('meta_keywords').value)
         formData.append('meta_description',document.getElementById('meta_description').value)
+        formData.append('meta_scripts',document.getElementById('meta_scripts').value)
 
         const response = await axios.post('{{route('legal.update.post', $data->slug)}}', formData)
         successToast(response.data.message)
@@ -203,6 +207,9 @@ validation
         }
         if(error?.response?.data?.errors?.meta_description){
             validation.showErrors({'#meta_description': error?.response?.data?.errors?.meta_description[0]})
+        }
+        if(error?.response?.data?.errors?.meta_scripts){
+            validation.showErrors({'#meta_scripts': error?.response?.data?.errors?.meta_scripts[0]})
         }
         if(error?.response?.data?.message){
             errorToast(error?.response?.data?.message)

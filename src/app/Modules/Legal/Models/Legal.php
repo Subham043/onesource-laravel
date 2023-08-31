@@ -33,6 +33,7 @@ class Legal extends Model implements Sitemapable
         'meta_title',
         'meta_description',
         'meta_keywords',
+        'meta_scripts',
     ];
 
     protected $casts = [

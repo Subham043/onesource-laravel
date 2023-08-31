@@ -34,6 +34,7 @@ class LegalUpdateRequest extends FormRequest
             'meta_title' => 'nullable|string',
             'meta_description' => 'nullable|string',
             'meta_keywords' => 'nullable|string',
+            'meta_scripts' => 'nullable|string',
         ];
     }
 
@@ -60,10 +61,11 @@ class LegalUpdateRequest extends FormRequest
      */
     protected function passedValidation()
     {
+        $request = Purify::clean(
+            $this->except(['meta_scripts'])
+        );
         $this->replace(
-            Purify::clean(
-                $this->all()
-            )
+            [...$request, ...$this->only(['meta_scripts'])]
         );
     }
 
