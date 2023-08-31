@@ -121,6 +121,29 @@
                             </li>
                             @endcan
 
+                            <li class="nav-item">
+                                <a class="nav-link menu-link {{strpos(url()->current(),'team-member') !== false ? 'active' : ''}}" href="#sidebarDashboards5" data-bs-toggle="collapse" role="button"
+                                    aria-expanded="{{strpos(url()->current(),'team-member') !== false ? 'true' : 'false'}}" aria-controls="sidebarDashboards5">
+                                    <i class="ri-group-line"></i> <span data-key="t-dashboards">Team Members</span>
+                                </a>
+                                <div class="collapse menu-dropdown {{strpos(url()->current(),'team-member') !== false ? 'show' : ''}}" id="sidebarDashboards5">
+                                    <ul class="nav nav-sm flex-column">
+                                        @can('list team member managements')
+                                            <li class="nav-item">
+                                                <a href="{{route('team_member.management.paginate.get')}}" class="nav-link {{strpos(url()->current(), route('team_member.management.paginate.get')) !== false ? 'active' : ''}}" data-key="t-analytics"> Management </a>
+                                            </li>
+                                        @endcan
+
+                                        @can('list team member staffs')
+                                            <li class="nav-item">
+                                                <a href="{{route('team_member.staff.paginate.get')}}" class="nav-link {{strpos(url()->current(), route('team_member.staff.paginate.get')) !== false ? 'active' : ''}}" data-key="t-analytics"> Staffs </a>
+                                            </li>
+                                        @endcan
+
+                                    </ul>
+                                </div>
+                            </li>
+
                             @can('list pages seo')
                             <li class="nav-item">
                                 <a class="nav-link menu-link {{strpos(url()->current(),route('seo.paginate.get')) !== false ? 'active' : ''}}" href="{{route('seo.paginate.get')}}">

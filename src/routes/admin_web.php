@@ -52,6 +52,14 @@ use App\Modules\HomePage\Banner\Controllers\BannerPaginateController;
 use App\Modules\HomePage\Banner\Controllers\BannerUpdateController;
 use App\Modules\Seo\Controllers\SeoPaginateController;
 use App\Modules\Seo\Controllers\SeoUpdateController;
+use App\Modules\TeamMember\Management\Controllers\ManagementCreateController;
+use App\Modules\TeamMember\Management\Controllers\ManagementDeleteController;
+use App\Modules\TeamMember\Management\Controllers\ManagementPaginateController;
+use App\Modules\TeamMember\Management\Controllers\ManagementUpdateController;
+use App\Modules\TeamMember\Staff\Controllers\StaffCreateController;
+use App\Modules\TeamMember\Staff\Controllers\StaffDeleteController;
+use App\Modules\TeamMember\Staff\Controllers\StaffPaginateController;
+use App\Modules\TeamMember\Staff\Controllers\StaffUpdateController;
 use App\Modules\TextEditorImage\Controllers\TextEditorImageController;
 use Illuminate\Support\Facades\Route;
 
@@ -202,6 +210,28 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/', [SeoPaginateController::class, 'get', 'as' => 'seo.paginate.get'])->name('seo.paginate.get');
         Route::get('/update/{slug}', [SeoUpdateController::class, 'get', 'as' => 'seo.update.get'])->name('seo.update.get');
         Route::post('/update/{slug}', [SeoUpdateController::class, 'post', 'as' => 'seo.update.post'])->name('seo.update.post');
+    });
+
+    Route::prefix('/team-member')->group(function () {
+
+        Route::prefix('/management')->group(function () {
+            Route::get('/', [ManagementPaginateController::class, 'get', 'as' => 'team_member.management.paginate.get'])->name('team_member.management.paginate.get');
+            Route::get('/create', [ManagementCreateController::class, 'get', 'as' => 'team_member.management.create.get'])->name('team_member.management.create.get');
+            Route::post('/create', [ManagementCreateController::class, 'post', 'as' => 'team_member.management.create.post'])->name('team_member.management.create.post');
+            Route::get('/update/{id}', [ManagementUpdateController::class, 'get', 'as' => 'team_member.management.update.get'])->name('team_member.management.update.get');
+            Route::post('/update/{id}', [ManagementUpdateController::class, 'post', 'as' => 'team_member.management.update.post'])->name('team_member.management.update.post');
+            Route::get('/delete/{id}', [ManagementDeleteController::class, 'get', 'as' => 'team_member.management.delete.get'])->name('team_member.management.delete.get');
+        });
+
+        Route::prefix('/staff')->group(function () {
+            Route::get('/', [StaffPaginateController::class, 'get', 'as' => 'team_member.staff.paginate.get'])->name('team_member.staff.paginate.get');
+            Route::get('/create', [StaffCreateController::class, 'get', 'as' => 'team_member.staff.create.get'])->name('team_member.staff.create.get');
+            Route::post('/create', [StaffCreateController::class, 'post', 'as' => 'team_member.staff.create.post'])->name('team_member.staff.create.post');
+            Route::get('/update/{id}', [StaffUpdateController::class, 'get', 'as' => 'team_member.staff.update.get'])->name('team_member.staff.update.get');
+            Route::post('/update/{id}', [StaffUpdateController::class, 'post', 'as' => 'team_member.staff.update.post'])->name('team_member.staff.update.post');
+            Route::get('/delete/{id}', [StaffDeleteController::class, 'get', 'as' => 'team_member.staff.delete.get'])->name('team_member.staff.delete.get');
+        });
+
     });
 
     Route::post('/text-editor-image', [TextEditorImageController::class, 'post', 'as' => 'texteditor_image.post'])->name('texteditor_image.post');
