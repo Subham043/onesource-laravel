@@ -171,9 +171,9 @@ Route::middleware(['auth'])->group(function () {
 
     });
 
-    Route::prefix('/about-page')->group(function () {
-        Route::get('/main', [AboutMainController::class, 'get', 'as' => 'about.main.get'])->name('about.main.get');
-        Route::post('/main', [AboutMainController::class, 'post', 'as' => 'about.main.post'])->name('about.main.post');
+    Route::prefix('/about-section/{slug}')->group(function () {
+        Route::get('/', [AboutMainController::class, 'get', 'as' => 'about.main.get'])->name('about.main.get');
+        Route::post('/}', [AboutMainController::class, 'post', 'as' => 'about.main.post'])->name('about.main.post');
     });
 
     Route::prefix('/feature')->group(function () {

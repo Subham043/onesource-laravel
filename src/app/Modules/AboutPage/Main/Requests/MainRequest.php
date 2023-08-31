@@ -27,10 +27,16 @@ class MainRequest extends FormRequest
     public function rules()
     {
         return [
+            'title' => 'required|string|max:250',
             'heading' => 'required|string|max:250',
             'description' => 'required|string',
             'description_unfiltered' => 'required|string',
             'image' => ['nullable','image','min:1','max:500'],
+            'image_alt' => 'nullable|string|max:500',
+            'image_title' => 'nullable|string|max:500',
+            'counter_image' => 'nullable|image|min:1|max:500',
+            'counter_title' => 'required|string|max:500',
+            'counter_description' => 'required|string|max:500',
         ];
     }
 

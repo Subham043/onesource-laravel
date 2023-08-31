@@ -66,7 +66,7 @@ Route::prefix('feature')->group(function () {
 });
 
 Route::prefix('about-section')->group(function () {
-    Route::get('/', [UserAboutMainController::class, 'get'])->name('user.about.main');
+    Route::get('/{slug}', [UserAboutMainController::class, 'get'])->name('user.about.main');
 });
 
 Route::prefix('home-page-banner')->group(function () {

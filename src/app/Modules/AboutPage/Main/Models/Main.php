@@ -6,7 +6,6 @@ use App\Modules\Authentication\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
-use Illuminate\Support\Facades\Cache;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
 
@@ -22,11 +21,17 @@ class Main extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'title',
         'heading',
-        'slug',
+        'page',
         'description',
         'description_unfiltered',
         'image',
+        'image_alt',
+        'image_title',
+        'counter_title',
+        'counter_description',
+        'counter_image',
     ];
 
     protected $casts = [
@@ -36,7 +41,7 @@ class Main extends Model
 
     public $image_path = 'about_sections';
 
-    protected $appends = ['image_link'];
+    protected $appends = ['image_link', 'counter_image_link'];
 
     protected function image(): Attribute
     {
@@ -49,6 +54,20 @@ class Main extends Model
     {
         return new Attribute(
             get: fn () => asset($this->image),
+        );
+    }
+
+    protected function counterImage(): Attribute
+    {
+        return Attribute::make(
+            set: fn (string $value) => 'storage/'.$this->image_path.'/'.$value,
+        );
+    }
+
+    protected function counterImageLink(): Attribute
+    {
+        return new Attribute(
+            get: fn () => asset($this->counter_image),
         );
     }
 

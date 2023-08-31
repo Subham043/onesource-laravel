@@ -15,13 +15,13 @@ class MainService
 
     public function getBySlug(String $slug): Main|null
     {
-        return Main::where('slug', $slug)->first();
+        return Main::where('page', $slug)->first();
     }
 
-    public function createOrUpdate(array $data): Main
+    public function createOrUpdate(array $data, string $slug): Main
     {
         $main = Main::updateOrCreate(
-            ['slug' => 'about_section'],
+            ['page' => $slug],
             [...$data]
         );
 
@@ -41,10 +41,28 @@ class MainService
         return $main;
     }
 
+    public function saveCounterImage(Main $main): Main
+    {
+        $this->deleteCounterImage($main);
+        $image = (new FileService)->save_file('counter_image', (new Main)->image_path);
+        $main->update([
+            'counter_image' => $image,
+        ]);
+        return $main;
+    }
+
     public function deleteImage(Main $main): void
     {
         if($main->image){
             $path = str_replace("storage","app/public",$main->image);
+            (new FileService)->delete_file($path);
+        }
+    }
+
+    public function deleteCounterImage(Main $main): void
+    {
+        if($main->counter_image){
+            $path = str_replace("storage","app/public",$main->counter_image);
             (new FileService)->delete_file($path);
         }
     }

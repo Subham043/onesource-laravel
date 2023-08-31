@@ -134,6 +134,12 @@
                                             </li>
                                         @endcan
 
+                                        @can('list about section content')
+                                            <li class="nav-item">
+                                                <a href="{{route('about.main.get', 'home-page')}}" class="nav-link {{strpos(url()->current(), route('about.main.get', 'home-page')) !== false ? 'active' : ''}}" data-key="t-analytics"> About Section </a>
+                                            </li>
+                                        @endcan
+
                                     </ul>
                                 </div>
                             </li>
@@ -145,9 +151,9 @@
                                 </a>
                                 <div class="collapse menu-dropdown {{strpos(url()->current(),'about-page') !== false ? 'show' : ''}}" id="sidebarDashboards4">
                                     <ul class="nav nav-sm flex-column">
-                                        @can('list about page content')
+                                        @can('list about section content')
                                             <li class="nav-item">
-                                                <a href="{{route('about.main.get')}}" class="nav-link {{strpos(url()->current(), route('about.main.get')) !== false ? 'active' : ''}}" data-key="t-analytics"> Main Section </a>
+                                                <a href="{{route('about.main.get', 'about-page')}}" class="nav-link {{strpos(url()->current(), route('about.main.get', 'about-page')) !== false ? 'active' : ''}}" data-key="t-analytics"> About Section </a>
                                             </li>
                                         @endcan
 

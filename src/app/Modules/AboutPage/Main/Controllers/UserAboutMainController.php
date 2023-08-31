@@ -15,8 +15,8 @@ class UserAboutMainController extends Controller
         $this->mainService = $mainService;
     }
 
-    public function get(){
-        $about = $this->mainService->getBySlug('about_section');
+    public function get($slug){
+        $about = $this->mainService->getBySlug($slug);
         return response()->json([
             'message' => "About section recieved successfully.",
             'about' => UserAboutMainCollection::make($about),
