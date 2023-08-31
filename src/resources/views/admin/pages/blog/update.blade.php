@@ -36,7 +36,7 @@
                                         @include('admin.includes.input', ['key'=>'author_name', 'label'=>'Author Name', 'value'=>$data->author_name])
                                     </div>
                                     <div class="col-xxl-4 col-md-4">
-                                        @include('admin.includes.input', ['key'=>'published_on', 'label'=>'Published On', 'value'=>$data->published_on])
+                                        @include('admin.includes.date', ['key'=>'published_on', 'label'=>'Published On', 'value'=>$data->published_on->format('Y-m-d')])
                                     </div>
                                     <div class="col-xxl-12 col-md-12">
                                         @include('admin.includes.quill', ['key'=>'description', 'label'=>'Description', 'value'=>$data->description])
@@ -156,63 +156,16 @@
 
 
 @section('javascript')
-<script src="{{ asset('admin/js/pages/plugins/quill.min.js' ) }}"></script>
 
 <script type="text/javascript" nonce="{{ csp_nonce() }}">
 
-const Delta = Quill.import('delta');
-
-function quillImageHandler() {
-  let fileInput = this.container.querySelector('input.ql-image[type=file]');
-  if (fileInput == null) {
-    fileInput = document.createElement('input');
-    fileInput.setAttribute('type', 'file');
-    fileInput.setAttribute('accept', 'image/png, image/gif, image/jpeg, image/bmp, image/x-icon');
-    fileInput.classList.add('ql-image');
-    fileInput.addEventListener('change', async () => {
-      if (fileInput.files != null && fileInput.files[0] != null) {
-        try {
-            const data = new FormData();
-            data.append('image', fileInput.files[0]);
-            const response = await axios.post('{{route('texteditor_image.post')}}', data);
-            let reader = new FileReader();
-            reader.onload = (e) => {
-            let range = this.quill.getSelection(true);
-            this.quill.updateContents(new Delta()
-                .retain(range.index)
-                .delete(range.length)
-                .insert({ image: response.data.image }));
-                console.log(fileInput.files[0]);
-            }
-            reader.readAsDataURL(fileInput.files[0]);
-        } catch (error) {
-            if(error?.response?.data?.message){
-                errorToast(error?.response?.data?.message)
-            }
-        }
-
-      }
-    });
-    fileInput.value = "";
-    this.container.appendChild(fileInput);
-  }
-  fileInput.click();
-}
-
-var quillDescription = new Quill('#description_quill', {
-    theme: 'snow',
-    modules: {
-        toolbar: {
-            container: QUILL_TOOLBAR_OPTIONS_WITH_IMAGE,
-            handlers: { image: quillImageHandler },
-        },
-    },
-});
-
-quillDescription.on('text-change', function(delta, oldDelta, source) {
-  if (source == 'user') {
-    document.getElementById('description').value = quillDescription.root.innerHTML
-  }
+CKEDITOR.ClassicEditor
+.create(document.getElementById("description_quill"), CKEDITOR_OPTIONS)
+.then( newEditor => {
+    editor = newEditor;
+    editor.model.document.on( 'change:data', () => {
+        document.getElementById('description').value = editor.getData()
+    } );
 });
 
 const myViewer = new ImgPreviewer('#image-container',{
@@ -360,8 +313,8 @@ validation
         formData.append('published_on',document.getElementById('published_on').value)
         formData.append('slug',document.getElementById('slug').value)
         formData.append('heading',document.getElementById('heading').value)
-        formData.append('description',quillDescription.root.innerHTML)
-        formData.append('description_unfiltered',quillDescription.getText())
+        formData.append('description',editor.getData())
+        formData.append('description_unfiltered',editor.getData().replace(/<[^>]*>/g, ''))
         formData.append('meta_title',document.getElementById('meta_title').value)
         formData.append('meta_keywords',document.getElementById('meta_keywords').value)
         formData.append('meta_description',document.getElementById('meta_description').value)
@@ -418,6 +371,7 @@ validation
         if(error?.response?.data?.message){
             errorToast(error?.response?.data?.message)
         }
+        console.log(error);
     }finally{
         submitBtn.innerHTML =  `
             Update

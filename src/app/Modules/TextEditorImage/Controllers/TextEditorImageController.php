@@ -22,10 +22,10 @@ class TextEditorImageController extends Controller
             $image = $this->textEditorImageService->create(
                 $request->validated()
             );
-            if($request->hasFile('image')){
+            if($request->hasFile('upload')){
                 $this->textEditorImageService->saveImage($image);
             }
-            return response()->json(["message" => "TextEditorImage created successfully.", 'image' => $image->image_link], 201);
+            return response()->json(["message" => "TextEditorImage created successfully.", 'fileName' => $image->image, 'uploaded'=> 1, 'url' => $image->image_link], 201);
         } catch (\Throwable $th) {
             return response()->json(["message" => "Something went wrong. Please try again"], 400);
         }

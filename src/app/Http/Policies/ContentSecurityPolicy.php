@@ -12,9 +12,9 @@ class ContentSecurityPolicy extends Basic
     {
         // parent::configure();
 
-        if(request()->is('admin/*')){
-            $this->addNonceForDirective(Directive::STYLE);
-        }
+        // if(request()->is('admin/*')){
+        //     $this->addNonceForDirective(Directive::STYLE);
+        // }
 
         $this
         //start of basic policy
@@ -41,6 +41,7 @@ class ContentSecurityPolicy extends Basic
         ->addDirective(Directive::FONT, 'data:') //remove as this and above belongs for development template of welcome page
 
         //start of artibot
+        ->addDirective(Directive::SCRIPT, 'cdn.ckeditor.com')
         ->addDirective(Directive::SCRIPT, 'app.artibot.ai')
         ->addDirective(Directive::FRAME, 'app.artibot.ai')
         ->addDirective(Directive::SCRIPT, 'prod.artibotcdn.com')

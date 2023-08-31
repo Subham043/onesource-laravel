@@ -27,7 +27,7 @@ class TextEditorImageRequest extends FormRequest
     public function rules()
     {
         return [
-            'image' => 'required|image|min:1|max:500',
+            'upload' => 'required|image|min:1|max:500',
         ];
     }
 
@@ -39,7 +39,7 @@ class TextEditorImageRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            'image' => 'Image',
+            'upload' => 'Upload',
         ];
     }
 
@@ -51,8 +51,8 @@ class TextEditorImageRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'image.required' => 'Please select an image',
-            'image.image' => 'Please select an image',
+            'upload.required' => 'Please select an image',
+            'upload.image' => 'Please select an image',
         ];
     }
 

@@ -48,7 +48,7 @@ class Blog extends Model implements Sitemapable
         'is_updated' => 'boolean',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
-        'published_on' => 'datetime',
+        'published_on' => 'date',
     ];
 
     public $image_path = 'blogs';

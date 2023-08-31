@@ -7,6 +7,7 @@
 <script src="{{ asset('admin/js/pages/plugins/lord-icon-2.1.0.js') }}"></script>
 <script src="{{ asset('admin/js/pages/axios.min.js') }}"></script>
 <script src="{{ asset('admin/js/pages/img-previewer.min.js') }}"></script>
+<script src="{{ asset('admin/js/pages/ckeditor.js' ) }}"></script>
 
 <script type="text/javascript" nonce="{{ csp_nonce() }}">
     @if (session('success_status'))

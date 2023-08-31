@@ -24,7 +24,7 @@ class TextEditorImageService
 
     public function saveImage(TextEditorImage $texteditor): TextEditorImage
     {
-        $texteditor_image = (new FileService)->save_file('image', (new TextEditorImage)->image_path);
+        $texteditor_image = (new FileService)->save_file('upload', (new TextEditorImage)->image_path);
         return $this->update([
             'image' => $texteditor_image,
         ], $texteditor);
