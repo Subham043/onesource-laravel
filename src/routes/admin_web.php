@@ -21,6 +21,10 @@ use App\Modules\Counter\Controllers\CounterCreateController;
 use App\Modules\Counter\Controllers\CounterDeleteController;
 use App\Modules\Counter\Controllers\CounterPaginateController;
 use App\Modules\Counter\Controllers\CounterUpdateController;
+use App\Modules\ExpertTip\Controllers\ExpertTipCreateController;
+use App\Modules\ExpertTip\Controllers\ExpertTipDeleteController;
+use App\Modules\ExpertTip\Controllers\ExpertTipPaginateController;
+use App\Modules\ExpertTip\Controllers\ExpertTipUpdateController;
 use App\Modules\Feature\Controllers\FeatureCreateController;
 use App\Modules\Feature\Controllers\FeatureDeleteController;
 use App\Modules\Feature\Controllers\FeaturePaginateController;
@@ -137,6 +141,15 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/update/{id}', [BlogUpdateController::class, 'get', 'as' => 'blog.update.get'])->name('blog.update.get');
         Route::post('/update/{id}', [BlogUpdateController::class, 'post', 'as' => 'blog.update.post'])->name('blog.update.post');
         Route::get('/delete/{id}', [BlogDeleteController::class, 'get', 'as' => 'blog.delete.get'])->name('blog.delete.get');
+    });
+
+    Route::prefix('/expert-tip')->group(function () {
+        Route::get('/', [ExpertTipPaginateController::class, 'get', 'as' => 'expert_tip.paginate.get'])->name('expert_tip.paginate.get');
+        Route::get('/create', [ExpertTipCreateController::class, 'get', 'as' => 'expert_tip.create.get'])->name('expert_tip.create.get');
+        Route::post('/create', [ExpertTipCreateController::class, 'post', 'as' => 'expert_tip.create.post'])->name('expert_tip.create.post');
+        Route::get('/update/{id}', [ExpertTipUpdateController::class, 'get', 'as' => 'expert_tip.update.get'])->name('expert_tip.update.get');
+        Route::post('/update/{id}', [ExpertTipUpdateController::class, 'post', 'as' => 'expert_tip.update.post'])->name('expert_tip.update.post');
+        Route::get('/delete/{id}', [ExpertTipDeleteController::class, 'get', 'as' => 'expert_tip.delete.get'])->name('expert_tip.delete.get');
     });
 
     Route::prefix('/counter')->group(function () {

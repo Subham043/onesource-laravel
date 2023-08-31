@@ -13,6 +13,8 @@ use App\Modules\Blog\Controllers\UserBlogDetailController;
 use App\Modules\Blog\Controllers\UserBlogPaginateController;
 use App\Modules\Counter\Controllers\UserCounterAllController;
 use App\Modules\Enquiry\ContactForm\Controllers\ContactFormCreateController;
+use App\Modules\ExpertTip\Controllers\UserExpertTipDetailController;
+use App\Modules\ExpertTip\Controllers\UserExpertTipPaginateController;
 use App\Modules\Feature\Controllers\UserFeatureAllController;
 use App\Modules\HomePage\Banner\Controllers\UserBannerAllController;
 use App\Modules\Legal\Controllers\UserLegalAllController;
@@ -85,6 +87,11 @@ Route::prefix('website-detail')->group(function () {
 Route::prefix('blog')->group(function () {
     Route::get('/', [UserBlogPaginateController::class, 'get'])->name('user.blog.paginate');
     Route::get('/{slug}', [UserBlogDetailController::class, 'get'])->name('user.blog.detail');
+});
+
+Route::prefix('expert-tip')->group(function () {
+    Route::get('/', [UserExpertTipPaginateController::class, 'get'])->name('user.expert_tip.paginate');
+    Route::get('/{slug}', [UserExpertTipDetailController::class, 'get'])->name('user.expert_tip.detail');
 });
 
 Route::prefix('seo')->group(function () {

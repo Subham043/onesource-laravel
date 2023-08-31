@@ -97,6 +97,14 @@
                             </li>
                             @endcan
 
+                            @can('list expert tips')
+                            <li class="nav-item">
+                                <a class="nav-link menu-link {{strpos(url()->current(),route('expert_tip.paginate.get')) !== false ? 'active' : ''}}" href="{{route('expert_tip.paginate.get')}}">
+                                    <i class="ri-sticky-note-line"></i> <span data-key="t-widgets">Expert Tips</span>
+                                </a>
+                            </li>
+                            @endcan
+
                             @can('list legal pages')
                             <li class="nav-item">
                                 <a class="nav-link menu-link {{strpos(url()->current(),route('legal.paginate.get')) !== false ? 'active' : ''}}" href="{{route('legal.paginate.get')}}">
