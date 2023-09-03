@@ -1,6 +1,14 @@
 <?php
 
 use App\Modules\AboutPage\Main\Controllers\AboutMainController;
+use App\Modules\Achiever\Category\Controllers\CategoryCreateController;
+use App\Modules\Achiever\Category\Controllers\CategoryDeleteController;
+use App\Modules\Achiever\Category\Controllers\CategoryPaginateController;
+use App\Modules\Achiever\Category\Controllers\CategoryUpdateController;
+use App\Modules\Achiever\Student\Controllers\StudentCreateController;
+use App\Modules\Achiever\Student\Controllers\StudentDeleteController;
+use App\Modules\Achiever\Student\Controllers\StudentPaginateController;
+use App\Modules\Achiever\Student\Controllers\StudentUpdateController;
 use App\Modules\Authentication\Controllers\PasswordUpdateController;
 use App\Modules\Authentication\Controllers\ForgotPasswordController;
 use App\Modules\Authentication\Controllers\LoginController;
@@ -208,7 +216,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::prefix('/about-section/{slug}')->group(function () {
         Route::get('/', [AboutMainController::class, 'get', 'as' => 'about.main.get'])->name('about.main.get');
-        Route::post('/}', [AboutMainController::class, 'post', 'as' => 'about.main.post'])->name('about.main.post');
+        Route::post('/', [AboutMainController::class, 'post', 'as' => 'about.main.post'])->name('about.main.post');
     });
 
     Route::prefix('/mission-vision')->group(function () {
@@ -249,6 +257,28 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/update/{id}', [StaffUpdateController::class, 'get', 'as' => 'team_member.staff.update.get'])->name('team_member.staff.update.get');
             Route::post('/update/{id}', [StaffUpdateController::class, 'post', 'as' => 'team_member.staff.update.post'])->name('team_member.staff.update.post');
             Route::get('/delete/{id}', [StaffDeleteController::class, 'get', 'as' => 'team_member.staff.delete.get'])->name('team_member.staff.delete.get');
+        });
+
+    });
+
+    Route::prefix('/achiever')->group(function () {
+
+        Route::prefix('/category')->group(function () {
+            Route::get('/', [CategoryPaginateController::class, 'get', 'as' => 'achiever.category.paginate.get'])->name('achiever.category.paginate.get');
+            Route::get('/create', [CategoryCreateController::class, 'get', 'as' => 'achiever.category.create.get'])->name('achiever.category.create.get');
+            Route::post('/create', [CategoryCreateController::class, 'post', 'as' => 'achiever.category.create.post'])->name('achiever.category.create.post');
+            Route::get('/update/{id}', [CategoryUpdateController::class, 'get', 'as' => 'achiever.category.update.get'])->name('achiever.category.update.get');
+            Route::post('/update/{id}', [CategoryUpdateController::class, 'post', 'as' => 'achiever.category.update.post'])->name('achiever.category.update.post');
+            Route::get('/delete/{id}', [CategoryDeleteController::class, 'get', 'as' => 'achiever.category.delete.get'])->name('achiever.category.delete.get');
+        });
+
+        Route::prefix('/student')->group(function () {
+            Route::get('/', [StudentPaginateController::class, 'get', 'as' => 'achiever.student.paginate.get'])->name('achiever.student.paginate.get');
+            Route::get('/create', [StudentCreateController::class, 'get', 'as' => 'achiever.student.create.get'])->name('achiever.student.create.get');
+            Route::post('/create', [StudentCreateController::class, 'post', 'as' => 'achiever.student.create.post'])->name('achiever.student.create.post');
+            Route::get('/update/{id}', [StudentUpdateController::class, 'get', 'as' => 'achiever.student.update.get'])->name('achiever.student.update.get');
+            Route::post('/update/{id}', [StudentUpdateController::class, 'post', 'as' => 'achiever.student.update.post'])->name('achiever.student.update.post');
+            Route::get('/delete/{id}', [StudentDeleteController::class, 'get', 'as' => 'achiever.student.delete.get'])->name('achiever.student.delete.get');
         });
 
     });

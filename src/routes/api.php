@@ -2,6 +2,9 @@
 
 use App\Exceptions\CustomExceptions\UnauthenticatedException;
 use App\Modules\AboutPage\Main\Controllers\UserAboutMainController;
+use App\Modules\Achiever\Category\Controllers\UserCategoryDetailController;
+use App\Modules\Achiever\Category\Controllers\UserCategoryPaginateController;
+use App\Modules\Achiever\Student\Controllers\UserStudentAllController;
 use App\Modules\Authentication\Controllers\UserProfileController;
 use App\Modules\Authentication\Controllers\UserForgotPasswordController;
 use App\Modules\Authentication\Controllers\UserLoginController;
@@ -99,6 +102,12 @@ Route::prefix('blog')->group(function () {
 Route::prefix('expert-tip')->group(function () {
     Route::get('/', [UserExpertTipPaginateController::class, 'get'])->name('user.expert_tip.paginate');
     Route::get('/{slug}', [UserExpertTipDetailController::class, 'get'])->name('user.expert_tip.detail');
+});
+
+Route::prefix('achiever')->group(function () {
+    Route::get('/category', [UserCategoryPaginateController::class, 'get'])->name('user.achiever.category.paginate');
+    Route::get('/student', [UserStudentAllController::class, 'get'])->name('user.achiever.student.paginate');
+    Route::get('/{slug}', [UserCategoryDetailController::class, 'get'])->name('user.achiever.category.detail');
 });
 
 Route::prefix('faq')->group(function () {

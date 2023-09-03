@@ -16,6 +16,9 @@ return new class extends Migration
             $table->string('name', 500);
             $table->string('rank', 500)->nullable();
             $table->string('college', 500)->nullable();
+            $table->string('image', 500)->nullable();
+            $table->string('image_alt', 500)->nullable();
+            $table->string('image_title', 500)->nullable();
             $table->boolean('is_active')->default(0);
             $table->foreignId('user_id')->nullable()->constrained('users')->nullOnDelete();
             $table->timestamps();

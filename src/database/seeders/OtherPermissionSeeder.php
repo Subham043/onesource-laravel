@@ -92,6 +92,12 @@ class OtherPermissionSeeder extends Seeder
         Permission::create(['name' => 'create team member course']);
         Permission::create(['name' => 'list team member course']);
 
+        //permission for achievers
+        Permission::create(['name' => 'edit achievers']);
+        Permission::create(['name' => 'delete achievers']);
+        Permission::create(['name' => 'create achievers']);
+        Permission::create(['name' => 'list achievers']);
+
         //permission for pages seo
         Permission::create(['name' => 'edit pages seo']);
         Permission::create(['name' => 'list pages seo']);
