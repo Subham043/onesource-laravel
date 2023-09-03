@@ -25,6 +25,10 @@ use App\Modules\ExpertTip\Controllers\ExpertTipCreateController;
 use App\Modules\ExpertTip\Controllers\ExpertTipDeleteController;
 use App\Modules\ExpertTip\Controllers\ExpertTipPaginateController;
 use App\Modules\ExpertTip\Controllers\ExpertTipUpdateController;
+use App\Modules\Faq\Controllers\FaqCreateController;
+use App\Modules\Faq\Controllers\FaqDeleteController;
+use App\Modules\Faq\Controllers\FaqPaginateController;
+use App\Modules\Faq\Controllers\FaqUpdateController;
 use App\Modules\Feature\Controllers\FeatureCreateController;
 use App\Modules\Feature\Controllers\FeatureDeleteController;
 use App\Modules\Feature\Controllers\FeaturePaginateController;
@@ -158,6 +162,15 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/update/{id}', [ExpertTipUpdateController::class, 'get', 'as' => 'expert_tip.update.get'])->name('expert_tip.update.get');
         Route::post('/update/{id}', [ExpertTipUpdateController::class, 'post', 'as' => 'expert_tip.update.post'])->name('expert_tip.update.post');
         Route::get('/delete/{id}', [ExpertTipDeleteController::class, 'get', 'as' => 'expert_tip.delete.get'])->name('expert_tip.delete.get');
+    });
+
+    Route::prefix('/faq')->group(function () {
+        Route::get('/', [FaqPaginateController::class, 'get', 'as' => 'faq.paginate.get'])->name('faq.paginate.get');
+        Route::get('/create', [FaqCreateController::class, 'get', 'as' => 'faq.create.get'])->name('faq.create.get');
+        Route::post('/create', [FaqCreateController::class, 'post', 'as' => 'faq.create.post'])->name('faq.create.post');
+        Route::get('/update/{id}', [FaqUpdateController::class, 'get', 'as' => 'faq.update.get'])->name('faq.update.get');
+        Route::post('/update/{id}', [FaqUpdateController::class, 'post', 'as' => 'faq.update.post'])->name('faq.update.post');
+        Route::get('/delete/{id}', [FaqDeleteController::class, 'get', 'as' => 'faq.delete.get'])->name('faq.delete.get');
     });
 
     Route::prefix('/counter')->group(function () {

@@ -105,6 +105,14 @@
                             </li>
                             @endcan
 
+                            @can('list faqs')
+                            <li class="nav-item">
+                                <a class="nav-link menu-link {{strpos(url()->current(),route('faq.paginate.get')) !== false ? 'active' : ''}}" href="{{route('faq.paginate.get')}}">
+                                    <i class="ri-questionnaire-line"></i> <span data-key="t-widgets">FAQs</span>
+                                </a>
+                            </li>
+                            @endcan
+
                             @can('list legal pages')
                             <li class="nav-item">
                                 <a class="nav-link menu-link {{strpos(url()->current(),route('legal.paginate.get')) !== false ? 'active' : ''}}" href="{{route('legal.paginate.get')}}">
