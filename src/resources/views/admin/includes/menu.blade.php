@@ -129,6 +129,14 @@
                             </li>
                             @endcan
 
+                            @can('edit mission vision')
+                                <li class="nav-item">
+                                    <a class="nav-link menu-link"  href="{{route('mission.main.get')}}" class="nav-link {{strpos(url()->current(), route('mission.main.get')) !== false ? 'active' : ''}}" data-key="t-analytics">
+                                        <i class="ri-focus-3-line"></i> <span data-key="t-widgets">Mission Vision</span>
+                                    </a>
+                                </li>
+                            @endcan
+
                             <li class="nav-item">
                                 <a class="nav-link menu-link {{strpos(url()->current(),'team-member') !== false ? 'active' : ''}}" href="#sidebarDashboards5" data-bs-toggle="collapse" role="button"
                                     aria-expanded="{{strpos(url()->current(),'team-member') !== false ? 'true' : 'false'}}" aria-controls="sidebarDashboards5">

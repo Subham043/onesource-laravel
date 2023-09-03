@@ -21,6 +21,7 @@ use App\Modules\Feature\Controllers\UserFeatureAllController;
 use App\Modules\HomePage\Banner\Controllers\UserBannerAllController;
 use App\Modules\Legal\Controllers\UserLegalAllController;
 use App\Modules\Legal\Controllers\UserLegalDetailController;
+use App\Modules\MissionVision\Controllers\UserMissionVisionController;
 use App\Modules\Seo\Controllers\UserSeoDetailController;
 use App\Modules\Settings\Controllers\General\UserGeneralController;
 use App\Modules\Testimonial\Controllers\UserTestimonialAllController;
@@ -71,6 +72,10 @@ Route::prefix('feature')->group(function () {
 
 Route::prefix('about-section')->group(function () {
     Route::get('/{slug}', [UserAboutMainController::class, 'get'])->name('user.about.main');
+});
+
+Route::prefix('mission-vision')->group(function () {
+    Route::get('/', [UserMissionVisionController::class, 'get'])->name('user.mission.main');
 });
 
 Route::prefix('home-page-banner')->group(function () {

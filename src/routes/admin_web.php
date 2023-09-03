@@ -54,6 +54,7 @@ use App\Modules\HomePage\Banner\Controllers\BannerCreateController;
 use App\Modules\HomePage\Banner\Controllers\BannerDeleteController;
 use App\Modules\HomePage\Banner\Controllers\BannerPaginateController;
 use App\Modules\HomePage\Banner\Controllers\BannerUpdateController;
+use App\Modules\MissionVision\Controllers\MissionVisionController;
 use App\Modules\Seo\Controllers\SeoPaginateController;
 use App\Modules\Seo\Controllers\SeoUpdateController;
 use App\Modules\TeamMember\Management\Controllers\ManagementCreateController;
@@ -208,6 +209,11 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('/about-section/{slug}')->group(function () {
         Route::get('/', [AboutMainController::class, 'get', 'as' => 'about.main.get'])->name('about.main.get');
         Route::post('/}', [AboutMainController::class, 'post', 'as' => 'about.main.post'])->name('about.main.post');
+    });
+
+    Route::prefix('/mission-vision')->group(function () {
+        Route::get('/', [MissionVisionController::class, 'get', 'as' => 'mission.main.get'])->name('mission.main.get');
+        Route::post('/', [MissionVisionController::class, 'post', 'as' => 'mission.main.post'])->name('mission.main.post');
     });
 
     Route::prefix('/feature/{page}')->group(function () {

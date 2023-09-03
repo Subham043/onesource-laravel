@@ -96,5 +96,9 @@ class OtherPermissionSeeder extends Seeder
         Permission::create(['name' => 'edit pages seo']);
         Permission::create(['name' => 'list pages seo']);
 
+        //permission for mission vision
+        Permission::create(['name' => 'edit mission vision']);
+        Permission::create(['name' => 'list mission vision']);
+
     }
 }
