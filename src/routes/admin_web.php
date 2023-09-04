@@ -29,6 +29,10 @@ use App\Modules\Counter\Controllers\CounterCreateController;
 use App\Modules\Counter\Controllers\CounterDeleteController;
 use App\Modules\Counter\Controllers\CounterPaginateController;
 use App\Modules\Counter\Controllers\CounterUpdateController;
+use App\Modules\Event\Event\Controllers\EventCreateController;
+use App\Modules\Event\Event\Controllers\EventDeleteController;
+use App\Modules\Event\Event\Controllers\EventPaginateController;
+use App\Modules\Event\Event\Controllers\EventUpdateController;
 use App\Modules\Event\Speaker\Controllers\SpeakerCreateController;
 use App\Modules\Event\Speaker\Controllers\SpeakerDeleteController;
 use App\Modules\Event\Speaker\Controllers\SpeakerPaginateController;
@@ -289,13 +293,22 @@ Route::middleware(['auth'])->group(function () {
 
     Route::prefix('/event')->group(function () {
 
-        Route::prefix('/student')->group(function () {
+        Route::prefix('/speaker')->group(function () {
             Route::get('/', [SpeakerPaginateController::class, 'get', 'as' => 'event.speaker.paginate.get'])->name('event.speaker.paginate.get');
             Route::get('/create', [SpeakerCreateController::class, 'get', 'as' => 'event.speaker.create.get'])->name('event.speaker.create.get');
             Route::post('/create', [SpeakerCreateController::class, 'post', 'as' => 'event.speaker.create.post'])->name('event.speaker.create.post');
             Route::get('/update/{id}', [SpeakerUpdateController::class, 'get', 'as' => 'event.speaker.update.get'])->name('event.speaker.update.get');
             Route::post('/update/{id}', [SpeakerUpdateController::class, 'post', 'as' => 'event.speaker.update.post'])->name('event.speaker.update.post');
             Route::get('/delete/{id}', [SpeakerDeleteController::class, 'get', 'as' => 'event.speaker.delete.get'])->name('event.speaker.delete.get');
+        });
+
+        Route::prefix('/event')->group(function () {
+            Route::get('/', [EventPaginateController::class, 'get', 'as' => 'event.event.paginate.get'])->name('event.event.paginate.get');
+            Route::get('/create', [EventCreateController::class, 'get', 'as' => 'event.event.create.get'])->name('event.event.create.get');
+            Route::post('/create', [EventCreateController::class, 'post', 'as' => 'event.event.create.post'])->name('event.event.create.post');
+            Route::get('/update/{id}', [EventUpdateController::class, 'get', 'as' => 'event.event.update.get'])->name('event.event.update.get');
+            Route::post('/update/{id}', [EventUpdateController::class, 'post', 'as' => 'event.event.update.post'])->name('event.event.update.post');
+            Route::get('/delete/{id}', [EventDeleteController::class, 'get', 'as' => 'event.event.delete.get'])->name('event.event.delete.get');
         });
 
     });

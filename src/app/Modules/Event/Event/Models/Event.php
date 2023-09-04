@@ -1,21 +1,22 @@
 <?php
 
-namespace App\Modules\Event\Speaker\Models;
+namespace App\Modules\Event\Event\Models;
 
-use App\Modules\Achiever\Category\Models\Category;
 use App\Modules\Authentication\Models\User;
-use App\Modules\Event\Event\Models\Event;
+use App\Modules\Event\Speaker\Models\Speaker;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
+use Spatie\Sitemap\Contracts\Sitemapable;
+use Spatie\Sitemap\Tags\Url;
 
-class Speaker extends Model
+class Event extends Model implements Sitemapable
 {
     use HasFactory, LogsActivity;
 
-    protected $table = 'event_speakers';
+    protected $table = 'events';
 
     /**
      * The attributes that are mass assignable.
@@ -24,19 +25,31 @@ class Speaker extends Model
      */
     protected $fillable = [
         'name',
-        'designation',
-        'qualification',
+        'slug',
+        'heading',
+        'description',
+        'description_unfiltered',
         'image',
         'image_alt',
         'image_title',
+        'is_active',
+        'meta_title',
+        'meta_description',
+        'meta_keywords',
+        'meta_scripts',
+        'event_date',
     ];
 
     protected $casts = [
+        'is_active' => 'boolean',
+        'is_popular' => 'boolean',
+        'is_updated' => 'boolean',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
+        'event_date' => 'date',
     ];
 
-    public $image_path = 'event_speakers';
+    public $image_path = 'events';
 
     protected $appends = ['image_link'];
 
@@ -62,6 +75,13 @@ class Speaker extends Model
         );
     }
 
+    protected function slug(): Attribute
+    {
+        return Attribute::make(
+            set: fn (string $value) => str()->slug($value),
+        );
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id')->withDefault();
@@ -69,22 +89,26 @@ class Speaker extends Model
 
     public function speakers()
     {
-        return $this->belongsToMany(Event::class, 'event_join_speakers', 'speaker_id', 'event_id');
+        return $this->belongsToMany(Speaker::class, 'event_join_speakers', 'event_id', 'speaker_id');
     }
 
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-        ->useLogName('speakers')
+        ->useLogName('events')
         ->setDescriptionForEvent(
                 function(string $eventName){
-                    $desc = "Speaker has been {$eventName}";
+                    $desc = "Event with name ".$this->name." has been {$eventName}";
                     $desc .= auth()->user() ? " by ".auth()->user()->name."<".auth()->user()->email.">" : "";
                     return $desc;
                 }
             )
         ->logFillable()
         ->logOnlyDirty();
-        // Chain fluent methods for configuration options
+    }
+
+    public function toSitemapTag(): Url | string | array
+    {
+        return route('events_detail.get', $this->slug);
     }
 }

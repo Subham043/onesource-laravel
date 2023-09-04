@@ -16,6 +16,8 @@ use App\Modules\Blog\Controllers\UserBlogDetailController;
 use App\Modules\Blog\Controllers\UserBlogPaginateController;
 use App\Modules\Counter\Controllers\UserCounterAllController;
 use App\Modules\Enquiry\ContactForm\Controllers\ContactFormCreateController;
+use App\Modules\Event\Event\Controllers\UserEventDetailController;
+use App\Modules\Event\Event\Controllers\UserEventPaginateController;
 use App\Modules\Event\Speaker\Controllers\UserSpeakerAllController;
 use App\Modules\ExpertTip\Controllers\UserExpertTipDetailController;
 use App\Modules\ExpertTip\Controllers\UserExpertTipPaginateController;
@@ -112,7 +114,9 @@ Route::prefix('achiever')->group(function () {
 });
 
 Route::prefix('event')->group(function () {
+    Route::get('/', [UserEventPaginateController::class, 'get'])->name('user.event.paginate');
     Route::get('/speaker', [UserSpeakerAllController::class, 'get'])->name('user.event.speaker.paginate');
+    Route::get('/{slug}', [UserEventDetailController::class, 'get'])->name('user.event.detail');
 });
 
 Route::prefix('faq')->group(function () {

@@ -41,11 +41,11 @@
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link menu-link {{strpos(url()->current(),'enquiry') !== false ? 'active' : ''}}" href="#sidebarDashboards7" data-bs-toggle="collapse" role="button"
-                                    aria-expanded="{{strpos(url()->current(),'enquiry') !== false ? 'true' : 'false'}}" aria-controls="sidebarDashboards7">
+                                <a class="nav-link menu-link {{strpos(url()->current(),'enquiry') !== false ? 'active' : ''}}" href="#sidebarDashboards8" data-bs-toggle="collapse" role="button"
+                                    aria-expanded="{{strpos(url()->current(),'enquiry') !== false ? 'true' : 'false'}}" aria-controls="sidebarDashboards8">
                                     <i class="ri-survey-line"></i> <span data-key="t-dashboards">Enquiries</span>
                                 </a>
-                                <div class="collapse menu-dropdown {{strpos(url()->current(),'enquiry') !== false ? 'show' : ''}}" id="sidebarDashboards7">
+                                <div class="collapse menu-dropdown {{strpos(url()->current(),'enquiry') !== false ? 'show' : ''}}" id="sidebarDashboards8">
                                     <ul class="nav nav-sm flex-column">
                                         @can('list enquiries')
                                             <li class="nav-item">
@@ -193,9 +193,9 @@
                                             <a href="{{route('event.speaker.paginate.get')}}" class="nav-link {{strpos(url()->current(), route('event.speaker.paginate.get')) !== false ? 'active' : ''}}" data-key="t-analytics"> Speaker </a>
                                         </li>
 
-                                        {{-- <li class="nav-item">
-                                            <a href="{{route('event.student.paginate.get')}}" class="nav-link {{strpos(url()->current(), route('event.student.paginate.get')) !== false ? 'active' : ''}}" data-key="t-analytics"> Student </a>
-                                        </li> --}}
+                                        <li class="nav-item">
+                                            <a href="{{route('event.event.paginate.get')}}" class="nav-link {{strpos(url()->current(), route('event.event.paginate.get')) !== false ? 'active' : ''}}" data-key="t-analytics"> Events </a>
+                                        </li>
 
                                     </ul>
                                 </div>
