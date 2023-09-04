@@ -37,6 +37,10 @@ use App\Modules\Event\Speaker\Controllers\SpeakerCreateController;
 use App\Modules\Event\Speaker\Controllers\SpeakerDeleteController;
 use App\Modules\Event\Speaker\Controllers\SpeakerPaginateController;
 use App\Modules\Event\Speaker\Controllers\SpeakerUpdateController;
+use App\Modules\Event\Specification\Controllers\SpecificationCreateController;
+use App\Modules\Event\Specification\Controllers\SpecificationDeleteController;
+use App\Modules\Event\Specification\Controllers\SpecificationPaginateController;
+use App\Modules\Event\Specification\Controllers\SpecificationUpdateController;
 use App\Modules\ExpertTip\Controllers\ExpertTipCreateController;
 use App\Modules\ExpertTip\Controllers\ExpertTipDeleteController;
 use App\Modules\ExpertTip\Controllers\ExpertTipPaginateController;
@@ -309,6 +313,17 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/update/{id}', [EventUpdateController::class, 'get', 'as' => 'event.event.update.get'])->name('event.event.update.get');
             Route::post('/update/{id}', [EventUpdateController::class, 'post', 'as' => 'event.event.update.post'])->name('event.event.update.post');
             Route::get('/delete/{id}', [EventDeleteController::class, 'get', 'as' => 'event.event.delete.get'])->name('event.event.delete.get');
+
+            Route::prefix('/{event_id}')->group(function () {
+                Route::prefix('/specification')->group(function () {
+                    Route::get('/', [SpecificationPaginateController::class, 'get', 'as' => 'event.specification.paginate.get'])->name('event.specification.paginate.get');
+                    Route::get('/create', [SpecificationCreateController::class, 'get', 'as' => 'event.specification.create.get'])->name('event.specification.create.get');
+                    Route::post('/create', [SpecificationCreateController::class, 'post', 'as' => 'event.specification.create.post'])->name('event.specification.create.post');
+                    Route::get('/update/{id}', [SpecificationUpdateController::class, 'get', 'as' => 'event.specification.update.get'])->name('event.specification.update.get');
+                    Route::post('/update/{id}', [SpecificationUpdateController::class, 'post', 'as' => 'event.specification.update.post'])->name('event.specification.update.post');
+                    Route::get('/delete/{id}', [SpecificationDeleteController::class, 'get', 'as' => 'event.specification.delete.get'])->name('event.specification.delete.get');
+                });
+            });
         });
 
     });

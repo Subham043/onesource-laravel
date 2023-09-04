@@ -18,6 +18,7 @@ class EventService
     {
         return Event::with([
             'speakers',
+            'specifications',
         ])->get();
     }
 
@@ -25,6 +26,7 @@ class EventService
     {
         $query = Event::with([
             'speakers',
+            'specifications',
         ])->where('is_active', true);
         return QueryBuilder::for($query)
                 ->defaultSort('id')
@@ -40,6 +42,7 @@ class EventService
     {
         $query = Event::with([
             'speakers',
+            'specifications',
         ])->latest();
         return QueryBuilder::for($query)
                 ->allowedFilters([
@@ -53,6 +56,7 @@ class EventService
     {
         return Event::with([
             'speakers',
+            'specifications',
         ])->findOrFail($id);
     }
 
@@ -60,6 +64,7 @@ class EventService
     {
         return Event::with([
             'speakers',
+            'specifications',
         ])->where('slug', $slug)->where('is_active', true)->firstOrFail();
     }
 

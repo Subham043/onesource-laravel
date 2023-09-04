@@ -4,6 +4,7 @@ namespace App\Modules\Event\Event\Models;
 
 use App\Modules\Authentication\Models\User;
 use App\Modules\Event\Speaker\Models\Speaker;
+use App\Modules\Event\Specification\Models\Specification;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -85,6 +86,11 @@ class Event extends Model implements Sitemapable
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id')->withDefault();
+    }
+
+    public function specifications()
+    {
+        return $this->hasMany(Specification::class, 'event_id');
     }
 
     public function speakers()

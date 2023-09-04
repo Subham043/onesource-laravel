@@ -3,6 +3,7 @@
 namespace App\Modules\Event\Event\Resources;
 
 use App\Modules\Event\Speaker\Resources\UserSpeakerCollection;
+use App\Modules\Event\Specification\Resources\UserSpecificationCollection;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserEventCollection extends JsonResource
@@ -32,6 +33,7 @@ class UserEventCollection extends JsonResource
             'meta_keywords' => $this->meta_keywords,
             'meta_scripts' => $this->meta_scripts,
             'speakers' => UserSpeakerCollection::collection($this->speakers),
+            'specifications' => UserSpecificationCollection::collection($this->specifications),
             'created_at' => $this->created_at->diffForHumans(),
             'updated_at' => $this->updated_at->diffForHumans(),
         ];
