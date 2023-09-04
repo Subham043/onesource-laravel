@@ -16,6 +16,7 @@ use App\Modules\Blog\Controllers\UserBlogDetailController;
 use App\Modules\Blog\Controllers\UserBlogPaginateController;
 use App\Modules\Counter\Controllers\UserCounterAllController;
 use App\Modules\Enquiry\ContactForm\Controllers\ContactFormCreateController;
+use App\Modules\Event\Speaker\Controllers\UserSpeakerAllController;
 use App\Modules\ExpertTip\Controllers\UserExpertTipDetailController;
 use App\Modules\ExpertTip\Controllers\UserExpertTipPaginateController;
 use App\Modules\Faq\Controllers\UserFaqDetailController;
@@ -108,6 +109,10 @@ Route::prefix('achiever')->group(function () {
     Route::get('/category', [UserCategoryPaginateController::class, 'get'])->name('user.achiever.category.paginate');
     Route::get('/student', [UserStudentAllController::class, 'get'])->name('user.achiever.student.paginate');
     Route::get('/{slug}', [UserCategoryDetailController::class, 'get'])->name('user.achiever.category.detail');
+});
+
+Route::prefix('event')->group(function () {
+    Route::get('/speaker', [UserSpeakerAllController::class, 'get'])->name('user.event.speaker.paginate');
 });
 
 Route::prefix('faq')->group(function () {

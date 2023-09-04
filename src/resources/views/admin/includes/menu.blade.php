@@ -181,6 +181,27 @@
                             </li>
                             @endcan
 
+                            @can('list events')
+                            <li class="nav-item">
+                                <a class="nav-link menu-link {{strpos(url()->current(),'event') !== false ? 'active' : ''}}" href="#sidebarDashboards7" data-bs-toggle="collapse" role="button"
+                                    aria-expanded="{{strpos(url()->current(),'event') !== false ? 'true' : 'false'}}" aria-controls="sidebarDashboards7">
+                                    <i class="ri-calendar-event-line"></i> <span data-key="t-dashboards">Events</span>
+                                </a>
+                                <div class="collapse menu-dropdown {{strpos(url()->current(),'event') !== false ? 'show' : ''}}" id="sidebarDashboards7">
+                                    <ul class="nav nav-sm flex-column">
+                                        <li class="nav-item">
+                                            <a href="{{route('event.speaker.paginate.get')}}" class="nav-link {{strpos(url()->current(), route('event.speaker.paginate.get')) !== false ? 'active' : ''}}" data-key="t-analytics"> Speaker </a>
+                                        </li>
+
+                                        {{-- <li class="nav-item">
+                                            <a href="{{route('event.student.paginate.get')}}" class="nav-link {{strpos(url()->current(), route('event.student.paginate.get')) !== false ? 'active' : ''}}" data-key="t-analytics"> Student </a>
+                                        </li> --}}
+
+                                    </ul>
+                                </div>
+                            </li>
+                            @endcan
+
                             @can('list pages seo')
                             <li class="nav-item">
                                 <a class="nav-link menu-link {{strpos(url()->current(),route('seo.paginate.get')) !== false ? 'active' : ''}}" href="{{route('seo.paginate.get')}}">

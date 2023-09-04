@@ -29,6 +29,10 @@ use App\Modules\Counter\Controllers\CounterCreateController;
 use App\Modules\Counter\Controllers\CounterDeleteController;
 use App\Modules\Counter\Controllers\CounterPaginateController;
 use App\Modules\Counter\Controllers\CounterUpdateController;
+use App\Modules\Event\Speaker\Controllers\SpeakerCreateController;
+use App\Modules\Event\Speaker\Controllers\SpeakerDeleteController;
+use App\Modules\Event\Speaker\Controllers\SpeakerPaginateController;
+use App\Modules\Event\Speaker\Controllers\SpeakerUpdateController;
 use App\Modules\ExpertTip\Controllers\ExpertTipCreateController;
 use App\Modules\ExpertTip\Controllers\ExpertTipDeleteController;
 use App\Modules\ExpertTip\Controllers\ExpertTipPaginateController;
@@ -279,6 +283,19 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/update/{id}', [StudentUpdateController::class, 'get', 'as' => 'achiever.student.update.get'])->name('achiever.student.update.get');
             Route::post('/update/{id}', [StudentUpdateController::class, 'post', 'as' => 'achiever.student.update.post'])->name('achiever.student.update.post');
             Route::get('/delete/{id}', [StudentDeleteController::class, 'get', 'as' => 'achiever.student.delete.get'])->name('achiever.student.delete.get');
+        });
+
+    });
+
+    Route::prefix('/event')->group(function () {
+
+        Route::prefix('/student')->group(function () {
+            Route::get('/', [SpeakerPaginateController::class, 'get', 'as' => 'event.speaker.paginate.get'])->name('event.speaker.paginate.get');
+            Route::get('/create', [SpeakerCreateController::class, 'get', 'as' => 'event.speaker.create.get'])->name('event.speaker.create.get');
+            Route::post('/create', [SpeakerCreateController::class, 'post', 'as' => 'event.speaker.create.post'])->name('event.speaker.create.post');
+            Route::get('/update/{id}', [SpeakerUpdateController::class, 'get', 'as' => 'event.speaker.update.get'])->name('event.speaker.update.get');
+            Route::post('/update/{id}', [SpeakerUpdateController::class, 'post', 'as' => 'event.speaker.update.post'])->name('event.speaker.update.post');
+            Route::get('/delete/{id}', [SpeakerDeleteController::class, 'get', 'as' => 'event.speaker.delete.get'])->name('event.speaker.delete.get');
         });
 
     });

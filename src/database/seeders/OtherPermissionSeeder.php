@@ -68,12 +68,6 @@ class OtherPermissionSeeder extends Seeder
         Permission::create(['name' => 'create faqs']);
         Permission::create(['name' => 'list faqs']);
 
-        //permission for achivers
-        Permission::create(['name' => 'edit achivers']);
-        Permission::create(['name' => 'delete achivers']);
-        Permission::create(['name' => 'create achivers']);
-        Permission::create(['name' => 'list achivers']);
-
         //permission for team member managements
         Permission::create(['name' => 'edit team member managements']);
         Permission::create(['name' => 'delete team member managements']);
