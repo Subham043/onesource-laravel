@@ -20,9 +20,25 @@ class ManagementService
         return Management::all();
     }
 
+    public function allMain(): Collection
+    {
+        return Management::where('is_active', true)->get();
+    }
+
     public function paginate(Int $total = 10): LengthAwarePaginator
     {
         $query = Management::latest();
+        return QueryBuilder::for($query)
+                ->allowedFilters([
+                    AllowedFilter::custom('search', new CommonFilter),
+                ])
+                ->paginate($total)
+                ->appends(request()->query());
+    }
+
+    public function paginateMain(Int $total = 10): LengthAwarePaginator
+    {
+        $query = Management::where('is_active', true)->latest();
         return QueryBuilder::for($query)
                 ->allowedFilters([
                     AllowedFilter::custom('search', new CommonFilter),

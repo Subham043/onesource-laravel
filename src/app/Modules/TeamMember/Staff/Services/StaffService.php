@@ -31,6 +31,17 @@ class StaffService
                 ->appends(request()->query());
     }
 
+    public function paginateMain(Int $total = 10): LengthAwarePaginator
+    {
+        $query = Staff::where('is_active', true)->latest();
+        return QueryBuilder::for($query)
+                ->allowedFilters([
+                    AllowedFilter::custom('search', new CommonFilter),
+                ])
+                ->paginate($total)
+                ->appends(request()->query());
+    }
+
     public function getById(Int $id): Staff|null
     {
         return Staff::findOrFail($id);

@@ -30,6 +30,8 @@ use App\Modules\Legal\Controllers\UserLegalDetailController;
 use App\Modules\MissionVision\Controllers\UserMissionVisionController;
 use App\Modules\Seo\Controllers\UserSeoDetailController;
 use App\Modules\Settings\Controllers\General\UserGeneralController;
+use App\Modules\TeamMember\Management\Controllers\UserManagementPaginateController;
+use App\Modules\TeamMember\Staff\Controllers\UserStaffPaginateController;
 use App\Modules\Testimonial\Controllers\UserTestimonialAllController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -100,6 +102,11 @@ Route::prefix('website-detail')->group(function () {
 Route::prefix('blog')->group(function () {
     Route::get('/', [UserBlogPaginateController::class, 'get'])->name('user.blog.paginate');
     Route::get('/{slug}', [UserBlogDetailController::class, 'get'])->name('user.blog.detail');
+});
+
+Route::prefix('team-member')->group(function () {
+    Route::get('/management', [UserManagementPaginateController::class, 'get'])->name('user.management.paginate');
+    Route::get('/staff', [UserStaffPaginateController::class, 'get'])->name('user.staff.paginate');
 });
 
 Route::prefix('expert-tip')->group(function () {
