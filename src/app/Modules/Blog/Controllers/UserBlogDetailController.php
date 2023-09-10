@@ -17,9 +17,13 @@ class UserBlogDetailController extends Controller
 
     public function get($slug){
         $blog = $this->blogService->getBySlug($slug);
+        $next_blog = $this->blogService->getNext($blog->id);
+        $prev_blog = $this->blogService->getPrev($blog->id);
         return response()->json([
             'message' => "Blog recieved successfully.",
             'blog' => UserBlogCollection::make($blog),
+            'next_blog' => !empty($next_blog) ? UserBlogCollection::make($next_blog) : null,
+            'prev_blog' => !empty($prev_blog) ? UserBlogCollection::make($prev_blog) : null,
         ], 200);
     }
 }

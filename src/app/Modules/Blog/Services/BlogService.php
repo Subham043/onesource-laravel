@@ -55,6 +55,22 @@ class BlogService
         return Blog::where('slug', $slug)->where('is_active', true)->firstOrFail();
     }
 
+    public function getPrev(Int $id): Blog|null
+    {
+        return Blog::where('id', '<', $id)
+        ->where('is_active', true)
+        ->orderBy('id','desc')
+        ->first();
+    }
+
+    public function getNext(Int $id): Blog|null
+    {
+        return Blog::where('id', '>', $id)
+        ->where('is_active', true)
+        ->orderBy('id','desc')
+        ->first();
+    }
+
     public function create(array $data): Blog
     {
         $blog = Blog::create($data);
