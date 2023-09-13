@@ -2,6 +2,8 @@
 
 namespace App\Modules\AdmissionForm\Services;
 
+use App\Enums\AdmissionEnum;
+use App\Http\Services\FileService;
 use App\Modules\AdmissionForm\Models\AdmissionForm;
 use Illuminate\Database\Eloquent\Collection;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -18,9 +20,20 @@ class AdmissionFormService
         return AdmissionForm::all();
     }
 
-    public function paginate(Int $total = 10): LengthAwarePaginator
+    public function paginatePuc(Int $total = 10): LengthAwarePaginator
     {
-        $query = AdmissionForm::latest();
+        $query = AdmissionForm::where('admission_for', AdmissionEnum::PUC)->latest();
+        return QueryBuilder::for($query)
+                ->allowedFilters([
+                    AllowedFilter::custom('search', new CommonFilter),
+                ])
+                ->paginate($total)
+                ->appends(request()->query());
+    }
+
+    public function paginateNotPuc(Int $total = 10): LengthAwarePaginator
+    {
+        $query = AdmissionForm::where('admission_for', AdmissionEnum::NOT_PUC)->latest();
         return QueryBuilder::for($query)
                 ->allowedFilters([
                     AllowedFilter::custom('search', new CommonFilter),
@@ -45,9 +58,27 @@ class AdmissionFormService
         return $admission;
     }
 
+    public function saveImage(AdmissionForm $admission): AdmissionForm
+    {
+        $this->deleteImage($admission);
+        $marks = (new FileService)->save_file('marks', (new AdmissionForm)->image_path);
+        return $this->update([
+            'marks' => $marks,
+        ], $admission);
+    }
+
     public function delete(AdmissionForm $admission): bool|null
     {
+        $this->deleteImage($admission);
         return $admission->delete();
+    }
+
+    public function deleteImage(AdmissionForm $admission): void
+    {
+        if($admission->marks){
+            $path = str_replace("storage","app/public",$admission->marks);
+            (new FileService)->delete_file($path);
+        }
     }
 
 }
@@ -57,12 +88,18 @@ class CommonFilter implements Filter
     public function __invoke(Builder $query, $value, string $property)
     {
         $query->where('name', 'LIKE', '%' . $value . '%')
-        ->orWhere('phone', 'LIKE', '%' . $value . '%')
-        ->orWhere('request_type', 'LIKE', '%' . $value . '%')
-        ->orWhere('branch', 'LIKE', '%' . $value . '%')
-        ->orWhere('course', 'LIKE', '%' . $value . '%')
-        ->orWhere('location', 'LIKE', '%' . $value . '%')
-        ->orWhere('detail', 'LIKE', '%' . $value . '%')
-        ->orWhere('email', 'LIKE', '%' . $value . '%');
+        ->orWhere('school_name', 'LIKE', '%' . $value . '%')
+        ->orWhere('class', 'LIKE', '%' . $value . '%')
+        ->orWhere('father_name', 'LIKE', '%' . $value . '%')
+        ->orWhere('father_occupation', 'LIKE', '%' . $value . '%')
+        ->orWhere('father_phone', 'LIKE', '%' . $value . '%')
+        ->orWhere('mother_name', 'LIKE', '%' . $value . '%')
+        ->orWhere('mother_occupation', 'LIKE', '%' . $value . '%')
+        ->orWhere('mother_phone', 'LIKE', '%' . $value . '%')
+        ->orWhere('center', 'LIKE', '%' . $value . '%')
+        ->orWhere('aadhar', 'LIKE', '%' . $value . '%')
+        ->orWhere('address', 'LIKE', '%' . $value . '%')
+        ->orWhere('percentage', 'LIKE', '%' . $value . '%')
+        ->orWhere('batch', 'LIKE', '%' . $value . '%');
     }
 }

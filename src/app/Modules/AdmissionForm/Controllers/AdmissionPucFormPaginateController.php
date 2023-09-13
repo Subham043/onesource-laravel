@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Modules\AdmissionForm\Services\AdmissionFormService;
 use Illuminate\Http\Request;
 
-class AdmissionFormPaginateController extends Controller
+class AdmissionPucFormPaginateController extends Controller
 {
     private $admissionFormService;
 
@@ -17,8 +17,8 @@ class AdmissionFormPaginateController extends Controller
     }
 
     public function get(Request $request){
-        $data = $this->admissionFormService->paginate($request->total ?? 10);
-        return view('admin.pages.admission.index', compact(['data']))
+        $data = $this->admissionFormService->paginatePuc($request->total ?? 10);
+        return view('admin.pages.admission.puc', compact(['data']))
             ->with('search', $request->query('filter')['search'] ?? '');
     }
 

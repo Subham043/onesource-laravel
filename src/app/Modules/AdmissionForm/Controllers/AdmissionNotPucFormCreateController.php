@@ -3,11 +3,11 @@
 namespace App\Modules\AdmissionForm\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Modules\AdmissionForm\Requests\AdmissionPucFormRequest;
+use App\Modules\AdmissionForm\Requests\AdmissionNotPucFormRequest;
 use App\Modules\AdmissionForm\Resources\AdmissionFormCollection;
 use App\Modules\AdmissionForm\Services\AdmissionFormService;
 
-class AdmissionPucFormCreateController extends Controller
+class AdmissionNotPucFormCreateController extends Controller
 {
     private $admissionFormService;
 
@@ -16,7 +16,7 @@ class AdmissionPucFormCreateController extends Controller
         $this->admissionFormService = $admissionFormService;
     }
 
-    public function post(AdmissionPucFormRequest $request){
+    public function post(AdmissionNotPucFormRequest $request){
 
         try {
             //code...

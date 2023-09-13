@@ -3,10 +3,10 @@
 namespace App\Modules\AdmissionForm\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Modules\AdmissionForm\Exports\AdmissionFormExport;
+use App\Modules\AdmissionForm\Exports\AdmissionPucFormExport;
 use Maatwebsite\Excel\Facades\Excel;
 
-class AdmissionFormExcelController extends Controller
+class AdmissionPucFormExcelController extends Controller
 {
 
     public function __construct()
@@ -15,7 +15,7 @@ class AdmissionFormExcelController extends Controller
     }
 
     public function get(){
-        return Excel::download(new AdmissionFormExport, 'admission_form.xlsx');
+        return Excel::download(new AdmissionPucFormExport, 'admission_form.xlsx');
     }
 
 }

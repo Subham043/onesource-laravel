@@ -57,6 +57,26 @@
                                 </div>
                             </li>
 
+                            @can('list admissions')
+                            <li class="nav-item">
+                                <a class="nav-link menu-link {{strpos(url()->current(),'admission') !== false ? 'active' : ''}}" href="#sidebarDashboards9" data-bs-toggle="collapse" role="button"
+                                    aria-expanded="{{strpos(url()->current(),'admission') !== false ? 'true' : 'false'}}" aria-controls="sidebarDashboards9">
+                                    <i class="ri-mail-star-line"></i> <span data-key="t-dashboards">Admissions</span>
+                                </a>
+                                <div class="collapse menu-dropdown {{strpos(url()->current(),'admission') !== false ? 'show' : ''}}" id="sidebarDashboards9">
+                                    <ul class="nav nav-sm flex-column">
+                                        <li class="nav-item">
+                                            <a href="{{route('admission.not_puc.paginate.get')}}" class="nav-link {{strpos(url()->current(), route('admission.not_puc.paginate.get')) !== false ? 'active' : ''}}" data-key="t-analytics"> Class 8, 9, 10 Form </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{route('admission.puc.paginate.get')}}" class="nav-link {{strpos(url()->current(), route('admission.puc.paginate.get')) !== false ? 'active' : ''}}" data-key="t-analytics"> PUC Form </a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </li>
+                            @endcan
+
                             @can('list roles')
                             <li class="nav-item">
                                 <a class="nav-link menu-link {{strpos(url()->current(),route('role.paginate.get')) !== false ? 'active' : ''}}" href="{{route('role.paginate.get')}}">

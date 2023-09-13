@@ -9,6 +9,11 @@ use App\Modules\Achiever\Student\Controllers\StudentCreateController;
 use App\Modules\Achiever\Student\Controllers\StudentDeleteController;
 use App\Modules\Achiever\Student\Controllers\StudentPaginateController;
 use App\Modules\Achiever\Student\Controllers\StudentUpdateController;
+use App\Modules\AdmissionForm\Controllers\AdmissionFormDeleteController;
+use App\Modules\AdmissionForm\Controllers\AdmissionNotPucFormExcelController;
+use App\Modules\AdmissionForm\Controllers\AdmissionNotPucFormPaginateController;
+use App\Modules\AdmissionForm\Controllers\AdmissionPucFormExcelController;
+use App\Modules\AdmissionForm\Controllers\AdmissionPucFormPaginateController;
 use App\Modules\Authentication\Controllers\PasswordUpdateController;
 use App\Modules\Authentication\Controllers\ForgotPasswordController;
 use App\Modules\Authentication\Controllers\LoginController;
@@ -134,6 +139,19 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/excel', [ContactFormExcelController::class, 'get', 'as' => 'enquiry.contact_form.excel.get'])->name('enquiry.contact_form.excel.get');
             Route::get('/delete/{id}', [ContactFormDeleteController::class, 'get', 'as' => 'enquiry.contact_form.delete.get'])->name('enquiry.contact_form.delete.get');
 
+        });
+    });
+
+    Route::prefix('/admission')->group(function () {
+        Route::prefix('/puc')->group(function () {
+            Route::get('/', [AdmissionPucFormPaginateController::class, 'get', 'as' => 'admission.puc.paginate.get'])->name('admission.puc.paginate.get');
+            Route::get('/excel', [AdmissionPucFormExcelController::class, 'get', 'as' => 'admission.puc.excel.get'])->name('admission.puc.excel.get');
+            Route::get('/delete/{id}', [AdmissionFormDeleteController::class, 'get', 'as' => 'admission.puc.delete.get'])->name('admission.puc.delete.get');
+        });
+        Route::prefix('/class-8-9-10')->group(function () {
+            Route::get('/', [AdmissionNotPucFormPaginateController::class, 'get', 'as' => 'admission.not_puc.paginate.get'])->name('admission.not_puc.paginate.get');
+            Route::get('/excel', [AdmissionNotPucFormExcelController::class, 'get', 'as' => 'admission.not_puc.excel.get'])->name('admission.not_puc.excel.get');
+            Route::get('/delete/{id}', [AdmissionFormDeleteController::class, 'get', 'as' => 'admission.not_puc.delete.get'])->name('admission.not_puc.delete.get');
         });
     });
 

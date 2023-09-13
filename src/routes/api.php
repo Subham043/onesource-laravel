@@ -5,6 +5,8 @@ use App\Modules\AboutPage\Main\Controllers\UserAboutMainController;
 use App\Modules\Achiever\Category\Controllers\UserCategoryDetailController;
 use App\Modules\Achiever\Category\Controllers\UserCategoryAllController;
 use App\Modules\Achiever\Student\Controllers\UserStudentPaginateController;
+use App\Modules\AdmissionForm\Controllers\AdmissionNotPucFormCreateController;
+use App\Modules\AdmissionForm\Controllers\AdmissionPucFormCreateController;
 use App\Modules\Authentication\Controllers\UserProfileController;
 use App\Modules\Authentication\Controllers\UserForgotPasswordController;
 use App\Modules\Authentication\Controllers\UserLoginController;
@@ -64,6 +66,11 @@ Route::prefix('/email/verify')->group(function () {
 
 Route::prefix('contact-form')->group(function () {
     Route::post('/', [ContactFormCreateController::class, 'post'])->name('user.contact_form.create');
+});
+
+Route::prefix('admission')->group(function () {
+    Route::post('/puc', [AdmissionPucFormCreateController::class, 'post'])->name('user.admission_puc_form.create');
+    Route::post('/not-puc', [AdmissionNotPucFormCreateController::class, 'post'])->name('user.admission_not_puc_form.create');
 });
 
 Route::prefix('counter')->group(function () {
