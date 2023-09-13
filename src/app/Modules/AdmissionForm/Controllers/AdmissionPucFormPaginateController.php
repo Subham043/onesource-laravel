@@ -18,7 +18,7 @@ class AdmissionPucFormPaginateController extends Controller
 
     public function get(Request $request){
         $data = $this->admissionFormService->paginatePuc($request->total ?? 10);
-        return view('admin.pages.admission.puc', compact(['data']))
+        return view('admin.pages.admission.puc_class', compact(['data']))
             ->with('search', $request->query('filter')['search'] ?? '');
     }
 

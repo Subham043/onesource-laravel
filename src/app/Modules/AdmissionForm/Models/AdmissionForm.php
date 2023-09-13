@@ -80,7 +80,7 @@ class AdmissionForm extends Model
     protected function marksLink(): Attribute
     {
         return new Attribute(
-            get: fn () => asset($this->image),
+            get: fn () => asset($this->marks),
         );
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Modules\AdmissionForm\Controllers;
 
+use App\Enums\AdmissionEnum;
 use App\Http\Controllers\Controller;
 use App\Modules\AdmissionForm\Requests\AdmissionNotPucFormRequest;
 use App\Modules\AdmissionForm\Resources\AdmissionFormCollection;
@@ -23,6 +24,7 @@ class AdmissionNotPucFormCreateController extends Controller
             $admissionForm = $this->admissionFormService->create(
                 [
                     ...$request->except('marks'),
+                    'admission_for' => AdmissionEnum::NOT_PUC
                 ]
             );
             if($request->hasFile('marks')){

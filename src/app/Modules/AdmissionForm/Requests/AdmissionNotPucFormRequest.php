@@ -46,12 +46,12 @@ class AdmissionNotPucFormRequest extends FormRequest
             'percentage' => 'required|numeric',
             'marks' => 'required|image|min:1|max:5000',
             'center' => ['required', new Enum(AdmissionCenterEnum::class)],
-            'bacth' => ['required', new Enum(AdmissionBatchEnum::class)],
+            'batch' => ['required', new Enum(AdmissionBatchEnum::class)],
             'sibling' => ['required', new Enum(AdmissionSiblingEnum::class)],
-            'no_of_sibling' => ['nullable','required_if:sibling,'.AdmissionSiblingEnum::YES->value, 'numeric'],
             'sibling_occupation' => ['nullable','required_if:sibling,'.AdmissionSiblingEnum::YES->value, 'string'],
-            'sibling_school' => ['nullable','required_if:sibling,'.AdmissionSiblingEnum::YES->value, 'string'],
-            'sibling_class' => ['nullable','required_if:sibling,'.AdmissionSiblingEnum::YES->value, 'string'],
+            'no_of_sibling' => ['nullable','required_if:sibling_occupation,studying', 'numeric'],
+            'sibling_school' => ['nullable','required_if:sibling_occupation,studying', 'string'],
+            'sibling_class' => ['nullable','required_if:sibling_occupation,studying', 'string'],
         ];
     }
 
