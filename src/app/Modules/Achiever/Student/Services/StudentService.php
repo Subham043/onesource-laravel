@@ -47,6 +47,29 @@ class StudentService
                 ->appends(request()->query());
     }
 
+    public function paginateMain(Int $total = 10): LengthAwarePaginator
+    {
+        $query = Student::with([
+            'categories' => function($q){
+                $q->where('is_active', true);
+            },
+        ])->latest();
+        return QueryBuilder::for($query)
+                ->allowedFilters([
+                    AllowedFilter::callback('has_categories', function (Builder $query, $value) {
+                        $query->whereHas('categories', function($q) use($value) {
+                            $q->where('is_active', true)->where(function($qr) use($value){
+                                // $qr->where('category_id', $value);
+                                $qr->where('slug', $value);
+                            });
+                        });
+                    }),
+                    AllowedFilter::custom('search', new CommonFilter),
+                ])
+                ->paginate($total)
+                ->appends(request()->query());
+    }
+
     public function getById(Int $id): Student|null
     {
         return Student::findOrFail($id);

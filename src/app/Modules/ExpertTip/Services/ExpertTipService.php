@@ -54,6 +54,22 @@ class ExpertTipService
         return ExpertTip::where('slug', $slug)->where('is_active', true)->firstOrFail();
     }
 
+    public function getPrev(Int $id): ExpertTip|null
+    {
+        return ExpertTip::where('id', '<', $id)
+        ->where('is_active', true)
+        ->orderBy('id','desc')
+        ->first();
+    }
+
+    public function getNext(Int $id): ExpertTip|null
+    {
+        return ExpertTip::where('id', '>', $id)
+        ->where('is_active', true)
+        ->orderBy('id','desc')
+        ->first();
+    }
+
     public function create(array $data): ExpertTip
     {
         $expert_tip = ExpertTip::create($data);

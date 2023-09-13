@@ -19,7 +19,7 @@ class UserCategoryDetailController extends Controller
         $category = $this->categoryService->getBySlug($slug);
         return response()->json([
             'message' => "Category recieved successfully.",
-            'category' => UserCategoryCollection::make($category),
+            'achiverCategory' => UserCategoryCollection::make($category),
         ], 200);
     }
 }

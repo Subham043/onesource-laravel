@@ -5,8 +5,9 @@ namespace App\Modules\Achiever\Student\Controllers;
 use App\Http\Controllers\Controller;
 use App\Modules\Achiever\Student\Resources\UserStudentCollection;
 use App\Modules\Achiever\Student\Services\StudentService;
+use Illuminate\Http\Request;
 
-class UserStudentAllController extends Controller
+class UserStudentPaginateController extends Controller
 {
     private $studentService;
 
@@ -15,12 +16,9 @@ class UserStudentAllController extends Controller
         $this->studentService = $studentService;
     }
 
-    public function get(){
-        $student = $this->studentService->main_all();
-        return response()->json([
-            'message' => "Student recieved successfully.",
-            'student' => UserStudentCollection::collection($student),
-        ], 200);
+    public function get(Request $request){
+        $student = $this->studentService->paginateMain($request->total ?? 10);
+        return UserStudentCollection::collection($student);
     }
 
 }

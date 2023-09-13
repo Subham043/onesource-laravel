@@ -3,8 +3,8 @@
 use App\Exceptions\CustomExceptions\UnauthenticatedException;
 use App\Modules\AboutPage\Main\Controllers\UserAboutMainController;
 use App\Modules\Achiever\Category\Controllers\UserCategoryDetailController;
-use App\Modules\Achiever\Category\Controllers\UserCategoryPaginateController;
-use App\Modules\Achiever\Student\Controllers\UserStudentAllController;
+use App\Modules\Achiever\Category\Controllers\UserCategoryAllController;
+use App\Modules\Achiever\Student\Controllers\UserStudentPaginateController;
 use App\Modules\Authentication\Controllers\UserProfileController;
 use App\Modules\Authentication\Controllers\UserForgotPasswordController;
 use App\Modules\Authentication\Controllers\UserLoginController;
@@ -18,7 +18,6 @@ use App\Modules\Counter\Controllers\UserCounterAllController;
 use App\Modules\Enquiry\ContactForm\Controllers\ContactFormCreateController;
 use App\Modules\Event\Event\Controllers\UserEventDetailController;
 use App\Modules\Event\Event\Controllers\UserEventPaginateController;
-use App\Modules\Event\Speaker\Controllers\UserSpeakerAllController;
 use App\Modules\ExpertTip\Controllers\UserExpertTipDetailController;
 use App\Modules\ExpertTip\Controllers\UserExpertTipPaginateController;
 use App\Modules\Faq\Controllers\UserFaqDetailController;
@@ -33,6 +32,7 @@ use App\Modules\Settings\Controllers\General\UserGeneralController;
 use App\Modules\TeamMember\Management\Controllers\UserManagementAllController;
 use App\Modules\TeamMember\Staff\Controllers\UserStaffPaginateController;
 use App\Modules\Testimonial\Controllers\UserTestimonialAllController;
+use App\Modules\Testimonial\Controllers\UserTestimonialPaginateController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -71,7 +71,7 @@ Route::prefix('counter')->group(function () {
 });
 
 Route::prefix('testimonial')->group(function () {
-    Route::get('/', [UserTestimonialAllController::class, 'get'])->name('user.testimonial.all');
+    Route::get('/', [UserTestimonialPaginateController::class, 'get'])->name('user.testimonial.all');
 });
 
 Route::prefix('feature')->group(function () {
@@ -115,14 +115,13 @@ Route::prefix('expert-tip')->group(function () {
 });
 
 Route::prefix('achiever')->group(function () {
-    Route::get('/category', [UserCategoryPaginateController::class, 'get'])->name('user.achiever.category.paginate');
-    Route::get('/student', [UserStudentAllController::class, 'get'])->name('user.achiever.student.paginate');
-    Route::get('/{slug}', [UserCategoryDetailController::class, 'get'])->name('user.achiever.category.detail');
+    Route::get('/category', [UserCategoryAllController::class, 'get'])->name('user.achiever.category.paginate');
+    Route::get('/category/{slug}', [UserCategoryDetailController::class, 'get'])->name('user.achiever.category.detail');
+    Route::get('/student', [UserStudentPaginateController::class, 'get'])->name('user.achiever.student.paginate');
 });
 
 Route::prefix('event')->group(function () {
     Route::get('/', [UserEventPaginateController::class, 'get'])->name('user.event.paginate');
-    Route::get('/speaker', [UserSpeakerAllController::class, 'get'])->name('user.event.speaker.paginate');
     Route::get('/{slug}', [UserEventDetailController::class, 'get'])->name('user.event.detail');
 });
 

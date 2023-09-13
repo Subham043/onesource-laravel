@@ -17,9 +17,13 @@ class UserExpertTipDetailController extends Controller
 
     public function get($slug){
         $expertTip = $this->expertTipService->getBySlug($slug);
+        $next_expertTip = $this->expertTipService->getNext($expertTip->id);
+        $prev_expertTip = $this->expertTipService->getPrev($expertTip->id);
         return response()->json([
             'message' => "ExpertTip recieved successfully.",
             'expertTip' => UserExpertTipCollection::make($expertTip),
+            'next_expertTip' => !empty($next_expertTip) ? UserExpertTipCollection::make($next_expertTip) : null,
+            'prev_expertTip' => !empty($prev_expertTip) ? UserExpertTipCollection::make($prev_expertTip) : null,
         ], 200);
     }
 }

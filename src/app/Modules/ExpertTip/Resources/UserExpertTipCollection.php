@@ -18,11 +18,13 @@ class UserExpertTipCollection extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'author_name' => $this->author_name,
-            'published_on' => $this->published_on,
+            'published' => $this->published_on->format('Y, d M'),
+            'published_on' => $this->published_on->diffForHumans(),
             'slug' => $this->slug,
             'heading' => $this->heading,
             'description' => $this->description,
             'description_unfiltered' => $this->description_unfiltered,
+            'short_description' => str()->limit($this->description_unfiltered, 100),
             'is_active' => $this->is_active,
             'is_popular' => $this->is_popular,
             'is_updated' => $this->is_updated,
@@ -32,6 +34,8 @@ class UserExpertTipCollection extends JsonResource
             'meta_scripts' => $this->meta_scripts,
             'created_at' => $this->created_at->diffForHumans(),
             'updated_at' => $this->updated_at->diffForHumans(),
+            'created' => $this->created_at->format('Y, d M'),
+            'updated' => $this->updated_at->format('Y, d M'),
         ];
     }
 }
