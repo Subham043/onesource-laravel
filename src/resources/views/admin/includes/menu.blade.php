@@ -109,6 +109,14 @@
                             </li>
                             @endcan
 
+                            @can('list galleries')
+                            <li class="nav-item">
+                                <a class="nav-link menu-link {{strpos(url()->current(),route('gallery.paginate.get')) !== false ? 'active' : ''}}" href="{{route('gallery.paginate.get')}}">
+                                    <i class="ri-image-line"></i> <span data-key="t-widgets">Gallery</span>
+                                </a>
+                            </li>
+                            @endcan
+
                             @can('list blogs')
                             <li class="nav-item">
                                 <a class="nav-link menu-link {{strpos(url()->current(),route('blog.paginate.get')) !== false ? 'active' : ''}}" href="{{route('blog.paginate.get')}}">

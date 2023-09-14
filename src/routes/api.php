@@ -25,6 +25,7 @@ use App\Modules\ExpertTip\Controllers\UserExpertTipPaginateController;
 use App\Modules\Faq\Controllers\UserFaqDetailController;
 use App\Modules\Faq\Controllers\UserFaqPaginateController;
 use App\Modules\Feature\Controllers\UserFeatureAllController;
+use App\Modules\Gallery\Controllers\UserGalleryPaginateController;
 use App\Modules\HomePage\Banner\Controllers\UserBannerAllController;
 use App\Modules\Legal\Controllers\UserLegalAllController;
 use App\Modules\Legal\Controllers\UserLegalDetailController;
@@ -79,6 +80,10 @@ Route::prefix('counter')->group(function () {
 
 Route::prefix('testimonial')->group(function () {
     Route::get('/', [UserTestimonialPaginateController::class, 'get'])->name('user.testimonial.all');
+});
+
+Route::prefix('gallery')->group(function () {
+    Route::get('/', [UserGalleryPaginateController::class, 'get'])->name('user.gallery.all');
 });
 
 Route::prefix('feature')->group(function () {

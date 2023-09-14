@@ -58,6 +58,10 @@ use App\Modules\Feature\Controllers\FeatureCreateController;
 use App\Modules\Feature\Controllers\FeatureDeleteController;
 use App\Modules\Feature\Controllers\FeaturePaginateController;
 use App\Modules\Feature\Controllers\FeatureUpdateController;
+use App\Modules\Gallery\Controllers\GalleryCreateController;
+use App\Modules\Gallery\Controllers\GalleryDeleteController;
+use App\Modules\Gallery\Controllers\GalleryPaginateController;
+use App\Modules\Gallery\Controllers\GalleryUpdateController;
 use App\Modules\Role\Controllers\RoleCreateController;
 use App\Modules\Role\Controllers\RoleDeleteController;
 use App\Modules\Role\Controllers\RolePaginateController;
@@ -143,15 +147,15 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::prefix('/admission')->group(function () {
-        Route::prefix('/puc')->group(function () {
-            Route::get('/', [AdmissionPucFormPaginateController::class, 'get', 'as' => 'admission.puc.paginate.get'])->name('admission.puc.paginate.get');
-            Route::get('/excel', [AdmissionPucFormExcelController::class, 'get', 'as' => 'admission.puc.excel.get'])->name('admission.puc.excel.get');
-            Route::get('/delete/{id}', [AdmissionFormDeleteController::class, 'get', 'as' => 'admission.puc.delete.get'])->name('admission.puc.delete.get');
-        });
         Route::prefix('/class-8-9-10')->group(function () {
             Route::get('/', [AdmissionNotPucFormPaginateController::class, 'get', 'as' => 'admission.not_puc.paginate.get'])->name('admission.not_puc.paginate.get');
             Route::get('/excel', [AdmissionNotPucFormExcelController::class, 'get', 'as' => 'admission.not_puc.excel.get'])->name('admission.not_puc.excel.get');
             Route::get('/delete/{id}', [AdmissionFormDeleteController::class, 'get', 'as' => 'admission.not_puc.delete.get'])->name('admission.not_puc.delete.get');
+        });
+        Route::prefix('/puc')->group(function () {
+            Route::get('/', [AdmissionPucFormPaginateController::class, 'get', 'as' => 'admission.puc.paginate.get'])->name('admission.puc.paginate.get');
+            Route::get('/excel', [AdmissionPucFormExcelController::class, 'get', 'as' => 'admission.puc.excel.get'])->name('admission.puc.excel.get');
+            Route::get('/delete/{id}', [AdmissionFormDeleteController::class, 'get', 'as' => 'admission.puc.delete.get'])->name('admission.puc.delete.get');
         });
     });
 
@@ -229,6 +233,15 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/update/{id}', [TestimonialUpdateController::class, 'get', 'as' => 'testimonial.update.get'])->name('testimonial.update.get');
         Route::post('/update/{id}', [TestimonialUpdateController::class, 'post', 'as' => 'testimonial.update.post'])->name('testimonial.update.post');
         Route::get('/delete/{id}', [TestimonialDeleteController::class, 'get', 'as' => 'testimonial.delete.get'])->name('testimonial.delete.get');
+    });
+
+    Route::prefix('/gallery')->group(function () {
+        Route::get('/', [GalleryPaginateController::class, 'get', 'as' => 'gallery.paginate.get'])->name('gallery.paginate.get');
+        Route::get('/create', [GalleryCreateController::class, 'get', 'as' => 'gallery.create.get'])->name('gallery.create.get');
+        Route::post('/create', [GalleryCreateController::class, 'post', 'as' => 'gallery.create.post'])->name('gallery.create.post');
+        Route::get('/update/{id}', [GalleryUpdateController::class, 'get', 'as' => 'gallery.update.get'])->name('gallery.update.get');
+        Route::post('/update/{id}', [GalleryUpdateController::class, 'post', 'as' => 'gallery.update.post'])->name('gallery.update.post');
+        Route::get('/delete/{id}', [GalleryDeleteController::class, 'get', 'as' => 'gallery.delete.get'])->name('gallery.delete.get');
     });
 
     Route::prefix('/home-page')->group(function () {
