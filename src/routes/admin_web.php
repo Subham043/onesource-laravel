@@ -34,6 +34,9 @@ use App\Modules\Counter\Controllers\CounterCreateController;
 use App\Modules\Counter\Controllers\CounterDeleteController;
 use App\Modules\Counter\Controllers\CounterPaginateController;
 use App\Modules\Counter\Controllers\CounterUpdateController;
+use App\Modules\Enquiry\SubscriptionForm\Controllers\SubscriptionFormDeleteController;
+use App\Modules\Enquiry\SubscriptionForm\Controllers\SubscriptionFormExcelController;
+use App\Modules\Enquiry\SubscriptionForm\Controllers\SubscriptionFormPaginateController;
 use App\Modules\Event\Event\Controllers\EventCreateController;
 use App\Modules\Event\Event\Controllers\EventDeleteController;
 use App\Modules\Event\Event\Controllers\EventPaginateController;
@@ -142,7 +145,11 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/', [ContactFormPaginateController::class, 'get', 'as' => 'enquiry.contact_form.paginate.get'])->name('enquiry.contact_form.paginate.get');
             Route::get('/excel', [ContactFormExcelController::class, 'get', 'as' => 'enquiry.contact_form.excel.get'])->name('enquiry.contact_form.excel.get');
             Route::get('/delete/{id}', [ContactFormDeleteController::class, 'get', 'as' => 'enquiry.contact_form.delete.get'])->name('enquiry.contact_form.delete.get');
-
+        });
+        Route::prefix('/subscription-form')->group(function () {
+            Route::get('/', [SubscriptionFormPaginateController::class, 'get', 'as' => 'enquiry.subscription_form.paginate.get'])->name('enquiry.subscription_form.paginate.get');
+            Route::get('/excel', [SubscriptionFormExcelController::class, 'get', 'as' => 'enquiry.subscription_form.excel.get'])->name('enquiry.subscription_form.excel.get');
+            Route::get('/delete/{id}', [SubscriptionFormDeleteController::class, 'get', 'as' => 'enquiry.subscription_form.delete.get'])->name('enquiry.subscription_form.delete.get');
         });
     });
 

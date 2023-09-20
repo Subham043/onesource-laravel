@@ -18,6 +18,7 @@ use App\Modules\Blog\Controllers\UserBlogDetailController;
 use App\Modules\Blog\Controllers\UserBlogPaginateController;
 use App\Modules\Counter\Controllers\UserCounterAllController;
 use App\Modules\Enquiry\ContactForm\Controllers\ContactFormCreateController;
+use App\Modules\Enquiry\SubscriptionForm\Controllers\SubscriptionFormCreateController;
 use App\Modules\Event\Event\Controllers\UserEventDetailController;
 use App\Modules\Event\Event\Controllers\UserEventPaginateController;
 use App\Modules\ExpertTip\Controllers\UserExpertTipDetailController;
@@ -67,6 +68,10 @@ Route::prefix('/email/verify')->group(function () {
 
 Route::prefix('contact-form')->group(function () {
     Route::post('/', [ContactFormCreateController::class, 'post'])->name('user.contact_form.create');
+});
+
+Route::prefix('subscription-form')->group(function () {
+    Route::post('/', [SubscriptionFormCreateController::class, 'post'])->name('user.subscription_form.create');
 });
 
 Route::prefix('admission')->group(function () {
@@ -154,7 +159,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('/update-password', [UserPasswordUpdateController::class, 'post', 'as' => 'password.post'])->name('user.password.post');
     });
 
-    Route::post('/auth/logout', [UserLogoutController::class, 'post', 'as' => 'logout'])->name('user.logout');
+    Route::get('/auth/logout', [UserLogoutController::class, 'post', 'as' => 'logout'])->name('user.logout');
 
 });
 
