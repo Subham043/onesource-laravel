@@ -22,7 +22,7 @@ use App\Modules\Authentication\Controllers\ProfileController;
 use App\Modules\Authentication\Controllers\ResetPasswordController;
 use App\Modules\Blog\Comment\Controllers\BlogCommentDeleteController;
 use App\Modules\Blog\Comment\Controllers\BlogCommentPaginateController;
-use App\Modules\Blog\Comment\Controllers\BlogCommentUpdateController;
+use App\Modules\Blog\Comment\Controllers\BlogCommentStatusController;
 use App\Modules\Dashboard\Controllers\DashboardController;
 use App\Modules\Enquiry\ContactForm\Controllers\ContactFormDeleteController;
 use App\Modules\Enquiry\ContactForm\Controllers\ContactFormExcelController;
@@ -209,8 +209,7 @@ Route::middleware(['auth'])->group(function () {
         Route::prefix('/{blog_id}')->group(function () {
             Route::prefix('/comment')->group(function () {
                 Route::get('/', [BlogCommentPaginateController::class, 'get', 'as' => 'blog.comment.paginate.get'])->name('blog.comment.paginate.get');
-                Route::get('/update/{id}', [BlogCommentUpdateController::class, 'get', 'as' => 'blog.comment.update.get'])->name('blog.comment.update.get');
-                Route::post('/update/{id}', [BlogCommentUpdateController::class, 'post', 'as' => 'blog.comment.update.post'])->name('blog.comment.update.post');
+                Route::get('/update/{id}', [BlogCommentStatusController::class, 'get', 'as' => 'blog.comment.update.get'])->name('blog.comment.update.get');
                 Route::get('/delete/{id}', [BlogCommentDeleteController::class, 'get', 'as' => 'blog.comment.delete.get'])->name('blog.comment.delete.get');
             });
         });

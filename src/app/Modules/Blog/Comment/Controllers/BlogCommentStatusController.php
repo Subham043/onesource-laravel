@@ -3,10 +3,9 @@
 namespace App\Modules\Blog\Comment\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Modules\Blog\Comment\Requests\CommentRequest;
 use App\Modules\Blog\Comment\Services\CommentService;
 
-class BlogCommentUpdateController extends Controller
+class BlogCommentStatusController extends Controller
 {
     private $commentService;
 
@@ -17,21 +16,18 @@ class BlogCommentUpdateController extends Controller
     }
 
     public function get($blog_id, $id){
-        $data = $this->commentService->getByBlogIdAndId($blog_id, $id);
-        return view('admin.pages.blog.comment.update', compact(['data', 'blog_id']));
-    }
-
-    public function post(CommentRequest $request, $blog_id, $id){
         $comment = $this->commentService->getByBlogIdAndId($blog_id, $id);
         try {
             //code...
             $this->commentService->update(
-                $request->validated(),
+                [
+                    'is_approved' => !$comment->is_approved
+                ],
                 $comment
             );
-            return response()->json(["message" => "Blog Comment updated successfully."], 201);
+            return redirect()->back()->with('success_status', 'Blog Comment updated successfully.');
         } catch (\Throwable $th) {
-            return response()->json(["message" => "Something went wrong. Please try again"], 400);
+            return redirect()->back()->with('error_status', 'Something went wrong. Please try again');
         }
 
     }

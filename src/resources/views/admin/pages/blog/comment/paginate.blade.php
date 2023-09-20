@@ -57,11 +57,17 @@
                                             <td class="date">{{$item->created_at->diffForHumans()}}</td>
                                             <td>
                                                 <div class="d-flex gap-2">
-                                                    {{-- @can('edit events')
-                                                    <div class="edit">
-                                                        <a href="{{route('blog.comment.update.get', [$blog_id, $item->id])}}" class="btn btn-sm btn-primary edit-item-btn">Edit</a>
+                                                    @can('edit events')
+                                                    <div class="remove">
+                                                        <button class="btn btn-sm btn-primary remove-item-btn" data-link="{{route('blog.comment.update.get', [$blog_id, $item->id])}}">
+                                                            @if($item->is_approved)
+                                                                Disapprove
+                                                            @else
+                                                                Approve
+                                                            @endif
+                                                        </button>
                                                     </div>
-                                                    @endcan --}}
+                                                    @endcan
 
                                                     @can('delete events')
                                                     <div class="remove">

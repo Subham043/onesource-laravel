@@ -19,6 +19,7 @@ class UserCommentCollection extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'comment' => $this->comment,
+            'comment_on' => $this->created_at->format('d M, Y').' AT '.$this->created_at->format('h:m a'),
             'created_at' => $this->created_at->diffForHumans(),
             'updated_at' => $this->updated_at->diffForHumans(),
         ];

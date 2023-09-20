@@ -122,7 +122,7 @@ Route::prefix('blog')->group(function () {
     Route::get('/', [UserBlogPaginateController::class, 'get'])->name('user.blog.paginate');
     Route::prefix('comment')->group(function () {
         Route::post('/{blog_id}/create', [UserBlogCommentCreateController::class, 'post'])->name('user.blog.comment.create');
-        Route::post('/{blog_id}/paginate', [UserBlogCommentPaginateController::class, 'get'])->name('user.blog.comment.paginate');
+        Route::get('/{blog_id}/paginate', [UserBlogCommentPaginateController::class, 'get'])->name('user.blog.comment.paginate');
     });
     Route::get('/{slug}', [UserBlogDetailController::class, 'get'])->name('user.blog.detail');
 });
