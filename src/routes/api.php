@@ -14,6 +14,8 @@ use App\Modules\Authentication\Controllers\UserLogoutController;
 use App\Modules\Authentication\Controllers\UserPasswordUpdateController;
 use App\Modules\Authentication\Controllers\UserRegisterController;
 use App\Modules\Authentication\Controllers\VerifyRegisteredUserController;
+use App\Modules\Blog\Comment\Controllers\UserBlogCommentCreateController;
+use App\Modules\Blog\Comment\Controllers\UserBlogCommentPaginateController;
 use App\Modules\Blog\Controllers\UserBlogDetailController;
 use App\Modules\Blog\Controllers\UserBlogPaginateController;
 use App\Modules\Counter\Controllers\UserCounterAllController;
@@ -118,6 +120,10 @@ Route::prefix('website-detail')->group(function () {
 
 Route::prefix('blog')->group(function () {
     Route::get('/', [UserBlogPaginateController::class, 'get'])->name('user.blog.paginate');
+    Route::prefix('comment')->group(function () {
+        Route::post('/{blog_id}/create', [UserBlogCommentCreateController::class, 'post'])->name('user.blog.comment.create');
+        Route::post('/{blog_id}/paginate', [UserBlogCommentPaginateController::class, 'get'])->name('user.blog.comment.paginate');
+    });
     Route::get('/{slug}', [UserBlogDetailController::class, 'get'])->name('user.blog.detail');
 });
 

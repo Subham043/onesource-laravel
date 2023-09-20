@@ -20,6 +20,9 @@ use App\Modules\Authentication\Controllers\LoginController;
 use App\Modules\Authentication\Controllers\LogoutController;
 use App\Modules\Authentication\Controllers\ProfileController;
 use App\Modules\Authentication\Controllers\ResetPasswordController;
+use App\Modules\Blog\Comment\Controllers\BlogCommentDeleteController;
+use App\Modules\Blog\Comment\Controllers\BlogCommentPaginateController;
+use App\Modules\Blog\Comment\Controllers\BlogCommentUpdateController;
 use App\Modules\Dashboard\Controllers\DashboardController;
 use App\Modules\Enquiry\ContactForm\Controllers\ContactFormDeleteController;
 use App\Modules\Enquiry\ContactForm\Controllers\ContactFormExcelController;
@@ -203,6 +206,14 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/update/{id}', [BlogUpdateController::class, 'get', 'as' => 'blog.update.get'])->name('blog.update.get');
         Route::post('/update/{id}', [BlogUpdateController::class, 'post', 'as' => 'blog.update.post'])->name('blog.update.post');
         Route::get('/delete/{id}', [BlogDeleteController::class, 'get', 'as' => 'blog.delete.get'])->name('blog.delete.get');
+        Route::prefix('/{blog_id}')->group(function () {
+            Route::prefix('/comment')->group(function () {
+                Route::get('/', [BlogCommentPaginateController::class, 'get', 'as' => 'blog.comment.paginate.get'])->name('blog.comment.paginate.get');
+                Route::get('/update/{id}', [BlogCommentUpdateController::class, 'get', 'as' => 'blog.comment.update.get'])->name('blog.comment.update.get');
+                Route::post('/update/{id}', [BlogCommentUpdateController::class, 'post', 'as' => 'blog.comment.update.post'])->name('blog.comment.update.post');
+                Route::get('/delete/{id}', [BlogCommentDeleteController::class, 'get', 'as' => 'blog.comment.delete.get'])->name('blog.comment.delete.get');
+            });
+        });
     });
 
     Route::prefix('/expert-tip')->group(function () {

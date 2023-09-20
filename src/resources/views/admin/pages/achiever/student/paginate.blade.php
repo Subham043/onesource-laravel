@@ -54,7 +54,7 @@
                                             @if($item->is_active == 1)
                                             <td class="status"><span class="badge badge-soft-success text-uppercase">Active</span></td>
                                             @else
-                                            <td class="status"><span class="badge badge-soft-danger text-uppercase">Active</span></td>
+                                            <td class="status"><span class="badge badge-soft-danger text-uppercase">Inactive</span></td>
                                             @endif
                                             <td class="date">{{$item->created_at->diffForHumans()}}</td>
                                             <td>
