@@ -55,6 +55,10 @@
                                             <li class="nav-item">
                                                 <a href="{{route('enquiry.subscription_form.paginate.get')}}" class="nav-link {{strpos(url()->current(), route('enquiry.subscription_form.paginate.get')) !== false ? 'active' : ''}}" data-key="t-analytics"> Subscription Form </a>
                                             </li>
+
+                                            <li class="nav-item">
+                                                <a href="{{route('enquiry.vrddhi_form.paginate.get')}}" class="nav-link {{strpos(url()->current(), route('enquiry.vrddhi_form.paginate.get')) !== false ? 'active' : ''}}" data-key="t-analytics"> Vrddhi Form </a>
+                                            </li>
                                         @endcan
 
                                     </ul>

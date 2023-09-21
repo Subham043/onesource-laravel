@@ -40,6 +40,9 @@ use App\Modules\Counter\Controllers\CounterUpdateController;
 use App\Modules\Enquiry\SubscriptionForm\Controllers\SubscriptionFormDeleteController;
 use App\Modules\Enquiry\SubscriptionForm\Controllers\SubscriptionFormExcelController;
 use App\Modules\Enquiry\SubscriptionForm\Controllers\SubscriptionFormPaginateController;
+use App\Modules\Enquiry\VrddhiForm\Controllers\VrddhiFormDeleteController;
+use App\Modules\Enquiry\VrddhiForm\Controllers\VrddhiFormExcelController;
+use App\Modules\Enquiry\VrddhiForm\Controllers\VrddhiFormPaginateController;
 use App\Modules\Event\Event\Controllers\EventCreateController;
 use App\Modules\Event\Event\Controllers\EventDeleteController;
 use App\Modules\Event\Event\Controllers\EventPaginateController;
@@ -153,6 +156,11 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/', [SubscriptionFormPaginateController::class, 'get', 'as' => 'enquiry.subscription_form.paginate.get'])->name('enquiry.subscription_form.paginate.get');
             Route::get('/excel', [SubscriptionFormExcelController::class, 'get', 'as' => 'enquiry.subscription_form.excel.get'])->name('enquiry.subscription_form.excel.get');
             Route::get('/delete/{id}', [SubscriptionFormDeleteController::class, 'get', 'as' => 'enquiry.subscription_form.delete.get'])->name('enquiry.subscription_form.delete.get');
+        });
+        Route::prefix('/vrddhi-form')->group(function () {
+            Route::get('/', [VrddhiFormPaginateController::class, 'get', 'as' => 'enquiry.vrddhi_form.paginate.get'])->name('enquiry.vrddhi_form.paginate.get');
+            Route::get('/excel', [VrddhiFormExcelController::class, 'get', 'as' => 'enquiry.vrddhi_form.excel.get'])->name('enquiry.vrddhi_form.excel.get');
+            Route::get('/delete/{id}', [VrddhiFormDeleteController::class, 'get', 'as' => 'enquiry.vrddhi_form.delete.get'])->name('enquiry.vrddhi_form.delete.get');
         });
     });
 

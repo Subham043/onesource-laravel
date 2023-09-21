@@ -21,6 +21,7 @@ use App\Modules\Blog\Controllers\UserBlogPaginateController;
 use App\Modules\Counter\Controllers\UserCounterAllController;
 use App\Modules\Enquiry\ContactForm\Controllers\ContactFormCreateController;
 use App\Modules\Enquiry\SubscriptionForm\Controllers\SubscriptionFormCreateController;
+use App\Modules\Enquiry\VrddhiForm\Controllers\VrddhiFormCreateController;
 use App\Modules\Event\Event\Controllers\UserEventDetailController;
 use App\Modules\Event\Event\Controllers\UserEventPaginateController;
 use App\Modules\ExpertTip\Controllers\UserExpertTipDetailController;
@@ -74,6 +75,10 @@ Route::prefix('contact-form')->group(function () {
 
 Route::prefix('subscription-form')->group(function () {
     Route::post('/', [SubscriptionFormCreateController::class, 'post'])->name('user.subscription_form.create');
+});
+
+Route::prefix('vrddhi-form')->group(function () {
+    Route::post('/', [VrddhiFormCreateController::class, 'post'])->name('user.vrddhi_form.create');
 });
 
 Route::prefix('admission')->group(function () {
