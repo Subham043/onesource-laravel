@@ -165,6 +165,14 @@
                             </li>
                             @endcan
 
+                            @can('list campaigns')
+                            <li class="nav-item">
+                                <a class="nav-link menu-link {{strpos(url()->current(),route('campaign.campaign.paginate.get')) !== false ? 'active' : ''}}" href="{{route('campaign.campaign.paginate.get')}}">
+                                    <i class="ri-mail-volume-line"></i> <span data-key="t-widgets">Campaign</span>
+                                </a>
+                            </li>
+                            @endcan
+
                             @can('edit mission vision')
                                 <li class="nav-item">
                                     <a class="nav-link menu-link"  href="{{route('mission.main.get')}}" class="nav-link {{strpos(url()->current(), route('mission.main.get')) !== false ? 'active' : ''}}" data-key="t-analytics">

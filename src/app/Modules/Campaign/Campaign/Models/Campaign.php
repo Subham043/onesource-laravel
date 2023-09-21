@@ -107,7 +107,7 @@ class Campaign extends Model implements Sitemapable
 
     public function achievers()
     {
-        return $this->belongsToMany(Student::class, 'campaign_join_achivers', 'campaign_id', 'achiver_id');
+        return $this->belongsToMany(Student::class, 'campaign_join_achivers', 'campaign_id', 'achiever_id');
     }
 
     public function getActivitylogOptions(): LogOptions
