@@ -3,6 +3,7 @@
 namespace App\Modules\Enquiry\SubscriptionForm\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Services\RateLimitService;
 use App\Modules\Enquiry\SubscriptionForm\Requests\SubscriptionFormRequest;
 use App\Modules\Enquiry\SubscriptionForm\Resources\SubscriptionFormCollection;
 use App\Modules\Enquiry\SubscriptionForm\Services\SubscriptionFormService;
@@ -25,7 +26,7 @@ class SubscriptionFormCreateController extends Controller
                     ...$request->validated(),
                 ]
             );
-
+            (new RateLimitService($request))->clearRateLimit();
             return response()->json([
                 'message' => "Subscribed successfully.",
                 'subscriptionForm' => SubscriptionFormCollection::make($subscriptionForm),

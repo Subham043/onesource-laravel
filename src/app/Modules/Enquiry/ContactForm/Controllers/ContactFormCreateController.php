@@ -3,6 +3,7 @@
 namespace App\Modules\Enquiry\ContactForm\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Services\RateLimitService;
 use App\Modules\Enquiry\ContactForm\Requests\ContactFormRequest;
 use App\Modules\Enquiry\ContactForm\Resources\ContactFormCollection;
 use App\Modules\Enquiry\ContactForm\Services\ContactFormService;
@@ -25,7 +26,7 @@ class ContactFormCreateController extends Controller
                     ...$request->validated(),
                 ]
             );
-
+            (new RateLimitService($request))->clearRateLimit();
             return response()->json([
                 'message' => "Enquiry created successfully.",
                 'contactForm' => ContactFormCollection::make($contactForm),

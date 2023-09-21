@@ -3,6 +3,7 @@
 namespace App\Modules\Campaign\Enquiry\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Services\RateLimitService;
 use App\Modules\Campaign\Campaign\Services\CampaignService;
 use App\Modules\Campaign\Enquiry\Requests\EnquiryRequest;
 use App\Modules\Campaign\Enquiry\Resources\UserEnquiryCollection;
@@ -29,6 +30,7 @@ class EnquiryCreateController extends Controller
                     'campaign_id' => $campaign_id
                 ]
             );
+            (new RateLimitService($request))->clearRateLimit();
             return response()->json([
                 "message" => "Campaign Enquiry created successfully.",
                 "enquiry" => UserEnquiryCollection::make($campaignEnquiry)

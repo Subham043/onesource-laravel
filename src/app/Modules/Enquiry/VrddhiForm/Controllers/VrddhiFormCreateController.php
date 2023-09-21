@@ -3,6 +3,7 @@
 namespace App\Modules\Enquiry\VrddhiForm\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Services\RateLimitService;
 use App\Modules\Enquiry\VrddhiForm\Requests\VrddhiFormRequest;
 use App\Modules\Enquiry\VrddhiForm\Resources\VrddhiFormCollection;
 use App\Modules\Enquiry\VrddhiForm\Services\VrddhiFormService;
@@ -28,7 +29,7 @@ class VrddhiFormCreateController extends Controller
             if($request->hasFile('card')){
                 $this->vrddhiFormService->saveImage($vrddhiForm);
             }
-
+            (new RateLimitService($request))->clearRateLimit();
             return response()->json([
                 'message' => "Vrddhi created successfully.",
                 'vrddhiForm' => VrddhiFormCollection::make($vrddhiForm),

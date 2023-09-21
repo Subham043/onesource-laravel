@@ -4,6 +4,7 @@ namespace App\Modules\AdmissionForm\Controllers;
 
 use App\Enums\AdmissionEnum;
 use App\Http\Controllers\Controller;
+use App\Http\Services\RateLimitService;
 use App\Modules\AdmissionForm\Requests\AdmissionNotPucFormRequest;
 use App\Modules\AdmissionForm\Resources\AdmissionFormCollection;
 use App\Modules\AdmissionForm\Services\AdmissionFormService;
@@ -30,6 +31,7 @@ class AdmissionNotPucFormCreateController extends Controller
             if($request->hasFile('marks')){
                 $this->admissionFormService->saveImage($admissionForm);
             }
+            (new RateLimitService($request))->clearRateLimit();
 
             return response()->json([
                 'message' => "Admission created successfully.",
