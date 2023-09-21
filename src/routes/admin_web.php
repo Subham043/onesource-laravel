@@ -33,6 +33,12 @@ use App\Modules\Blog\Controllers\BlogCreateController;
 use App\Modules\Blog\Controllers\BlogDeleteController;
 use App\Modules\Blog\Controllers\BlogPaginateController;
 use App\Modules\Blog\Controllers\BlogUpdateController;
+use App\Modules\Campaign\Campaign\Controllers\CampaignCreateController;
+use App\Modules\Campaign\Campaign\Controllers\CampaignDeleteController;
+use App\Modules\Campaign\Campaign\Controllers\CampaignPaginateController;
+use App\Modules\Campaign\Campaign\Controllers\CampaignUpdateController;
+use App\Modules\Campaign\Enquiry\Controllers\EnquiryDeleteController;
+use App\Modules\Campaign\Enquiry\Controllers\EnquiryPaginateController;
 use App\Modules\Counter\Controllers\CounterCreateController;
 use App\Modules\Counter\Controllers\CounterDeleteController;
 use App\Modules\Counter\Controllers\CounterPaginateController;
@@ -382,6 +388,22 @@ Route::middleware(['auth'])->group(function () {
             });
         });
 
+    });
+
+    Route::prefix('/campaign')->group(function () {
+        Route::get('/', [CampaignPaginateController::class, 'get', 'as' => 'campaign.campaign.paginate.get'])->name('campaign.campaign.paginate.get');
+        Route::get('/create', [CampaignCreateController::class, 'get', 'as' => 'campaign.campaign.create.get'])->name('campaign.campaign.create.get');
+        Route::post('/create', [CampaignCreateController::class, 'post', 'as' => 'campaign.campaign.create.post'])->name('campaign.campaign.create.post');
+        Route::get('/update/{id}', [CampaignUpdateController::class, 'get', 'as' => 'campaign.campaign.update.get'])->name('campaign.campaign.update.get');
+        Route::post('/update/{id}', [CampaignUpdateController::class, 'post', 'as' => 'campaign.campaign.update.post'])->name('campaign.campaign.update.post');
+        Route::get('/delete/{id}', [CampaignDeleteController::class, 'get', 'as' => 'campaign.campaign.delete.get'])->name('campaign.campaign.delete.get');
+
+        Route::prefix('/{campaign_id}')->group(function () {
+            Route::prefix('/enquiry')->group(function () {
+                Route::get('/', [EnquiryPaginateController::class, 'get', 'as' => 'campaign.enquiry.paginate.get'])->name('campaign.enquiry.paginate.get');
+                Route::get('/delete/{id}', [EnquiryDeleteController::class, 'get', 'as' => 'campaign.enquiry.delete.get'])->name('campaign.enquiry.delete.get');
+            });
+        });
     });
 
     Route::post('/text-editor-image', [TextEditorImageController::class, 'post', 'as' => 'texteditor_image.post'])->name('texteditor_image.post');
