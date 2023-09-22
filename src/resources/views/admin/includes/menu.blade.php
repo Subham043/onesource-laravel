@@ -252,12 +252,16 @@
 
                             @can('list courses')
                             <li class="nav-item">
-                                <a class="nav-link menu-link {{strpos(url()->current(),'course') !== false ? 'active' : ''}}" href="#sidebarDashboards10" data-bs-toggle="collapse" role="button"
-                                    aria-expanded="{{strpos(url()->current(),'course') !== false ? 'true' : 'false'}}" aria-controls="sidebarDashboards10">
+                                <a class="nav-link menu-link {{strpos(url()->current(),'course') !== false || strpos(url()->current(),'branch') !== false ? 'active' : ''}}" href="#sidebarDashboards10" data-bs-toggle="collapse" role="button"
+                                    aria-expanded="{{strpos(url()->current(),'course') !== false || strpos(url()->current(),'branch') !== false ? 'true' : 'false'}}" aria-controls="sidebarDashboards10">
                                     <i class="ri-book-open-line"></i> <span data-key="t-dashboards">Courses</span>
                                 </a>
-                                <div class="collapse menu-dropdown {{strpos(url()->current(),'course') !== false ? 'show' : ''}}" id="sidebarDashboards10">
+                                <div class="collapse menu-dropdown {{strpos(url()->current(),'course') !== false || strpos(url()->current(),'branch') !== false ? 'show' : ''}}" id="sidebarDashboards10">
                                     <ul class="nav nav-sm flex-column">
+
+                                        <li class="nav-item">
+                                            <a href="{{route('course.branch.paginate.get')}}" class="nav-link {{strpos(url()->current(), route('course.branch.paginate.get')) !== false ? 'active' : ''}}" data-key="t-analytics"> Branches </a>
+                                        </li>
 
                                         <li class="nav-item">
                                             <a href="{{route('course.course.paginate.get')}}" class="nav-link {{strpos(url()->current(), route('course.course.paginate.get')) !== false ? 'active' : ''}}" data-key="t-analytics"> Courses </a>

@@ -43,6 +43,10 @@ use App\Modules\Counter\Controllers\CounterCreateController;
 use App\Modules\Counter\Controllers\CounterDeleteController;
 use App\Modules\Counter\Controllers\CounterPaginateController;
 use App\Modules\Counter\Controllers\CounterUpdateController;
+use App\Modules\Course\Branch\Controllers\BranchCreateController;
+use App\Modules\Course\Branch\Controllers\BranchDeleteController;
+use App\Modules\Course\Branch\Controllers\BranchPaginateController;
+use App\Modules\Course\Branch\Controllers\BranchUpdateController;
 use App\Modules\Course\Course\Controllers\CourseCreateController;
 use App\Modules\Course\Course\Controllers\CourseDeleteController;
 use App\Modules\Course\Course\Controllers\CoursePaginateController;
@@ -425,6 +429,15 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/update/{id}', [CourseUpdateController::class, 'get', 'as' => 'course.course.update.get'])->name('course.course.update.get');
         Route::post('/update/{id}', [CourseUpdateController::class, 'post', 'as' => 'course.course.update.post'])->name('course.course.update.post');
         Route::get('/delete/{id}', [CourseDeleteController::class, 'get', 'as' => 'course.course.delete.get'])->name('course.course.delete.get');
+    });
+
+    Route::prefix('/branch')->group(function () {
+        Route::get('/', [BranchPaginateController::class, 'get', 'as' => 'course.branch.paginate.get'])->name('course.branch.paginate.get');
+        Route::get('/create', [BranchCreateController::class, 'get', 'as' => 'course.branch.create.get'])->name('course.branch.create.get');
+        Route::post('/create', [BranchCreateController::class, 'post', 'as' => 'course.branch.create.post'])->name('course.branch.create.post');
+        Route::get('/update/{id}', [BranchUpdateController::class, 'get', 'as' => 'course.branch.update.get'])->name('course.branch.update.get');
+        Route::post('/update/{id}', [BranchUpdateController::class, 'post', 'as' => 'course.branch.update.post'])->name('course.branch.update.post');
+        Route::get('/delete/{id}', [BranchDeleteController::class, 'get', 'as' => 'course.branch.delete.get'])->name('course.branch.delete.get');
     });
 
     Route::post('/text-editor-image', [TextEditorImageController::class, 'post', 'as' => 'texteditor_image.post'])->name('texteditor_image.post');

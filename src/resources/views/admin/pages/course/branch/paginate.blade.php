@@ -8,14 +8,14 @@
     <div class="container-fluid">
 
         <!-- start page title -->
-        @include('admin.includes.breadcrumb', ['page'=>'Course', 'page_link'=>route('course.course.paginate.get'), 'list'=>['List']])
+        @include('admin.includes.breadcrumb', ['page'=>'Branch', 'page_link'=>route('course.branch.paginate.get'), 'list'=>['List']])
         <!-- end page title -->
 
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title mb-0">Course</h4>
+                        <h4 class="card-title mb-0">Branch</h4>
                     </div><!-- end card header -->
 
                     <div class="card-body">
@@ -24,12 +24,12 @@
                                 <div class="col-sm-auto">
                                     <div>
                                         @can('create campaigns')
-                                        <a href="{{route('course.course.create.get')}}" type="button" class="btn btn-success add-btn" id="create-btn"><i class="ri-add-line align-bottom me-1"></i> Create</a>
+                                        <a href="{{route('course.branch.create.get')}}" type="button" class="btn btn-success add-btn" id="create-btn"><i class="ri-add-line align-bottom me-1"></i> Create</a>
                                         @endcan
                                     </div>
                                 </div>
                                 <div class="col-sm">
-                                    @include('admin.includes.search_list', ['link'=>route('course.course.paginate.get'), 'search'=>$search])
+                                    @include('admin.includes.search_list', ['link'=>route('course.branch.paginate.get'), 'search'=>$search])
                                 </div>
                             </div>
                             <div class="table-responsive table-card mt-3 mb-1">
@@ -39,11 +39,7 @@
                                         <tr>
                                             <th class="sort" data-sort="customer_name">Name</th>
                                             <th class="sort" data-sort="customer_name">Slug</th>
-                                            <th class="sort" data-sort="customer_name">Description</th>
-                                            <th class="sort" data-sort="customer_name">Amount</th>
-                                            <th class="sort" data-sort="customer_name">Discount</th>
-                                            <th class="sort" data-sort="customer_name">Total Amount</th>
-                                            <th class="sort" data-sort="customer_name">Course Status</th>
+                                            <th class="sort" data-sort="customer_name">Branch Status</th>
                                             <th class="sort" data-sort="date">Created On</th>
                                             <th class="sort" data-sort="action">Action</th>
                                             </tr>
@@ -53,10 +49,6 @@
                                         <tr>
                                             <td class="customer_name">{{ $item->name }}</td>
                                             <td class="customer_name">{{ $item->slug }}</td>
-                                            <td class="customer_name">{{ Str::limit($item->description_unfiltered, 20) }}</td>
-                                            <td class="customer_name">&#8377;{{ $item->amount }}</td>
-                                            <td class="customer_name">{{ $item->discount }}%</td>
-                                            <td class="customer_name">&#8377;{{ $item->discounted_amount }}</td>
                                             @if($item->is_active == 1)
                                             <td class="status"><span class="badge badge-soft-success text-uppercase">Active</span></td>
                                             @else
@@ -67,13 +59,13 @@
                                                 <div class="d-flex gap-2">
                                                     @can('edit campaigns')
                                                     <div class="edit">
-                                                        <a href="{{route('course.course.update.get', $item->id)}}" class="btn btn-sm btn-primary edit-item-btn">Edit</a>
+                                                        <a href="{{route('course.branch.update.get', $item->id)}}" class="btn btn-sm btn-primary edit-item-btn">Edit</a>
                                                     </div>
                                                     @endcan
 
                                                     @can('delete campaigns')
                                                     <div class="remove">
-                                                        <button class="btn btn-sm btn-danger remove-item-btn" data-link="{{route('course.course.delete.get', $item->id)}}">Delete</button>
+                                                        <button class="btn btn-sm btn-danger remove-item-btn" data-link="{{route('course.branch.delete.get', $item->id)}}">Delete</button>
                                                     </div>
                                                     @endcan
                                                 </div>
