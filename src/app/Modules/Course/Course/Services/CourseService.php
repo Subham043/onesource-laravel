@@ -16,12 +16,16 @@ class CourseService
 
     public function all(): Collection
     {
-        return Course::all();
+        return Course::with([
+            'branches',
+        ])->get();
     }
 
     public function paginateMain(Int $total = 10): LengthAwarePaginator
     {
-        $query = Course::where('is_active', true);
+        $query = Course::with([
+            'branches',
+        ])->where('is_active', true);
         return QueryBuilder::for($query)
                 ->defaultSort('id')
                 ->allowedSorts('id', 'name')
@@ -34,7 +38,9 @@ class CourseService
 
     public function paginate(Int $total = 10): LengthAwarePaginator
     {
-        $query = Course::latest();
+        $query = Course::with([
+            'branches',
+        ])->latest();
         return QueryBuilder::for($query)
                 ->allowedFilters([
                     AllowedFilter::custom('search', new CommonFilter),
@@ -45,12 +51,16 @@ class CourseService
 
     public function getById(Int $id): Course|null
     {
-        return Course::findOrFail($id);
+        return Course::with([
+            'branches',
+        ])->findOrFail($id);
     }
 
     public function getBySlug(String $slug): Course|null
     {
-        return Course::where('slug', $slug)->where('is_active', true)->firstOrFail();
+        return Course::with([
+            'branches',
+        ])->where('slug', $slug)->where('is_active', true)->firstOrFail();
     }
 
     public function create(array $data): Course
@@ -88,6 +98,12 @@ class CourseService
             $path = str_replace("storage","app/public",$course->image);
             (new FileService)->delete_file($path);
         }
+    }
+
+    public function save_branches(Course $course, array $data): Course
+    {
+        $course->branches()->sync($data);
+        return $course;
     }
 
 }

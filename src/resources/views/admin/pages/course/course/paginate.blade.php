@@ -71,6 +71,16 @@
                                                     </div>
                                                     @endcan
 
+                                                    @can('edit campaigns')
+                                                        @if($item->branches->count()>0)
+                                                            @foreach($item->branches as $branch)
+                                                            <div class="edit">
+                                                                <a href="{{route('course.branch_detail.update.get', [$item->id, $branch->id])}}" class="btn btn-sm btn-dark edit-item-btn">Update {{$branch->name}} Detail</a>
+                                                            </div>
+                                                            @endforeach
+                                                        @endif
+                                                    @endcan
+
                                                     @can('delete campaigns')
                                                     <div class="remove">
                                                         <button class="btn btn-sm btn-danger remove-item-btn" data-link="{{route('course.course.delete.get', $item->id)}}">Delete</button>

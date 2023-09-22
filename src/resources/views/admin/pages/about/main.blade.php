@@ -1,14 +1,5 @@
 @extends('admin.layouts.dashboard')
 
-@section('css')
-
-<style nonce="{{ csp_nonce() }}">
-    #description_quill{
-        min-height: 200px;
-    }
-</style>
-@stop
-
 @section('content')
 
 <div class="page-content">

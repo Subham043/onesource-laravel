@@ -3,6 +3,7 @@
 namespace App\Modules\Course\Branch\Models;
 
 use App\Modules\Authentication\Models\User;
+use App\Modules\Course\BranchDetail\Models\BranchDetail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -52,6 +53,11 @@ class Branch extends Model implements Sitemapable
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id')->withDefault();
+    }
+
+    public function branch_details()
+    {
+        return $this->hasMany(BranchDetail::class, 'branch_id');
     }
 
     public function getActivitylogOptions(): LogOptions

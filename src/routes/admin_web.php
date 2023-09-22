@@ -47,6 +47,7 @@ use App\Modules\Course\Branch\Controllers\BranchCreateController;
 use App\Modules\Course\Branch\Controllers\BranchDeleteController;
 use App\Modules\Course\Branch\Controllers\BranchPaginateController;
 use App\Modules\Course\Branch\Controllers\BranchUpdateController;
+use App\Modules\Course\BranchDetail\Controllers\BranchDetailUpdateController;
 use App\Modules\Course\Course\Controllers\CourseCreateController;
 use App\Modules\Course\Course\Controllers\CourseDeleteController;
 use App\Modules\Course\Course\Controllers\CoursePaginateController;
@@ -429,6 +430,12 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/update/{id}', [CourseUpdateController::class, 'get', 'as' => 'course.course.update.get'])->name('course.course.update.get');
         Route::post('/update/{id}', [CourseUpdateController::class, 'post', 'as' => 'course.course.update.post'])->name('course.course.update.post');
         Route::get('/delete/{id}', [CourseDeleteController::class, 'get', 'as' => 'course.course.delete.get'])->name('course.course.delete.get');
+        Route::prefix('/{course_id}')->group(function () {
+            Route::prefix('/branch')->group(function () {
+                Route::get('/{branch_id}', [BranchDetailUpdateController::class, 'get', 'as' => 'course.branch_detail.update.get'])->name('course.branch_detail.update.get');
+                Route::post('/{branch_id}', [BranchDetailUpdateController::class, 'post', 'as' => 'course.branch_detail.update.post'])->name('course.branch_detail.update.post');
+            });
+        });
     });
 
     Route::prefix('/branch')->group(function () {

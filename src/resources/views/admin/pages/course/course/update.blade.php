@@ -23,14 +23,17 @@
                         <div class="card-body">
                             <div class="live-preview">
                                 <div class="row gy-4">
-                                    <div class="col-xxl-4 col-md-4">
+                                    <div class="col-xxl-6 col-md-6">
                                         @include('admin.includes.input', ['key'=>'name', 'label'=>'Name', 'value'=>$data->name])
                                     </div>
-                                    <div class="col-xxl-4 col-md-4">
+                                    <div class="col-xxl-6 col-md-6">
                                         @include('admin.includes.input', ['key'=>'slug', 'label'=>'Slug', 'value'=>$data->slug])
                                     </div>
-                                    <div class="col-xxl-4 col-md-4">
+                                    <div class="col-xxl-6 col-md-6">
                                         @include('admin.includes.select', ['key'=>'classChoice', 'label'=>'Class'])
+                                    </div>
+                                    <div class="col-xxl-6 col-md-6">
+                                        @include('admin.includes.select_multiple', ['key'=>'branch', 'label'=>'Branches'])
                                     </div>
                                     <div class="col-xxl-6 col-md-6">
                                         @include('admin.includes.input', ['key'=>'amount', 'label'=>'Amount', 'value'=>$data->amount])
@@ -273,6 +276,11 @@ validation
         validator: (value, fields) => true,
     },
   ])
+  .addField('#branch', [
+    {
+        validator: (value, fields) => true,
+    },
+  ])
   .onSuccess(async (event) => {
     var submitBtn = document.getElementById('submitBtn')
     submitBtn.innerHTML = spinner
@@ -295,6 +303,11 @@ validation
         formData.append('image_alt',document.getElementById('image_alt').value)
         if((document.getElementById('image').files).length>0){
             formData.append('image',document.getElementById('image').files[0])
+        }
+        if(document.getElementById('branch')?.length>0){
+            for (let index = 0; index < document.getElementById('branch').length; index++) {
+                formData.append('branch[]',document.getElementById('branch')[index].value)
+            }
         }
 
         const response = await axios.post('{{route('course.course.update.post', $data->id)}}', formData)
@@ -343,6 +356,9 @@ validation
         if(error?.response?.data?.message){
             errorToast(error?.response?.data?.message)
         }
+        if(error?.response?.data?.errors?.branch){
+            validation.showErrors({'#branch': error?.response?.data?.errors?.branch[0]})
+        }
         console.log(error);
     }finally{
         submitBtn.innerHTML =  `
@@ -370,6 +386,21 @@ validation
         },
     ],
     placeholderValue: 'Select class',
+    ...CHOICE_CONFIG,
+    shouldSort: false,
+    shouldSortItems: false,
+});
+const branchChoice = new Choices('#branch', {
+    choices: [
+        @foreach($branch as $branch)
+            {
+                value: '{{$branch->id}}',
+                label: '{{$branch->name}}',
+                selected: {{ (in_array($branch->id, $branches)) ? 'true' : 'false'}}
+            },
+        @endforeach
+    ],
+    placeholderValue: 'Select branches',
     ...CHOICE_CONFIG,
     shouldSort: false,
     shouldSortItems: false,
