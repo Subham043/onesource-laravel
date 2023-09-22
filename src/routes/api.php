@@ -21,6 +21,7 @@ use App\Modules\Blog\Controllers\UserBlogPaginateController;
 use App\Modules\Campaign\Campaign\Controllers\UserCampaignDetailController;
 use App\Modules\Campaign\Enquiry\Controllers\EnquiryCreateController;
 use App\Modules\Counter\Controllers\UserCounterAllController;
+use App\Modules\Course\Course\Controllers\UserCourseDetailController;
 use App\Modules\Enquiry\ContactForm\Controllers\ContactFormCreateController;
 use App\Modules\Enquiry\ScholarForm\Controllers\ScholarFormCreateController;
 use App\Modules\Enquiry\SubscriptionForm\Controllers\SubscriptionFormCreateController;
@@ -163,6 +164,10 @@ Route::prefix('event')->group(function () {
 Route::prefix('campaign')->group(function () {
     Route::post('/enquiry/{campaign_id}', [EnquiryCreateController::class, 'post'])->name('user.campaign.enquiry.paginate');
     Route::get('/{slug}', [UserCampaignDetailController::class, 'get'])->name('user.campaign.detail');
+});
+
+Route::prefix('course')->group(function () {
+    Route::get('/{slug}', [UserCourseDetailController::class, 'get'])->name('user.course.detail');
 });
 
 Route::prefix('faq')->group(function () {

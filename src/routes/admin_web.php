@@ -43,6 +43,10 @@ use App\Modules\Counter\Controllers\CounterCreateController;
 use App\Modules\Counter\Controllers\CounterDeleteController;
 use App\Modules\Counter\Controllers\CounterPaginateController;
 use App\Modules\Counter\Controllers\CounterUpdateController;
+use App\Modules\Course\Course\Controllers\CourseCreateController;
+use App\Modules\Course\Course\Controllers\CourseDeleteController;
+use App\Modules\Course\Course\Controllers\CoursePaginateController;
+use App\Modules\Course\Course\Controllers\CourseUpdateController;
 use App\Modules\Enquiry\ScholarForm\Controllers\ScholarFormDeleteController;
 use App\Modules\Enquiry\ScholarForm\Controllers\ScholarFormExcelController;
 use App\Modules\Enquiry\ScholarForm\Controllers\ScholarFormPaginateController;
@@ -412,6 +416,15 @@ Route::middleware(['auth'])->group(function () {
                 Route::get('/delete/{id}', [EnquiryDeleteController::class, 'get', 'as' => 'campaign.enquiry.delete.get'])->name('campaign.enquiry.delete.get');
             });
         });
+    });
+
+    Route::prefix('/course')->group(function () {
+        Route::get('/', [CoursePaginateController::class, 'get', 'as' => 'course.course.paginate.get'])->name('course.course.paginate.get');
+        Route::get('/create', [CourseCreateController::class, 'get', 'as' => 'course.course.create.get'])->name('course.course.create.get');
+        Route::post('/create', [CourseCreateController::class, 'post', 'as' => 'course.course.create.post'])->name('course.course.create.post');
+        Route::get('/update/{id}', [CourseUpdateController::class, 'get', 'as' => 'course.course.update.get'])->name('course.course.update.get');
+        Route::post('/update/{id}', [CourseUpdateController::class, 'post', 'as' => 'course.course.update.post'])->name('course.course.update.post');
+        Route::get('/delete/{id}', [CourseDeleteController::class, 'get', 'as' => 'course.course.delete.get'])->name('course.course.delete.get');
     });
 
     Route::post('/text-editor-image', [TextEditorImageController::class, 'post', 'as' => 'texteditor_image.post'])->name('texteditor_image.post');

@@ -110,6 +110,12 @@ class OtherPermissionSeeder extends Seeder
         Permission::create(['name' => 'create campaigns']);
         Permission::create(['name' => 'list campaigns']);
 
+        //permission for courses
+        Permission::create(['name' => 'edit courses']);
+        Permission::create(['name' => 'delete courses']);
+        Permission::create(['name' => 'create courses']);
+        Permission::create(['name' => 'list courses']);
+
         //permission for pages seo
         Permission::create(['name' => 'edit pages seo']);
         Permission::create(['name' => 'list pages seo']);
