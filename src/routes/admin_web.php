@@ -43,6 +43,9 @@ use App\Modules\Counter\Controllers\CounterCreateController;
 use App\Modules\Counter\Controllers\CounterDeleteController;
 use App\Modules\Counter\Controllers\CounterPaginateController;
 use App\Modules\Counter\Controllers\CounterUpdateController;
+use App\Modules\Enquiry\ScholarForm\Controllers\ScholarFormDeleteController;
+use App\Modules\Enquiry\ScholarForm\Controllers\ScholarFormExcelController;
+use App\Modules\Enquiry\ScholarForm\Controllers\ScholarFormPaginateController;
 use App\Modules\Enquiry\SubscriptionForm\Controllers\SubscriptionFormDeleteController;
 use App\Modules\Enquiry\SubscriptionForm\Controllers\SubscriptionFormExcelController;
 use App\Modules\Enquiry\SubscriptionForm\Controllers\SubscriptionFormPaginateController;
@@ -157,6 +160,11 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/', [ContactFormPaginateController::class, 'get', 'as' => 'enquiry.contact_form.paginate.get'])->name('enquiry.contact_form.paginate.get');
             Route::get('/excel', [ContactFormExcelController::class, 'get', 'as' => 'enquiry.contact_form.excel.get'])->name('enquiry.contact_form.excel.get');
             Route::get('/delete/{id}', [ContactFormDeleteController::class, 'get', 'as' => 'enquiry.contact_form.delete.get'])->name('enquiry.contact_form.delete.get');
+        });
+        Route::prefix('/day-scholar-form')->group(function () {
+            Route::get('/', [ScholarFormPaginateController::class, 'get', 'as' => 'enquiry.scholar_form.paginate.get'])->name('enquiry.scholar_form.paginate.get');
+            Route::get('/excel', [ScholarFormExcelController::class, 'get', 'as' => 'enquiry.scholar_form.excel.get'])->name('enquiry.scholar_form.excel.get');
+            Route::get('/delete/{id}', [ScholarFormDeleteController::class, 'get', 'as' => 'enquiry.scholar_form.delete.get'])->name('enquiry.scholar_form.delete.get');
         });
         Route::prefix('/subscription-form')->group(function () {
             Route::get('/', [SubscriptionFormPaginateController::class, 'get', 'as' => 'enquiry.subscription_form.paginate.get'])->name('enquiry.subscription_form.paginate.get');

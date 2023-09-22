@@ -22,6 +22,7 @@ use App\Modules\Campaign\Campaign\Controllers\UserCampaignDetailController;
 use App\Modules\Campaign\Enquiry\Controllers\EnquiryCreateController;
 use App\Modules\Counter\Controllers\UserCounterAllController;
 use App\Modules\Enquiry\ContactForm\Controllers\ContactFormCreateController;
+use App\Modules\Enquiry\ScholarForm\Controllers\ScholarFormCreateController;
 use App\Modules\Enquiry\SubscriptionForm\Controllers\SubscriptionFormCreateController;
 use App\Modules\Enquiry\VrddhiForm\Controllers\VrddhiFormCreateController;
 use App\Modules\Event\Event\Controllers\UserEventDetailController;
@@ -73,6 +74,10 @@ Route::prefix('/email/verify')->group(function () {
 
 Route::prefix('contact-form')->group(function () {
     Route::post('/', [ContactFormCreateController::class, 'post'])->name('user.contact_form.create');
+});
+
+Route::prefix('day-scholar-form')->group(function () {
+    Route::post('/', [ScholarFormCreateController::class, 'post'])->name('user.scholar_form.create');
 });
 
 Route::prefix('subscription-form')->group(function () {
