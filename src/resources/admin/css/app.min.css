@@ -14340,3 +14340,6 @@ span.flatpickr-weekday {
     object-fit: contain;
     margin-top: 10px;
 }
+.choices__list--dropdown, .choices__list[aria-expanded]{
+    z-index: 99;
+}

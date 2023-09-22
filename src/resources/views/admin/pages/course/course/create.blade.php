@@ -334,6 +334,10 @@ validation
             value: 'Senior Secondary (XI, XII, PU)',
             label: 'Senior Secondary (XI, XII, PU)',
         },
+        {
+            value: 'Online',
+            label: 'Online',
+        },
     ],
     placeholderValue: 'Select class',
     ...CHOICE_CONFIG,

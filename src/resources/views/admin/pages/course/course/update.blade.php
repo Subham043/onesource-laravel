@@ -363,6 +363,11 @@ validation
             label: 'Senior Secondary (XI, XII, PU)',
             selected: {{ $data->class->value=='Senior Secondary (XI, XII, PU)' ? 'true' : 'false'}}
         },
+        {
+            value: 'Online',
+            label: 'Online Class',
+            selected: {{ $data->class->value=='Online' ? 'true' : 'false'}}
+        },
     ],
     placeholderValue: 'Select class',
     ...CHOICE_CONFIG,
