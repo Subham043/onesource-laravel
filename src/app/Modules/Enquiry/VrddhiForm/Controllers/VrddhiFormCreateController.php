@@ -33,6 +33,7 @@ class VrddhiFormCreateController extends Controller
             return response()->json([
                 'message' => "Vrddhi created successfully.",
                 'vrddhiForm' => VrddhiFormCollection::make($vrddhiForm),
+                'file_link' => asset('storage/syllabus/'.$vrddhiForm->class->value.'_'.$vrddhiForm->syllabus->value.'.zip'),
             ], 201);
         } catch (\Throwable $th) {
             return response()->json([

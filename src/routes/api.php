@@ -156,7 +156,7 @@ Route::prefix('event')->group(function () {
 });
 
 Route::prefix('campaign')->group(function () {
-    Route::get('/enquiry', [EnquiryCreateController::class, 'post'])->name('user.campaign.enquiry.paginate');
+    Route::post('/enquiry/{campaign_id}', [EnquiryCreateController::class, 'post'])->name('user.campaign.enquiry.paginate');
     Route::get('/{slug}', [UserCampaignDetailController::class, 'get'])->name('user.campaign.detail');
 });
 
