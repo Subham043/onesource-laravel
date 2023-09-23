@@ -18,6 +18,13 @@ class BranchService
         return Branch::all();
     }
 
+    public function main_all(): Collection
+    {
+        return Branch::with([
+            'courses',
+        ])->where('is_active', true)->get();
+    }
+
     public function paginateMain(Int $total = 10): LengthAwarePaginator
     {
         $query = Branch::where('is_active', true);

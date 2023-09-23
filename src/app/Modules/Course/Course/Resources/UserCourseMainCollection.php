@@ -2,10 +2,10 @@
 
 namespace App\Modules\Course\Course\Resources;
 
-use App\Modules\Course\Branch\Resources\UserBranchCollection;
+use App\Modules\Course\BranchDetail\Resources\UserBranchDetailCollection;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UserCourseCollection extends JsonResource
+class UserCourseMainCollection extends JsonResource
 {
     /**
      * Transform the resource collection into an array.
@@ -34,6 +34,7 @@ class UserCourseCollection extends JsonResource
             'meta_description' => $this->meta_description,
             'meta_keywords' => $this->meta_keywords,
             'meta_scripts' => $this->meta_scripts,
+            'branch_details' => UserBranchDetailCollection::collection($this->branch_details),
             'created_at' => $this->created_at->diffForHumans(),
             'updated_at' => $this->updated_at->diffForHumans(),
             'created' => $this->created_at->format('Y, d M'),

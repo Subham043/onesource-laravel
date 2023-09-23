@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Modules\Course\Branch\Resources\UserBranchMainCollection;
 use App\Modules\Course\Branch\Services\BranchService;
 
-class UserBranchDetailController extends Controller
+class UserBranchAllController extends Controller
 {
     private $branchService;
 
@@ -15,11 +15,12 @@ class UserBranchDetailController extends Controller
         $this->branchService = $branchService;
     }
 
-    public function get($slug){
-        $course = $this->branchService->getBySlug($slug);
+    public function get(){
+        $branch = $this->branchService->main_all();
         return response()->json([
-            'message' => "Branch recieved successfully.",
-            'course' => UserBranchMainCollection::make($course),
+            'message' => "Branch Pages recieved successfully.",
+            'branch' => UserBranchMainCollection::collection($branch),
         ], 200);
     }
+
 }

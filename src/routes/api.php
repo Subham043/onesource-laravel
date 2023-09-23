@@ -21,6 +21,7 @@ use App\Modules\Blog\Controllers\UserBlogPaginateController;
 use App\Modules\Campaign\Campaign\Controllers\UserCampaignDetailController;
 use App\Modules\Campaign\Enquiry\Controllers\EnquiryCreateController;
 use App\Modules\Counter\Controllers\UserCounterAllController;
+use App\Modules\Course\Branch\Controllers\UserBranchAllController;
 use App\Modules\Course\Branch\Controllers\UserBranchDetailController;
 use App\Modules\Course\Course\Controllers\UserCourseDetailController;
 use App\Modules\Enquiry\ContactForm\Controllers\ContactFormCreateController;
@@ -168,10 +169,11 @@ Route::prefix('campaign')->group(function () {
 });
 
 Route::prefix('course')->group(function () {
-    Route::get('/{slug}', [UserCourseDetailController::class, 'get'])->name('user.course.detail');
+    Route::get('/{course_slug}/branch/{branch_slug}', [UserCourseDetailController::class, 'get'])->name('user.course.detail');
 });
 
 Route::prefix('branch')->group(function () {
+    Route::get('/all', [UserBranchAllController::class, 'get'])->name('user.branch.all');
     Route::get('/{slug}', [UserBranchDetailController::class, 'get'])->name('user.branch.detail');
 });
 

@@ -5,7 +5,7 @@ namespace App\Modules\Course\Branch\Resources;
 use App\Modules\Course\Course\Resources\UserCourseCollection;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UserBranchCollection extends JsonResource
+class UserBranchMainCollection extends JsonResource
 {
     /**
      * Transform the resource collection into an array.
@@ -20,6 +20,7 @@ class UserBranchCollection extends JsonResource
             'name' => $this->name,
             'slug' => $this->slug,
             'is_active' => $this->is_active,
+            'courses' => UserCourseCollection::collection($this->courses),
             'created_at' => $this->created_at->diffForHumans(),
             'updated_at' => $this->updated_at->diffForHumans(),
             'created' => $this->created_at->format('Y, d M'),

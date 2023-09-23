@@ -110,7 +110,7 @@ class Course extends Model implements Sitemapable
 
     public function branch_details()
     {
-        return $this->hasMany(BranchDetail::class, 'branch_id');
+        return $this->hasMany(BranchDetail::class, 'course_id');
     }
 
     public function getActivitylogOptions(): LogOptions

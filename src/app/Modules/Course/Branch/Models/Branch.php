@@ -4,6 +4,7 @@ namespace App\Modules\Course\Branch\Models;
 
 use App\Modules\Authentication\Models\User;
 use App\Modules\Course\BranchDetail\Models\BranchDetail;
+use App\Modules\Course\Course\Models\Course;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -58,6 +59,11 @@ class Branch extends Model implements Sitemapable
     public function branch_details()
     {
         return $this->hasMany(BranchDetail::class, 'branch_id');
+    }
+
+    public function courses()
+    {
+        return $this->belongsToMany(Course::class, 'course_join_branches', 'branch_id', 'course_id');
     }
 
     public function getActivitylogOptions(): LogOptions
