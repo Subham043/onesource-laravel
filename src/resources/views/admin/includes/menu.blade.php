@@ -63,6 +63,10 @@
                                             <li class="nav-item">
                                                 <a href="{{route('enquiry.scholar_form.paginate.get')}}" class="nav-link {{strpos(url()->current(), route('enquiry.scholar_form.paginate.get')) !== false ? 'active' : ''}}" data-key="t-analytics"> Day Scholar / Residential Form </a>
                                             </li>
+
+                                            <li class="nav-item">
+                                                <a href="{{route('enquiry.enrollment_form.paginate.get')}}" class="nav-link {{strpos(url()->current(), route('enquiry.enrollment_form.paginate.get')) !== false ? 'active' : ''}}" data-key="t-analytics"> Enrollment Form </a>
+                                            </li>
                                         @endcan
 
                                     </ul>

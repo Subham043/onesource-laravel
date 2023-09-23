@@ -52,6 +52,9 @@ use App\Modules\Course\Course\Controllers\CourseCreateController;
 use App\Modules\Course\Course\Controllers\CourseDeleteController;
 use App\Modules\Course\Course\Controllers\CoursePaginateController;
 use App\Modules\Course\Course\Controllers\CourseUpdateController;
+use App\Modules\Enquiry\EnrollmentForm\Controllers\EnrollmentFormDeleteController;
+use App\Modules\Enquiry\EnrollmentForm\Controllers\EnrollmentFormExcelController;
+use App\Modules\Enquiry\EnrollmentForm\Controllers\EnrollmentFormPaginateController;
 use App\Modules\Enquiry\ScholarForm\Controllers\ScholarFormDeleteController;
 use App\Modules\Enquiry\ScholarForm\Controllers\ScholarFormExcelController;
 use App\Modules\Enquiry\ScholarForm\Controllers\ScholarFormPaginateController;
@@ -184,6 +187,11 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/', [VrddhiFormPaginateController::class, 'get', 'as' => 'enquiry.vrddhi_form.paginate.get'])->name('enquiry.vrddhi_form.paginate.get');
             Route::get('/excel', [VrddhiFormExcelController::class, 'get', 'as' => 'enquiry.vrddhi_form.excel.get'])->name('enquiry.vrddhi_form.excel.get');
             Route::get('/delete/{id}', [VrddhiFormDeleteController::class, 'get', 'as' => 'enquiry.vrddhi_form.delete.get'])->name('enquiry.vrddhi_form.delete.get');
+        });
+        Route::prefix('/enrollment-form')->group(function () {
+            Route::get('/', [EnrollmentFormPaginateController::class, 'get', 'as' => 'enquiry.enrollment_form.paginate.get'])->name('enquiry.enrollment_form.paginate.get');
+            Route::get('/excel', [EnrollmentFormExcelController::class, 'get', 'as' => 'enquiry.enrollment_form.excel.get'])->name('enquiry.enrollment_form.excel.get');
+            Route::get('/delete/{id}', [EnrollmentFormDeleteController::class, 'get', 'as' => 'enquiry.enrollment_form.delete.get'])->name('enquiry.enrollment_form.delete.get');
         });
     });
 

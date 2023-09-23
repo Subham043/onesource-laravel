@@ -1,0 +1,78 @@
+<?php
+
+namespace App\Modules\Enquiry\EnrollmentForm\Controllers;
+
+use App\Http\Controllers\Controller;
+use App\Http\Services\RateLimitService;
+use App\Http\Services\RazorpayService;
+use App\Modules\Course\Branch\Services\BranchService;
+use App\Modules\Course\Course\Services\CourseService;
+use App\Modules\Enquiry\EnrollmentForm\Requests\EnrollmentFormRequest;
+use App\Modules\Enquiry\EnrollmentForm\Requests\VerifyPaymentRequest;
+use App\Modules\Enquiry\EnrollmentForm\Resources\EnrollmentFormCollection;
+use App\Modules\Enquiry\EnrollmentForm\Services\EnrollmentFormService;
+use Illuminate\Support\Str;
+
+class EnrollmentFormCreateController extends Controller
+{
+    private $enrollmentFormService;
+    private $branchService;
+    private $courseService;
+
+    public function __construct(EnrollmentFormService $enrollmentFormService, BranchService $branchService, CourseService $courseService)
+    {
+        $this->enrollmentFormService = $enrollmentFormService;
+        $this->branchService = $branchService;
+        $this->courseService = $courseService;
+    }
+
+    public function post(EnrollmentFormRequest $request, $course_slug, $branch_slug){
+        $branch = $this->branchService->getBySlug($branch_slug);
+        $course = $this->courseService->getBySlug($course_slug);
+        try {
+            //code...
+            $receipt = Str::uuid()->toString();
+            $enrollmentForm = $this->enrollmentFormService->create(
+                [
+                    ...$request->validated(),
+                    'receipt' => $receipt,
+                    'branch_id' => $branch->id,
+                    'course_id' => $course->id,
+                    'amount' => $course->amount,
+                    'discount' => $course->discount,
+                    'discounted_amount' => $course->discounted_amount,
+                    'razorpay_order_id' => (new RazorpayService)->create_order_id($course->discounted_amount, $receipt)
+                ]
+            );
+            (new RateLimitService($request))->clearRateLimit();
+            return response()->json([
+                'message' => "Enquiry created successfully.",
+                'enrollmentForm' => EnrollmentFormCollection::make($enrollmentForm),
+            ], 201);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'message' => "Something went wrong. Please try again",
+            ], 400);
+        }
+
+    }
+
+    public function verify(VerifyPaymentRequest $request){
+
+        try {
+            //code...
+            $data = $this->enrollmentFormService->verify_payment($request->validated());
+
+            return response()->json([
+                'message' => "Payment done successfully.",
+                'enrollmentForm' => EnrollmentFormCollection::make($data),
+            ], 200);
+        } catch (\Throwable $th) {
+            throw $th;
+            return response()->json([
+                'message' => "Something went wrong. Please try again",
+            ], 400);
+        }
+
+    }
+}
