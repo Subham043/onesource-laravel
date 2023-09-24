@@ -23,6 +23,7 @@ use App\Modules\Campaign\Enquiry\Controllers\EnquiryCreateController;
 use App\Modules\Counter\Controllers\UserCounterAllController;
 use App\Modules\Course\Branch\Controllers\UserBranchAllController;
 use App\Modules\Course\Branch\Controllers\UserBranchDetailController;
+use App\Modules\Course\Course\Controllers\UserCourseAllController;
 use App\Modules\Course\Course\Controllers\UserCourseDetailController;
 use App\Modules\Enquiry\ContactForm\Controllers\ContactFormCreateController;
 use App\Modules\Enquiry\EnrollmentForm\Controllers\EnrollmentFormCreateController;
@@ -170,6 +171,7 @@ Route::prefix('campaign')->group(function () {
 });
 
 Route::prefix('course')->group(function () {
+    Route::get('/', [UserCourseAllController::class, 'get'])->name('user.course.all');
     Route::get('/{course_slug}/branch/{branch_slug}', [UserCourseDetailController::class, 'get'])->name('user.course.detail');
     Route::post('/{course_slug}/branch/{branch_slug}/enroll', [EnrollmentFormCreateController::class, 'post'])->name('user.course.enroll');
 });

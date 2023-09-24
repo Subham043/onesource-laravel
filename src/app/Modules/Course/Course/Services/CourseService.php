@@ -21,6 +21,13 @@ class CourseService
         ])->get();
     }
 
+    public function all_main(): Collection
+    {
+        return Course::with([
+            'branches',
+        ])->where('is_active', true)->get();
+    }
+
     public function paginateMain(Int $total = 10): LengthAwarePaginator
     {
         $query = Course::with([
