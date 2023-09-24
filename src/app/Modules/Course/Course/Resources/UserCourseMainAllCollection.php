@@ -2,7 +2,7 @@
 
 namespace App\Modules\Course\Course\Resources;
 
-use App\Modules\Course\BranchDetail\Resources\UserBranchDetailCollection;
+use App\Modules\Course\Branch\Resources\UserBranchCollection;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserCourseMainAllCollection extends JsonResource
@@ -27,7 +27,7 @@ class UserCourseMainAllCollection extends JsonResource
             'amount' => $this->amount,
             'discount' => $this->discount,
             'discounted_amount' => $this->discounted_amount,
-            'branches' => UserBranchDetailCollection::collection($this->branches),
+            'branches' => UserBranchCollection::collection($this->branches),
             'created_at' => $this->created_at->diffForHumans(),
             'updated_at' => $this->updated_at->diffForHumans(),
             'created' => $this->created_at->format('Y, d M'),
