@@ -52,6 +52,9 @@ use App\Modules\Course\Course\Controllers\CourseCreateController;
 use App\Modules\Course\Course\Controllers\CourseDeleteController;
 use App\Modules\Course\Course\Controllers\CoursePaginateController;
 use App\Modules\Course\Course\Controllers\CourseUpdateController;
+use App\Modules\Enquiry\CourseRequestForm\Controllers\CourseRequestFormDeleteController;
+use App\Modules\Enquiry\CourseRequestForm\Controllers\CourseRequestFormExcelController;
+use App\Modules\Enquiry\CourseRequestForm\Controllers\CourseRequestFormPaginateController;
 use App\Modules\Enquiry\EnrollmentForm\Controllers\EnrollmentFormDeleteController;
 use App\Modules\Enquiry\EnrollmentForm\Controllers\EnrollmentFormExcelController;
 use App\Modules\Enquiry\EnrollmentForm\Controllers\EnrollmentFormPaginateController;
@@ -192,6 +195,11 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/', [EnrollmentFormPaginateController::class, 'get', 'as' => 'enquiry.enrollment_form.paginate.get'])->name('enquiry.enrollment_form.paginate.get');
             Route::get('/excel', [EnrollmentFormExcelController::class, 'get', 'as' => 'enquiry.enrollment_form.excel.get'])->name('enquiry.enrollment_form.excel.get');
             Route::get('/delete/{id}', [EnrollmentFormDeleteController::class, 'get', 'as' => 'enquiry.enrollment_form.delete.get'])->name('enquiry.enrollment_form.delete.get');
+        });
+        Route::prefix('/course-request-form')->group(function () {
+            Route::get('/', [CourseRequestFormPaginateController::class, 'get', 'as' => 'enquiry.courseRequest_form.paginate.get'])->name('enquiry.courseRequest_form.paginate.get');
+            Route::get('/excel', [CourseRequestFormExcelController::class, 'get', 'as' => 'enquiry.courseRequest_form.excel.get'])->name('enquiry.courseRequest_form.excel.get');
+            Route::get('/delete/{id}', [CourseRequestFormDeleteController::class, 'get', 'as' => 'enquiry.courseRequest_form.delete.get'])->name('enquiry.courseRequest_form.delete.get');
         });
     });
 

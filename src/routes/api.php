@@ -26,6 +26,7 @@ use App\Modules\Course\Branch\Controllers\UserBranchDetailController;
 use App\Modules\Course\Course\Controllers\UserCourseAllController;
 use App\Modules\Course\Course\Controllers\UserCourseDetailController;
 use App\Modules\Enquiry\ContactForm\Controllers\ContactFormCreateController;
+use App\Modules\Enquiry\CourseRequestForm\Controllers\CourseRequestFormCreateController;
 use App\Modules\Enquiry\EnrollmentForm\Controllers\EnrollmentFormCreateController;
 use App\Modules\Enquiry\ScholarForm\Controllers\ScholarFormCreateController;
 use App\Modules\Enquiry\SubscriptionForm\Controllers\SubscriptionFormCreateController;
@@ -174,6 +175,7 @@ Route::prefix('course')->group(function () {
     Route::get('/', [UserCourseAllController::class, 'get'])->name('user.course.all');
     Route::get('/{course_slug}/branch/{branch_slug}', [UserCourseDetailController::class, 'get'])->name('user.course.detail');
     Route::post('/{course_slug}/branch/{branch_slug}/enroll', [EnrollmentFormCreateController::class, 'post'])->name('user.course.enroll');
+    Route::post('/{course_slug}/branch/{branch_slug}/request', [CourseRequestFormCreateController::class, 'post'])->name('user.course.request');
 });
 
 Route::post('/enrollment/verify', [EnrollmentFormCreateController::class, 'verify'])->name('user.enroll.verify');

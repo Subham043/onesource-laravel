@@ -46,7 +46,7 @@ class EnrollmentFormCreateController extends Controller
             );
             (new RateLimitService($request))->clearRateLimit();
             return response()->json([
-                'message' => "Enquiry created successfully.",
+                'message' => "Enrollment created successfully.",
                 'enrollmentForm' => EnrollmentFormCollection::make($enrollmentForm),
             ], 201);
         } catch (\Throwable $th) {
@@ -64,7 +64,7 @@ class EnrollmentFormCreateController extends Controller
             $data = $this->enrollmentFormService->verify_payment($request->validated());
 
             return response()->json([
-                'message' => "Payment done successfully.",
+                'message' => "Payment & Enrollment done successfully.",
                 'enrollmentForm' => EnrollmentFormCollection::make($data),
             ], 200);
         } catch (\Throwable $th) {

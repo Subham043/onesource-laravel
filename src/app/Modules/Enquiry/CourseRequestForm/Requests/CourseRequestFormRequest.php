@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Modules\Enquiry\EnrollmentForm\Requests;
+namespace App\Modules\Enquiry\CourseRequestForm\Requests;
 
 use App\Http\Services\RateLimitService;
 use Illuminate\Foundation\Http\FormRequest;
 use Stevebauman\Purify\Facades\Purify;
 
 
-class EnrollmentFormRequest extends FormRequest
+class CourseRequestFormRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
