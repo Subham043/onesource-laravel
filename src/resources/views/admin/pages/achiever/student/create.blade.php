@@ -116,8 +116,7 @@ validation
   ])
   .addField('#college', [
     {
-        rule: 'required',
-        errorMessage: 'College is required',
+        validator: (value, fields) => true,
     },
   ])
   .addField('#image', [

@@ -18,7 +18,7 @@ class UserBranchDetailCollection extends JsonResource
             'id' => $this->id,
             'description' => $this->description,
             'description_unfiltered' => $this->description_unfiltered,
-            'short_description' => str()->limit($this->description_unfiltered, 100),
+            'short_description' => str()->limit($this->description_unfiltered, 80),
             'created_at' => $this->created_at->diffForHumans(),
             'updated_at' => $this->updated_at->diffForHumans(),
         ];

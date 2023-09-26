@@ -24,7 +24,7 @@ class UserExpertTipCollection extends JsonResource
             'heading' => $this->heading,
             'description' => $this->description,
             'description_unfiltered' => $this->description_unfiltered,
-            'short_description' => str()->limit($this->description_unfiltered, 100),
+            'short_description' => str()->limit($this->description_unfiltered, 80),
             'is_active' => $this->is_active,
             'is_popular' => $this->is_popular,
             'is_updated' => $this->is_updated,

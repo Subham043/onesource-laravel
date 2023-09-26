@@ -23,7 +23,7 @@ class UserCampaignCollection extends JsonResource
             'heading' => $this->heading,
             'description' => $this->description,
             'description_unfiltered' => $this->description_unfiltered,
-            'short_description' => str()->limit($this->description_unfiltered, 100),
+            'short_description' => str()->limit($this->description_unfiltered, 80),
             'image_title' => $this->image_title,
             'image_alt' => $this->image_alt,
             'image' => asset($this->image),
