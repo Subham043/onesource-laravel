@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name', 250);
             $table->bigInteger('star')->nullable();
             $table->string('designation', 250)->nullable();
-            $table->string('message', 500)->nullable();
+            $table->string('message', 1000)->nullable();
             $table->string('image', 500)->nullable();
             $table->string('image_alt', 500)->nullable();
             $table->string('image_title', 500)->nullable();

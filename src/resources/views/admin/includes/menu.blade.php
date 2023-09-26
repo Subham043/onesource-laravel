@@ -345,7 +345,7 @@
                             </li>
 
 
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a class="nav-link menu-link {{strpos(url()->current(),'setting') !== false ? 'active' : ''}}" href="#sidebarDashboards3" data-bs-toggle="collapse" role="button"
                                     aria-expanded="{{strpos(url()->current(),'setting') !== false ? 'true' : 'false'}}" aria-controls="sidebarDashboards3">
                                     <i class="ri-tools-line"></i> <span data-key="t-dashboards">Application Settings</span>
@@ -366,7 +366,7 @@
 
                                     </ul>
                                 </div>
-                            </li>
+                            </li> --}}
 
                             <li class="nav-item">
                                 <a class="nav-link menu-link {{strpos(url()->current(),'logs') !== false ? 'active' : ''}}" href="#sidebarDashboards2" data-bs-toggle="collapse" role="button"
