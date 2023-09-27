@@ -38,10 +38,10 @@ class EnrollmentFormCreateController extends Controller
                     'receipt' => $receipt,
                     'branch_id' => $branch->id,
                     'course_id' => $course->id,
-                    'amount' => $course->amount,
-                    'discount' => $course->discount,
-                    'discounted_amount' => $course->discounted_amount,
-                    'razorpay_order_id' => (new RazorpayService)->create_order_id($course->discounted_amount, $receipt)
+                    'amount' => $course->branch_details[0]->amount,
+                    'discount' => $course->branch_details[0]->discount,
+                    'discounted_amount' => $course->branch_details[0]->discounted_amount,
+                    'razorpay_order_id' => (new RazorpayService)->create_order_id($course->branch_details[0]->discounted_amount, $receipt)
                 ]
             );
             (new RateLimitService($request))->clearRateLimit();
@@ -50,6 +50,7 @@ class EnrollmentFormCreateController extends Controller
                 'enrollmentForm' => EnrollmentFormCollection::make($enrollmentForm),
             ], 201);
         } catch (\Throwable $th) {
+            throw $th;
             return response()->json([
                 'message' => "Something went wrong. Please try again",
             ], 400);
