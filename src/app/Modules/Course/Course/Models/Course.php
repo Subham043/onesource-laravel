@@ -38,29 +38,23 @@ class Course extends Model implements Sitemapable
         'meta_description',
         'meta_keywords',
         'meta_scripts',
-        'class',
-        'amount',
-        'discount',
+        'class'
     ];
 
     protected $casts = [
         'is_active' => 'boolean',
         'class' => CourseClass::class,
-        'amount' => 'double',
-        'discount' => 'int',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
 
     protected $attributes = [
         'class' => CourseClass::NOT_PUC,
-        'amount' => 0.0,
-        'discount' => 0,
     ];
 
     public $image_path = 'courses';
 
-    protected $appends = ['image_link', 'discounted_amount'];
+    protected $appends = ['image_link'];
 
     public static function boot()
     {
@@ -81,13 +75,6 @@ class Course extends Model implements Sitemapable
     {
         return new Attribute(
             get: fn () => asset($this->image),
-        );
-    }
-
-    protected function discountedAmount(): Attribute
-    {
-        return new Attribute(
-            get: fn () => round($this->amount - ($this->amount * ($this->discount/100)), 2),
         );
     }
 

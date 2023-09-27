@@ -36,8 +36,6 @@ class CourseCreateRequest extends FormRequest
             'image' => 'required|image|min:1|max:5000',
             'image_alt' => 'nullable|string|max:500',
             'image_title' => 'nullable|string|max:500',
-            'amount' => 'required|numeric|gt:0',
-            'discount' => 'required|numeric|gte:0',
             'class' => ['required', new Enum(CourseClass::class)],
             'is_active' => 'required|boolean',
             'meta_title' => 'nullable|string',

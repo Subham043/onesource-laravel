@@ -19,6 +19,8 @@ return new class extends Migration
             $table->text('meta_description')->nullable();
             $table->text('meta_keywords')->nullable();
             $table->text('meta_scripts')->nullable();
+            $table->string('amount', 500)->default(0);
+            $table->string('discount', 500)->default(0);
             $table->foreignId('branch_id')->nullable()->constrained('branches')->nullOnDelete();
             $table->foreignId('course_id')->nullable()->constrained('courses')->nullOnDelete();
             $table->timestamps();

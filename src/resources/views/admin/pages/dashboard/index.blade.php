@@ -42,17 +42,17 @@
                                                             <div class="avatar-sm flex-shrink-0">
                                                                 <span
                                                                     class="avatar-title bg-soft-success text-success rounded-2 fs-2">
-                                                                    <i class="ri-shopping-bag-line text-success"></i>
+                                                                    <i class="ri-chat-1-line text-success"></i>
                                                                 </span>
                                                             </div>
                                                             <div class="flex-grow-1 ms-3">
                                                                 <div class="d-flex align-items-center">
                                                                     <h4 class="fs-4 flex-grow-1 mb-0"><span
-                                                                            class="text-uppercase">{{ $total_orders }}</span>
+                                                                            class="text-uppercase">{{ $total_enquiries }}</span>
                                                                     </h4>
                                                                 </div>
                                                                 <p class="text-muted mb-0">
-                                                                    Total Orders
+                                                                    Total Enquiries
                                                                 </p>
                                                             </div>
                                                         </div>
@@ -68,17 +68,17 @@
                                                             <div class="avatar-sm flex-shrink-0">
                                                                 <span
                                                                     class="avatar-title bg-soft-success text-success rounded-2 fs-2">
-                                                                    <i class="ri-shopping-bag-line text-success"></i>
+                                                                    <i class="ri-git-repository-commits-line text-success"></i>
                                                                 </span>
                                                             </div>
                                                             <div class="flex-grow-1 ms-3">
                                                                 <div class="d-flex align-items-center">
                                                                     <h4 class="fs-4 flex-grow-1 mb-0"><span
-                                                                            class="text-uppercase">{{ $total_confirmed_orders }}</span>
+                                                                            class="text-uppercase">{{ $total_course_request }}</span>
                                                                     </h4>
                                                                 </div>
                                                                 <p class="text-muted mb-0">
-                                                                    Total Orders Confirmed
+                                                                    Total Course Request Callback
                                                                 </p>
                                                             </div>
                                                         </div>
@@ -93,17 +93,17 @@
                                                             <div class="avatar-sm flex-shrink-0">
                                                                 <span
                                                                     class="avatar-title bg-soft-success text-success rounded-2 fs-2">
-                                                                    <i class="ri-shopping-bag-line text-success"></i>
+                                                                    <i class="ri-medal-line text-success"></i>
                                                                 </span>
                                                             </div>
                                                             <div class="flex-grow-1 ms-3">
                                                                 <div class="d-flex align-items-center">
                                                                     <h4 class="fs-4 flex-grow-1 mb-0"><span
-                                                                            class="text-uppercase">{{ $total_ofd_orders }}</span>
+                                                                            class="text-uppercase">{{ $total_vrddhi_request }}</span>
                                                                     </h4>
                                                                 </div>
                                                                 <p class="text-muted mb-0">
-                                                                    Total Orders Our For Delivery
+                                                                    Total Vrddhi Request
                                                                 </p>
                                                             </div>
                                                         </div>
@@ -118,17 +118,17 @@
                                                             <div class="avatar-sm flex-shrink-0">
                                                                 <span
                                                                     class="avatar-title bg-soft-success text-success rounded-2 fs-2">
-                                                                    <i class="ri-shopping-bag-line text-success"></i>
+                                                                    <i class="ri-mail-volume-line text-success"></i>
                                                                 </span>
                                                             </div>
                                                             <div class="flex-grow-1 ms-3">
                                                                 <div class="d-flex align-items-center">
                                                                     <h4 class="fs-4 flex-grow-1 mb-0"><span
-                                                                            class="text-uppercase">{{ $total_delivered_orders }}</span>
+                                                                            class="text-uppercase">{{ $total_subscription }}</span>
                                                                     </h4>
                                                                 </div>
                                                                 <p class="text-muted mb-0">
-                                                                    Total Orders Delivered
+                                                                    Total Subscription
                                                                 </p>
                                                             </div>
                                                         </div>
@@ -143,42 +143,17 @@
                                                             <div class="avatar-sm flex-shrink-0">
                                                                 <span
                                                                     class="avatar-title bg-soft-success text-success rounded-2 fs-2">
-                                                                    <i class="ri-shopping-bag-line text-success"></i>
+                                                                    <i class="ri-building-line text-success"></i>
                                                                 </span>
                                                             </div>
                                                             <div class="flex-grow-1 ms-3">
                                                                 <div class="d-flex align-items-center">
                                                                     <h4 class="fs-4 flex-grow-1 mb-0"><span
-                                                                            class="text-uppercase">{{ $total_cancelled_orders }}</span>
+                                                                            class="text-uppercase">{{ $total_scholar_request }}</span>
                                                                     </h4>
                                                                 </div>
                                                                 <p class="text-muted mb-0">
-                                                                    Total Orders Cancelled
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                    </div><!-- end card body -->
-                                                </div>
-                                            </div><!-- end col -->
-
-                                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
-                                                <div class="card card-animate no-box-shadow">
-                                                    <div class="card-body">
-                                                        <div class="d-flex align-items-center">
-                                                            <div class="avatar-sm flex-shrink-0">
-                                                                <span
-                                                                    class="avatar-title bg-soft-success text-success rounded-2 fs-2">
-                                                                    <i class="ri-money-dollar-circle-line text-success"></i>
-                                                                </span>
-                                                            </div>
-                                                            <div class="flex-grow-1 ms-3">
-                                                                <div class="d-flex align-items-center">
-                                                                    <h4 class="fs-4 flex-grow-1 mb-0"><span
-                                                                            class="text-uppercase">&#8377; {{ $total_payment }}</span>
-                                                                    </h4>
-                                                                </div>
-                                                                <p class="text-muted mb-0">
-                                                                    Total Payment
+                                                                    Total Day Scholar / Residential Request
                                                                 </p>
                                                             </div>
                                                         </div>
@@ -199,61 +174,11 @@
                                                             <div class="flex-grow-1 ms-3">
                                                                 <div class="d-flex align-items-center">
                                                                     <h4 class="fs-4 flex-grow-1 mb-0"><span
-                                                                            class="text-uppercase">&#8377; {{ $total_payment_pending }}</span>
+                                                                            class="text-uppercase">{{ $total_enrollment }}</span>
                                                                     </h4>
                                                                 </div>
                                                                 <p class="text-muted mb-0">
-                                                                    Total Payment Pending
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                    </div><!-- end card body -->
-                                                </div>
-                                            </div><!-- end col -->
-
-                                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
-                                                <div class="card card-animate no-box-shadow">
-                                                    <div class="card-body">
-                                                        <div class="d-flex align-items-center">
-                                                            <div class="avatar-sm flex-shrink-0">
-                                                                <span
-                                                                    class="avatar-title bg-soft-success text-success rounded-2 fs-2">
-                                                                    <i class="ri-money-dollar-circle-line text-success"></i>
-                                                                </span>
-                                                            </div>
-                                                            <div class="flex-grow-1 ms-3">
-                                                                <div class="d-flex align-items-center">
-                                                                    <h4 class="fs-4 flex-grow-1 mb-0"><span
-                                                                            class="text-uppercase">&#8377; {{ $total_payment_paid }}</span>
-                                                                    </h4>
-                                                                </div>
-                                                                <p class="text-muted mb-0">
-                                                                    Total Payment Paid
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                    </div><!-- end card body -->
-                                                </div>
-                                            </div><!-- end col -->
-
-                                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
-                                                <div class="card card-animate no-box-shadow">
-                                                    <div class="card-body">
-                                                        <div class="d-flex align-items-center">
-                                                            <div class="avatar-sm flex-shrink-0">
-                                                                <span
-                                                                    class="avatar-title bg-soft-success text-success rounded-2 fs-2">
-                                                                    <i class="ri-money-dollar-circle-line text-success"></i>
-                                                                </span>
-                                                            </div>
-                                                            <div class="flex-grow-1 ms-3">
-                                                                <div class="d-flex align-items-center">
-                                                                    <h4 class="fs-4 flex-grow-1 mb-0"><span
-                                                                            class="text-uppercase">&#8377; {{ $total_payment_refund }}</span>
-                                                                    </h4>
-                                                                </div>
-                                                                <p class="text-muted mb-0">
-                                                                    Total Payment Refund
+                                                                    Total Enrollment
                                                                 </p>
                                                             </div>
                                                         </div>

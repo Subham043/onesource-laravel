@@ -35,12 +35,6 @@
                                     <div class="col-xxl-6 col-md-6">
                                         @include('admin.includes.select_multiple', ['key'=>'branch', 'label'=>'Branches'])
                                     </div>
-                                    <div class="col-xxl-6 col-md-6">
-                                        @include('admin.includes.input', ['key'=>'amount', 'label'=>'Amount', 'value'=>old('amount')])
-                                    </div>
-                                    <div class="col-xxl-6 col-md-6">
-                                        @include('admin.includes.input', ['key'=>'discount', 'label'=>'Discount', 'value'=>old('discount')])
-                                    </div>
                                     <div class="col-xxl-12 col-md-12">
                                         @include('admin.includes.quill', ['key'=>'description', 'label'=>'Description', 'value'=>old('description')])
                                     </div>
@@ -181,18 +175,6 @@ validation
       errorMessage: 'Class is required',
     },
   ])
-  .addField('#amount', [
-    {
-      rule: 'required',
-      errorMessage: 'Amount is required',
-    },
-  ])
-  .addField('#discount', [
-    {
-      rule: 'required',
-      errorMessage: 'Discount is required',
-    },
-  ])
   .addField('#description', [
     {
         rule: 'required',
@@ -264,8 +246,6 @@ validation
         formData.append('is_active',document.getElementById('is_active').checked ? 1 : 0)
         formData.append('name',document.getElementById('name').value)
         formData.append('slug',document.getElementById('slug').value)
-        formData.append('amount',document.getElementById('amount').value)
-        formData.append('discount',document.getElementById('discount').value)
         formData.append('class',document.getElementById('classChoice').value)
         formData.append('description',editor.getData())
         formData.append('description_unfiltered',editor.getData().replace(/<[^>]*>/g, ''))
@@ -294,12 +274,6 @@ validation
         }
         if(error?.response?.data?.errors?.slug){
             validation.showErrors({'#slug': error?.response?.data?.errors?.slug[0]})
-        }
-        if(error?.response?.data?.errors?.amount){
-            validation.showErrors({'#amount': error?.response?.data?.errors?.amount[0]})
-        }
-        if(error?.response?.data?.errors?.discount){
-            validation.showErrors({'#discount': error?.response?.data?.errors?.discount[0]})
         }
         if(error?.response?.data?.errors?.description){
             validation.showErrors({'#description': error?.response?.data?.errors?.description[0]})

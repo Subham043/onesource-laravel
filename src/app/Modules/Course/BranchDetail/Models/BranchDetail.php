@@ -4,7 +4,7 @@ namespace App\Modules\Course\BranchDetail\Models;
 
 use App\Modules\Course\Branch\Models\Branch;
 use App\Modules\Course\Course\Models\Course;
-use App\Modules\Event\Event\Models\Event;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -30,6 +30,8 @@ class BranchDetail extends Model implements Sitemapable
         'meta_description',
         'meta_keywords',
         'meta_scripts',
+        'amount',
+        'discount',
         'branch_id',
         'course_id',
     ];
@@ -37,7 +39,23 @@ class BranchDetail extends Model implements Sitemapable
     protected $casts = [
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
+        'amount' => 'double',
+        'discount' => 'int',
     ];
+
+    protected $attributes = [
+        'amount' => 0.0,
+        'discount' => 0,
+    ];
+
+    protected $appends = ['discounted_amount'];
+
+    protected function discountedAmount(): Attribute
+    {
+        return new Attribute(
+            get: fn () => round($this->amount - ($this->amount * ($this->discount/100)), 2),
+        );
+    }
 
     public function branch()
     {

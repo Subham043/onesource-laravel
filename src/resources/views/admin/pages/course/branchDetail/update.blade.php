@@ -16,7 +16,7 @@
                 @csrf
                     <div class="card">
                         <div class="card-header align-items-center d-flex">
-                            <h4 class="card-title mb-0 flex-grow-1">{{$branch->name}} Detail</h4>
+                            <h4 class="card-title mb-0 flex-grow-1">{{$course->name}} ({{$branch->name}}) Detail</h4>
                         </div><!-- end card header -->
                         <div class="card-body">
                             <div class="live-preview">
@@ -34,7 +34,28 @@
 
                     <div class="card">
                         <div class="card-header align-items-center d-flex">
-                            <h4 class="card-title mb-0 flex-grow-1">{{$branch->name}} Seo Detail</h4>
+                            <h4 class="card-title mb-0 flex-grow-1">{{$course->name}} ({{$branch->name}}) Payment Detail</h4>
+                        </div><!-- end card header -->
+                        <div class="card-body">
+                            <div class="live-preview">
+                                <div class="row gy-4">
+                                    <div class="col-xxl-6 col-md-6">
+                                        @include('admin.includes.input', ['key'=>'amount', 'label'=>'Amount', 'value'=>!empty($data) ? (old('amount') ? old('amount') : $data->amount) : old('amount')])
+                                    </div>
+                                    <div class="col-xxl-6 col-md-6">
+                                        @include('admin.includes.input', ['key'=>'discount', 'label'=>'Discount', 'value'=>!empty($data) ? (old('discount') ? old('discount') : $data->discount) : old('discount')])
+                                    </div>
+
+                                </div>
+                                <!--end row-->
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header align-items-center d-flex">
+                            <h4 class="card-title mb-0 flex-grow-1">{{$course->name}} ({{$branch->name}}) Seo Detail</h4>
                         </div><!-- end card header -->
                         <div class="card-body">
                             <div class="live-preview">
@@ -103,6 +124,18 @@ validation
         errorMessage: 'Description Link is required',
     },
   ])
+  .addField('#amount', [
+    {
+        rule: 'required',
+        errorMessage: 'Amount is required',
+    },
+  ])
+  .addField('#discount', [
+    {
+        rule: 'required',
+        errorMessage: 'Discount is required',
+    },
+  ])
   .addField('#meta_title', [
     {
         validator: (value, fields) => true,
@@ -132,6 +165,8 @@ validation
         var formData = new FormData();
         formData.append('description',editor.getData())
         formData.append('description_unfiltered',editor.getData().replace(/<[^>]*>/g, ''))
+        formData.append('amount',document.getElementById('amount').value)
+        formData.append('discount',document.getElementById('discount').value)
         formData.append('meta_title',document.getElementById('meta_title').value)
         formData.append('meta_keywords',document.getElementById('meta_keywords').value)
         formData.append('meta_description',document.getElementById('meta_description').value)
@@ -143,6 +178,12 @@ validation
     }catch (error){
         if(error?.response?.data?.errors?.description){
             validation.showErrors({'#description': error?.response?.data?.errors?.description[0]})
+        }
+        if(error?.response?.data?.errors?.amount){
+            validation.showErrors({'#amount': error?.response?.data?.errors?.amount[0]})
+        }
+        if(error?.response?.data?.errors?.discount){
+            validation.showErrors({'#discount': error?.response?.data?.errors?.discount[0]})
         }
         if(error?.response?.data?.errors?.meta_title){
             validation.showErrors({'#meta_title': error?.response?.data?.errors?.meta_title[0]})

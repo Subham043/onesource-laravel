@@ -40,9 +40,6 @@
                                             <th class="sort" data-sort="customer_name">Name</th>
                                             <th class="sort" data-sort="customer_name">Slug</th>
                                             <th class="sort" data-sort="customer_name">Description</th>
-                                            <th class="sort" data-sort="customer_name">Amount</th>
-                                            <th class="sort" data-sort="customer_name">Discount</th>
-                                            <th class="sort" data-sort="customer_name">Total Amount</th>
                                             <th class="sort" data-sort="customer_name">Course Status</th>
                                             <th class="sort" data-sort="date">Created On</th>
                                             <th class="sort" data-sort="action">Action</th>
@@ -54,9 +51,6 @@
                                             <td class="customer_name">{{ $item->name }}</td>
                                             <td class="customer_name">{{ $item->slug }}</td>
                                             <td class="customer_name">{{ Str::limit($item->description_unfiltered, 20) }}</td>
-                                            <td class="customer_name">&#8377;{{ $item->amount }}</td>
-                                            <td class="customer_name">{{ $item->discount }}%</td>
-                                            <td class="customer_name">&#8377;{{ $item->discounted_amount }}</td>
                                             @if($item->is_active == 1)
                                             <td class="status"><span class="badge badge-soft-success text-uppercase">Active</span></td>
                                             @else

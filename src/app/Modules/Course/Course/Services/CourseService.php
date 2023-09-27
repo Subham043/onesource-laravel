@@ -47,6 +47,7 @@ class CourseService
     {
         $query = Course::with([
             'branches',
+            'branch_details',
         ])->latest();
         return QueryBuilder::for($query)
                 ->allowedFilters([
@@ -60,6 +61,7 @@ class CourseService
     {
         return Course::with([
             'branches',
+            'branch_details',
         ])->findOrFail($id);
     }
 

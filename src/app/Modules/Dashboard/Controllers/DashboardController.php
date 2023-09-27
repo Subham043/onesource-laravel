@@ -6,6 +6,12 @@ use App\Enums\OrderEnumStatus;
 use App\Enums\PaymentStatus;
 use App\Http\Controllers\Controller;
 use App\Modules\Dashboard\Services\DashboardService;
+use App\Modules\Enquiry\ContactForm\Models\ContactForm;
+use App\Modules\Enquiry\CourseRequestForm\Models\CourseRequestForm;
+use App\Modules\Enquiry\EnrollmentForm\Models\EnrollmentForm;
+use App\Modules\Enquiry\ScholarForm\Models\ScholarForm;
+use App\Modules\Enquiry\SubscriptionForm\Models\SubscriptionForm;
+use App\Modules\Enquiry\VrddhiForm\Models\VrddhiForm;
 use App\Modules\Order\Models\Order;
 use App\Modules\Order\Models\OrderStatus;
 use Illuminate\Http\Request;
@@ -24,23 +30,12 @@ class DashboardController extends Controller
         $health = $this->dashboardService->getAppHealthResult($request);
         $lastRanAt  = new Carbon($health?->finishedAt);
         return view('admin.pages.dashboard.index', compact(['health', 'lastRanAt']))->with(([
-            // 'total_orders' => Order::count(),
-            // 'total_cancelled_orders' => OrderStatus::where('status', OrderEnumStatus::CANCELLED)->count(),
-            // 'total_confirmed_orders' => OrderStatus::where('status', OrderEnumStatus::CONFIRMED)->count(),
-            // 'total_delivered_orders' => OrderStatus::where('status', OrderEnumStatus::DELIVERED)->count(),
-            // 'total_ofd_orders' => OrderStatus::where('status', OrderEnumStatus::OFD)->count(),
-            // 'total_payment' => Order::whereHas('payment', function($q){
-            //     $q->where('status', '<>', PaymentStatus::REFUND);
-            // })->sum('total_price'),
-            // 'total_payment_pending' => Order::whereHas('payment', function($q){
-            //     $q->where('status', PaymentStatus::PENDING);
-            // })->sum('total_price'),
-            // 'total_payment_paid' => Order::whereHas('payment', function($q){
-            //     $q->where('status', PaymentStatus::PAID);
-            // })->sum('total_price'),
-            // 'total_payment_refund' => Order::whereHas('payment', function($q){
-            //     $q->where('status', PaymentStatus::REFUND);
-            // })->sum('total_price'),
+            'total_enquiries' => ContactForm::count(),
+            'total_course_request' => CourseRequestForm::count(),
+            'total_vrddhi_request' => VrddhiForm::count(),
+            'total_subscription' => SubscriptionForm::count(),
+            'total_scholar_request' => ScholarForm::count(),
+            'total_enrollment' => EnrollmentForm::where('payment_status', PaymentStatus::PAID)->count(),
         ]));
     }
 }

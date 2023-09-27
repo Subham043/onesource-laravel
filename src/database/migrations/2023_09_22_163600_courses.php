@@ -22,8 +22,6 @@ return new class extends Migration
             $table->string('image_alt', 500)->nullable();
             $table->string('image_title', 500)->nullable();
             $table->string('class', 500)->default(CourseClass::NOT_PUC->value);
-            $table->string('amount', 500)->default(0);
-            $table->string('discount', 500)->default(0);
             $table->boolean('is_active')->default(0);
             $table->text('meta_title')->nullable();
             $table->text('meta_description')->nullable();

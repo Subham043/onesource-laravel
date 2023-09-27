@@ -33,6 +33,8 @@ class BranchDetailRequest extends FormRequest
             'meta_description' => 'nullable|string',
             'meta_keywords' => 'nullable|string',
             'meta_scripts' => 'nullable|string',
+            'amount' => 'required|numeric|gt:0',
+            'discount' => 'required|numeric|gte:0',
         ];
     }
 

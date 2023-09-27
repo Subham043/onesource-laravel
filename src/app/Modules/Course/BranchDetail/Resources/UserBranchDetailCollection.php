@@ -23,6 +23,9 @@ class UserBranchDetailCollection extends JsonResource
             'meta_description' => $this->meta_description,
             'meta_keywords' => $this->meta_keywords,
             'meta_scripts' => $this->meta_scripts,
+            'amount' => $this->amount,
+            'discount' => $this->discount,
+            'discounted_amount' => $this->discounted_amount,
             'created_at' => $this->created_at->diffForHumans(),
             'updated_at' => $this->updated_at->diffForHumans(),
         ];
