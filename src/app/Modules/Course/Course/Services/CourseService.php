@@ -77,7 +77,11 @@ class CourseService
         return Course::with([
             'branch_details' => function($query) use($branch_slug){
                 $query->whereHas('branch', function($q) use($branch_slug) {
-                    $q->where('slug', $branch_slug)->where('is_active', true);
+                    $q->with([
+                        'testimonials',
+                        'achievers',
+                        'staffs',
+                    ])->where('slug', $branch_slug)->where('is_active', true);
                 });
             },
         ])->where('slug', $course_slug)->where('is_active', true)->whereHas('branch_details', function($q) use($branch_slug) {

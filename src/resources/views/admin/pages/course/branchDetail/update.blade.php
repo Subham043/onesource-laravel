@@ -55,6 +55,102 @@
 
                     <div class="card">
                         <div class="card-header align-items-center d-flex">
+                            <h4 class="card-title mb-0 flex-grow-1">{{$course->name}} ({{$branch->name}}) Testimonial Detail</h4>
+                        </div><!-- end card header -->
+                        <div class="card-body">
+                            <div class="live-preview">
+                                <div class="row gy-4">
+                                    <div class="col-xxl-6 col-md-6">
+                                        @include('admin.includes.input', ['key'=>'testimonial_heading', 'label'=>'Heading', 'value'=>!empty($data) ? (old('testimonial_heading') ? old('testimonial_heading') : $data->testimonial_heading) : old('testimonial_heading')])
+                                    </div>
+                                    <div class="col-xxl-6 col-md-6">
+                                        @include('admin.includes.select_multiple', ['key'=>'testimonial', 'label'=>'Testimonial'])
+                                    </div>
+                                    <div class="col-lg-4 col-md-12">
+                                        <div class="mt-4 mt-md-0">
+                                            <div>
+                                                <div class="form-check form-switch form-check-right mb-2">
+                                                    <input class="form-check-input" type="checkbox" role="switch" id="include_testimonial" name="include_testimonial" {{$data->include_testimonial==false ? '' : 'checked'}}>
+                                                    <label class="form-check-label" for="include_testimonial">Include Testimonial</label>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!--end row-->
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header align-items-center d-flex">
+                            <h4 class="card-title mb-0 flex-grow-1">{{$course->name}} ({{$branch->name}}) Achiever Detail</h4>
+                        </div><!-- end card header -->
+                        <div class="card-body">
+                            <div class="live-preview">
+                                <div class="row gy-4">
+                                    <div class="col-xxl-6 col-md-6">
+                                        @include('admin.includes.input', ['key'=>'achiever_heading', 'label'=>'Heading', 'value'=>!empty($data) ? (old('topper_heading') ? old('topper_heading') : $data->topper_heading) : old('topper_heading')])
+                                    </div>
+                                    <div class="col-xxl-6 col-md-6">
+                                        @include('admin.includes.select_multiple', ['key'=>'achiever', 'label'=>'Achiever'])
+                                    </div>
+                                    <div class="col-lg-4 col-md-12">
+                                        <div class="mt-4 mt-md-0">
+                                            <div>
+                                                <div class="form-check form-switch form-check-right mb-2">
+                                                    <input class="form-check-input" type="checkbox" role="switch" id="include_achiever" name="include_achiever" {{$data->include_topper==false ? '' : 'checked'}}>
+                                                    <label class="form-check-label" for="include_achiever">Include Achiever</label>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!--end row-->
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header align-items-center d-flex">
+                            <h4 class="card-title mb-0 flex-grow-1">{{$course->name}} ({{$branch->name}}) Staff Detail</h4>
+                        </div><!-- end card header -->
+                        <div class="card-body">
+                            <div class="live-preview">
+                                <div class="row gy-4">
+                                    <div class="col-xxl-6 col-md-6">
+                                        @include('admin.includes.input', ['key'=>'staff_heading', 'label'=>'Heading', 'value'=>!empty($data) ? (old('staff_heading') ? old('staff_heading') : $data->staff_heading) : old('staff_heading')])
+                                    </div>
+                                    <div class="col-xxl-6 col-md-6">
+                                        @include('admin.includes.select_multiple', ['key'=>'staff', 'label'=>'Staff'])
+                                    </div>
+                                    <div class="col-lg-4 col-md-12">
+                                        <div class="mt-4 mt-md-0">
+                                            <div>
+                                                <div class="form-check form-switch form-check-right mb-2">
+                                                    <input class="form-check-input" type="checkbox" role="switch" id="include_staff" name="include_staff" {{$data->include_staff==false ? '' : 'checked'}}>
+                                                    <label class="form-check-label" for="include_staff">Include Staff</label>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!--end row-->
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header align-items-center d-flex">
                             <h4 class="card-title mb-0 flex-grow-1">{{$course->name}} ({{$branch->name}}) Seo Detail</h4>
                         </div><!-- end card header -->
                         <div class="card-body">
@@ -100,6 +196,7 @@
 
 
 @section('javascript')
+<script src="{{ asset('admin/js/pages/choices.min.js') }}"></script>
 
 <script type="text/javascript" nonce="{{ csp_nonce() }}">
 
@@ -151,8 +248,37 @@ validation
         validator: (value, fields) => true,
     },
   ])
-
   .addField('#meta_scripts', [
+    {
+        validator: (value, fields) => true,
+    },
+  ])
+  .addField('#testimonial_heading', [
+    {
+        validator: (value, fields) => true,
+    },
+  ])
+  .addField('#testimonial', [
+    {
+        validator: (value, fields) => true,
+    },
+  ])
+  .addField('#achiever_heading', [
+    {
+        validator: (value, fields) => true,
+    },
+  ])
+  .addField('#achiever', [
+    {
+        validator: (value, fields) => true,
+    },
+  ])
+  .addField('#staff_heading', [
+    {
+        validator: (value, fields) => true,
+    },
+  ])
+  .addField('#staff', [
     {
         validator: (value, fields) => true,
     },
@@ -163,6 +289,9 @@ validation
     submitBtn.disabled = true;
     try {
         var formData = new FormData();
+        formData.append('include_staff',document.getElementById('include_staff').checked ? 1 : 0)
+        formData.append('include_topper',document.getElementById('include_achiever').checked ? 1 : 0)
+        formData.append('include_testimonial',document.getElementById('include_testimonial').checked ? 1 : 0)
         formData.append('description',editor.getData())
         formData.append('description_unfiltered',editor.getData().replace(/<[^>]*>/g, ''))
         formData.append('amount',document.getElementById('amount').value)
@@ -171,6 +300,25 @@ validation
         formData.append('meta_keywords',document.getElementById('meta_keywords').value)
         formData.append('meta_description',document.getElementById('meta_description').value)
         formData.append('meta_scripts',document.getElementById('meta_scripts').value)
+        formData.append('staff_heading',document.getElementById('staff_heading').value)
+        formData.append('testimonial_heading',document.getElementById('testimonial_heading').value)
+        formData.append('topper_heading',document.getElementById('achiever_heading').value)
+
+        if(document.getElementById('testimonial')?.length>0){
+            for (let index = 0; index < document.getElementById('testimonial').length; index++) {
+                formData.append('testimonial[]',document.getElementById('testimonial')[index].value)
+            }
+        }
+        if(document.getElementById('achiever')?.length>0){
+            for (let index = 0; index < document.getElementById('achiever').length; index++) {
+                formData.append('achiever[]',document.getElementById('achiever')[index].value)
+            }
+        }
+        if(document.getElementById('staff')?.length>0){
+            for (let index = 0; index < document.getElementById('staff').length; index++) {
+                formData.append('staff[]',document.getElementById('staff')[index].value)
+            }
+        }
 
         const response = await axios.post('{{route('course.branch_detail.update.post', [$course_id, $branch_id])}}', formData)
         successToast(response.data.message)
@@ -197,6 +345,24 @@ validation
         if(error?.response?.data?.errors?.meta_scripts){
             validation.showErrors({'#meta_scripts': error?.response?.data?.errors?.meta_scripts[0]})
         }
+        if(error?.response?.data?.errors?.achiever_heading){
+            validation.showErrors({'#achiever_heading': error?.response?.data?.errors?.achiever_heading[0]})
+        }
+        if(error?.response?.data?.errors?.staff_heading){
+            validation.showErrors({'#staff_heading': error?.response?.data?.errors?.staff_heading[0]})
+        }
+        if(error?.response?.data?.errors?.testimonial_heading){
+            validation.showErrors({'#testimonial_heading': error?.response?.data?.errors?.testimonial_heading[0]})
+        }
+        if(error?.response?.data?.errors?.achiever){
+            validation.showErrors({'#achiever': error?.response?.data?.errors?.achiever[0]})
+        }
+        if(error?.response?.data?.errors?.testimonial){
+            validation.showErrors({'#testimonial': error?.response?.data?.errors?.testimonial[0]})
+        }
+        if(error?.response?.data?.errors?.staff){
+            validation.showErrors({'#staff': error?.response?.data?.errors?.staff[0]})
+        }
         if(error?.response?.data?.message){
             errorToast(error?.response?.data?.message)
         }
@@ -207,5 +373,51 @@ validation
         submitBtn.disabled = false;
     }
   });
+
+  const testimonialChoice = new Choices('#testimonial', {
+    choices: [
+        @foreach($testimonial as $testimonial)
+            {
+                value: '{{$testimonial->id}}',
+                label: '{{$testimonial->name}}~{{$testimonial->designation}}',
+                selected: {{ (in_array($testimonial->id, $testimonials)) ? 'true' : 'false'}}
+            },
+        @endforeach
+    ],
+    placeholderValue: 'Select testimonials',
+    ...CHOICE_CONFIG,
+    shouldSort: false,
+    shouldSortItems: false,
+});
+  const staffChoice = new Choices('#staff', {
+    choices: [
+        @foreach($staff as $staff)
+            {
+                value: '{{$staff->id}}',
+                label: '{{$staff->name}}~{{$staff->designation}}',
+                selected: {{ (in_array($staff->id, $staffs)) ? 'true' : 'false'}}
+            },
+        @endforeach
+    ],
+    placeholderValue: 'Select staffs',
+    ...CHOICE_CONFIG,
+    shouldSort: false,
+    shouldSortItems: false,
+});
+  const achieverChoice = new Choices('#achiever', {
+    choices: [
+        @foreach($achiever as $achiever)
+            {
+                value: '{{$achiever->id}}',
+                label: '{{$achiever->name}}~{{$achiever->college}}',
+                selected: {{ (in_array($achiever->id, $achievers)) ? 'true' : 'false'}}
+            },
+        @endforeach
+    ],
+    placeholderValue: 'Select achievers',
+    ...CHOICE_CONFIG,
+    shouldSort: false,
+    shouldSortItems: false,
+});
 </script>
 @stop

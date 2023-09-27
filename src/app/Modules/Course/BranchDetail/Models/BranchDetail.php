@@ -2,8 +2,11 @@
 
 namespace App\Modules\Course\BranchDetail\Models;
 
+use App\Modules\Achiever\Student\Models\Student;
 use App\Modules\Course\Branch\Models\Branch;
 use App\Modules\Course\Course\Models\Course;
+use App\Modules\TeamMember\Staff\Models\Staff;
+use App\Modules\Testimonial\Models\Testimonial;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -32,6 +35,12 @@ class BranchDetail extends Model implements Sitemapable
         'meta_scripts',
         'amount',
         'discount',
+        'include_testimonial',
+        'testimonial_heading',
+        'include_topper',
+        'topper_heading',
+        'include_staff',
+        'staff_heading',
         'branch_id',
         'course_id',
     ];
@@ -41,6 +50,9 @@ class BranchDetail extends Model implements Sitemapable
         'updated_at' => 'datetime',
         'amount' => 'double',
         'discount' => 'int',
+        'include_testimonial' => 'boolean',
+        'include_topper' => 'boolean',
+        'include_staff' => 'boolean',
     ];
 
     protected $attributes = [
@@ -65,6 +77,21 @@ class BranchDetail extends Model implements Sitemapable
     public function course()
     {
         return $this->belongsTo(Course::class, 'course_id')->withDefault();
+    }
+
+    public function testimonials()
+    {
+        return $this->belongsToMany(Testimonial::class, 'branch_detail_join_testimonials', 'branch_detail_id', 'testimonial_id');
+    }
+
+    public function achievers()
+    {
+        return $this->belongsToMany(Student::class, 'branch_detail_join_achivers', 'branch_detail_id', 'achiever_id');
+    }
+
+    public function staffs()
+    {
+        return $this->belongsToMany(Staff::class, 'branch_detail_join_staffs', 'staff_id', 'branch_detail_id');
     }
 
     public function getActivitylogOptions(): LogOptions

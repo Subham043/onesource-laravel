@@ -44,9 +44,13 @@ class CampaignUpdateController extends Controller
             }
             if($request->testimonial && count($request->testimonial)>0){
                 $this->campaignService->save_testimonials($campaign, $request->testimonial);
+            }else{
+                $this->campaignService->save_testimonials($campaign, []);
             }
             if($request->achiever && count($request->achiever)>0){
                 $this->campaignService->save_achievers($campaign, $request->achiever);
+            }else{
+                $this->campaignService->save_achievers($campaign, []);
             }
             return response()->json(["message" => "Campaign updated successfully."], 201);
         } catch (\Throwable $th) {

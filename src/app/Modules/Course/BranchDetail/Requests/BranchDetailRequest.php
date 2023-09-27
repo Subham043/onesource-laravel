@@ -35,6 +35,18 @@ class BranchDetailRequest extends FormRequest
             'meta_scripts' => 'nullable|string',
             'amount' => 'required|numeric|gt:0',
             'discount' => 'required|numeric|gte:0',
+            'include_topper' => 'required|boolean',
+            'topper_heading' => ['nullable','required_if:include_topper,1', 'string'],
+            'achiever' => 'nullable|required_if:include_topper,1|array|min:1',
+            'achiever.*' => 'nullable|required_if:include_topper,1|numeric|exists:achivers,id',
+            'include_testimonial' => 'required|boolean',
+            'testimonial_heading' => ['nullable','required_if:include_testimonial,1', 'string'],
+            'testimonial' => 'nullable|required_if:include_testimonial,1|array|min:1',
+            'testimonial.*' => 'nullable|required_if:include_testimonial,1|numeric|exists:testimonials,id',
+            'include_staff' => 'required|boolean',
+            'staff_heading' => ['nullable','required_if:include_staff,1', 'string'],
+            'staff' => 'nullable|required_if:include_staff,1|array|min:1',
+            'staff.*' => 'nullable|required_if:include_staff,1|numeric|exists:team_member_staffs,id',
         ];
     }
 

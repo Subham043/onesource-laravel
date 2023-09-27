@@ -2,6 +2,9 @@
 
 namespace App\Modules\Course\BranchDetail\Resources;
 
+use App\Modules\Achiever\Student\Resources\UserStudentCollection;
+use App\Modules\TeamMember\Staff\Resources\UserStaffCollection;
+use App\Modules\Testimonial\Resources\UserTestimonialCollection;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserBranchDetailCollection extends JsonResource
@@ -26,6 +29,15 @@ class UserBranchDetailCollection extends JsonResource
             'amount' => $this->amount,
             'discount' => $this->discount,
             'discounted_amount' => $this->discounted_amount,
+            'include_testimonial' => $this->include_testimonial,
+            'testimonial_heading' => $this->testimonial_heading,
+            'testimonials' => UserTestimonialCollection::collection($this->testimonials),
+            'include_topper' => $this->include_topper,
+            'topper_heading' => $this->topper_heading,
+            'achievers' => UserStudentCollection::collection($this->achievers),
+            'include_staff' => $this->include_staff,
+            'staff_heading' => $this->staff_heading,
+            'staffs' => UserStaffCollection::collection($this->staffs),
             'created_at' => $this->created_at->diffForHumans(),
             'updated_at' => $this->updated_at->diffForHumans(),
         ];
