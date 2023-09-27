@@ -117,6 +117,7 @@ validation
         const response = await axios.post('{{route('faq.create.post')}}', formData)
         successToast(response.data.message)
         event.target.reset();
+        setInterval(location.reload(), 1500);
     }catch (error){
         if(error?.response?.data?.errors?.question){
             validation.showErrors({'#question': error?.response?.data?.errors?.question[0]})

@@ -389,6 +389,7 @@ validation
         const response = await axios.post('{{route('campaign.campaign.create.post')}}', formData)
         successToast(response.data.message)
         event.target.reset();
+        setInterval(location.reload(), 1500);
     }catch (error){
         if(error?.response?.data?.errors?.name){
             validation.showErrors({'#name': error?.response?.data?.errors?.name[0]})

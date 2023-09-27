@@ -95,6 +95,7 @@ validation
         const response = await axios.post('{{route('event.specification.create.post', $event_id)}}', formData)
         successToast(response.data.message)
         event.target.reset();
+        setInterval(location.reload(), 1500);
     }catch (error){
         if(error?.response?.data?.errors?.title){
             validation.showErrors({'#title': error?.response?.data?.errors?.title[0]})
