@@ -29,8 +29,8 @@ class EventUpdateRequest extends EventCreateRequest
             'meta_description' => 'nullable|string',
             'meta_keywords' => 'nullable|string',
             'meta_scripts' => 'nullable|string',
-            'speaker' => 'required|array|min:1',
-            'speaker.*' => 'required|numeric|exists:event_speakers,id',
+            'speaker' => 'nullable|array|min:1',
+            'speaker.*' => 'nullable|numeric|exists:event_speakers,id',
         ];
     }
 

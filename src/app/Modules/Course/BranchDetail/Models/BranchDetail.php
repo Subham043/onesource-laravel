@@ -26,6 +26,10 @@ class BranchDetail extends Model implements Sitemapable
     protected $fillable = [
         'description',
         'description_unfiltered',
+        'meta_title',
+        'meta_description',
+        'meta_keywords',
+        'meta_scripts',
         'branch_id',
         'course_id',
     ];

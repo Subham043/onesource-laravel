@@ -39,6 +39,8 @@ class EventUpdateController extends Controller
             }
             if($request->speaker && count($request->speaker)>0){
                 $this->eventService->save_speakers($event, $request->speaker);
+            }else{
+                $this->eventService->save_speakers($event, []);
             }
             return response()->json(["message" => "Event updated successfully."], 201);
         } catch (\Throwable $th) {

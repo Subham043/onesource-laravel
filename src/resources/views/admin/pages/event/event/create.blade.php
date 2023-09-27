@@ -243,8 +243,7 @@ validation
   ])
   .addField('#speaker', [
     {
-        rule: 'required',
-        errorMessage: 'Speaker is required',
+        validator: (value, fields) => true,
     },
   ])
   .onSuccess(async (event) => {

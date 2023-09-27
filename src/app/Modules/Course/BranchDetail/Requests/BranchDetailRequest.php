@@ -29,6 +29,10 @@ class BranchDetailRequest extends FormRequest
         return [
             'description' => 'required|string',
             'description_unfiltered' => 'required|string',
+            'meta_title' => 'nullable|string',
+            'meta_description' => 'nullable|string',
+            'meta_keywords' => 'nullable|string',
+            'meta_scripts' => 'nullable|string',
         ];
     }
 
@@ -52,10 +56,10 @@ class BranchDetailRequest extends FormRequest
     protected function passedValidation()
     {
         $request = Purify::clean(
-            $this->validated()
+            $this->except(['meta_scripts'])
         );
         $this->replace(
-            [...$request]
+            [...$request, ...$this->only(['meta_scripts'])]
         );
     }
 }

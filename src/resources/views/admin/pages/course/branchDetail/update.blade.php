@@ -24,6 +24,33 @@
                                     <div class="col-xxl-12 col-md-12">
                                         @include('admin.includes.quill', ['key'=>'description', 'label'=>'Description', 'value'=>!empty($data) ? (old('description') ? old('description') : $data->description) : old('description')])
                                     </div>
+
+                                </div>
+                                <!--end row-->
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header align-items-center d-flex">
+                            <h4 class="card-title mb-0 flex-grow-1">{{$branch->name}} Seo Detail</h4>
+                        </div><!-- end card header -->
+                        <div class="card-body">
+                            <div class="live-preview">
+                                <div class="row gy-4">
+                                    <div class="col-xxl-6 col-md-6">
+                                        @include('admin.includes.textarea', ['key'=>'meta_title', 'label'=>'Meta Title', 'value'=>!empty($data) ? (old('meta_title') ? old('meta_title') : $data->meta_title) : old('meta_title')])
+                                    </div>
+                                    <div class="col-xxl-6 col-md-6">
+                                        @include('admin.includes.textarea', ['key'=>'meta_keywords', 'label'=>'Meta Keywords', 'value'=>!empty($data) ? (old('meta_keywords') ? old('meta_keywords') : $data->meta_keywords) : old('meta_keywords')])
+                                    </div>
+                                    <div class="col-xxl-6 col-md-6">
+                                        @include('admin.includes.textarea', ['key'=>'meta_description', 'label'=>'Meta Description', 'value'=>!empty($data) ? (old('meta_description') ? old('meta_description') : $data->meta_description) : old('meta_description')])
+                                    </div>
+                                    <div class="col-xxl-6 col-md-6">
+                                        @include('admin.includes.textarea', ['key'=>'meta_scripts', 'label'=>'Meta Scripts', 'value'=>!empty($data) ? (old('meta_scripts') ? old('meta_scripts') : $data->meta_scripts) : old('meta_scripts')])
+                                    </div>
                                     <div class="col-xxl-12 col-md-12">
                                         <button type="submit" class="btn btn-primary waves-effect waves-light" id="submitBtn">Update</button>
                                     </div>
@@ -76,6 +103,27 @@ validation
         errorMessage: 'Description Link is required',
     },
   ])
+  .addField('#meta_title', [
+    {
+        validator: (value, fields) => true,
+    },
+  ])
+  .addField('#meta_keywords', [
+    {
+        validator: (value, fields) => true,
+    },
+  ])
+  .addField('#meta_description', [
+    {
+        validator: (value, fields) => true,
+    },
+  ])
+
+  .addField('#meta_scripts', [
+    {
+        validator: (value, fields) => true,
+    },
+  ])
   .onSuccess(async (event) => {
     var submitBtn = document.getElementById('submitBtn')
     submitBtn.innerHTML = spinner
@@ -84,6 +132,10 @@ validation
         var formData = new FormData();
         formData.append('description',editor.getData())
         formData.append('description_unfiltered',editor.getData().replace(/<[^>]*>/g, ''))
+        formData.append('meta_title',document.getElementById('meta_title').value)
+        formData.append('meta_keywords',document.getElementById('meta_keywords').value)
+        formData.append('meta_description',document.getElementById('meta_description').value)
+        formData.append('meta_scripts',document.getElementById('meta_scripts').value)
 
         const response = await axios.post('{{route('course.branch_detail.update.post', [$course_id, $branch_id])}}', formData)
         successToast(response.data.message)
@@ -91,6 +143,18 @@ validation
     }catch (error){
         if(error?.response?.data?.errors?.description){
             validation.showErrors({'#description': error?.response?.data?.errors?.description[0]})
+        }
+        if(error?.response?.data?.errors?.meta_title){
+            validation.showErrors({'#meta_title': error?.response?.data?.errors?.meta_title[0]})
+        }
+        if(error?.response?.data?.errors?.meta_keywords){
+            validation.showErrors({'#meta_keywords': error?.response?.data?.errors?.meta_keywords[0]})
+        }
+        if(error?.response?.data?.errors?.meta_description){
+            validation.showErrors({'#meta_description': error?.response?.data?.errors?.meta_description[0]})
+        }
+        if(error?.response?.data?.errors?.meta_scripts){
+            validation.showErrors({'#meta_scripts': error?.response?.data?.errors?.meta_scripts[0]})
         }
         if(error?.response?.data?.message){
             errorToast(error?.response?.data?.message)
