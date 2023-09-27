@@ -14,7 +14,13 @@ class BranchDetailService
             'course',
             'testimonials',
             'achievers',
-            'staffs',
+            'staffs'=> function($query) {
+                $query->with([
+                    'categories' => function($q){
+                        $q->where('is_active', true);
+                    },
+                ]);
+            },
             ])->where('course_id', $course_id)->where('branch_id', $branch_id)->first();
     }
 
