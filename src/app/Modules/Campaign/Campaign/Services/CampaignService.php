@@ -22,6 +22,14 @@ class CampaignService
         ])->get();
     }
 
+    public function all_main(): Collection
+    {
+        return Campaign::with([
+            'testimonials',
+            'achievers',
+        ])->where('is_active', true)->get();
+    }
+
     public function paginateMain(Int $total = 10): LengthAwarePaginator
     {
         $query = Campaign::with([

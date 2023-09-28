@@ -16,8 +16,10 @@ use App\Modules\Authentication\Controllers\UserRegisterController;
 use App\Modules\Authentication\Controllers\VerifyRegisteredUserController;
 use App\Modules\Blog\Comment\Controllers\UserBlogCommentCreateController;
 use App\Modules\Blog\Comment\Controllers\UserBlogCommentPaginateController;
+use App\Modules\Blog\Controllers\UserBlogAllController;
 use App\Modules\Blog\Controllers\UserBlogDetailController;
 use App\Modules\Blog\Controllers\UserBlogPaginateController;
+use App\Modules\Campaign\Campaign\Controllers\UserCampaignAllController;
 use App\Modules\Campaign\Campaign\Controllers\UserCampaignDetailController;
 use App\Modules\Campaign\Enquiry\Controllers\EnquiryCreateController;
 use App\Modules\Counter\Controllers\UserCounterAllController;
@@ -31,8 +33,10 @@ use App\Modules\Enquiry\EnrollmentForm\Controllers\EnrollmentFormCreateControlle
 use App\Modules\Enquiry\ScholarForm\Controllers\ScholarFormCreateController;
 use App\Modules\Enquiry\SubscriptionForm\Controllers\SubscriptionFormCreateController;
 use App\Modules\Enquiry\VrddhiForm\Controllers\VrddhiFormCreateController;
+use App\Modules\Event\Event\Controllers\UserEventAllController;
 use App\Modules\Event\Event\Controllers\UserEventDetailController;
 use App\Modules\Event\Event\Controllers\UserEventPaginateController;
+use App\Modules\ExpertTip\Controllers\UserExpertTipAllController;
 use App\Modules\ExpertTip\Controllers\UserExpertTipDetailController;
 use App\Modules\ExpertTip\Controllers\UserExpertTipPaginateController;
 use App\Modules\Faq\Controllers\UserFaqDetailController;
@@ -138,6 +142,7 @@ Route::prefix('website-detail')->group(function () {
 
 Route::prefix('blog')->group(function () {
     Route::get('/', [UserBlogPaginateController::class, 'get'])->name('user.blog.paginate');
+    Route::get('/all', [UserBlogAllController::class, 'get'])->name('user.blog.all');
     Route::prefix('comment')->group(function () {
         Route::post('/{blog_id}/create', [UserBlogCommentCreateController::class, 'post'])->name('user.blog.comment.create');
         Route::get('/{blog_id}/paginate', [UserBlogCommentPaginateController::class, 'get'])->name('user.blog.comment.paginate');
@@ -152,6 +157,7 @@ Route::prefix('team-member')->group(function () {
 
 Route::prefix('expert-tip')->group(function () {
     Route::get('/', [UserExpertTipPaginateController::class, 'get'])->name('user.expert_tip.paginate');
+    Route::get('/all', [UserExpertTipAllController::class, 'get'])->name('user.expert_tip.all');
     Route::get('/{slug}', [UserExpertTipDetailController::class, 'get'])->name('user.expert_tip.detail');
 });
 
@@ -163,11 +169,13 @@ Route::prefix('achiever')->group(function () {
 
 Route::prefix('event')->group(function () {
     Route::get('/', [UserEventPaginateController::class, 'get'])->name('user.event.paginate');
+    Route::get('/all', [UserEventAllController::class, 'get'])->name('user.event.all');
     Route::get('/{slug}', [UserEventDetailController::class, 'get'])->name('user.event.detail');
 });
 
 Route::prefix('campaign')->group(function () {
     Route::post('/enquiry/{campaign_id}', [EnquiryCreateController::class, 'post'])->name('user.campaign.enquiry.paginate');
+    Route::get('/all', [UserCampaignAllController::class, 'get'])->name('user.campaign.all');
     Route::get('/{slug}', [UserCampaignDetailController::class, 'get'])->name('user.campaign.detail');
 });
 

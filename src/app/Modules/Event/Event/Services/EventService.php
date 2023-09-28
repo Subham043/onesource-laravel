@@ -22,6 +22,14 @@ class EventService
         ])->get();
     }
 
+    public function all_main(): Collection
+    {
+        return Event::with([
+            'speakers',
+            'specifications',
+        ])->where('is_active', true)->get();
+    }
+
     public function paginateMain(Int $total = 10): LengthAwarePaginator
     {
         $query = Event::with([

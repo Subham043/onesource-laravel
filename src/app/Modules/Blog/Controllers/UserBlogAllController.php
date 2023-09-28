@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Modules\Blog\Resources\UserBlogCollection;
 use App\Modules\Blog\Services\BlogService;
 
-class UserBlogDetailController extends Controller
+class UserBlogAllController extends Controller
 {
     private $blogService;
 
@@ -15,11 +15,12 @@ class UserBlogDetailController extends Controller
         $this->blogService = $blogService;
     }
 
-    public function get($slug){
-        $blog = $this->blogService->getBySlug($slug);
+    public function get(){
+        $data = $this->blogService->all_main();
         return response()->json([
-            'message' => "Blog recieved successfully.",
-            'blog' => UserBlogCollection::make($blog),
+            'message' => "Events recieved successfully.",
+            'blogs' => UserBlogCollection::collection($data),
         ], 200);
     }
+
 }

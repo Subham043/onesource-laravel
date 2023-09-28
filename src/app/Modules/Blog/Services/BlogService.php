@@ -19,6 +19,11 @@ class BlogService
         return Blog::all();
     }
 
+    public function all_main(): Collection
+    {
+        return Blog::where('is_active', true)->get();
+    }
+
     public function paginateMain(Int $total = 10): LengthAwarePaginator
     {
         $query = Blog::where('is_active', true);

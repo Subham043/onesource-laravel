@@ -18,6 +18,11 @@ class ExpertTipService
         return ExpertTip::all();
     }
 
+    public function all_main(): Collection
+    {
+        return ExpertTip::where('is_active', true)->get();
+    }
+
     public function paginateMain(Int $total = 10): LengthAwarePaginator
     {
         $query = ExpertTip::where('is_active', true);
