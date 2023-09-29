@@ -7,7 +7,7 @@
             <div class="col-md-4">
                 <div class="card iq-document-card d-flex justify-content-center mb-0 auth-card">
                     <div class="card-body">
-                        <a href="" class="navbar-brand  d-flex justify-content-center mb-3">
+                        <a href="{{route('login.get')}}" class="navbar-brand  d-flex justify-content-center mb-3">
                             <img src="{{asset('assets/images/logo.png')}}" alt="1Source" class="ms-3" />
                         </a>
                         <h2 class="mb-2 text-center">Sign In</h2>
@@ -30,7 +30,7 @@
                                         <input type="checkbox" class="form-check-input" id="customCheck1">
                                         <label class="form-check-label" for="customCheck1">Remember Email ID</label>
                                     </div>
-                                    <a href="ForgotPassword.html">Forgot Password?</a>
+                                    <a href="{{route('forgot_password.get')}}">Forgot Password?</a>
                                 </div>
                             </div>
                             <div class="d-flex justify-content-right">
@@ -38,7 +38,7 @@
                             </div>
                             <hr/>
                             <div class="d-flex justify-content-center mt-4">
-                                Don’t have an account? &nbsp;<a href="register.html"> Click here to Register.</a>
+                                Don’t have an account? &nbsp;<a href="{{route('register.get')}}"> Click here to Register.</a>
 
                             </div>
                         </form>

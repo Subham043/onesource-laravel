@@ -4,7 +4,7 @@
 <div class="row m-0 align-items-center bg-white">
     <div class="col-md-12">
         <div class="row justify-content-center">
-            <a href="" class="navbar-brand  d-flex justify-content-center mb-3">
+            <a href="{{route('login.get')}}" class="navbar-brand  d-flex justify-content-center mb-3">
                 <img src="{{asset('assets/images/logo.png')}}" alt="1Source" class="ms-3" />
             </a>
         </div>
@@ -298,7 +298,6 @@
     </div>
 </div>
 @stop
-
 
 @section('javascript')
 <script type="text/javascript" nonce="{{ csp_nonce() }}">
