@@ -41,7 +41,7 @@
                     </div>
                     <div class="p-0 card-body">
                         <div class="mt-4 table-responsive">
-                            <script language="JavaScript">
+                            <script language="javascript" nonce="{{ csp_nonce() }}">
                                 function toggle(source) {
                                     checkboxes = document.getElementsByName('foo');
                                     for (var i = 0, n = checkboxes.length; i < n; i++) {

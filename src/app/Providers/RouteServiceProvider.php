@@ -7,6 +7,7 @@ use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvi
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\URL;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -24,17 +25,22 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        if($this->app->environment('production')) {
+            URL::forceScheme('https');
+        }
+
         RateLimiter::for('api', function (Request $request) {
             return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
         });
 
         $this->routes(function () {
             Route::middleware('api')
-                ->prefix('api')
-                ->group(base_path('routes/api.php'));
+                ->prefix('api')->group(function(){
+                    Route::prefix('v1')->group(base_path('routes/api.php'));
+                });
 
-            Route::middleware('web')
-                ->group(base_path('routes/web.php'));
+            Route::middleware(['web', 'csp.policy'])->group(base_path('routes/web.php'));
+            Route::middleware(['web', 'csp.policy', 'custom.headers'])->prefix('admin')->group(base_path('routes/admin_web.php'));
         });
     }
 }
