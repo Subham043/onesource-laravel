@@ -13,13 +13,14 @@ use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Support\Facades\Hash;
+use App\Enums\Timezone;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
 
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles, LogsActivity;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
     protected $table = 'users';
 
@@ -33,6 +34,14 @@ class User extends Authenticatable
         'email',
         'phone',
         'password',
+        'timezone',
+        'question_1',
+        'answer_1',
+        'question_2',
+        'answer_2',
+        'question_3',
+        'answer_3',
+        'is_blocked',
     ];
 
     /**
@@ -56,10 +65,9 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'is_blocked' => 'boolean',
+        'timezone' => Timezone::class,
     ];
-
-    //only the `deleted` event will get logged automatically
-    protected static $recordEvents = ['created', 'updated', 'deleted'];
 
     protected function currentRole(): Attribute
     {
@@ -87,20 +95,19 @@ class User extends Authenticatable
         return UserFactory::new();
     }
 
-    public function getActivitylogOptions(): LogOptions
+    public function profile()
     {
-        return LogOptions::defaults()
-        ->useLogName('user')
-        ->setDescriptionForEvent(
-                function(string $eventName){
-                    $desc = $this->name."<".$this->email."> has been {$eventName}";
-                    $desc .= auth()->user() ? " by ".auth()->user()->name."<".auth()->user()->email.">" : "";
-                    return $desc;
-                }
-            )
-        ->logOnly(['name', 'email'])
-        ->logOnlyDirty();
-        // ->logFillable();
+        return $this->hasMany(Profile::class, 'user_id');
+    }
+
+    public function members()
+    {
+        return $this->hasMany(Profile::class, 'created_by');
+    }
+
+    public function payments()
+    {
+        return $this->hasMany(Payment::class, 'paid_by');
     }
 
 }

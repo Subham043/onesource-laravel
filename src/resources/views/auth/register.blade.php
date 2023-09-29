@@ -12,7 +12,8 @@
             <div class="col-md-8">
                 <div class="card iq-document-card d-flex justify-content-center mb-0 auth-card">
                     <div class="card-body">
-                        <form action="pg.html">
+                        <form id="loginForm" method="POST" action="{{route('register.post')}}">
+                            @csrf
                             <div class="row">
                                 <div class="col-lg-12 d-flex justify-content-end">
                                     <span> <sup>*</sup>mandatory</span>
@@ -24,129 +25,147 @@
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class="form-group">
-                                                <label for="email" class="form-label">Name <sup>*</sup></label>
-                                                <input type="text" class="form-control" id="name" aria-describedby="name" placeholder=" ">
+                                                <label for="name" class="form-label">Name <sup>*</sup></label>
+                                                <input type="text" class="form-control" id="name" name="name" aria-describedby="name" value="{{old('name')}}">
+                                                @error('name')
+                                                    <div class="invalid-message">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="col-lg-12">
                                             <div class="form-group">
-                                                <label for="email" class="form-label">Phone <sup>*</sup></label>
-                                                <input type="tel" class="form-control" id="phone" aria-describedby="phone" placeholder=" " required >
-                                                <div class="invalid-feedback">
-                                                    Please provide phone number.
-                                                </div>
+                                                <label for="phone" class="form-label">Phone <sup>*</sup></label>
+                                                <input type="tel" class="form-control" id="phone" name="phone" aria-describedby="phone" value="{{old('phone')}}" >
+                                                @error('phone')
+                                                    <div class="invalid-message">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="col-lg-12">
                                             <div class="form-group">
-                                                <label for="email" class="form-label">Email ID <sup>*</sup></label>
-                                                <input type="email" class="form-control" id="email" aria-describedby="email" placeholder=" ">
+                                                <label for="company" class="form-label">Company <sup>*</sup></label>
+                                                <input type="text" class="form-control" id="company" name="company" value="{{old('company')}}" aria-describedby="company">
+                                                @error('company')
+                                                    <div class="invalid-message">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="col-lg-12">
                                             <div class="form-group">
-                                                <label for="email" class="form-label">Company <sup>*</sup></label>
-                                                <input type="text" class="form-control" id="name" aria-describedby="name" placeholder=" ">
+                                                <label for="address" class="form-label">Address<sup>*</sup></label>
+                                                <textarea class="form-control" id="address" name="address" aria-label="address">{{old('address')}}</textarea>
+                                                @error('address')
+                                                    <div class="invalid-message">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="col-lg-12">
                                             <div class="form-group">
-                                                <label for="Address" class="form-label">Address<sup>*</sup></label>
-                                                <textarea class="form-control" aria-label="Address"></textarea>
+                                                <label for="city" class="form-label">City <sup>*</sup></label>
+                                                <input type="text" class="form-control" id="city" name="city" value="{{old('city')}}" aria-describedby="city">
+                                                @error('name')
+                                                    <div class="invalid-message">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="col-lg-12">
                                             <div class="form-group">
-                                                <label for="email" class="form-label">City <sup>*</sup></label>
-                                                <input type="text" class="form-control" id="email" aria-describedby="City" placeholder=" ">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-12">
-                                            <div class="form-group">
-                                                <label for="email" class="form-label">State/Province<sup>*</sup></label>
-                                                <select class="form-select form-select-sm" aria-label=".form-select-sm state">
-                                                    <option selected="">State/Province</option>
-                                                    <option value="AL">Alabama</option>
-                                                    <option value="AK">Alaska</option>
-                                                    <option value="AZ">Arizona</option>
-                                                    <option value="AR">Arkansas</option>
-                                                    <option value="CA">California</option>
-                                                    <option value="CO">Colorado</option>
-                                                    <option value="CT">Connecticut</option>
-                                                    <option value="DE">Delaware</option>
-                                                    <option value="DC">District Of Columbia</option>
-                                                    <option value="FL">Florida</option>
-                                                    <option value="GA">Georgia</option>
-                                                    <option value="HI">Hawaii</option>
-                                                    <option value="ID">Idaho</option>
-                                                    <option value="IL">Illinois</option>
-                                                    <option value="IN">Indiana</option>
-                                                    <option value="IA">Iowa</option>
-                                                    <option value="KS">Kansas</option>
-                                                    <option value="KY">Kentucky</option>
-                                                    <option value="LA">Louisiana</option>
-                                                    <option value="ME">Maine</option>
-                                                    <option value="MD">Maryland</option>
-                                                    <option value="MA">Massachusetts</option>
-                                                    <option value="MI">Michigan</option>
-                                                    <option value="MN">Minnesota</option>
-                                                    <option value="MS">Mississippi</option>
-                                                    <option value="MO">Missouri</option>
-                                                    <option value="MT">Montana</option>
-                                                    <option value="NE">Nebraska</option>
-                                                    <option value="NV">Nevada</option>
-                                                    <option value="NH">New Hampshire</option>
-                                                    <option value="NJ">New Jersey</option>
-                                                    <option value="NM">New Mexico</option>
-                                                    <option value="NY">New York</option>
-                                                    <option value="NC">North Carolina</option>
-                                                    <option value="ND">North Dakota</option>
-                                                    <option value="OH">Ohio</option>
-                                                    <option value="OK">Oklahoma</option>
-                                                    <option value="OR">Oregon</option>
-                                                    <option value="PA">Pennsylvania</option>
-                                                    <option value="RI">Rhode Island</option>
-                                                    <option value="SC">South Carolina</option>
-                                                    <option value="SD">South Dakota</option>
-                                                    <option value="TN">Tennessee</option>
-                                                    <option value="TX">Texas</option>
-                                                    <option value="UT">Utah</option>
-                                                    <option value="VT">Vermont</option>
-                                                    <option value="VA">Virginia</option>
-                                                    <option value="WA">Washington</option>
-                                                    <option value="WV">West Virginia</option>
-                                                    <option value="WI">Wisconsin</option>
-                                                    <option value="WY">Wyoming</option>
+                                                <label for="state" class="form-label">State/Province<sup>*</sup></label>
+                                                <select class="form-select form-select-sm" id="state" name="state" aria-label="state">
+                                                    <option value="" {{empty(old('state')) ? 'selected' : ''}}>State/Province</option>
+                                                    <option value="AL" {{!empty(old('state')) && old('state') == 'AL' ? 'selected' : ''}}>Alabama</option>
+                                                    <option value="AK" {{!empty(old('state')) && old('state') == 'AK' ? 'selected' : ''}}>Alaska</option>
+                                                    <option value="AZ" {{!empty(old('state')) && old('state') == 'AZ' ? 'selected' : ''}}>Arizona</option>
+                                                    <option value="AR" {{!empty(old('state')) && old('state') == 'AR' ? 'selected' : ''}}>Arkansas</option>
+                                                    <option value="CA" {{!empty(old('state')) && old('state') == 'CA' ? 'selected' : ''}}>California</option>
+                                                    <option value="CO" {{!empty(old('state')) && old('state') == 'CO' ? 'selected' : ''}}>Colorado</option>
+                                                    <option value="CT" {{!empty(old('state')) && old('state') == 'CT' ? 'selected' : ''}}>Connecticut</option>
+                                                    <option value="DE" {{!empty(old('state')) && old('state') == 'DE' ? 'selected' : ''}}>Delaware</option>
+                                                    <option value="DC" {{!empty(old('state')) && old('state') == 'DC' ? 'selected' : ''}}>District Of Columbia</option>
+                                                    <option value="FL" {{!empty(old('state')) && old('state') == 'FL' ? 'selected' : ''}}>Florida</option>
+                                                    <option value="GA" {{!empty(old('state')) && old('state') == 'GA' ? 'selected' : ''}}>Georgia</option>
+                                                    <option value="HI" {{!empty(old('state')) && old('state') == 'HI' ? 'selected' : ''}}>Hawaii</option>
+                                                    <option value="ID" {{!empty(old('state')) && old('state') == 'ID' ? 'selected' : ''}}>Idaho</option>
+                                                    <option value="IL" {{!empty(old('state')) && old('state') == 'IL' ? 'selected' : ''}}>Illinois</option>
+                                                    <option value="IN" {{!empty(old('state')) && old('state') == 'IN' ? 'selected' : ''}}>Indiana</option>
+                                                    <option value="IA" {{!empty(old('state')) && old('state') == 'IA' ? 'selected' : ''}}>Iowa</option>
+                                                    <option value="KS" {{!empty(old('state')) && old('state') == 'KS' ? 'selected' : ''}}>Kansas</option>
+                                                    <option value="KY" {{!empty(old('state')) && old('state') == 'KY' ? 'selected' : ''}}>Kentucky</option>
+                                                    <option value="LA" {{!empty(old('state')) && old('state') == 'LA' ? 'selected' : ''}}>Louisiana</option>
+                                                    <option value="ME" {{!empty(old('state')) && old('state') == 'ME' ? 'selected' : ''}}>Maine</option>
+                                                    <option value="MD" {{!empty(old('state')) && old('state') == 'MD' ? 'selected' : ''}}>Maryland</option>
+                                                    <option value="MA" {{!empty(old('state')) && old('state') == 'MA' ? 'selected' : ''}}>Massachusetts</option>
+                                                    <option value="MI" {{!empty(old('state')) && old('state') == 'MI' ? 'selected' : ''}}>Michigan</option>
+                                                    <option value="MN" {{!empty(old('state')) && old('state') == 'MN' ? 'selected' : ''}}>Minnesota</option>
+                                                    <option value="MS" {{!empty(old('state')) && old('state') == 'MS' ? 'selected' : ''}}>Mississippi</option>
+                                                    <option value="MO" {{!empty(old('state')) && old('state') == 'MO' ? 'selected' : ''}}>Missouri</option>
+                                                    <option value="MT" {{!empty(old('state')) && old('state') == 'MT' ? 'selected' : ''}}>Montana</option>
+                                                    <option value="NE" {{!empty(old('state')) && old('state') == 'NE' ? 'selected' : ''}}>Nebraska</option>
+                                                    <option value="NV" {{!empty(old('state')) && old('state') == 'NV' ? 'selected' : ''}}>Nevada</option>
+                                                    <option value="NH" {{!empty(old('state')) && old('state') == 'NH' ? 'selected' : ''}}>New Hampshire</option>
+                                                    <option value="NJ" {{!empty(old('state')) && old('state') == 'NJ' ? 'selected' : ''}}>New Jersey</option>
+                                                    <option value="NM" {{!empty(old('state')) && old('state') == 'NM' ? 'selected' : ''}}>New Mexico</option>
+                                                    <option value="NY" {{!empty(old('state')) && old('state') == 'NY' ? 'selected' : ''}}>New York</option>
+                                                    <option value="NC" {{!empty(old('state')) && old('state') == 'NC' ? 'selected' : ''}}>North Carolina</option>
+                                                    <option value="ND" {{!empty(old('state')) && old('state') == 'ND' ? 'selected' : ''}}>North Dakota</option>
+                                                    <option value="OH" {{!empty(old('state')) && old('state') == 'OH' ? 'selected' : ''}}>Ohio</option>
+                                                    <option value="OK" {{!empty(old('state')) && old('state') == 'OK' ? 'selected' : ''}}>Oklahoma</option>
+                                                    <option value="OR" {{!empty(old('state')) && old('state') == 'OR' ? 'selected' : ''}}>Oregon</option>
+                                                    <option value="PA" {{!empty(old('state')) && old('state') == 'PA' ? 'selected' : ''}}>Pennsylvania</option>
+                                                    <option value="RI" {{!empty(old('state')) && old('state') == 'RI' ? 'selected' : ''}}>Rhode Island</option>
+                                                    <option value="SC" {{!empty(old('state')) && old('state') == 'SC' ? 'selected' : ''}}>South Carolina</option>
+                                                    <option value="SD" {{!empty(old('state')) && old('state') == 'SD' ? 'selected' : ''}}>South Dakota</option>
+                                                    <option value="TN" {{!empty(old('state')) && old('state') == 'TN' ? 'selected' : ''}}>Tennessee</option>
+                                                    <option value="TX" {{!empty(old('state')) && old('state') == 'TX' ? 'selected' : ''}}>Texas</option>
+                                                    <option value="UT" {{!empty(old('state')) && old('state') == 'UT' ? 'selected' : ''}}>Utah</option>
+                                                    <option value="VT" {{!empty(old('state')) && old('state') == 'VT' ? 'selected' : ''}}>Vermont</option>
+                                                    <option value="VA" {{!empty(old('state')) && old('state') == 'VA' ? 'selected' : ''}}>Virginia</option>
+                                                    <option value="WA" {{!empty(old('state')) && old('state') == 'WA' ? 'selected' : ''}}>Washington</option>
+                                                    <option value="WV" {{!empty(old('state')) && old('state') == 'WV' ? 'selected' : ''}}>West Virginia</option>
+                                                    <option value="WI" {{!empty(old('state')) && old('state') == 'WI' ? 'selected' : ''}}>Wisconsin</option>
+                                                    <option value="WY" {{!empty(old('state')) && old('state') == 'WY' ? 'selected' : ''}}>Wyoming</option>
                                                 </select>
+                                                @error('state')
+                                                    <div class="invalid-message">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="col-lg-12">
                                             <div class="form-group">
-                                                <label for="email" class="form-label">Zip <sup>*</sup></label>
-                                                <input type="text" class="form-control" id="email" aria-describedby="Zip" placeholder=" ">
+                                                <label for="zip" class="form-label">Zip <sup>*</sup></label>
+                                                <input type="text" class="form-control" id="zip" name="zip" aria-describedby="zip" value="{{old('zip')}}">
+                                                @error('zip')
+                                                    <div class="invalid-message">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="col-lg-12">
                                             <div class="form-group">
-                                                <label for="email" class="form-label">Website <sup>*</sup></label>
-                                                <input type="url" class="form-control" id="email" aria-describedby="Website" placeholder=" ">
+                                                <label for="website" class="form-label">Website <sup>*</sup></label>
+                                                <input type="url" class="form-control" id="website" name="website" aria-describedby="website" value="{{old('website')}}">
+                                                @error('website')
+                                                    <div class="invalid-message">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="col-lg-12">
                                             <div class="form-group">
-                                                <label for="email" class="form-label">Time Zone <sup>*</sup></label>
-                                                <select class="form-select shadow-none">
-                                                    <option selected="">Select</option>
-                                                    <option value="Pacific/Honolulu">Pacific/Honolulu GMT-10:00</option>
-                                                    <option value="America/Anchorage">America/Anchorage GMT-9:00</option>
-                                                    <option value="America/Los_Angeles">America/Los_Angeles GMT-8:00</option>
-                                                    <option value="America/Boise">America/Boise GMT-7:00</option>
-                                                    <option value="America/Denver">America/Denver GMT-7:00</option>
-                                                    <option value="America/Phoenix">America/Phoenix GMT-7:00</option>
-                                                    <option value="America/Chicago">America/Chicago GMT-6:00</option>
-                                                    <option value="America/Detroit">America/Detroit GMT-5:00</option>
-                                                    <option value="America/New_York">America/New_York GMT-5:00</option>
+                                                <label for="timezone" class="form-label">Time Zone <sup>*</sup></label>
+                                                <select class="form-select shadow-none" id="timezone" name="timezone">
+                                                    <option value="" {{empty(old('timezone')) ? 'selected' : ''}}>Select</option>
+                                                    <option value="Pacific/Honolulu GMT-10:00" {{!empty(old('timezone')) && old('timezone') == 'Pacific/Honolulu GMT-10:00' ? 'selected' : ''}}>Pacific/Honolulu GMT-10:00</option>
+                                                    <option value="America/Anchorage GMT-9:00" {{!empty(old('timezone')) && old('timezone') == 'America/Anchorage GMT-9:00' ? 'selected' : ''}}>America/Anchorage GMT-9:00</option>
+                                                    <option value="America/Los_Angeles GMT-8:00" {{!empty(old('timezone')) && old('timezone') == 'America/Los_Angeles GMT-8:00' ? 'selected' : ''}}>America/Los_Angeles GMT-8:00</option>
+                                                    <option value="America/Boise GMT-7:00" {{!empty(old('timezone')) && old('timezone') == 'America/Boise GMT-7:00' ? 'selected' : ''}}>America/Boise GMT-7:00</option>
+                                                    <option value="America/Denver GMT-7:00" {{!empty(old('timezone')) && old('timezone') == 'America/Denver GMT-7:00' ? 'selected' : ''}}>America/Denver GMT-7:00</option>
+                                                    <option value="America/Phoenix GMT-7:00" {{!empty(old('timezone')) && old('timezone') == 'America/Phoenix GMT-7:00' ? 'selected' : ''}}>America/Phoenix GMT-7:00</option>
+                                                    <option value="America/Chicago GMT-6:00" {{!empty(old('timezone')) && old('timezone') == 'America/Chicago GMT-6:00' ? 'selected' : ''}}>America/Chicago GMT-6:00</option>
+                                                    <option value="America/Detroit GMT-5:00" {{!empty(old('timezone')) && old('timezone') == 'America/Detroit GMT-5:00' ? 'selected' : ''}}>America/Detroit GMT-5:00</option>
+                                                    <option value="America/New_York GMT-5:00" {{!empty(old('timezone')) && old('timezone') == 'America/New_York GMT-5:00' ? 'selected' : ''}}>America/New_York GMT-5:00</option>
                                                 </select>
+                                                @error('timezone')
+                                                    <div class="invalid-message">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
                                     </div>
@@ -157,82 +176,109 @@
                                         <div class="col-lg-12">
                                             <div class="form-group">
                                                 <label for="email" class="form-label">Email ID <sup>*</sup> <span data-bs-toggle="tooltip" data-bs-original-title="This is your user ID on Sign In"><i class="icon">
-                                    <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='currentColor'><circle cx='6' cy='6' r='4.5'/><path stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/><circle cx='6' cy='8.2' r='.6' fill='currentColor' stroke='none'/></svg>
-                                </i></span></label>
-                                                <input type="email" class="form-control" id="email" aria-describedby="email" placeholder=" ">
+                                                    <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='currentColor'><circle cx='6' cy='6' r='4.5'/><path stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/><circle cx='6' cy='8.2' r='.6' fill='currentColor' stroke='none'/></svg>
+                                                </i></span></label>
+                                                <input type="email" class="form-control" id="email" name="email" aria-describedby="email" value="{{old('email')}}">
+                                                @error('email')
+                                                    <div class="invalid-message">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="col-lg-12">
                                             <div class="form-group">
                                                 <label for="password" class="form-label">Password</label>
-                                                <input type="password" class="form-control" id="password" aria-describedby="password" placeholder=" ">
+                                                <input type="password" class="form-control" id="password" name="password" aria-describedby="password">
+                                                @error('password')
+                                                    <div class="invalid-message">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="col-lg-12">
                                             <div class="form-group">
-                                                <label for="password" class="form-label">Confirm Password</label>
-                                                <input type="password" class="form-control" id="password" aria-describedby="password" placeholder=" ">
+                                                <label for="confirm_password" class="form-label">Confirm Password</label>
+                                                <input type="password" class="form-control" id="confirm_password" name="confirm_password" aria-describedby="confirm_password">
+                                                @error('confirm_password')
+                                                    <div class="invalid-message">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
                                         <h5 class="mt-5 mb-2">Account Recovery Questions</h5>
                                         <div class="col-lg-12">
                                             <div class="form-group">
-                                                <label for="email" class="form-label">Question 1<sup>*</sup></label>
-                                                <select class="form-select form-select-sm" aria-label=".form-select-sm state">
-                                                    <option selected="">What elementary school/high school did you attend? </option>
-                                                    <option value="AL">What is your mother’s maiden name?</option>
-                                                    <option value="AK">What is your favorite movie? </option>
-                                                    <option value="AZ">What was your favorite sport in high school?</option>
-                                                    <option value="AR">In what city did you meet your spouse/significant other?</option>
-                                                    <option value="CA">What is the middle name of your youngest child?</option>
-                                                    <option value="CO">In what city or town did your mother and father meet?</option>
+                                                <label for="question_1" class="form-label">Question 1<sup>*</sup></label>
+                                                <select class="form-select form-select-sm" aria-label="question_1" id="question_1" name="question_1">
+                                                    <option value="What elementary school/high school did you attend?" {{empty(old('question_1')) || old('question_1') == 'What elementary school/high school did you attend?' ? 'selected' : ''}}>What elementary school/high school did you attend? </option>
+                                                    <option value="What is your mother’s maiden name?" {{!empty(old('question_1')) && old('question_1') == 'What is your mother’s maiden name?' ? 'selected' : ''}}>What is your mother’s maiden name?</option>
+                                                    <option value="What is your favorite movie?" {{!empty(old('question_1')) && old('question_1') == 'What is your favorite movie?' ? 'selected' : ''}}>What is your favorite movie? </option>
+                                                    <option value="What was your favorite sport in high school?" {{!empty(old('question_1')) && old('question_1') == 'What was your favorite sport in high school?' ? 'selected' : ''}}>What was your favorite sport in high school?</option>
+                                                    <option value="In what city did you meet your spouse/significant other?" {{!empty(old('question_1')) && old('question_1') == 'In what city did you meet your spouse/significant other?' ? 'selected' : ''}}>In what city did you meet your spouse/significant other?</option>
+                                                    <option value="What is the middle name of your youngest child?" {{!empty(old('question_1')) && old('question_1') == 'What is the middle name of your youngest child?' ? 'selected' : ''}}>What is the middle name of your youngest child?</option>
+                                                    <option value="In what city or town did your mother and father meet?" {{!empty(old('question_1')) && old('question_1') == 'In what city or town did your mother and father meet?' ? 'selected' : ''}}>In what city or town did your mother and father meet?</option>
                                                 </select>
+                                                @error('question_1')
+                                                    <div class="invalid-message">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="col-lg-12">
                                             <div class="form-group">
-                                                <label for="email" class="form-label">Answer 1 <sup>*</sup></label>
-                                                <input type="email" class="form-control" id="email" aria-describedby="Answer 1 " placeholder=" ">
+                                                <label for="answer_1" class="form-label">Answer 1 <sup>*</sup></label>
+                                                <input type="text" class="form-control" id="answer_1" name="answer_1" aria-describedby="answer_1" value="{{old('answer_1')}}">
+                                                @error('answer_1')
+                                                    <div class="invalid-message">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="col-lg-12">
                                             <div class="form-group">
-                                                <label for="email" class="form-label">Question 2<sup>*</sup></label>
-                                                <select class="form-select form-select-sm" aria-label=".form-select-sm state">
-                                                    <option selected="">What elementary school/high school did you attend? </option>
-                                                    <option value="AL">What is your mother’s maiden name?</option>
-                                                    <option value="AK">What is your favorite movie? </option>
-                                                    <option value="AZ">What was your favorite sport in high school?</option>
-                                                    <option value="AR">In what city did you meet your spouse/significant other?</option>
-                                                    <option value="CA">What is the middle name of your youngest child?</option>
-                                                    <option value="CO">In what city or town did your mother and father meet?</option>
+                                                <label for="question_2" class="form-label">Question 2<sup>*</sup></label>
+                                                <select class="form-select form-select-sm" aria-label="question_2" id="question_2" name="question_2">
+                                                    <option value="What elementary school/high school did you attend?" {{empty(old('question_2')) || old('question_2') == 'What elementary school/high school did you attend?' ? 'selected' : ''}}>What elementary school/high school did you attend? </option>
+                                                    <option value="What is your mother’s maiden name?" {{!empty(old('question_2')) && old('question_2') == 'What is your mother’s maiden name?' ? 'selected' : ''}}>What is your mother’s maiden name?</option>
+                                                    <option value="What is your favorite movie?" {{!empty(old('question_2')) && old('question_2') == 'What is your favorite movie?' ? 'selected' : ''}}>What is your favorite movie? </option>
+                                                    <option value="What was your favorite sport in high school?" {{!empty(old('question_2')) && old('question_2') == 'What was your favorite sport in high school?' ? 'selected' : ''}}>What was your favorite sport in high school?</option>
+                                                    <option value="In what city did you meet your spouse/significant other?" {{!empty(old('question_2')) && old('question_2') == 'In what city did you meet your spouse/significant other?' ? 'selected' : ''}}>In what city did you meet your spouse/significant other?</option>
+                                                    <option value="What is the middle name of your youngest child?" {{!empty(old('question_2')) && old('question_2') == 'What is the middle name of your youngest child?' ? 'selected' : ''}}>What is the middle name of your youngest child?</option>
+                                                    <option value="In what city or town did your mother and father meet?" {{!empty(old('question_2')) && old('question_2') == 'In what city or town did your mother and father meet?' ? 'selected' : ''}}>In what city or town did your mother and father meet?</option>
                                                 </select>
+                                                @error('question_2')
+                                                    <div class="invalid-message">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="col-lg-12">
                                             <div class="form-group">
-                                                <label for="email" class="form-label">Answer 2 <sup>*</sup></label>
-                                                <input type="email" class="form-control" id="email" aria-describedby="Answer 1 " placeholder=" ">
+                                                <label for="answer_2" class="form-label">Answer 2 <sup>*</sup></label>
+                                                <input type="text" class="form-control" id="answer_2" name="answer_2" aria-describedby="answer_2" value="{{old('answer_2')}}">
+                                                @error('answer_2')
+                                                    <div class="invalid-message">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="col-lg-12">
                                             <div class="form-group">
-                                                <label for="email" class="form-label">Question 3<sup>*</sup></label>
-                                                <select class="form-select form-select-sm" aria-label=".form-select-sm state">
-                                                    <option selected="">What elementary school/high school did you attend? </option>
-                                                    <option value="AL">What is your mother’s maiden name?</option>
-                                                    <option value="AK">What is your favorite movie? </option>
-                                                    <option value="AZ">What was your favorite sport in high school?</option>
-                                                    <option value="AR">In what city did you meet your spouse/significant other?</option>
-                                                    <option value="CA">What is the middle name of your youngest child?</option>
-                                                    <option value="CO">In what city or town did your mother and father meet?</option>
+                                                <label for="question_3" class="form-label">Question 3<sup>*</sup></label>
+                                                <select class="form-select form-select-sm" id="question_3" name="question_3" aria-label="question_3">
+                                                    <option value="What elementary school/high school did you attend?" {{empty(old('question_3')) || old('question_3') == 'What elementary school/high school did you attend?' ? 'selected' : ''}}>What elementary school/high school did you attend? </option>
+                                                    <option value="What is your mother’s maiden name?" {{!empty(old('question_3')) && old('question_3') == 'What is your mother’s maiden name?' ? 'selected' : ''}}>What is your mother’s maiden name?</option>
+                                                    <option value="What is your favorite movie?" {{!empty(old('question_3')) && old('question_3') == 'What is your favorite movie?' ? 'selected' : ''}}>What is your favorite movie? </option>
+                                                    <option value="What was your favorite sport in high school?" {{!empty(old('question_3')) && old('question_3') == 'What was your favorite sport in high school?' ? 'selected' : ''}}>What was your favorite sport in high school?</option>
+                                                    <option value="In what city did you meet your spouse/significant other?" {{!empty(old('question_3')) && old('question_3') == 'In what city did you meet your spouse/significant other?' ? 'selected' : ''}}>In what city did you meet your spouse/significant other?</option>
+                                                    <option value="What is the middle name of your youngest child?" {{!empty(old('question_3')) && old('question_3') == 'What is the middle name of your youngest child?' ? 'selected' : ''}}>What is the middle name of your youngest child?</option>
+                                                    <option value="In what city or town did your mother and father meet?" {{!empty(old('question_3')) && old('question_3') == 'In what city or town did your mother and father meet?' ? 'selected' : ''}}>In what city or town did your mother and father meet?</option>
                                                 </select>
+                                                @error('question_3')
+                                                    <div class="invalid-message">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="col-lg-12">
                                             <div class="form-group">
-                                                <label for="email" class="form-label">Answer 3 <sup>*</sup></label>
-                                                <input type="email" class="form-control" id="email" aria-describedby="Answer 1 " placeholder=" ">
+                                                <label for="answer_3" class="form-label">Answer 3 <sup>*</sup></label>
+                                                <input type="text" class="form-control" id="answer_3" name="answer_3" aria-describedby="answer_3" value="{{old('answer_3')}}">
+                                                @error('answer_3')
+                                                    <div class="invalid-message">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
                                     </div>
@@ -241,7 +287,7 @@
                             <hr />
                             <div class="row justify-content-center">
                                 <div class="d-flex justify-content-right">
-                                    <button type="submit" class="btn btn-primary">Pay and Create Account </button>
+                                    <button type="submit" class="btn btn-primary">Pay and Create Account</button>
                                 </div>
                             </div>
                         </form>
@@ -251,4 +297,150 @@
         </div>
     </div>
 </div>
+@stop
+
+
+@section('javascript')
+<script type="text/javascript" nonce="{{ csp_nonce() }}">
+
+// initialize the validation library
+const validation = new JustValidate('#loginForm', {
+      errorFieldCssClass: 'is-invalid',
+      focusInvalidField: true,
+      lockForm: true,
+});
+// apply rules to form fields
+validation
+  .addField('#name', [
+    {
+      rule: 'required',
+      errorMessage: 'Name is required',
+    },
+  ])
+  .addField('#phone', [
+    {
+      rule: 'required',
+      errorMessage: 'Phone is required',
+    },
+  ])
+  .addField('#company', [
+    {
+      rule: 'required',
+      errorMessage: 'Company is required',
+    },
+  ])
+  .addField('#address', [
+    {
+      rule: 'required',
+      errorMessage: 'Address is required',
+    },
+  ])
+  .addField('#city', [
+    {
+      rule: 'required',
+      errorMessage: 'City is required',
+    },
+  ])
+  .addField('#state', [
+    {
+      rule: 'required',
+      errorMessage: 'State is required',
+    },
+  ])
+  .addField('#zip', [
+    {
+      rule: 'required',
+      errorMessage: 'Zip is required',
+    },
+  ])
+  .addField('#website', [
+    {
+      rule: 'required',
+      errorMessage: 'Website is required',
+    },
+  ])
+  .addField('#timezone', [
+    {
+      rule: 'required',
+      errorMessage: 'Timezone is required',
+    },
+  ])
+  .addField('#question_1', [
+    {
+      rule: 'required',
+      errorMessage: 'Question 1 is required',
+    },
+  ])
+  .addField('#answer_1', [
+    {
+      rule: 'required',
+      errorMessage: 'Answer 1 is required',
+    },
+  ])
+  .addField('#question_2', [
+    {
+      rule: 'required',
+      errorMessage: 'Question 2 is required',
+    },
+  ])
+  .addField('#answer_2', [
+    {
+      rule: 'required',
+      errorMessage: 'Answer 2 is required',
+    },
+  ])
+  .addField('#question_3', [
+    {
+      rule: 'required',
+      errorMessage: 'Question 3 is required',
+    },
+  ])
+  .addField('#answer_3', [
+    {
+      rule: 'required',
+      errorMessage: 'Answer 3 is required',
+    },
+  ])
+  .addField('#email', [
+    {
+      rule: 'required',
+      errorMessage: 'Email is required',
+    },
+    {
+      rule: 'email',
+      errorMessage: 'Email is invalid!',
+    },
+  ])
+  .addField('#password', [
+    {
+      rule: 'required',
+      errorMessage: 'Password is required',
+    },
+    {
+      rule: 'strongPassword',
+    }
+  ])
+  .addField('#confirm_password', [
+    {
+      rule: 'required',
+      errorMessage: 'Confirm Password is required',
+    },
+    {
+        validator: (value, fields) => {
+        if (fields['#password'] && fields['#password'].elem) {
+            const repeatPasswordValue = fields['#password'].elem.value;
+
+            return value === repeatPasswordValue;
+        }
+
+        return true;
+        },
+        errorMessage: 'Password and Confirm Password must be same',
+    },
+  ])
+  .onSuccess((event) => {
+    event.target.submit();
+  });
+</script>
+
 @stop

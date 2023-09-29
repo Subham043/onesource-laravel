@@ -606,3 +606,7 @@ body{font-size: .9rem}
 .padfix{ padding-left:12px !important; }
 .alert-danger{border: 0px !important}
 .filterset > div { padding-left:10px }
+
+.invalid-message{
+    color: red;
+}

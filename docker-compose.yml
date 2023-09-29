@@ -1,14 +1,14 @@
 version: '3'
 
 networks:
-  aaa_laravel:
+  onesource_laravel:
 
 
 services:
 
   mysql:
     image: mariadb:10.5.8
-    container_name: aaa_mysql
+    container_name: onesource_mysql
     restart: unless-stopped
     tty: true
     ports:
@@ -18,10 +18,10 @@ services:
     env_file:
       - .env
     networks:
-      - aaa_laravel
+      - onesource_laravel
 
   phpmyadmin:
-    container_name: aaa_admin
+    container_name: onesource_admin
     depends_on:
       - mysql
     # image: phpmyadmin/phpmyadmin
@@ -32,13 +32,13 @@ services:
     env_file:
       - .env
     networks:
-      - aaa_laravel
+      - onesource_laravel
 
   redis:
     image: redis:alpine
-    container_name: aaa_redis
+    container_name: onesource_redis
     restart: unless-stopped
     ports:
       - "6379:6379"
     networks:
-      - aaa_laravel
+      - onesource_laravel
