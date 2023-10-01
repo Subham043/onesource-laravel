@@ -115,6 +115,13 @@ class UserSeeder extends Seeder
                 'list tools',
                 'view tools',
 
+                //permission for clients
+                'edit clients',
+                'delete clients',
+                'add clients',
+                'list clients',
+                'view clients',
+
                 //permission for events
                 'edit events',
                 'delete events',
