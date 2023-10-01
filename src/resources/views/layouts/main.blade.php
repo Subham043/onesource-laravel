@@ -31,24 +31,8 @@
                 <!--Nav Start-->
                 @include('includes.header')
                 <!-- Nav Header Component Start -->
-                <div class="iq-navbar-header" style="height: 175px;">
-                    <div class="container-fluid iq-container">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="flex-wrap d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <h1>Dashboard</h1>
-                                    </div>
-                                    <div> <a href="add-job.html" class="btn btn-link btn-soft-light">Add An Event</a>
-                                        <a href="all-events.html" class="btn btn-link btn-soft-light">
-                                            View All Events
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> <!-- Nav Header Component End -->
+                @include('includes.breadcrumb')
+                <!-- Nav Header Component End -->
                 <!--Nav End-->
             </div>
             <div class="conatiner-fluid content-inner mt-n5 py-0">
@@ -143,6 +127,45 @@
                 </span>
             </span>
         `;
+
+        document.querySelectorAll('.remove-item-btn').forEach(el => {
+            el.addEventListener('click', function(){
+                deleteHandler(event.target.getAttribute('data-link'))
+            })
+        });
+
+        function deleteHandler(url){
+            iziToast.question({
+                timeout: 20000,
+                close: false,
+                overlay: true,
+                displayMode: 'once',
+                id: 'question',
+                zindex: 999,
+                title: 'Hey',
+                message: 'Are you sure about that?',
+                position: 'center',
+                buttons: [
+                    ['<button><b>YES</b></button>', function (instance, toast) {
+
+                        window.location.replace(url);
+                        // instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+
+                    }, true],
+                    ['<button>NO</button>', function (instance, toast) {
+
+                        instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+
+                    }],
+                ],
+                onClosing: function(instance, toast, closedBy){
+                    console.info('Closing | closedBy: ' + closedBy);
+                },
+                onClosed: function(instance, toast, closedBy){
+                    console.info('Closed | closedBy: ' + closedBy);
+                }
+            });
+        }
 
     </script>
 

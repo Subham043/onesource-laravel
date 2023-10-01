@@ -21,7 +21,9 @@ class ProfileEditController extends Controller
 
     public function get(){
         $data = $this->authService->authenticated_user();
-        return view('profile.edit', compact('data'));
+        return view('profile.edit', compact('data'))->with([
+            'page_name' => 'Profile'
+        ]);
     }
 
     public function post(ProfilePostRequest $request){

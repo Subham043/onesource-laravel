@@ -16,6 +16,8 @@ class ProfileViewController extends Controller
 
     public function get(){
         $data = $this->authService->authenticated_user();
-        return view('profile.view', compact('data'));
+        return view('profile.view', compact('data'))->with([
+            'page_name' => 'Profile'
+        ]);
     }
 }

@@ -610,3 +610,6 @@ body{font-size: .9rem}
 .invalid-message{
     color: red;
 }
+.remove-item-btn>*{
+    pointer-events: none;
+}

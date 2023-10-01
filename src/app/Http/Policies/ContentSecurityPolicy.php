@@ -17,6 +17,7 @@ class ContentSecurityPolicy extends Basic
         // }
 
         $this
+        ->addNonceForDirective(Directive::SCRIPT)
         //start of basic policy
         ->addDirective(Directive::BASE, Keyword::SELF)
         ->addDirective(Directive::CONNECT, Keyword::SELF)
@@ -29,8 +30,7 @@ class ContentSecurityPolicy extends Basic
         ->addDirective(Directive::STYLE, Keyword::UNSAFE_INLINE)
         ->addDirective(Directive::STYLE, Keyword::SELF)
         ->addDirective(Directive::FRAME, Keyword::SELF)
-        ->addDirective(Directive::FONT, Keyword::SELF)
-        ->addNonceForDirective(Directive::SCRIPT);
+        ->addDirective(Directive::FONT, Keyword::SELF);
 
         //end of basic policy
 
@@ -39,15 +39,6 @@ class ContentSecurityPolicy extends Basic
         //start of
         ->addDirective(Directive::IMG, 'data:')
         ->addDirective(Directive::FONT, 'data:') //remove as this and above belongs for development template of welcome page
-
-        //start of artibot
-        ->addDirective(Directive::SCRIPT, 'cdn.ckeditor.com')
-        ->addDirective(Directive::SCRIPT, 'app.artibot.ai')
-        ->addDirective(Directive::FRAME, 'app.artibot.ai')
-        ->addDirective(Directive::SCRIPT, 'prod.artibotcdn.com')
-        ->addDirective(Directive::CONNECT, 'api.artibot.ai')
-        ->addDirective(Directive::CONNECT, 'api-cdn.prod-aws.artibot.ai')
-        ->addDirective(Directive::IMG, 's3.amazonaws.com')
 
         //start of common
         ->addDirective(Directive::IMG, 'i3.ytimg.com')

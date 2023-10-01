@@ -8,6 +8,11 @@ class DashboardController extends Controller
 {
 
     public function get(){
-        return view('dashboard');
+        if(auth()->user()->current_role=='Super Admin'){
+            return redirect(route('customer.paginate.get'));
+        }
+        return view('dashboard')->with([
+            'page_name' => 'Dashboard'
+        ]);
     }
 }

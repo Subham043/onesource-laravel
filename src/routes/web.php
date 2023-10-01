@@ -26,6 +26,11 @@ use App\Modules\Report\Conflict\Controllers\ConflictViewController;
 use App\Modules\Report\Controllers\ReportViewController;
 use App\Modules\Report\Export\Controllers\ExportViewController;
 use App\Modules\Report\Quickbook\Controllers\QuickbookViewController;
+use App\Modules\Tool\Controllers\ToolCreateController;
+use App\Modules\Tool\Controllers\ToolDeleteController;
+use App\Modules\Tool\Controllers\ToolPaginateController;
+use App\Modules\Tool\Controllers\ToolUpdateController;
+use App\Modules\Tool\Controllers\ToolViewController;
 use App\Modules\User\Controllers\UserCreateController;
 use App\Modules\User\Controllers\UserDeleteController;
 use App\Modules\User\Controllers\UserPaginateController;
@@ -89,6 +94,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/update/{id}', [UserUpdateController::class, 'post', 'as' => 'user.update.get'])->name('user.update.post');
         Route::get('/view/{id}', [UserViewController::class, 'get', 'as' => 'user.view.get'])->name('user.view.get');
         Route::get('/delete/{id}', [UserDeleteController::class, 'get', 'as' => 'user.delete.get'])->name('user.delete.get');
+    });
+
+    Route::prefix('/tool')->group(function () {
+        Route::get('/', [ToolPaginateController::class, 'get', 'as' => 'tool.paginate.get'])->name('tool.paginate.get');
+        Route::get('/create', [ToolCreateController::class, 'get', 'as' => 'tool.create.get'])->name('tool.create.get');
+        Route::post('/create', [ToolCreateController::class, 'post', 'as' => 'tool.create.get'])->name('tool.create.post');
+        Route::get('/update/{id}', [ToolUpdateController::class, 'get', 'as' => 'tool.update.get'])->name('tool.update.get');
+        Route::post('/update/{id}', [ToolUpdateController::class, 'post', 'as' => 'tool.update.get'])->name('tool.update.post');
+        Route::get('/view/{id}', [ToolViewController::class, 'get', 'as' => 'tool.view.get'])->name('tool.view.get');
+        Route::get('/delete/{id}', [ToolDeleteController::class, 'get', 'as' => 'tool.delete.get'])->name('tool.delete.get');
     });
 
     Route::prefix('/event')->group(function () {

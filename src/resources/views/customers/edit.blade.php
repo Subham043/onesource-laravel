@@ -11,9 +11,9 @@
                                 <h4 class="mb-0 card-title">Customers Details</h4>
                             </div>
                             <div class="header-title">
-                                <a href="{{route('customer.reset_password.get', $data->id)}}" class="btn btn-primary">Send Password Reset Link </a>
-                                <a href="{{route('customer.status.get', $data->id)}}"
-                                    class="btn btn-primary">{{$data->is_blocked ? 'Activate' : 'Deactivate'}} </a>
+                                <a href="#" class="btn btn-primary remove-item-btn" data-link="{{route('customer.reset_password.get', $item->id)}}">Send Password Reset Link </a>
+                                <a href="#"
+                                    class="btn btn-primary remove-item-btn" data-link="{{route('customer.status.get', $item->id)}}">{{$data->is_blocked ? 'Activate' : 'Deactivate'}} </a>
                             </div>
                         </div>
                         <form id="loginForm" method="POST" action="{{route('customer.update.post', $data->id)}}" class="card-body">

@@ -18,7 +18,9 @@ class CustomerUpdateController extends Controller
 
     public function get($id){
         $data = $this->customerService->getById($id);
-        return view('customers.edit', compact(['data']));
+        return view('customers.edit', compact(['data']))->with([
+            'page_name' => 'Customer'
+        ]);
     }
 
     public function post(CustomerUpdatePostRequest $request, $id){

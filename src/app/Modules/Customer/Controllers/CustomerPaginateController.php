@@ -19,7 +19,9 @@ class CustomerPaginateController extends Controller
     public function get(Request $request){
         $data = $this->customerService->paginate($request->total ?? 10);
         return view('customers.list', compact(['data']))
-            ->with('search', $request->query('filter')['search'] ?? '');
+            ->with('search', $request->query('filter')['search'] ?? '')->with([
+                'page_name' => 'Customer'
+            ]);
     }
 
 }

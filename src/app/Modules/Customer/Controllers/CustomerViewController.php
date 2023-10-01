@@ -17,6 +17,8 @@ class CustomerViewController extends Controller
 
     public function get($id){
         $data = $this->customerService->getById($id);
-        return view('customers.view', compact('data'));
+        return view('customers.view', compact('data'))->with([
+            'page_name' => 'Customer'
+        ]);
     }
 }
