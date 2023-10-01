@@ -9,6 +9,11 @@ use App\Modules\Authentication\Controllers\RegisterController;
 use App\Modules\Authentication\Controllers\ResetPasswordController;
 use App\Modules\Authentication\Controllers\VerifyRegisteredUserController;
 use App\Modules\Calendar\Controllers\CalendarViewController;
+use App\Modules\Client\Controllers\ClientCreateController;
+use App\Modules\Client\Controllers\ClientDeleteController;
+use App\Modules\Client\Controllers\ClientPaginateController;
+use App\Modules\Client\Controllers\ClientUpdateController;
+use App\Modules\Client\Controllers\ClientViewController;
 use App\Modules\Customer\Controllers\CustomerPaginateController;
 use App\Modules\Customer\Controllers\CustomerPasswordResetLinkController;
 use App\Modules\Customer\Controllers\CustomerStatusController;
@@ -104,6 +109,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/update/{id}', [ToolUpdateController::class, 'post', 'as' => 'tool.update.get'])->name('tool.update.post');
         Route::get('/view/{id}', [ToolViewController::class, 'get', 'as' => 'tool.view.get'])->name('tool.view.get');
         Route::get('/delete/{id}', [ToolDeleteController::class, 'get', 'as' => 'tool.delete.get'])->name('tool.delete.get');
+    });
+
+    Route::prefix('/client')->group(function () {
+        Route::get('/', [ClientPaginateController::class, 'get', 'as' => 'client.paginate.get'])->name('client.paginate.get');
+        Route::get('/create', [ClientCreateController::class, 'get', 'as' => 'client.create.get'])->name('client.create.get');
+        Route::post('/create', [ClientCreateController::class, 'post', 'as' => 'client.create.get'])->name('client.create.post');
+        Route::get('/update/{id}', [ClientUpdateController::class, 'get', 'as' => 'client.update.get'])->name('client.update.get');
+        Route::post('/update/{id}', [ClientUpdateController::class, 'post', 'as' => 'client.update.get'])->name('client.update.post');
+        Route::get('/view/{id}', [ClientViewController::class, 'get', 'as' => 'client.view.get'])->name('client.view.get');
+        Route::get('/delete/{id}', [ClientDeleteController::class, 'get', 'as' => 'client.delete.get'])->name('client.delete.get');
     });
 
     Route::prefix('/event')->group(function () {
