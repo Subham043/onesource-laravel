@@ -12,6 +12,7 @@
                         </div>
                     </div>
                     <div class="p-0 card-body">
+                        @if($data->total() > 0)
                         <div class="mt-4 table-responsive">
                             <table id="basic-table" class="table mb-0 table-striped" role="grid">
                                 <thead>
@@ -117,7 +118,11 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                            {{$data->onEachSide(5)->links()}}
                         </div>
+                        @else
+                            <p class="text-center">No data available</p>
+                        @endif
                     </div>
                 </div>
             </div>

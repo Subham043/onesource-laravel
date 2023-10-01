@@ -60,7 +60,7 @@
                                 <label class="control-label col-sm-2 align-self-center mb-0" for="eventName">State/Province
                                     :</label>
                                 <div class="col-sm-10">
-                                    {{$data->profile->state->value}}
+                                    {{!empty($data->profile->state) ? $data->profile->state->value : ''}}
                                 </div>
                             </div>
                             <div class="form-group row">

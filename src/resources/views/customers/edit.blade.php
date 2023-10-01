@@ -69,57 +69,57 @@
                                 <div class="col-sm-10">
                                     <select class="form-select form-select-sm" id="state" name="state" aria-label="state">
                                         <option value="" {{empty(old('state')) ? 'selected' : ''}}>State/Province</option>
-                                        <option value="AL" {{$data->profile->state->value == 'AL' ? 'selected' : ''}}>Alabama</option>
-                                        <option value="AK" {{$data->profile->state->value == 'AK' ? 'selected' : ''}}>Alaska</option>
-                                        <option value="AZ" {{$data->profile->state->value == 'AZ' ? 'selected' : ''}}>Arizona</option>
-                                        <option value="AR" {{$data->profile->state->value == 'AR' ? 'selected' : ''}}>Arkansas</option>
-                                        <option value="CA" {{$data->profile->state->value == 'CA' ? 'selected' : ''}}>California</option>
-                                        <option value="CO" {{$data->profile->state->value == 'CO' ? 'selected' : ''}}>Colorado</option>
-                                        <option value="CT" {{$data->profile->state->value == 'CT' ? 'selected' : ''}}>Connecticut</option>
-                                        <option value="DE" {{$data->profile->state->value == 'DE' ? 'selected' : ''}}>Delaware</option>
-                                        <option value="DC" {{$data->profile->state->value == 'DC' ? 'selected' : ''}}>District Of Columbia</option>
-                                        <option value="FL" {{$data->profile->state->value == 'FL' ? 'selected' : ''}}>Florida</option>
-                                        <option value="GA" {{$data->profile->state->value == 'GA' ? 'selected' : ''}}>Georgia</option>
-                                        <option value="HI" {{$data->profile->state->value == 'HI' ? 'selected' : ''}}>Hawaii</option>
-                                        <option value="ID" {{$data->profile->state->value == 'ID' ? 'selected' : ''}}>Idaho</option>
-                                        <option value="IL" {{$data->profile->state->value == 'IL' ? 'selected' : ''}}>Illinois</option>
-                                        <option value="IN" {{$data->profile->state->value == 'IN' ? 'selected' : ''}}>Indiana</option>
-                                        <option value="IA" {{$data->profile->state->value == 'IA' ? 'selected' : ''}}>Iowa</option>
-                                        <option value="KS" {{$data->profile->state->value == 'KS' ? 'selected' : ''}}>Kansas</option>
-                                        <option value="KY" {{$data->profile->state->value == 'KY' ? 'selected' : ''}}>Kentucky</option>
-                                        <option value="LA" {{$data->profile->state->value == 'LA' ? 'selected' : ''}}>Louisiana</option>
-                                        <option value="ME" {{$data->profile->state->value == 'ME' ? 'selected' : ''}}>Maine</option>
-                                        <option value="MD" {{$data->profile->state->value == 'MD' ? 'selected' : ''}}>Maryland</option>
-                                        <option value="MA" {{$data->profile->state->value == 'MA' ? 'selected' : ''}}>Massachusetts</option>
-                                        <option value="MI" {{$data->profile->state->value == 'MI' ? 'selected' : ''}}>Michigan</option>
-                                        <option value="MN" {{$data->profile->state->value == 'MN' ? 'selected' : ''}}>Minnesota</option>
-                                        <option value="MS" {{$data->profile->state->value == 'MS' ? 'selected' : ''}}>Mississippi</option>
-                                        <option value="MO" {{$data->profile->state->value == 'MO' ? 'selected' : ''}}>Missouri</option>
-                                        <option value="MT" {{$data->profile->state->value == 'MT' ? 'selected' : ''}}>Montana</option>
-                                        <option value="NE" {{$data->profile->state->value == 'NE' ? 'selected' : ''}}>Nebraska</option>
-                                        <option value="NV" {{$data->profile->state->value == 'NV' ? 'selected' : ''}}>Nevada</option>
-                                        <option value="NH" {{$data->profile->state->value == 'NH' ? 'selected' : ''}}>New Hampshire</option>
-                                        <option value="NJ" {{$data->profile->state->value == 'NJ' ? 'selected' : ''}}>New Jersey</option>
-                                        <option value="NM" {{$data->profile->state->value == 'NM' ? 'selected' : ''}}>New Mexico</option>
-                                        <option value="NY" {{$data->profile->state->value == 'NY' ? 'selected' : ''}}>New York</option>
-                                        <option value="NC" {{$data->profile->state->value == 'NC' ? 'selected' : ''}}>North Carolina</option>
-                                        <option value="ND" {{$data->profile->state->value == 'ND' ? 'selected' : ''}}>North Dakota</option>
-                                        <option value="OH" {{$data->profile->state->value == 'OH' ? 'selected' : ''}}>Ohio</option>
-                                        <option value="OK" {{$data->profile->state->value == 'OK' ? 'selected' : ''}}>Oklahoma</option>
-                                        <option value="OR" {{$data->profile->state->value == 'OR' ? 'selected' : ''}}>Oregon</option>
-                                        <option value="PA" {{$data->profile->state->value == 'PA' ? 'selected' : ''}}>Pennsylvania</option>
-                                        <option value="RI" {{$data->profile->state->value == 'RI' ? 'selected' : ''}}>Rhode Island</option>
-                                        <option value="SC" {{$data->profile->state->value == 'SC' ? 'selected' : ''}}>South Carolina</option>
-                                        <option value="SD" {{$data->profile->state->value == 'SD' ? 'selected' : ''}}>South Dakota</option>
-                                        <option value="TN" {{$data->profile->state->value == 'TN' ? 'selected' : ''}}>Tennessee</option>
-                                        <option value="TX" {{$data->profile->state->value == 'TX' ? 'selected' : ''}}>Texas</option>
-                                        <option value="UT" {{$data->profile->state->value == 'UT' ? 'selected' : ''}}>Utah</option>
-                                        <option value="VT" {{$data->profile->state->value == 'VT' ? 'selected' : ''}}>Vermont</option>
-                                        <option value="VA" {{$data->profile->state->value == 'VA' ? 'selected' : ''}}>Virginia</option>
-                                        <option value="WA" {{$data->profile->state->value == 'WA' ? 'selected' : ''}}>Washington</option>
-                                        <option value="WV" {{$data->profile->state->value == 'WV' ? 'selected' : ''}}>West Virginia</option>
-                                        <option value="WI" {{$data->profile->state->value == 'WI' ? 'selected' : ''}}>Wisconsin</option>
-                                        <option value="WY" {{$data->profile->state->value == 'WY' ? 'selected' : ''}}>Wyoming</option>
+                                        <option value="AL" {{!empty($data->profile->state) && $data->profile->state->value == 'AL' ? 'selected' : ''}}>Alabama</option>
+                                        <option value="AK" {{!empty($data->profile->state) && $data->profile->state->value == 'AK' ? 'selected' : ''}}>Alaska</option>
+                                        <option value="AZ" {{!empty($data->profile->state) && $data->profile->state->value == 'AZ' ? 'selected' : ''}}>Arizona</option>
+                                        <option value="AR" {{!empty($data->profile->state) && $data->profile->state->value == 'AR' ? 'selected' : ''}}>Arkansas</option>
+                                        <option value="CA" {{!empty($data->profile->state) && $data->profile->state->value == 'CA' ? 'selected' : ''}}>California</option>
+                                        <option value="CO" {{!empty($data->profile->state) && $data->profile->state->value == 'CO' ? 'selected' : ''}}>Colorado</option>
+                                        <option value="CT" {{!empty($data->profile->state) && $data->profile->state->value == 'CT' ? 'selected' : ''}}>Connecticut</option>
+                                        <option value="DE" {{!empty($data->profile->state) && $data->profile->state->value == 'DE' ? 'selected' : ''}}>Delaware</option>
+                                        <option value="DC" {{!empty($data->profile->state) && $data->profile->state->value == 'DC' ? 'selected' : ''}}>District Of Columbia</option>
+                                        <option value="FL" {{!empty($data->profile->state) && $data->profile->state->value == 'FL' ? 'selected' : ''}}>Florida</option>
+                                        <option value="GA" {{!empty($data->profile->state) && $data->profile->state->value == 'GA' ? 'selected' : ''}}>Georgia</option>
+                                        <option value="HI" {{!empty($data->profile->state) && $data->profile->state->value == 'HI' ? 'selected' : ''}}>Hawaii</option>
+                                        <option value="ID" {{!empty($data->profile->state) && $data->profile->state->value == 'ID' ? 'selected' : ''}}>Idaho</option>
+                                        <option value="IL" {{!empty($data->profile->state) && $data->profile->state->value == 'IL' ? 'selected' : ''}}>Illinois</option>
+                                        <option value="IN" {{!empty($data->profile->state) && $data->profile->state->value == 'IN' ? 'selected' : ''}}>Indiana</option>
+                                        <option value="IA" {{!empty($data->profile->state) && $data->profile->state->value == 'IA' ? 'selected' : ''}}>Iowa</option>
+                                        <option value="KS" {{!empty($data->profile->state) && $data->profile->state->value == 'KS' ? 'selected' : ''}}>Kansas</option>
+                                        <option value="KY" {{!empty($data->profile->state) && $data->profile->state->value == 'KY' ? 'selected' : ''}}>Kentucky</option>
+                                        <option value="LA" {{!empty($data->profile->state) && $data->profile->state->value == 'LA' ? 'selected' : ''}}>Louisiana</option>
+                                        <option value="ME" {{!empty($data->profile->state) && $data->profile->state->value == 'ME' ? 'selected' : ''}}>Maine</option>
+                                        <option value="MD" {{!empty($data->profile->state) && $data->profile->state->value == 'MD' ? 'selected' : ''}}>Maryland</option>
+                                        <option value="MA" {{!empty($data->profile->state) && $data->profile->state->value == 'MA' ? 'selected' : ''}}>Massachusetts</option>
+                                        <option value="MI" {{!empty($data->profile->state) && $data->profile->state->value == 'MI' ? 'selected' : ''}}>Michigan</option>
+                                        <option value="MN" {{!empty($data->profile->state) && $data->profile->state->value == 'MN' ? 'selected' : ''}}>Minnesota</option>
+                                        <option value="MS" {{!empty($data->profile->state) && $data->profile->state->value == 'MS' ? 'selected' : ''}}>Mississippi</option>
+                                        <option value="MO" {{!empty($data->profile->state) && $data->profile->state->value == 'MO' ? 'selected' : ''}}>Missouri</option>
+                                        <option value="MT" {{!empty($data->profile->state) && $data->profile->state->value == 'MT' ? 'selected' : ''}}>Montana</option>
+                                        <option value="NE" {{!empty($data->profile->state) && $data->profile->state->value == 'NE' ? 'selected' : ''}}>Nebraska</option>
+                                        <option value="NV" {{!empty($data->profile->state) && $data->profile->state->value == 'NV' ? 'selected' : ''}}>Nevada</option>
+                                        <option value="NH" {{!empty($data->profile->state) && $data->profile->state->value == 'NH' ? 'selected' : ''}}>New Hampshire</option>
+                                        <option value="NJ" {{!empty($data->profile->state) && $data->profile->state->value == 'NJ' ? 'selected' : ''}}>New Jersey</option>
+                                        <option value="NM" {{!empty($data->profile->state) && $data->profile->state->value == 'NM' ? 'selected' : ''}}>New Mexico</option>
+                                        <option value="NY" {{!empty($data->profile->state) && $data->profile->state->value == 'NY' ? 'selected' : ''}}>New York</option>
+                                        <option value="NC" {{!empty($data->profile->state) && $data->profile->state->value == 'NC' ? 'selected' : ''}}>North Carolina</option>
+                                        <option value="ND" {{!empty($data->profile->state) && $data->profile->state->value == 'ND' ? 'selected' : ''}}>North Dakota</option>
+                                        <option value="OH" {{!empty($data->profile->state) && $data->profile->state->value == 'OH' ? 'selected' : ''}}>Ohio</option>
+                                        <option value="OK" {{!empty($data->profile->state) && $data->profile->state->value == 'OK' ? 'selected' : ''}}>Oklahoma</option>
+                                        <option value="OR" {{!empty($data->profile->state) && $data->profile->state->value == 'OR' ? 'selected' : ''}}>Oregon</option>
+                                        <option value="PA" {{!empty($data->profile->state) && $data->profile->state->value == 'PA' ? 'selected' : ''}}>Pennsylvania</option>
+                                        <option value="RI" {{!empty($data->profile->state) && $data->profile->state->value == 'RI' ? 'selected' : ''}}>Rhode Island</option>
+                                        <option value="SC" {{!empty($data->profile->state) && $data->profile->state->value == 'SC' ? 'selected' : ''}}>South Carolina</option>
+                                        <option value="SD" {{!empty($data->profile->state) && $data->profile->state->value == 'SD' ? 'selected' : ''}}>South Dakota</option>
+                                        <option value="TN" {{!empty($data->profile->state) && $data->profile->state->value == 'TN' ? 'selected' : ''}}>Tennessee</option>
+                                        <option value="TX" {{!empty($data->profile->state) && $data->profile->state->value == 'TX' ? 'selected' : ''}}>Texas</option>
+                                        <option value="UT" {{!empty($data->profile->state) && $data->profile->state->value == 'UT' ? 'selected' : ''}}>Utah</option>
+                                        <option value="VT" {{!empty($data->profile->state) && $data->profile->state->value == 'VT' ? 'selected' : ''}}>Vermont</option>
+                                        <option value="VA" {{!empty($data->profile->state) && $data->profile->state->value == 'VA' ? 'selected' : ''}}>Virginia</option>
+                                        <option value="WA" {{!empty($data->profile->state) && $data->profile->state->value == 'WA' ? 'selected' : ''}}>Washington</option>
+                                        <option value="WV" {{!empty($data->profile->state) && $data->profile->state->value == 'WV' ? 'selected' : ''}}>West Virginia</option>
+                                        <option value="WI" {{!empty($data->profile->state) && $data->profile->state->value == 'WI' ? 'selected' : ''}}>Wisconsin</option>
+                                        <option value="WY" {{!empty($data->profile->state) && $data->profile->state->value == 'WY' ? 'selected' : ''}}>Wyoming</option>
                                     </select>
                                 </div>
                             </div>

@@ -14,7 +14,7 @@ class Customer extends User
 
     public function profile()
     {
-        return $this->hasOne(Profile::class, 'user_id')->whereColumn('user_id', 'created_by');
+        return $this->hasOne(Profile::class, 'user_id')->withDefault()->whereColumn('user_id', 'created_by');
     }
 
     public function scopeWithProfile(Builder $query): Builder

@@ -32,7 +32,10 @@ class CustomerService
 
     public function getById(Int $id): Customer|null
     {
-        return Customer::filterByAdminRole()->filterByCurrentPayment()->withProfile()->findOrFail($id);
+        return Customer::filterByAdminRole()->filterByCurrentPayment()->withProfile()
+        ->whereHas('profile', function($qry) use($id){
+            $qry->where('user_id', $id);
+        })->findOrFail($id);
     }
 
     public function update(CustomerUpdatePostRequest $request, Customer $customer): Customer

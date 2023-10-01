@@ -4,6 +4,7 @@ namespace App\Modules\Authentication\Models;
 
 use App\Enums\State;
 use App\Modules\Authentication\Models\User;
+use App\Modules\Customer\Models\Customer;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -41,6 +42,11 @@ class Profile extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id')->withDefault();
+    }
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class, 'user_id')->withDefault();
     }
 
     public function creator()
