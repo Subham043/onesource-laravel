@@ -11,18 +11,19 @@
                             <img src="{{asset('assets/images/logo.png')}}" alt="1Source" class="ms-3" />
                         </a>
                         <h2 class="mb-2 text-center">Sign In</h2>
-                        <form action="dashboard.html">
+                        <form id="loginForm" method="POST" action="{{route('login.post')}}">
+                            @csrf
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label for="email" class="form-label">Email ID</label>
-                                        <input type="email" class="form-control" id="email" aria-describedby="email" placeholder=" ">
+                                        <input type="email" class="form-control" id="email" name="email" aria-describedby="email">
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label for="password" class="form-label">Password</label>
-                                        <input type="password" class="form-control" id="password" aria-describedby="password" placeholder=" ">
+                                        <input type="password" class="form-control" id="password" name="password" aria-describedby="password">
                                     </div>
                                 </div>
                                 <div class="col-lg-12 d-flex justify-content-between">
@@ -48,4 +49,39 @@
         </div>
     </div>
 </div>
+@stop
+
+
+@section('javascript')
+<script type="text/javascript" nonce="{{ csp_nonce() }}">
+
+// initialize the validation library
+const validation = new JustValidate('#loginForm', {
+      errorFieldCssClass: 'is-invalid',
+      focusInvalidField: true,
+      lockForm: true,
+});
+// apply rules to form fields
+validation
+  .addField('#email', [
+    {
+      rule: 'required',
+      errorMessage: 'Email is required',
+    },
+    {
+      rule: 'email',
+      errorMessage: 'Email is invalid!',
+    },
+  ])
+  .addField('#password', [
+    {
+      rule: 'required',
+      errorMessage: 'Password is required',
+    },
+  ])
+  .onSuccess((event) => {
+    event.target.submit();
+  });
+</script>
+
 @stop

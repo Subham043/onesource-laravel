@@ -2,8 +2,8 @@
 
 namespace App\Modules\Authentication\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,11 +14,10 @@ use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Support\Facades\Hash;
 use App\Enums\Timezone;
-use Spatie\Activitylog\Traits\LogsActivity;
-use Spatie\Activitylog\LogOptions;
+use Illuminate\Auth\Events\Registered;
 
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
@@ -69,6 +68,16 @@ class User extends Authenticatable
         'timezone' => Timezone::class,
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        self::created(function ($user) {
+            event(new Registered($user));
+        });
+        self::updated(function ($user) {});
+        self::deleted(function ($user) {});
+    }
+
     protected function currentRole(): Attribute
     {
         $roles_array = $this->getRoleNames();
@@ -93,6 +102,16 @@ class User extends Authenticatable
     protected static function newFactory(): Factory
     {
         return UserFactory::new();
+    }
+
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(new \App\Modules\Authentication\Notifications\VerifyEmailQueued);
+    }
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new \App\Modules\Authentication\Notifications\ResetPasswordQueued($token));
     }
 
     public function profile()
