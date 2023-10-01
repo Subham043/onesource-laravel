@@ -16,6 +16,9 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
+        //permission for dashboard
+        Permission::create(['name' => 'view dashboard']);
+
         //permission for roles
         Permission::create(['name' => 'edit roles']);
         Permission::create(['name' => 'delete roles']);
@@ -29,6 +32,11 @@ class UserSeeder extends Seeder
         Permission::create(['name' => 'add users']);
         Permission::create(['name' => 'list users']);
         Permission::create(['name' => 'view users']);
+
+        //permission for customers
+        Permission::create(['name' => 'edit customers']);
+        Permission::create(['name' => 'list customers']);
+        Permission::create(['name' => 'view customers']);
 
         //permission for tools
         Permission::create(['name' => 'edit tools']);
@@ -74,11 +82,24 @@ class UserSeeder extends Seeder
         Permission::create(['name' => 'list documents']);
 
         // gets all permissions via Gate::before rule; see AuthServiceProvider
-        $admin_role = Role::create(['name' => 'Super-Admin']);
+        Role::create(['name' => 'Super-Admin']);
+
+        // create roles and assign created permissions
+        $admin_role = Role::create(['name' => 'Super Admin'])
+            ->givePermissionTo([
+
+                //permission for customers
+                'edit customers',
+                'list customers',
+                'view customers',
+            ]);
 
         // create roles and assign created permissions
         Role::create(['name' => 'Admin'])
             ->givePermissionTo([
+
+                //permission for dashboard
+                'view dashboard',
 
                 //permission for users
                 'edit users',
@@ -128,6 +149,9 @@ class UserSeeder extends Seeder
         Role::create(['name' => 'Writer'])
             ->givePermissionTo([
 
+                //permission for dashboard
+                'view dashboard',
+
                 //permission for events
                 'list events',
                 'view events',
@@ -153,6 +177,9 @@ class UserSeeder extends Seeder
         Role::create(['name' => 'Client'])
             ->givePermissionTo([
 
+                //permission for dashboard
+                'view dashboard',
+
                 //permission for events
                 'list events',
                 'view events',
@@ -165,7 +192,7 @@ class UserSeeder extends Seeder
 
             ]);
 
-        // create User with Super-Admin Role
+        // create User with Super Admin Role
         User::factory()->create([
             'name' => 'Subham Saha',
             'email' => 'subham.5ine@gmail.com',

@@ -35,7 +35,7 @@ class AuthService
             'answer_3',
         ]));
         $user->syncRoles(['Admin']);
-        $user->profile()->create([
+        $user->profiles()->create([
             ...$request->safe()->only([
                 'company',
                 'address',

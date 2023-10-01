@@ -114,7 +114,7 @@ class User extends Authenticatable implements MustVerifyEmail
         $this->notify(new \App\Modules\Authentication\Notifications\ResetPasswordQueued($token));
     }
 
-    public function profile()
+    public function profiles()
     {
         return $this->hasMany(Profile::class, 'user_id');
     }

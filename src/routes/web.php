@@ -9,6 +9,11 @@ use App\Modules\Authentication\Controllers\RegisterController;
 use App\Modules\Authentication\Controllers\ResetPasswordController;
 use App\Modules\Authentication\Controllers\VerifyRegisteredUserController;
 use App\Modules\Calendar\Controllers\CalendarViewController;
+use App\Modules\Customer\Controllers\CustomerPaginateController;
+use App\Modules\Customer\Controllers\CustomerPasswordResetLinkController;
+use App\Modules\Customer\Controllers\CustomerStatusController;
+use App\Modules\Customer\Controllers\CustomerUpdateController;
+use App\Modules\Customer\Controllers\CustomerViewController;
 use App\Modules\Dashboard\Controllers\DashboardController;
 use App\Modules\Document\Controllers\DocumentCreateController;
 use App\Modules\Document\Controllers\DocumentPaginateController;
@@ -65,6 +70,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/', [ProfileController::class, 'get', 'as' => 'profile.get'])->name('profile.get');
         Route::post('/update', [ProfileController::class, 'post', 'as' => 'profile.post'])->name('profile.post');
         Route::post('/profile-password-update', [PasswordUpdateController::class, 'post', 'as' => 'password.post'])->name('password.post');
+    });
+
+    Route::prefix('/customer')->group(function () {
+        Route::get('/', [CustomerPaginateController::class, 'get', 'as' => 'customer.paginate.get'])->name('customer.paginate.get');
+        Route::get('/update/{id}', [CustomerUpdateController::class, 'get', 'as' => 'customer.update.get'])->name('customer.update.get');
+        Route::post('/update/{id}', [CustomerUpdateController::class, 'post', 'as' => 'customer.update.get'])->name('customer.update.post');
+        Route::get('/view/{id}', [CustomerViewController::class, 'get', 'as' => 'customer.view.get'])->name('customer.view.get');
+        Route::get('/reset-password-link/{id}', [CustomerPasswordResetLinkController::class, 'get', 'as' => 'customer.reset_password.get'])->name('customer.reset_password.get');
+        Route::get('/status/{id}', [CustomerStatusController::class, 'get', 'as' => 'customer.status.get'])->name('customer.status.get');
     });
 
     Route::prefix('/user')->group(function () {
