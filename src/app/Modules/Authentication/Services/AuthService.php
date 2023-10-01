@@ -58,9 +58,4 @@ class AuthService
         return Auth::user();
     }
 
-    public function user_profile(): User
-    {
-        return Auth::user();
-    }
-
 }

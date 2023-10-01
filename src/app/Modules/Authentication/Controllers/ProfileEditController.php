@@ -8,7 +8,7 @@ use App\Modules\Authentication\Requests\ProfilePostRequest;
 use App\Modules\Authentication\Services\AuthService;
 use App\Modules\User\Services\UserService;
 
-class ProfileController extends Controller
+class ProfileEditController extends Controller
 {
     private $authService;
     private $userService;
@@ -20,7 +20,8 @@ class ProfileController extends Controller
     }
 
     public function get(){
-        return view('admin.pages.profile.index');
+        $data = $this->authService->authenticated_user();
+        return view('profile.edit', compact('data'));
     }
 
     public function post(ProfilePostRequest $request){
@@ -29,13 +30,13 @@ class ProfileController extends Controller
             //code...
             $user = $this->authService->authenticated_user();
             $this->userService->update(
-                $request->validated(),
+                $request->safe()->only(['name', 'email', 'phone', 'password', 'timezone']),
                 $user
             );
             (new RateLimitService($request))->clearRateLimit();
-            return response()->json(["message" => "Profile Updated successfully."], 201);
+            return redirect()->intended(route('profile.edit.get'))->with('success_status', 'Profile updated successfully.');
         } catch (\Throwable $th) {
-            return response()->json(["error"=>"something went wrong. Please try again"], 400);
+            return redirect()->intended(route('profile.edit.get'))->with('error_status', 'something went wrong. Please try again.');
         }
 
     }

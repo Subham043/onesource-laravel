@@ -3,8 +3,8 @@
 use App\Modules\Authentication\Controllers\ForgotPasswordController;
 use App\Modules\Authentication\Controllers\LoginController;
 use App\Modules\Authentication\Controllers\LogoutController;
-use App\Modules\Authentication\Controllers\PasswordUpdateController;
-use App\Modules\Authentication\Controllers\ProfileController;
+use App\Modules\Authentication\Controllers\ProfileEditController;
+use App\Modules\Authentication\Controllers\ProfileViewController;
 use App\Modules\Authentication\Controllers\RegisterController;
 use App\Modules\Authentication\Controllers\ResetPasswordController;
 use App\Modules\Authentication\Controllers\VerifyRegisteredUserController;
@@ -67,9 +67,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/', [DashboardController::class, 'get', 'as' => 'dashboard.get'])->name('dashboard.get');
 
     Route::prefix('/profile')->group(function () {
-        Route::get('/', [ProfileController::class, 'get', 'as' => 'profile.get'])->name('profile.get');
-        Route::post('/update', [ProfileController::class, 'post', 'as' => 'profile.post'])->name('profile.post');
-        Route::post('/profile-password-update', [PasswordUpdateController::class, 'post', 'as' => 'password.post'])->name('password.post');
+        Route::get('/view', [ProfileViewController::class, 'get', 'as' => 'profile.view.get'])->name('profile.view.get');
+        Route::get('/edit', [ProfileEditController::class, 'get', 'as' => 'profile.edit.get'])->name('profile.edit.get');
+        Route::post('/edit', [ProfileEditController::class, 'post', 'as' => 'profile.edit.post'])->name('profile.edit.post');
     });
 
     Route::prefix('/customer')->group(function () {

@@ -23,6 +23,9 @@
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control" id="name" name="name" aria-describedby="name"
                                         value="{{$data->name}}">
+                                        @error('name')
+                                            <div class="invalid-message">{{ $message }}</div>
+                                        @enderror
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -30,6 +33,9 @@
                                 <div class="col-sm-10">
                                     <input type="email" class="form-control" id="email" name="email" aria-describedby="email"
                                         value="{{$data->email}}">
+                                        @error('email')
+                                            <div class="invalid-message">{{ $message }}</div>
+                                        @enderror
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -37,6 +43,9 @@
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control" id="phone" name="phone" aria-describedby="phone"
                                         value="{{$data->phone}}">
+                                        @error('phone')
+                                            <div class="invalid-message">{{ $message }}</div>
+                                        @enderror
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -45,6 +54,9 @@
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control" id="company" name="company" aria-describedby="company"
                                         value="{{$data->profile->company}}">
+                                        @error('company')
+                                            <div class="invalid-message">{{ $message }}</div>
+                                        @enderror
                                 </div>
                             </div>
 
@@ -53,6 +65,9 @@
                                     :</label>
                                 <div class="col-sm-10">
                                     <textarea class="form-control" aria-label="address" id="address" name="address">{{$data->profile->address}}</textarea>
+                                    @error('address')
+                                        <div class="invalid-message">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -60,6 +75,9 @@
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control" id="city" name="city" aria-describedby="city"
                                         value="{{$data->profile->city}}">
+                                        @error('city')
+                                            <div class="invalid-message">{{ $message }}</div>
+                                        @enderror
 
                                 </div>
                             </div>
@@ -121,6 +139,9 @@
                                         <option value="WI" {{!empty($data->profile->state) && $data->profile->state->value == 'WI' ? 'selected' : ''}}>Wisconsin</option>
                                         <option value="WY" {{!empty($data->profile->state) && $data->profile->state->value == 'WY' ? 'selected' : ''}}>Wyoming</option>
                                     </select>
+                                    @error('state')
+                                        <div class="invalid-message">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -128,6 +149,9 @@
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control" id="zip" name="zip" aria-describedby="zip"
                                         value="{{$data->profile->zip}}">
+                                        @error('zip')
+                                            <div class="invalid-message">{{ $message }}</div>
+                                        @enderror
 
                                 </div>
                             </div>
@@ -147,6 +171,9 @@
                                         <option value="America/Detroit GMT-5:00" {{$data->timezone->value == 'America/Detroit GMT-5:00' ? 'selected' : ''}}>America/Detroit GMT-5:00</option>
                                         <option value="America/New_York GMT-5:00" {{$data->timezone->value == 'America/New_York GMT-5:00' ? 'selected' : ''}}>America/New_York GMT-5:00</option>
                                     </select>
+                                    @error('timezone')
+                                        <div class="invalid-message">{{ $message }}</div>
+                                    @enderror
 
                                 </div>
                             </div>
@@ -156,6 +183,9 @@
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control" id="website" name="website" aria-describedby="website"
                                         value="{{$data->profile->website}}">
+                                        @error('webiste')
+                                            <div class="invalid-message">{{ $message }}</div>
+                                        @enderror
                                 </div>
                             </div>
                             <div class="form-group row">
