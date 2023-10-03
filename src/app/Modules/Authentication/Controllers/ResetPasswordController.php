@@ -16,7 +16,7 @@ class ResetPasswordController extends Controller
 {
     public function get($token){
 
-        return view('admin.pages.auth.reset_password');
+        return view('auth.reset_password');
     }
 
     public function post(ResetPasswordPostRequest $request, $token){

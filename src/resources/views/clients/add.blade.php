@@ -16,6 +16,9 @@
                         <label class="control-label col-sm-2 align-self-center mb-0" for="name">Name:</label>
                         <div class="col-sm-10">
                             <input type="full-name" class="form-control" id="name" name="name" value="{{old('name')}}">
+                            @error('name')
+                                <div class="invalid-message">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary">Create Client</button>

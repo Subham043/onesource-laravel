@@ -10,8 +10,9 @@
                         <a href="{{route('login.get')}}" class="navbar-brand  d-flex justify-content-center mb-3">
                             <img src="{{asset('assets/images/logo.png')}}" alt="1Source" class="ms-3" />
                         </a>
-                        <h2 class="mb-2 text-center">Sign In</h2>
-                        <form id="loginForm" method="POST" action="{{route('login.post')}}">
+                        <h2 class="mb-2 text-center">Reset Password</h2>
+                        <p>Enter the following and create a new password.</p>
+                        <form id="loginForm" method="POST" action="{{request()->getRequestUri()}}">
                             @csrf
                             <div class="row">
                                 <div class="col-lg-12">
@@ -32,21 +33,18 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-lg-12 d-flex justify-content-between">
-                                    <div class="form-check mb-3">
-                                        <input type="checkbox" class="form-check-input" id="customCheck1">
-                                        <label class="form-check-label" for="customCheck1">Remember Email ID</label>
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label for="password_confirmation" class="form-label">Password</label>
+                                        <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" aria-describedby="password_confirmation">
+                                        @error('password_confirmation')
+                                            <div class="invalid-message">{{ $message }}</div>
+                                        @enderror
                                     </div>
-                                    <a href="{{route('forgot_password.get')}}">Forgot Password?</a>
                                 </div>
                             </div>
                             <div class="d-flex justify-content-right">
-                                <button type="submit" class="btn btn-primary">Sign In</button>
-                            </div>
-                            <hr/>
-                            <div class="d-flex justify-content-center mt-4">
-                                Don’t have an account? &nbsp;<a href="{{route('register.get')}}"> Click here to Register.</a>
-
+                                <button type="submit" class="btn btn-primary">Reset</button>
                             </div>
                         </form>
                     </div>
@@ -83,6 +81,27 @@ validation
     {
       rule: 'required',
       errorMessage: 'Password is required',
+    },
+    {
+      rule: 'strongPassword',
+    }
+  ])
+  .addField('#password_confirmation', [
+    {
+      rule: 'required',
+      errorMessage: 'Confirm Password is required',
+    },
+    {
+        validator: (value, fields) => {
+        if (fields['#password'] && fields['#password'].elem) {
+            const repeatPasswordValue = fields['#password'].elem.value;
+
+            return value === repeatPasswordValue;
+        }
+
+        return true;
+        },
+        errorMessage: 'Password and Confirm Password must be same',
     },
   ])
   .onSuccess((event) => {
