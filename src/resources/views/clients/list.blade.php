@@ -31,7 +31,7 @@
                                     <tr>
                                         <td>
                                             <div class="d-flex align-items-center">
-                                                <a href="user-profile.html">{{$item->name}}</a>
+                                                <a href="{{route('user.view.get', 1)}}">{{$item->name}}</a>
                                             </div>
                                         </td>
 

@@ -21,7 +21,9 @@ class UserCreateController extends Controller
 
     public function get(){
         $roles = $this->roleService->all();
-        return view('users.add', compact('roles'));
+        return view('users.add', compact('roles'))->with([
+            'page_name' => 'User'
+        ]);
     }
 
     public function post(UserCreatePostRequest $request){

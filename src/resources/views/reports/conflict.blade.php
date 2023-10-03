@@ -62,12 +62,12 @@
                                     <tr>
                                         <td class="padfix">
                                             <div class="d-flex align-items-center">
-                                                <a href="view-job.html">EVD1x</a>
+                                                <a href="{{route('event.view.get', 1)}}">EVD1x</a>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="iq-media-group iq-media-group-1">
-                                                <a href="view-job.html"> Event Name</a>
+                                                <a href="{{route('event.view.get', 1)}}"> Event Name</a>
                                             </div>
                                         </td>
                                         <td>
@@ -75,7 +75,7 @@
                                         <td>10:30 AM </td>
                                         <td> 11:30 AM</td>
                                         <td>
-                                            <a href="resolve-event-conflict.html" class="btn btn-primary">Edit Event</a>
+                                            <a href="{{route('report.conflict.view.get')}}" class="btn btn-primary">Edit Event</a>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -111,12 +111,12 @@
 
                                         <td class="padfix">
                                             <div class="d-flex align-items-center">
-                                                <a href="view-job.html">EVD3x</a>
+                                                <a href="{{route('event.view.get', 1)}}">EVD3x</a>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="iq-media-group iq-media-group-1">
-                                                <a href="view-job.html"> Event Name 3</a>
+                                                <a href="{{route('event.view.get', 1)}}"> Event Name 3</a>
                                             </div>
                                         </td>
                                         <td>
@@ -124,18 +124,18 @@
                                         <td>10:00 AM </td>
                                         <td> 11:30 AM</td>
                                         <td>
-                                            <a href="resolve-event-conflict.html" class="btn btn-primary">Edit Event</a>
+                                            <a href="{{route('report.conflict.view.get')}}" class="btn btn-primary">Edit Event</a>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="padfix">
                                             <div class="d-flex align-items-center">
-                                                <a href="view-job.html">EVD1x</a>
+                                                <a href="{{route('event.view.get', 1)}}">EVD1x</a>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="iq-media-group iq-media-group-1">
-                                                <a href="view-job.html"> Event Name</a>
+                                                <a href="{{route('event.view.get', 1)}}"> Event Name</a>
                                             </div>
                                         </td>
                                         <td>
@@ -143,7 +143,7 @@
                                         <td>10:30 AM </td>
                                         <td> 11:30 AM</td>
                                         <td>
-                                            <a href="resolve-event-conflict.html" class="btn btn-primary">Edit Event</a>
+                                            <a href="{{route('report.conflict.view.get')}}" class="btn btn-primary">Edit Event</a>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -179,12 +179,12 @@
 
                                         <td class="padfix">
                                             <div class="d-flex align-items-center">
-                                                <a href="view-job.html">EVD3x</a>
+                                                <a href="{{route('event.view.get', 1)}}">EVD3x</a>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="iq-media-group iq-media-group-1">
-                                                <a href="view-job.html"> Event Name 3</a>
+                                                <a href="{{route('event.view.get', 1)}}"> Event Name 3</a>
                                             </div>
                                         </td>
                                         <td>
@@ -192,18 +192,18 @@
                                         <td>10:00 AM </td>
                                         <td> 11:30 AM</td>
                                         <td>
-                                            <a href="resolve-event-conflict.html" class="btn btn-primary">Edit Event</a>
+                                            <a href="{{route('report.conflict.view.get')}}" class="btn btn-primary">Edit Event</a>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="padfix">
                                             <div class="d-flex align-items-center">
-                                                <a href="view-job.html">EVD1x</a>
+                                                <a href="{{route('event.view.get', 1)}}">EVD1x</a>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="iq-media-group iq-media-group-1">
-                                                <a href="view-job.html"> Event Name</a>
+                                                <a href="{{route('event.view.get', 1)}}"> Event Name</a>
                                             </div>
                                         </td>
                                         <td>
@@ -211,7 +211,7 @@
                                         <td>10:30 AM </td>
                                         <td> 11:30 AM</td>
                                         <td>
-                                            <a href="resolve-event-conflict.html" class="btn btn-primary">Edit Event</a>
+                                            <a href="{{route('report.conflict.view.get')}}" class="btn btn-primary">Edit Event</a>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -247,12 +247,12 @@
 
                                         <td class="padfix">
                                             <div class="d-flex align-items-center">
-                                                <a href="view-job.html">EVD3x</a>
+                                                <a href="{{route('event.view.get', 1)}}">EVD3x</a>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="iq-media-group iq-media-group-1">
-                                                <a href="view-job.html"> Event Name 3</a>
+                                                <a href="{{route('event.view.get', 1)}}"> Event Name 3</a>
                                             </div>
                                         </td>
                                         <td>
@@ -260,19 +260,19 @@
                                         <td>10:00 AM </td>
                                         <td> 11:30 AM</td>
                                         <td>
-                                            <a href="resolve-event-conflict.html" class="btn btn-primary">Edit
+                                            <a href="{{route('report.conflict.view.get')}}" class="btn btn-primary">Edit
                                                 Event</a>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="padfix">
                                             <div class="d-flex align-items-center">
-                                                <a href="view-job.html">EVD1x</a>
+                                                <a href="{{route('event.view.get', 1)}}">EVD1x</a>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="iq-media-group iq-media-group-1">
-                                                <a href="view-job.html"> Event Name</a>
+                                                <a href="{{route('event.view.get', 1)}}"> Event Name</a>
                                             </div>
                                         </td>
                                         <td>
@@ -280,7 +280,7 @@
                                         <td>10:30 AM </td>
                                         <td> 11:30 AM</td>
                                         <td>
-                                            <a href="resolve-event-conflict.html" class="btn btn-primary">Edit
+                                            <a href="{{route('report.conflict.view.get')}}" class="btn btn-primary">Edit
                                                 Event</a>
                                         </td>
                                     </tr>
@@ -317,12 +317,12 @@
 
                                         <td class="padfix">
                                             <div class="d-flex align-items-center">
-                                                <a href="view-job.html">EVD3x</a>
+                                                <a href="{{route('event.view.get', 1)}}">EVD3x</a>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="iq-media-group iq-media-group-1">
-                                                <a href="view-job.html"> Event Name 3</a>
+                                                <a href="{{route('event.view.get', 1)}}"> Event Name 3</a>
                                             </div>
                                         </td>
                                         <td>
@@ -330,19 +330,19 @@
                                         <td>10:00 AM </td>
                                         <td> 11:30 AM</td>
                                         <td>
-                                            <a href="resolve-event-conflict.html" class="btn btn-primary">Edit
+                                            <a href="{{route('report.conflict.view.get')}}" class="btn btn-primary">Edit
                                                 Event</a>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="padfix">
                                             <div class="d-flex align-items-center">
-                                                <a href="view-job.html">EVD1x</a>
+                                                <a href="{{route('event.view.get', 1)}}">EVD1x</a>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="iq-media-group iq-media-group-1">
-                                                <a href="view-job.html"> Event Name</a>
+                                                <a href="{{route('event.view.get', 1)}}"> Event Name</a>
                                             </div>
                                         </td>
                                         <td>
@@ -350,7 +350,7 @@
                                         <td>10:30 AM </td>
                                         <td> 11:30 AM</td>
                                         <td>
-                                            <a href="resolve-event-conflict.html" class="btn btn-primary">Edit
+                                            <a href="{{route('report.conflict.view.get')}}" class="btn btn-primary">Edit
                                                 Event</a>
                                         </td>
                                     </tr>

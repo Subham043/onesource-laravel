@@ -23,7 +23,9 @@ class UserUpdateController extends Controller
         $data = $this->userService->getById($id);
         $roles = $this->roleService->all();
         $user_roles = $data->getRoleNames()->toArray();
-        return view('users.edit', compact(['roles', 'user_roles', 'data']));
+        return view('users.edit', compact(['roles', 'user_roles', 'data']))->with([
+            'page_name' => 'User'
+        ]);
     }
 
     public function post(UserUpdatePostRequest $request, $id){

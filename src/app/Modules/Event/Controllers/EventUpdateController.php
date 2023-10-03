@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 class EventUpdateController extends Controller
 {
     public function get($id){
-        return view('events.edit');
+        return view('events.edit')->with([
+            'page_name' => 'Event'
+        ]);
     }
 }

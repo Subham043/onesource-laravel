@@ -8,7 +8,9 @@ use Illuminate\Http\Request;
 class EventPaginateController extends Controller
 {
     public function get(Request $request){
-        return view('events.list');
+        return view('events.list')->with([
+            'page_name' => 'Event'
+        ]);
     }
 
 }

@@ -221,7 +221,7 @@
                     <div class="form-group">
                         <textarea class="form-control" aria-label="Notes" placeholder="This event has notes"></textarea>
                     </div>
-                    <form action="view-job.html"> <button type="submit" class="btn btn-primary" formaction="view-job.html">Save Changes</button></form>
+                    <form action="{{route('event.view.get', 1)}}"> <button type="submit" class="btn btn-primary" formaction="{{route('event.view.get', 1)}}">Save Changes</button></form>
                 </div>
             </div>
         </form>

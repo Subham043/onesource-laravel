@@ -188,7 +188,7 @@
                     <div class="form-group">
                         <textarea class="form-control" aria-label="Notes"></textarea>
                     </div>
-                    <form action="view-job.html"> <button type="submit" class="btn btn-primary" formaction="view-job.html">Create Event</button></form>
+                    <form action="{{route('event.view.get', 1)}}"> <button type="submit" class="btn btn-primary" formaction="{{route('event.view.get', 1)}}">Create Event</button></form>
                 </div>
             </div>
         </form>

@@ -21,7 +21,7 @@
             <ul class="navbar-nav iq-main-menu" id="sidebar-menu">
                 @can('view dashboard')
                     <li class="nav-item">
-                        <a class="nav-link " aria-current="page" href="dashboard.html">
+                        <a class="nav-link " aria-current="page" href="{{route('dashboard.get')}}">
                             <i class="icon">
                                 <svg width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path opacity="0.4"
@@ -70,7 +70,7 @@
 
                 @can('list events')
                     <li class="nav-item">
-                        <a class="nav-link " aria-current="page" href="job.html">
+                        <a class="nav-link " aria-current="page" href="{{route('event.view.get', 1)}}">
                             <i class="icon">
                                 <svg width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path opacity="0.4"
@@ -91,7 +91,7 @@
 
                 @can('view calendar')
                     <li class="nav-item">
-                        <a class="nav-link " aria-current="page" href="Calendar.html" target="_blank">
+                        <a class="nav-link " aria-current="page" href="{{route('calendar.view.get')}}" target="_blank">
                             <i class="icon">
                                 <svg width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" clip-rule="evenodd"
@@ -115,7 +115,7 @@
 
                 @can('list documents')
                     <li class="nav-item">
-                        <a class="nav-link " aria-current="page" href="documents.html">
+                        <a class="nav-link " aria-current="page" href="{{route('document.paginate.get')}}">
                             <i class="icon">
                                 <svg width="20" viewBox="0 0 24 24" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -134,7 +134,7 @@
 
                 @can('list users')
                     <li class="nav-item">
-                        <a class="nav-link " aria-current="page" href="users.html">
+                        <a class="nav-link " aria-current="page" href="{{route('user.paginate.get')}}">
                             <i class="icon">
                                 <svg width="20" viewBox="0 0 24 24" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -209,7 +209,7 @@
 
                 @can('view reports')
                     <li class="nav-item">
-                        <a class="nav-link " aria-current="page" href="reports.html">
+                        <a class="nav-link " aria-current="page" href="{{route('report.view.get')}}">
                             <i class="icon">
                                 <svg width="20" viewBox="0 0 24 24" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">

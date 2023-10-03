@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 class CalendarViewController extends Controller
 {
     public function get(){
-        return view('calendar.view');
+        return view('calendar.view')->with([
+            'page_name' => 'Calendar'
+        ]);
     }
 }

@@ -8,7 +8,9 @@ use Illuminate\Http\Request;
 class DocumentPaginateController extends Controller
 {
     public function get(Request $request){
-        return view('documents.list');
+        return view('documents.list')->with([
+            'page_name' => 'Document'
+        ]);
     }
 
 }

@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 class ConflictViewController extends Controller
 {
     public function get(){
-        return view('reports.conflict');
+        return view('reports.conflict')->with([
+            'page_name' => 'Conflict'
+        ]);
     }
 }

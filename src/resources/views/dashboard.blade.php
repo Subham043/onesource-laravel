@@ -17,8 +17,8 @@
                                 </p>
                             </div>
                             <div>
-                                <a href="all-events.html" class="btn btn-primary">View All Events</a> <a
-                                    href="Calendar.html" class="btn btn-primary">Calendar View</a>
+                                <a href="{{route('event.paginate.get')}}" class="btn btn-primary">View All Events</a> <a
+                                    href="{{route('calendar.view.get')}}" class="btn btn-primary">Calendar View</a>
                             </div>
                         </div>
                         <div class="p-0 card-body">
@@ -42,12 +42,12 @@
                                         <tr>
                                             <td>
                                                 <div class="d-flex align-items-center">
-                                                    <a href="view-job.html">EVD1x</a>
+                                                    <a href="{{route('event.view.get', 1)}}">EVD1x</a>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="iq-media-group iq-media-group-1">
-                                                    <a href="event.html"> Event Name</a>
+                                                    <a href="{{route('event.paginate.get')}}"> Event Name</a>
                                                 </div>
                                             </td>
                                             <td>
@@ -73,13 +73,13 @@
                                                 1Fuzid
                                             </td>
                                             <td>
-                                                <a href="view-job.html" class="btn btn-primary">View Event</a>
+                                                <a href="{{route('event.view.get', 1)}}" class="btn btn-primary">View Event</a>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
                                                 <div class="d-flex align-items-center">
-                                                    <a href="view-job.html">EVD1x</a>
+                                                    <a href="{{route('event.view.get', 1)}}">EVD1x</a>
                                                 </div>
                                             </td>
                                             <td>
@@ -107,18 +107,18 @@
                                                 1Fuzid
                                             </td>
                                             <td>
-                                                <a href="view-job.html" class="btn btn-primary">View Event</a>
+                                                <a href="{{route('event.view.get', 1)}}" class="btn btn-primary">View Event</a>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
                                                 <div class="d-flex align-items-center">
-                                                    <a href="view-job.html">EVD1x</a>
+                                                    <a href="{{route('event.view.get', 1)}}">EVD1x</a>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="iq-media-group iq-media-group-1">
-                                                    <a href="job.html"> Event Name</a>
+                                                    <a href="{{route('event.view.get', 1)}}"> Event Name</a>
                                                 </div>
                                             </td>
                                             <td>
@@ -144,18 +144,18 @@
                                                 1Fuzid
                                             </td>
                                             <td>
-                                                <a href="view-job.html" class="btn btn-primary">View Event</a>
+                                                <a href="{{route('event.view.get', 1)}}" class="btn btn-primary">View Event</a>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
                                                 <div class="d-flex align-items-center">
-                                                    <a href="view-job.html">EVD1x</a>
+                                                    <a href="{{route('event.view.get', 1)}}">EVD1x</a>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="iq-media-group iq-media-group-1">
-                                                    <a href="job.html"> Event Name</a>
+                                                    <a href="{{route('event.view.get', 1)}}"> Event Name</a>
                                                 </div>
                                             </td>
                                             <td>
@@ -177,18 +177,18 @@
                                             <td>
                                             </td>
                                             <td>
-                                                <a href="view-job.html" class="btn btn-primary">View Event</a>
+                                                <a href="{{route('event.view.get', 1)}}" class="btn btn-primary">View Event</a>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
                                                 <div class="d-flex align-items-center">
-                                                    <a href="view-job.html">EVD1x</a>
+                                                    <a href="{{route('event.view.get', 1)}}">EVD1x</a>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="iq-media-group iq-media-group-1">
-                                                    <a href="job.html"> Event Name</a>
+                                                    <a href="{{route('event.view.get', 1)}}"> Event Name</a>
                                                 </div>
                                             </td>
                                             <td>
@@ -213,18 +213,18 @@
                                             <td>
                                             </td>
                                             <td>
-                                                <a href="view-job.html" class="btn btn-primary">View Event</a>
+                                                <a href="{{route('event.view.get', 1)}}" class="btn btn-primary">View Event</a>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
                                                 <div class="d-flex align-items-center">
-                                                    <a href="view-job.html">EVD1x</a>
+                                                    <a href="{{route('event.view.get', 1)}}">EVD1x</a>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="iq-media-group iq-media-group-1">
-                                                    <a href="job.html"> Event Name</a>
+                                                    <a href="{{route('event.view.get', 1)}}"> Event Name</a>
                                                 </div>
                                             </td>
                                             <td>
@@ -246,18 +246,18 @@
                                             <td>
                                             </td>
                                             <td>
-                                                <a href="view-job.html" class="btn btn-primary">View Event</a>
+                                                <a href="{{route('event.view.get', 1)}}" class="btn btn-primary">View Event</a>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
                                                 <div class="d-flex align-items-center">
-                                                    <a href="view-job.html">EVD1x</a>
+                                                    <a href="{{route('event.view.get', 1)}}">EVD1x</a>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="iq-media-group iq-media-group-1">
-                                                    <a href="event.html"> Event Name</a>
+                                                    <a href="{{route('event.paginate.get')}}"> Event Name</a>
                                                 </div>
                                             </td>
                                             <td>
@@ -279,18 +279,18 @@
                                             <td>
                                             </td>
                                             <td>
-                                                <a href="view-job.html" class="btn btn-primary">View Event</a>
+                                                <a href="{{route('event.view.get', 1)}}" class="btn btn-primary">View Event</a>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
                                                 <div class="d-flex align-items-center">
-                                                    <a href="view-job.html">EVD1x</a>
+                                                    <a href="{{route('event.view.get', 1)}}">EVD1x</a>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="iq-media-group iq-media-group-1">
-                                                    <a href="job.html"> Event Name</a>
+                                                    <a href="{{route('event.view.get', 1)}}"> Event Name</a>
                                                 </div>
                                             </td>
                                             <td>
@@ -315,18 +315,18 @@
                                             <td>
                                             </td>
                                             <td>
-                                                <a href="view-job.html" class="btn btn-primary">View Event</a>
+                                                <a href="{{route('event.view.get', 1)}}" class="btn btn-primary">View Event</a>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
                                                 <div class="d-flex align-items-center">
-                                                    <a href="view-job.html">EVD1x</a>
+                                                    <a href="{{route('event.view.get', 1)}}">EVD1x</a>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="iq-media-group iq-media-group-1">
-                                                    <a href="job.html"> Event Name</a>
+                                                    <a href="{{route('event.view.get', 1)}}"> Event Name</a>
                                                 </div>
                                             </td>
                                             <td>
@@ -348,18 +348,18 @@
                                             <td>
                                             </td>
                                             <td>
-                                                <a href="view-job.html" class="btn btn-primary">View Event</a>
+                                                <a href="{{route('event.view.get', 1)}}" class="btn btn-primary">View Event</a>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
                                                 <div class="d-flex align-items-center">
-                                                    <a href="view-job.html">EVD1x</a>
+                                                    <a href="{{route('event.view.get', 1)}}">EVD1x</a>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="iq-media-group iq-media-group-1">
-                                                    <a href="job.html"> Event Name</a>
+                                                    <a href="{{route('event.view.get', 1)}}"> Event Name</a>
                                                 </div>
                                             </td>
                                             <td>
@@ -381,13 +381,13 @@
                                             <td>
                                             </td>
                                             <td>
-                                                <a href="view-job.html" class="btn btn-primary">View Event</a>
+                                                <a href="{{route('event.view.get', 1)}}" class="btn btn-primary">View Event</a>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
                                                 <div class="d-flex align-items-center">
-                                                    <a href="view-job.html">EVD1x</a>
+                                                    <a href="{{route('event.view.get', 1)}}">EVD1x</a>
                                                 </div>
                                             </td>
                                             <td>

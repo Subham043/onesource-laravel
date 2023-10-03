@@ -77,12 +77,12 @@
                                         </td>
                                         <td rowspan="3">
                                             <div class="d-flex align-items-center">
-                                                <a href="view-job.html">EVD1x</a>
+                                                <a href="{{route('event.view.get', 1)}}">EVD1x</a>
                                             </div>
                                         </td>
                                         <td rowspan="3">
                                             <div class="iq-media-group iq-media-group-1">
-                                                <a href="event.html"> Event Name</a>
+                                                <a href="{{route('event.paginate.get')}}"> Event Name</a>
                                             </div>
                                         </td>
                                         <td>Client</td>
@@ -130,12 +130,12 @@
                                         </td>
                                         <td rowspan="3">
                                             <div class="d-flex align-items-center">
-                                                <a href="view-job.html">EVD1x</a>
+                                                <a href="{{route('event.view.get', 1)}}">EVD1x</a>
                                             </div>
                                         </td>
                                         <td rowspan="3">
                                             <div class="iq-media-group iq-media-group-1">
-                                                <a href="event.html"> Event Name</a>
+                                                <a href="{{route('event.paginate.get')}}"> Event Name</a>
                                             </div>
                                         </td>
                                         <td>Client</td>
@@ -183,12 +183,12 @@
                                         </td>
                                         <td rowspan="3">
                                             <div class="d-flex align-items-center">
-                                                <a href="view-job.html">EVD1x</a>
+                                                <a href="{{route('event.view.get', 1)}}">EVD1x</a>
                                             </div>
                                         </td>
                                         <td rowspan="3">
                                             <div class="iq-media-group iq-media-group-1">
-                                                <a href="event.html"> Event Name</a>
+                                                <a href="{{route('event.paginate.get')}}"> Event Name</a>
                                             </div>
                                         </td>
                                         <td>Client</td>
@@ -236,12 +236,12 @@
                                         </td>
                                         <td rowspan="3">
                                             <div class="d-flex align-items-center">
-                                                <a href="view-job.html">EVD1x</a>
+                                                <a href="{{route('event.view.get', 1)}}">EVD1x</a>
                                             </div>
                                         </td>
                                         <td rowspan="3">
                                             <div class="iq-media-group iq-media-group-1">
-                                                <a href="event.html"> Event Name</a>
+                                                <a href="{{route('event.paginate.get')}}"> Event Name</a>
                                             </div>
                                         </td>
                                         <td>Client</td>
@@ -289,12 +289,12 @@
                                         </td>
                                         <td rowspan="3">
                                             <div class="d-flex align-items-center">
-                                                <a href="view-job.html">EVD1x</a>
+                                                <a href="{{route('event.view.get', 1)}}">EVD1x</a>
                                             </div>
                                         </td>
                                         <td rowspan="3">
                                             <div class="iq-media-group iq-media-group-1">
-                                                <a href="event.html"> Event Name</a>
+                                                <a href="{{route('event.paginate.get')}}"> Event Name</a>
                                             </div>
                                         </td>
                                         <td>Client</td>
@@ -342,12 +342,12 @@
                                         </td>
                                         <td rowspan="3">
                                             <div class="d-flex align-items-center">
-                                                <a href="view-job.html">EVD1x</a>
+                                                <a href="{{route('event.view.get', 1)}}">EVD1x</a>
                                             </div>
                                         </td>
                                         <td rowspan="3">
                                             <div class="iq-media-group iq-media-group-1">
-                                                <a href="event.html"> Event Name</a>
+                                                <a href="{{route('event.paginate.get')}}"> Event Name</a>
                                             </div>
                                         </td>
                                         <td>Client</td>

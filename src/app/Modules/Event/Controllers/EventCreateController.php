@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 class EventCreateController extends Controller
 {
     public function get(){
-        return view('events.add');
+        return view('events.add')->with([
+            'page_name' => 'Event'
+        ]);
     }
 }

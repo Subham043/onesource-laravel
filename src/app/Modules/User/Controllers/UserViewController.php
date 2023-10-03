@@ -8,6 +8,8 @@ class UserViewController extends Controller
 {
 
     public function get($id){
-        return view('users.view');
+        return view('users.view')->with([
+            'page_name' => 'User'
+        ]);
     }
 }

@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 class QuickbookViewController extends Controller
 {
     public function get(){
-        return view('reports.quickbook');
+        return view('reports.quickbook')->with([
+            'page_name' => 'Quickbook'
+        ]);
     }
 }

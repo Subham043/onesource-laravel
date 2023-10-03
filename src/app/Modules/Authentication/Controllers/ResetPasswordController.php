@@ -26,7 +26,7 @@ class ResetPasswordController extends Controller
             [...$request->only('email', 'password', 'password_confirmation'), 'token' => $token],
             function (User $user, string $password) {
                 $user->forceFill([
-                    'password' => Hash::make($password)
+                    'password' => $password
                 ])->setRememberToken(Str::random(60));
 
                 $user->save();

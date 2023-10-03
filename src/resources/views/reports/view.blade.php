@@ -23,7 +23,7 @@
                 <div class="">
                     <h5 class="mb-3">5 Conflicts</h5>
                     <div>
-                        <a href="conflicts.html" class="btn btn-primary">Resolve</a>
+                        <a href="{{route('report.conflict.view.get')}}" class="btn btn-primary">Resolve</a>
                     </div>
                 </div>
             </div>
@@ -43,7 +43,7 @@
                 <div class="">
                     <h5 class="mb-3">Export Events to 1CapApp</h5>
                     <div>
-                        <a href="events-export.html" class="btn btn-primary">Export</a>
+                        <a href="{{route('report.export.view.get')}}" class="btn btn-primary">Export</a>
                     </div>
                 </div>
             </div>
@@ -72,7 +72,7 @@
                 <div class="">
                     <h5 class="mb-3">Export Events to Quickbooks</h5>
                     <div>
-                        <a href="quickbook-export.html" class="btn btn-primary">Export</a>
+                        <a href="{{route('report.quickbook.view.get')}}" class="btn btn-primary">Export</a>
                     </div>
                 </div>
             </div>
