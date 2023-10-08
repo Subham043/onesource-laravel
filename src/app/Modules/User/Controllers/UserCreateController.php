@@ -3,25 +3,29 @@
 namespace App\Modules\User\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Modules\Role\Services\RoleService;
+use App\Modules\Client\Services\ClientService;
+use App\Modules\Tool\Services\ToolService;
 use App\Modules\User\Requests\UserCreatePostRequest;
 use App\Modules\User\Services\UserService;
 
 class UserCreateController extends Controller
 {
     private $userService;
-    private $roleService;
+    private $clientService;
+    private $toolService;
 
-    public function __construct(UserService $userService, RoleService $roleService)
+    public function __construct(UserService $userService, ClientService $clientService, ToolService $toolService)
     {
-        $this->middleware('permission:create users', ['only' => ['get','post']]);
+        $this->middleware('permission:add users', ['only' => ['get','post']]);
         $this->userService = $userService;
-        $this->roleService = $roleService;
+        $this->clientService = $clientService;
+        $this->toolService = $toolService;
     }
 
     public function get(){
-        $roles = $this->roleService->all();
-        return view('users.add', compact('roles'))->with([
+        $client = $this->clientService->all();
+        $tool = $this->toolService->all();
+        return view('users.add', compact(['client', 'tool']))->with([
             'page_name' => 'User'
         ]);
     }
@@ -30,10 +34,9 @@ class UserCreateController extends Controller
 
         try {
             //code...
-            $user = $this->userService->create(
-                $request->except('role')
+            $this->userService->create(
+                $request
             );
-            $this->userService->syncRoles([$request->role], $user);
             return redirect()->intended(route('user.create.get'))->with('success_status', 'User created successfully.');
         } catch (\Throwable $th) {
             return redirect()->intended(route('user.create.get'))->with('error_status', 'Something went wrong. Please try again');

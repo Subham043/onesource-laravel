@@ -7,6 +7,7 @@ use App\Http\Services\RateLimitService;
 use App\Modules\Authentication\Requests\ProfilePostRequest;
 use App\Modules\Authentication\Services\AuthService;
 use App\Modules\User\Services\UserService;
+use Illuminate\Auth\Events\Registered;
 
 class ProfileEditController extends Controller
 {
@@ -35,6 +36,12 @@ class ProfileEditController extends Controller
                 $request->safe()->only(['name', 'email', 'phone', 'password', 'timezone']),
                 $user
             );
+            if ($request->user()->isDirty('email')) {
+                $request->user()->email_verified_at = null;
+                $request->user()->sendEmailVerificationNotification();
+                $request->user()->save();
+                event(new Registered($user));
+            }
             (new RateLimitService($request))->clearRateLimit();
             return redirect()->intended(route('profile.edit.get'))->with('success_status', 'Profile updated successfully.');
         } catch (\Throwable $th) {

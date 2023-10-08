@@ -68,6 +68,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'timezone' => Timezone::class,
     ];
 
+    protected $guard_name = 'web';
+
     public static function boot()
     {
         parent::boot();
@@ -127,6 +129,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function payments()
     {
         return $this->hasMany(Payment::class, 'paid_by');
+    }
+
+    public function staff_profile()
+    {
+        return $this->hasOne(Profile::class, 'user_id')->withDefault()->whereColumn('user_id', '<>', 'created_by');
     }
 
 }

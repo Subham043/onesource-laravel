@@ -2,10 +2,13 @@
 
 namespace App\Modules\User\Requests;
 
+use App\Enums\Timezone;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Stevebauman\Purify\Facades\Purify;
-use Illuminate\Validation\Rules\Password;
+use Illuminate\Validation\Rules\Password as PasswordValidation;
+use Illuminate\Validation\Rules\Enum;
+use Illuminate\Validation\Rule;
 
 
 class UserCreatePostRequest extends FormRequest
@@ -28,20 +31,25 @@ class UserCreatePostRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'phone' => 'required|numeric|digits:10|unique:users',
-            'role' => 'required|string|exists:Spatie\Permission\Models\Role,name',
-            'password_confirmation' => 'string|min:8|required_with:password|same:password',
+            'name' => ['required', 'string'],
+            'email' => ['required','email:rfc,dns','unique:users'],
+            'phone' => ['required','numeric', 'gt:0', 'unique:users'],
             'password' => ['required',
                 'string',
-                Password::min(8)
+                PasswordValidation::min(8)
                         ->letters()
                         ->mixedCase()
                         ->numbers()
                         ->symbols()
                         ->uncompromised()
             ],
+            'confirm_password' => ['required_with:password','same:password'],
+            'timezone' => ['required', new Enum(Timezone::class)],
+            'role' => ['required', 'string', 'in:Staff-Admin,Client,Writer', 'exists:Spatie\Permission\Models\Role,name'],
+            'billing_rate' => ['nullable', Rule::requiredIf($this->role==='Client' || $this->role==='Writer'), 'numeric', 'gt:0'],
+            'tool' => ['nullable', Rule::requiredIf($this->role==='Writer'), 'array', 'min:1'],
+            'tool.*' => ['nullable', Rule::requiredIf($this->role==='Writer'), 'numeric', 'exists:App\Modules\Tool\Models\Tool,id'],
+            'client' => ['nullable', Rule::requiredIf($this->role==='Client'), 'exists:App\Modules\Client\Models\Client,id'],
         ];
     }
 

@@ -20,6 +20,6 @@ class CustomerStatusController extends Controller
         $data = $this->customerService->getById($id);
         $data->is_blocked = !$data->is_blocked;
         $result = $data->save();
-        return redirect(route('customer.update.get', $data->id))->with(['success_status' => 'User Status Updated Successfully']);
+        return redirect()->back()->with(['success_status' => 'User Status Updated Successfully']);
     }
 }

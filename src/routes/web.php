@@ -39,7 +39,9 @@ use App\Modules\Tool\Controllers\ToolViewController;
 use App\Modules\User\Controllers\UserCreateController;
 use App\Modules\User\Controllers\UserDeleteController;
 use App\Modules\User\Controllers\UserPaginateController;
+use App\Modules\User\Controllers\UserStatusController;
 use App\Modules\User\Controllers\UserUpdateController;
+use App\Modules\User\Controllers\UserViewController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -99,6 +101,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/update/{id}', [UserUpdateController::class, 'post', 'as' => 'user.update.get'])->name('user.update.post');
         Route::get('/view/{id}', [UserViewController::class, 'get', 'as' => 'user.view.get'])->name('user.view.get');
         Route::get('/delete/{id}', [UserDeleteController::class, 'get', 'as' => 'user.delete.get'])->name('user.delete.get');
+        Route::get('/status/{id}', [UserStatusController::class, 'get', 'as' => 'user.status.get'])->name('user.status.get');
     });
 
     Route::prefix('/tool')->group(function () {

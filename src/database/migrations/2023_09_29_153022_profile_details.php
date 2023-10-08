@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('website', 500)->nullable();
             $table->boolean('is_primary_user')->default(0);
             $table->string('billing_rate', 500)->nullable();
+            $table->foreignId('client_id')->nullable()->constrained('clients')->nullOnDelete();
             $table->foreignId('user_id')->nullable()->constrained('users')->nullOnDelete();
             $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
             $table->timestamps();

@@ -153,6 +153,65 @@ class UserSeeder extends Seeder
 
             ]);
 
+        // create roles and assign created permissions
+        Role::create(['name' => 'Staff-Admin'])
+            ->givePermissionTo([
+
+                //permission for dashboard
+                'view dashboard',
+
+                //permission for users
+                'edit users',
+                'delete users',
+                'add users',
+                'list users',
+                'view users',
+
+                //permission for tools
+                'edit tools',
+                'delete tools',
+                'add tools',
+                'list tools',
+                'view tools',
+
+                //permission for clients
+                'edit clients',
+                'delete clients',
+                'add clients',
+                'list clients',
+                'view clients',
+
+                //permission for events
+                'edit events',
+                'delete events',
+                'add events',
+                'list events',
+                'view events',
+
+                //permission for calendar
+                'view calendar',
+
+                //permission for reports
+                'view reports',
+
+                //permission for exports
+                'view exports',
+
+                //permission for quickbook
+                'view quickbook',
+
+                //permission for conflicts
+                'view conflicts',
+                'resolve conflicts',
+
+                //permission for documents
+                'download documents',
+                'delete documents',
+                'add documents',
+                'list documents',
+
+            ]);
+
         Role::create(['name' => 'Writer'])
             ->givePermissionTo([
 
