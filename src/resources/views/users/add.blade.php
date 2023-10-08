@@ -133,7 +133,7 @@
                             </select>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Create User</button>
+                    <button type="submit" id="submitBtn" class="btn btn-primary">Create User</button>
                 </div>
             </div>
         </form>
@@ -265,8 +265,79 @@ validation
         errorMessage: 'Tool is required',
     },
   ])
-  .onSuccess((event) => {
-    event.target.submit();
+  .onSuccess(async(event) => {
+    // event.target.submit();
+    var submitBtn = document.getElementById('submitBtn');
+    submitBtn.innerHTML = spinner
+    submitBtn.disabled = true;
+    try {
+        var formData = new FormData();
+        formData.append('name',document.getElementById('name').value)
+        formData.append('email',document.getElementById('email').value)
+        formData.append('phone',document.getElementById('phone').value)
+        formData.append('password',document.getElementById('password').value)
+        formData.append('confirm_password',document.getElementById('confirm_password').value)
+        formData.append('role',document.getElementById('role').value)
+        formData.append('timezone',document.getElementById('timezone').value)
+        if(document.getElementById('role').value=='Client'){
+            formData.append('client',document.getElementById('client').value)
+            formData.append('billing_rate',document.getElementById('billing_rate').value)
+        }
+        if(document.getElementById('role').value=='Writer'){
+            formData.append('billing_rate',document.getElementById('billing_rate').value)
+            if(document.getElementById('tool')?.length>0){
+                for (let index = 0; index < document.getElementById('tool').length; index++) {
+                    if(document.getElementById('tool')[index].selected) {
+                        formData.append('tool[]',document.getElementById('tool')[index].value)
+                    }
+                }
+            }
+        }
+
+        const response = await axios.post('{{route('user.create.post')}}', formData)
+        successToast(response.data.message)
+        event.target.reset();
+        // setInterval(location.reload(), 1500);
+    }catch (error){
+        if(error?.response?.data?.errors?.name){
+            validation.showErrors({'#name': error?.response?.data?.errors?.name[0]})
+        }
+        if(error?.response?.data?.errors?.email){
+            validation.showErrors({'#email': error?.response?.data?.errors?.email[0]})
+        }
+        if(error?.response?.data?.errors?.phone){
+            validation.showErrors({'#phone': error?.response?.data?.errors?.phone[0]})
+        }
+        if(error?.response?.data?.errors?.password){
+            validation.showErrors({'#password': error?.response?.data?.errors?.password[0]})
+        }
+        if(error?.response?.data?.errors?.confirm_password){
+            validation.showErrors({'#confirm_password': error?.response?.data?.errors?.confirm_password[0]})
+        }
+        if(error?.response?.data?.errors?.role){
+            validation.showErrors({'#role': error?.response?.data?.errors?.role[0]})
+        }
+        if(error?.response?.data?.errors?.timezone){
+            validation.showErrors({'#timezone': error?.response?.data?.errors?.timezone[0]})
+        }
+        if(error?.response?.data?.errors?.billing_rate){
+            validation.showErrors({'#billing_rate': error?.response?.data?.errors?.billing_rate[0]})
+        }
+        if(error?.response?.data?.errors?.tool){
+            validation.showErrors({'#tool': error?.response?.data?.errors?.tool[0]})
+        }
+        if(error?.response?.data?.errors?.client){
+            validation.showErrors({'#client': error?.response?.data?.errors?.client[0]})
+        }
+        if(error?.response?.data?.message){
+            errorToast(error?.response?.data?.message)
+        }
+    }finally{
+        submitBtn.innerHTML =  `
+            Create User
+            `
+        submitBtn.disabled = false;
+    }
   });
 
   document.getElementById('role').addEventListener("change", function(){

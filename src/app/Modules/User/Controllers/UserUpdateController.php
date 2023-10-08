@@ -37,9 +37,9 @@ class UserUpdateController extends Controller
         try {
             //code...
             $this->userService->update($request,$user);
-            return redirect()->intended(route('user.update.get', $user->id))->with('success_status', 'User updated successfully.');
+            return response()->json(["message" => "User updated successfully."], 200);
         } catch (\Throwable $th) {
-            return redirect()->intended(route('user.update.get', $user->id))->with('error_status', 'Something went wrong. Please try again');
+            return response()->json(["message" => "Something went wrong. Please try again."], 400);
         }
 
     }

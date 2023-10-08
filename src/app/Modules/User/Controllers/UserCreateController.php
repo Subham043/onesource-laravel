@@ -37,9 +37,9 @@ class UserCreateController extends Controller
             $this->userService->create(
                 $request
             );
-            return redirect()->intended(route('user.create.get'))->with('success_status', 'User created successfully.');
+            return response()->json(["message" => "User created successfully."], 201);
         } catch (\Throwable $th) {
-            return redirect()->intended(route('user.create.get'))->with('error_status', 'Something went wrong. Please try again');
+            return response()->json(["message" => "Something went wrong. Please try again."], 400);
         }
 
     }
