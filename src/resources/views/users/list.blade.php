@@ -24,6 +24,7 @@
                                         <th> Name</th>
                                         <th>Email ID</th>
                                         <th>Role</th>
+                                        <th>Registration Date</th>
 
                                         <th>&nbsp;</th>
                                     </tr>
@@ -43,7 +44,12 @@
                                         </td>
                                         <td>
                                             <div class="iq-media-group iq-media-group-1">
-                                                {{$item->current_role=='Staff-Admin' ? 'Admin' : $item->current_role}}
+                                                {{($item->current_role=='Staff-Admin' || $item->current_role=='Super-Admin' || $item->current_role=='Super Admin') ? 'Admin' : $item->current_role}}
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <a href="{{route('user.view.get', $item->id)}}">{{$item->staff_profile->created_at->format('M d Y')}}</a>
                                             </div>
                                         </td>
 

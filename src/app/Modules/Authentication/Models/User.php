@@ -131,6 +131,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Payment::class, 'paid_by');
     }
 
+    public function owner_profile()
+    {
+        return $this->hasOne(Profile::class, 'created_by')->withDefault()->where('created_by', auth()->user()->id)->whereColumn('user_id', 'created_by');
+    }
+
     public function staff_profile()
     {
         return $this->hasOne(Profile::class, 'user_id')->withDefault()->whereColumn('user_id', '<>', 'created_by')->where('created_by', auth()->user()->id);

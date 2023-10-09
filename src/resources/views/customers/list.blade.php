@@ -47,12 +47,12 @@
                                         </td>
                                         <td>
                                             <div class="d-flex align-items-center">
-                                                {{$item->created_at->format('d M Y')}}
+                                                {{$item->created_at->format('M d Y')}}
                                             </div>
                                         </td>
                                         <td>
                                             <div class="d-flex align-items-center">
-                                                {{$item->currentPayment->payment_renewal_date->format('d M Y')}}
+                                                {{$item->currentPayment->payment_renewal_date->format('M d Y')}}
                                             </div>
                                         </td>
 

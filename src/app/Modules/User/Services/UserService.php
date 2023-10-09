@@ -83,14 +83,14 @@ class UserService
 
     public function update(UserUpdatePostRequest $request, User $user): User
     {
-        $password = empty($request->password) ? [] : $request->only('password');
-        $data = [...$request->safe()->only([
-            'name',
-            'email',
-            'phone',
-            'timezone',
-        ]), ...$password];
-        $user->update($data);
+        // $password = empty($request->password) ? [] : $request->only('password');
+        // $data = [...$request->safe()->only([
+        //     'name',
+        //     'email',
+        //     'phone',
+        //     'timezone',
+        // ]), ...$password];
+        // $user->update($data);
         $user->staff_profile()->update([
             'billing_rate'=> !empty($request->billing_rate) ? $request->billing_rate : null,
             'client_id'=> !empty($request->client) ? $request->client : null,

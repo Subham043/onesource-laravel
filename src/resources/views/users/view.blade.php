@@ -37,12 +37,18 @@
                     <div class="form-group row">
                         <label class="control-label col-sm-2 align-self-center mb-0" for="client">Role:</label>
                         <div class="col-sm-10">
-                            {{$user->current_role=='Staff-Admin' ? 'Admin' : $user->current_role}}</div>
+                            {{($user->current_role=='Staff-Admin' || $user->current_role=='Super Admin' || $user->current_role=='Super-Admin') ? 'Admin' : $user->current_role}}</div>
                     </div>
                     <div class="form-group row">
                         <label class="control-label col-sm-2 align-self-center mb-0" for="eventName">Time Zone :</label>
                         <div class="col-sm-10">
-                            {{$user->timezone->value}}
+                            {{!empty($user->timezone) ? $user->timezone->value : ''}}
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="control-label col-sm-2 align-self-center mb-0" for="eventName">Company:</label>
+                        <div class="col-sm-10">
+                            {{$user->staff_profile->creator->owner_profile->company}}
                         </div>
                     </div>
                     @if($user->current_role!='Staff-Admin')
@@ -71,6 +77,12 @@
                         </div>
                     </div>
                     @endif
+                    <div class="form-group row">
+                        <label class="control-label col-sm-2 align-self-center mb-0" for="eventName">Registration Date :</label>
+                        <div class="col-sm-10">
+                            {{$user->staff_profile->created_at->format('M d Y')}}
+                        </div>
+                    </div>
                     <div class="form-group row">
                         <label class="control-label col-sm-2 align-self-center mb-0" for="eventName">Profile Status :</label>
                         <div class="col-sm-10">

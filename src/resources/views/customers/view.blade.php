@@ -88,14 +88,14 @@
                                 <label class="control-label col-sm-2 align-self-center mb-0" for="eventName">Registration
                                     Date :</label>
                                 <div class="col-sm-10">
-                                    {{$data->created_at->format('d M Y')}}
+                                    {{$data->created_at->format('M d Y')}}
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="control-label col-sm-2 align-self-center mb-0" for="eventName">Renewal Date
                                     :</label>
                                 <div class="col-sm-10">
-                                    {{$data->currentPayment->payment_renewal_date->format('d M Y')}}
+                                    {{$data->currentPayment->payment_renewal_date->format('M d Y')}}
                                 </div>
                             </div>
 
@@ -110,7 +110,7 @@
                                 <label class="control-label col-sm-2 align-self-center mb-0" for="eventName">Payment Status
                                     :</label>
                                 <div class="col-sm-10">
-                                    Done, on {{$data->currentPayment->payment_date->format('d M Y')}} | Payment Mode | Transaction id: xx445498 | $ 300.00
+                                    Done, on {{$data->currentPayment->payment_date->format('M d Y')}} | Payment Mode | Transaction id: xx445498 | $ 300.00
                                 </div>
                             </div>
 
