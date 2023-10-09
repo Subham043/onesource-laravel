@@ -60,20 +60,7 @@
                                 @enderror
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label class="control-label col-sm-2 align-self-center mb-0" for="role">Role:</label>
-                        <div class="col-sm-10">
-                            <select id="role" name="role" class="form-select shadow-none">
-                                <option value="" {{empty($data->current_role) ? 'selected' : ''}}>Select Role</option>
-                                <option value="Staff-Admin" {{$data->current_role == 'Staff-Admin' ? 'selected' : ''}}>Admin</option>
-                                <option value="Writer" {{$data->current_role == 'Writer' ? 'selected' : ''}}>Writer</option>
-                                <option value="Client" {{$data->current_role == 'Client' ? 'selected' : ''}}>Client</option>
-                            </select>
-                            @error('role')
-                                <div class="invalid-message">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
+                    <input type="hidden" id="role" name="role" value="{{$data->current_role}}" />
                     <div id="client_div" class="form-group row {{$data->current_role==='Client' ? 'd-flex' : 'd-none'}}">
                         <label class="control-label col-sm-2 align-self-center mb-0" for="client">Client: <span data-bs-toggle="tooltip" data-bs-original-title="Shown Only If Role Is Client"><i class="icon">
                                      <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='currentColor'><circle cx='6' cy='6' r='4.5'/><path stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/><circle cx='6' cy='8.2' r='.6' fill='currentColor' stroke='none'/></svg>
@@ -287,6 +274,10 @@ validation
         }
 
         const response = await axios.post('{{route('user.update.post', $data->id)}}', formData)
+        if(response.data.merge_available){
+            deleteHandler(response.data.message, response.data.url)
+            return;
+        }
         successToast(response.data.message)
         // setInterval(location.reload(), 1500);
     }catch (error){
@@ -330,6 +321,82 @@ validation
         submitBtn.disabled = false;
     }
   });
+
+  function deleteHandler(message, url){
+        iziToast.question({
+            // timeout: 50000,
+            timeout: 0,
+            close: false,
+            overlay: true,
+            displayMode: 'once',
+            id: 'question',
+            zindex: 999,
+            title: 'Hey',
+            message: message,
+            position: 'center',
+            buttons: [
+                ['<button><b>YES</b></button>', async function (instance, toast) {
+
+                    instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+                    var submitBtn = document.getElementById('submitBtn');
+                    submitBtn.innerHTML = spinner
+                    submitBtn.disabled = true;
+                    try {
+                        var formData = new FormData();
+                        if(document.getElementById('role').value=='Client'){
+                            formData.append('client',document.getElementById('client').value)
+                            formData.append('billing_rate',document.getElementById('billing_rate').value)
+                        }
+                        if(document.getElementById('role').value=='Writer'){
+                            formData.append('billing_rate',document.getElementById('billing_rate').value)
+                            if(document.getElementById('tool')?.length>0){
+                                for (let index = 0; index < document.getElementById('tool').length; index++) {
+                                    if(document.getElementById('tool')[index].selected) {
+                                        formData.append('tool[]',document.getElementById('tool')[index].value)
+                                    }
+                                }
+                            }
+                        }
+
+                        const response = await axios.post(url, formData)
+                        successToast(response.data.message)
+                        document.getElementById('loginForm').reset();
+                        // setInterval(location.reload(), 1500);
+                    }catch (error){
+                        if(error?.response?.data?.errors?.billing_rate){
+                            validation.showErrors({'#billing_rate': error?.response?.data?.errors?.billing_rate[0]})
+                        }
+                        if(error?.response?.data?.errors?.tool){
+                            validation.showErrors({'#tool': error?.response?.data?.errors?.tool[0]})
+                        }
+                        if(error?.response?.data?.errors?.client){
+                            validation.showErrors({'#client': error?.response?.data?.errors?.client[0]})
+                        }
+                        if(error?.response?.data?.message){
+                            errorToast(error?.response?.data?.message)
+                        }
+                    }finally{
+                        submitBtn.innerHTML =  `
+                            Create User
+                            `
+                        submitBtn.disabled = false;
+                    }
+
+                }, true],
+                ['<button>NO</button>', function (instance, toast) {
+
+                    instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+
+                }],
+            ],
+            onClosing: function(instance, toast, closedBy){
+                console.info('Closing | closedBy: ' + closedBy);
+            },
+            onClosed: function(instance, toast, closedBy){
+                console.info('Closed | closedBy: ' + closedBy);
+            }
+        });
+    }
 
   document.getElementById('role').addEventListener("change", function(){
     if(document.getElementById('role').value==='Client'){

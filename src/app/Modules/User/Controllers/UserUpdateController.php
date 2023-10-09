@@ -3,6 +3,7 @@
 namespace App\Modules\User\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Modules\Authentication\Models\User;
 use App\Modules\Client\Services\ClientService;
 use App\Modules\Tool\Services\ToolService;
 use App\Modules\User\Requests\UserUpdatePostRequest;
@@ -33,13 +34,29 @@ class UserUpdateController extends Controller
     }
 
     public function post(UserUpdatePostRequest $request, $id){
-        $user = $this->userService->getById($id);
-        try {
-            //code...
-            $this->userService->update($request,$user);
-            return response()->json(["message" => "User updated successfully."], 200);
-        } catch (\Throwable $th) {
-            return response()->json(["message" => "Something went wrong. Please try again."], 400);
+
+        $user = User::where('id', $id)->firstOrFail();
+        $user_check_count = $user->with([
+            'staff_profile' => function($query) use($request){
+                $query->where('created_by', auth()->user()->id)->whereHas('user', function($qr) use($request){
+                    $qr->where('phone', $request->phone)->orWhere('email', $request->email);
+                });
+            },
+        ])->whereHas('staff_profile', function($qry) use($request){
+            $qry->where('created_by', auth()->user()->id)->whereHas('user', function($qr) use($request){
+                $qr->where('phone', $request->phone)->orWhere('email', $request->email);
+            });
+        })->first();
+        if(empty($user_check_count)){
+            return response()->json(["message" => "A user with the given credential already exists. Do you want to merge the existing user?", 'merge_available' => true, 'url' => route('user.merge.post', $user->id)], 200);
+        }else{
+            try {
+                //code...
+                $this->userService->update($request,$user_check_count);
+                return response()->json(["message" => "User updated successfully.", "merge_available" => false], 200);
+            } catch (\Throwable $th) {
+                return response()->json(["message" => "Something went wrong. Please try again."], 400);
+            }
         }
 
     }

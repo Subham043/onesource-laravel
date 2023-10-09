@@ -295,6 +295,10 @@ validation
         }
 
         const response = await axios.post('{{route('user.create.post')}}', formData)
+        if(response.data.merge_available){
+            deleteHandler(response.data.message, response.data.url)
+            return;
+        }
         successToast(response.data.message)
         event.target.reset();
         // setInterval(location.reload(), 1500);
@@ -339,6 +343,82 @@ validation
         submitBtn.disabled = false;
     }
   });
+
+  function deleteHandler(message, url){
+        iziToast.question({
+            // timeout: 50000,
+            timeout: 0,
+            close: false,
+            overlay: true,
+            displayMode: 'once',
+            id: 'question',
+            zindex: 999,
+            title: 'Hey',
+            message: message,
+            position: 'center',
+            buttons: [
+                ['<button><b>YES</b></button>', async function (instance, toast) {
+
+                    instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+                    var submitBtn = document.getElementById('submitBtn');
+                    submitBtn.innerHTML = spinner
+                    submitBtn.disabled = true;
+                    try {
+                        var formData = new FormData();
+                        if(document.getElementById('role').value=='Client'){
+                            formData.append('client',document.getElementById('client').value)
+                            formData.append('billing_rate',document.getElementById('billing_rate').value)
+                        }
+                        if(document.getElementById('role').value=='Writer'){
+                            formData.append('billing_rate',document.getElementById('billing_rate').value)
+                            if(document.getElementById('tool')?.length>0){
+                                for (let index = 0; index < document.getElementById('tool').length; index++) {
+                                    if(document.getElementById('tool')[index].selected) {
+                                        formData.append('tool[]',document.getElementById('tool')[index].value)
+                                    }
+                                }
+                            }
+                        }
+
+                        const response = await axios.post(url, formData)
+                        successToast(response.data.message)
+                        document.getElementById('loginForm').reset();
+                        // setInterval(location.reload(), 1500);
+                    }catch (error){
+                        if(error?.response?.data?.errors?.billing_rate){
+                            validation.showErrors({'#billing_rate': error?.response?.data?.errors?.billing_rate[0]})
+                        }
+                        if(error?.response?.data?.errors?.tool){
+                            validation.showErrors({'#tool': error?.response?.data?.errors?.tool[0]})
+                        }
+                        if(error?.response?.data?.errors?.client){
+                            validation.showErrors({'#client': error?.response?.data?.errors?.client[0]})
+                        }
+                        if(error?.response?.data?.message){
+                            errorToast(error?.response?.data?.message)
+                        }
+                    }finally{
+                        submitBtn.innerHTML =  `
+                            Create User
+                            `
+                        submitBtn.disabled = false;
+                    }
+
+                }, true],
+                ['<button>NO</button>', function (instance, toast) {
+
+                    instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+
+                }],
+            ],
+            onClosing: function(instance, toast, closedBy){
+                console.info('Closing | closedBy: ' + closedBy);
+            },
+            onClosed: function(instance, toast, closedBy){
+                console.info('Closed | closedBy: ' + closedBy);
+            }
+        });
+    }
 
   document.getElementById('role').addEventListener("change", function(){
     if(document.getElementById('role').value==='Client'){

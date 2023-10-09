@@ -3,6 +3,7 @@
 namespace App\Modules\User\Requests;
 
 use App\Enums\Timezone;
+use App\Modules\Authentication\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Stevebauman\Purify\Facades\Purify;
@@ -32,8 +33,50 @@ class UserCreatePostRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string'],
-            'email' => ['required','email:rfc,dns','unique:users'],
-            'phone' => ['required','numeric', 'gt:0', 'unique:users'],
+            'email' => ['required','email:rfc,dns', function ($attribute, $value, $fail) {
+                if($value==auth()->user()->email){
+                    $fail('The '.$attribute.' entered is already taken.');
+                }
+                $user_count = User::where('email', $value)->first();
+                if(!empty($user_count)){
+                    $user_check_count = $user_count->with([
+                        'staff_profile' => function($query){
+                            $query->where('created_by', auth()->user()->id)->whereHas('user', function($qr){
+                                $qr->where('email', $this->email);
+                            });
+                        },
+                    ])->whereHas('staff_profile', function($qry){
+                        $qry->where('created_by', auth()->user()->id)->whereHas('user', function($qr){
+                            $qr->where('email', $this->email);
+                        });
+                    })->first();
+                    if(!empty($user_check_count)){
+                        $fail('The '.$attribute.' entered is already taken.');
+                    }
+                }
+            }],
+            'phone' => ['required','numeric', 'gt:0', function ($attribute, $value, $fail) {
+                if($value==auth()->user()->phone){
+                    $fail('The '.$attribute.' entered is already taken.');
+                }
+                $user_count = User::where('phone', $value)->first();
+                if(!empty($user_count)){
+                    $user_check_count = $user_count->with([
+                        'staff_profile' => function($query){
+                            $query->where('created_by', auth()->user()->id)->whereHas('user', function($qr){
+                                $qr->where('phone', $this->phone);
+                            });
+                        },
+                    ])->whereHas('staff_profile', function($qry){
+                        $qry->where('created_by', auth()->user()->id)->whereHas('user', function($qr){
+                            $qr->where('phone', $this->phone);
+                        });
+                    })->first();
+                    if(!empty($user_check_count)){
+                        $fail('The '.$attribute.' entered is already taken.');
+                    }
+                }
+            }],
             'password' => ['required',
                 'string',
                 PasswordValidation::min(8)

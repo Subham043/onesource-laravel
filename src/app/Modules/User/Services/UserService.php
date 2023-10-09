@@ -4,6 +4,7 @@ namespace App\Modules\User\Services;
 
 use App\Modules\Authentication\Models\User;
 use App\Modules\User\Requests\UserCreatePostRequest;
+use App\Modules\User\Requests\UserMergePostRequest;
 use App\Modules\User\Requests\UserUpdatePostRequest;
 use Illuminate\Database\Eloquent\Collection;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -89,7 +90,6 @@ class UserService
             'timezone',
         ]), ...$password];
         $user->update($data);
-        $user->syncRoles([$request->role]);
         $user->staff_profile()->update([
             'billing_rate'=> !empty($request->billing_rate) ? $request->billing_rate : null,
             'client_id'=> !empty($request->client) ? $request->client : null,
@@ -97,6 +97,42 @@ class UserService
 
         if($request->role=='Writer' && $request->tool && count($request->tool)>0){
             $user->staff_profile->tools()->sync($request->tool);
+        }
+
+        return $user;
+    }
+
+    public function updateWithoutEmailAndPhone(UserUpdatePostRequest $request, User $user): User
+    {
+        $password = empty($request->password) ? [] : $request->only('password');
+        $data = [...$request->safe()->only([
+            'name',
+            'timezone',
+        ]), ...$password];
+        $user->update($data);
+        $user->staff_profile()->update([
+            'billing_rate'=> !empty($request->billing_rate) ? $request->billing_rate : null,
+            'client_id'=> !empty($request->client) ? $request->client : null,
+        ]);
+
+        if($request->role=='Writer' && $request->tool && count($request->tool)>0){
+            $user->staff_profile->tools()->sync($request->tool);
+        }
+
+        return $user;
+    }
+
+    public function merge(UserMergePostRequest $request, User $user): User
+    {
+        $user->staff_profile()->create([
+            'billing_rate'=> !empty($request->billing_rate) ? $request->billing_rate : null,
+            'client_id'=> !empty($request->client) ? $request->client : null,
+            'is_primary_user' => true,
+            'created_by' => auth()->user()->id
+        ]);
+
+        if($user->current_role=='Writer' && $request->tool && count($request->tool)>0){
+            $user->staff_profile->tools()->attach($request->tool);
         }
 
         return $user;

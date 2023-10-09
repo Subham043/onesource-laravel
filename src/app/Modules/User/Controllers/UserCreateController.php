@@ -3,6 +3,7 @@
 namespace App\Modules\User\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Modules\Authentication\Models\User;
 use App\Modules\Client\Services\ClientService;
 use App\Modules\Tool\Services\ToolService;
 use App\Modules\User\Requests\UserCreatePostRequest;
@@ -32,15 +33,35 @@ class UserCreateController extends Controller
 
     public function post(UserCreatePostRequest $request){
 
-        try {
-            //code...
-            $this->userService->create(
-                $request
-            );
-            return response()->json(["message" => "User created successfully."], 201);
-        } catch (\Throwable $th) {
-            return response()->json(["message" => "Something went wrong. Please try again."], 400);
+        $user = User::where('email', $request->email)->orWhere('phone', $request->phone)->first();
+        if(empty($user)){
+            try {
+                //code...
+                $this->userService->create(
+                    $request
+                );
+                return response()->json(["message" => "User created successfully.", "merge_available" => false], 201);
+            } catch (\Throwable $th) {
+                return response()->json(["message" => "Something went wrong. Please try again."], 400);
+            }
+        }else{
+            $user_check_count = $user->with([
+                'staff_profile' => function($query) use($request){
+                    $query->where('created_by', auth()->user()->id)->whereHas('user', function($qr) use($request){
+                        $qr->where('phone', $request->phone)->orWhere('email', $request->email);
+                    });
+                },
+            ])->whereHas('staff_profile', function($qry) use($request){
+                $qry->where('created_by', auth()->user()->id)->whereHas('user', function($qr) use($request){
+                    $qr->where('phone', $request->phone)->orWhere('email', $request->email);
+                });
+            })->first();
+            if(empty($user_check_count)){
+                return response()->json(["message" => "A user with the given credential already exists. Do you want to merge the existing user?", 'merge_available' => true, 'url' => route('user.merge.post', $user->id)], 200);
+            }
+            return response()->json(["message" => "A user already exists", 'merge_available' => false], 400);
         }
+
 
     }
 }
