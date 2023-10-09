@@ -2,6 +2,7 @@
 
 namespace App\Modules\User\Services;
 
+use App\Modules\Authentication\Models\Profile;
 use App\Modules\Authentication\Models\User;
 use App\Modules\User\Requests\UserCreatePostRequest;
 use App\Modules\User\Requests\UserMergePostRequest;
@@ -143,9 +144,28 @@ class UserService
         $user->syncRoles($roles);
     }
 
-    public function delete(User $user): bool|null
+    public function delete(Int $id): bool|null
     {
-        return $user->delete();
+        $user = User::where('id', $id)->firstOrFail();
+        $user_check_count = $user->with([
+            'staff_profile' => function($query) use($id){
+                $query->where('created_by', auth()->user()->id)->where('user_id', $id);
+            },
+        ])->whereHas('staff_profile', function($qry) use($id){
+            $qry->where('created_by', auth()->user()->id)->where('user_id', $id);
+        })->firstOrFail();
+        if($user_check_count->current_role=='Admin' || $user_check_count->current_role=='Super-Admin' || $user_check_count->current_role=='Super Admin'){
+            return Profile::where('created_by', auth()->user()->id)->where('user_id', $id)->delete();
+        }else{
+            $profile_count = User::where('id', $id)->whereHas('profiles', function($qry) use($id){
+                $qry->where('user_id', $id);
+            })->firstOrFail();
+            if($profile_count->profiles->count()==1){
+                return $user_check_count->delete();
+            }else{
+                return Profile::where('created_by', auth()->user()->id)->where('user_id', $id)->delete();
+            }
+        }
     }
 
 }
