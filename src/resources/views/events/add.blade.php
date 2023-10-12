@@ -99,84 +99,55 @@
                     </div>
                 </div>
             </div>
-            <div class="card">
-                <div class="card-header d-flex justify-content-between">
+            <div class="card repeater-writer">
+                <div class="card-header d-flex justify-content-between align-items-center">
                     <div class="header-title">
                         <h4 class="card-title">Assign Details</h4>
                     </div>
+                    <div class="col-sm-auto">
+                        <button data-repeater-create class="btn btn-primary" type="button">Add Writer</button>
+                    </div>
                 </div>
                 <div class="card-body">
-                    <div class="form-group row">
-                        <label class="control-label col-sm-2 align-self-center mb-0" for="eventName">Writer:</label>
-                        <div class="col-sm-3">
-                            <select class="form-select shadow-none">
-                                <option selected="">Select Writer</option>
-                                <option value="1">Writer One</option>
-                                <option value="2">Writer Two</option>
-                                <option value="3"> Writer Three</option>
-                            </select>
-                        </div>
-                        <label class="control-label col-sm-2 align-self-center mb-0" for="eventName">Billing Rate:</label>
-                        <div class="col-sm-3">
-                            <input type="email" class="form-control" id="eventName" placeholder=" ">
-                        </div>
-                        <div class="col-sm-2">
-                            <a href="#" class="btn btn-primary">+</a>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="control-label col-sm-2 align-self-center mb-0" for="eventName">Writer:</label>
-                        <div class="col-sm-3">
-                            <select class="form-select shadow-none">
-                                <option selected="">Select Writer</option>
-                                <option value="1">Writer One</option>
-                                <option value="2">Writer Two</option>
-                                <option value="3"> Writer Three</option>
-                            </select>
-                        </div>
-                        <label class="control-label col-sm-2 align-self-center mb-0" for="eventName">Billing Rate:</label>
-                        <div class="col-sm-3">
-                            <input type="email" class="form-control" id="eventName" placeholder=" ">
-                        </div>
-                        <div class="col-sm-2">
-                            <a href="#" class="btn btn-primary">+</a>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="control-label col-sm-2 align-self-center mb-0" for="eventName">Writer:</label>
-                        <div class="col-sm-3">
-                            <select class="form-select shadow-none">
-                                <option selected="">Select Writer</option>
-                                <option value="1">Writer One</option>
-                                <option value="2">Writer Two</option>
-                                <option value="3"> Writer Three</option>
-                            </select>
-                        </div>
-                        <label class="control-label col-sm-2 align-self-center mb-0" for="eventName">Billing Rate:</label>
-                        <div class="col-sm-3">
-                            <input type="email" class="form-control" id="eventName" placeholder=" ">
-                        </div>
-                        <div class="col-sm-2">
-                            <a href="#" class="btn btn-primary">+</a>
+                    <div class="col-12" data-repeater-list="group-a">
+                        <div class="form-group row" data-repeater-item>
+                            <label class="control-label col-sm-2 align-self-center mb-0" for="eventName">Writer:</label>
+                            <div class="col-sm-4">
+                                <select class="form-select shadow-none">
+                                    <option selected="">Select Writer</option>
+                                    <option value="1">Writer One</option>
+                                    <option value="2">Writer Two</option>
+                                    <option value="3"> Writer Three</option>
+                                </select>
+                            </div>
+                            <label class="control-label col-sm-2 align-self-center mb-0" for="eventName">Billing Rate:</label>
+                            <div class="col-sm-3">
+                                <input type="email" class="form-control" id="eventName" placeholder=" ">
+                            </div>
+                            <div class="col-sm-1">
+                                <button data-repeater-delete class="btn btn-danger" type="button">-</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="card">
-                <div class="card-header d-flex justify-content-between">
+            <div class="card repeater-document">
+                <div class="card-header d-flex justify-content-between align-items-center">
                     <div class="header-title">
                         <h4 class="card-title">Documents</h4>
                     </div>
+                    <div class="col-sm-auto">
+                        <button data-repeater-create class="btn btn-primary" type="button">Add Document</button>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <div class="form-group">
-                        <input class="form-control" type="file" id="customFile">
-                    </div>
-                    <div class="form-group">
-                        <input class="form-control" type="file" id="customFile">
-                    </div>
-                    <div class="form-group">
-                        <input class="form-control" type="file" id="customFile">
+                <div class="card-body" data-repeater-list="group-a">
+                    <div class="form-group row justify-content-between" data-repeater-item>
+                        <div class="col-sm-11">
+                            <input class="form-control" type="file" id="customFile">
+                        </div>
+                        <div class="col-sm-1">
+                            <button data-repeater-delete class="btn btn-danger" type="button">-</button>
+                        </div>
                     </div>
                 </div>
                 <div class="card-header d-flex justify-content-between">
@@ -194,4 +165,47 @@
         </form>
     </div>
 </div>
+@stop
+
+@section('javascript')
+<script src="{{asset('assets/js/plugins/jquery.js')}}"></script>
+<script src="{{asset('assets/js/plugins/jquery.repeater.js')}}"></script>
+
+<script type="text/javascript" nonce="{{ csp_nonce() }}">
+(function( $ ) {
+    $(document).ready(function() {
+        $('.repeater-writer').repeater({
+            // options and callbacks here
+            // isFirstItemUndeletable:true,
+            initEmpty:false,
+            show: function () {
+                $(this).slideDown();
+            },
+            hide: function (deleteElement) {
+                if(confirm('Are you sure you want to delete this element?')) {
+                    $(this).slideUp(deleteElement);
+                }
+            },
+            ready: function (setIndexes) {
+            }
+        });
+        $('.repeater-document').repeater({
+            // options and callbacks here
+            // isFirstItemUndeletable:true,
+            initEmpty:false,
+            show: function () {
+                $(this).slideDown();
+            },
+            hide: function (deleteElement) {
+                if(confirm('Are you sure you want to delete this element?')) {
+                    $(this).slideUp(deleteElement);
+                }
+            },
+            ready: function (setIndexes) {
+            }
+        });
+    });
+})(jQuery);
+</script>
+
 @stop
