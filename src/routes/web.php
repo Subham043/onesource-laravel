@@ -129,6 +129,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::prefix('/event')->group(function () {
         Route::get('/', [EventPaginateController::class, 'get', 'as' => 'event.paginate.get'])->name('event.paginate.get');
         Route::get('/create', [EventCreateController::class, 'get', 'as' => 'event.create.get'])->name('event.create.get');
+        Route::post('/create', [EventCreateController::class, 'post', 'as' => 'event.create.post'])->name('event.create.post');
         Route::post('/create', [EventCreateController::class, 'post', 'as' => 'event.create.get'])->name('event.create.post');
         Route::get('/update/{id}', [EventUpdateController::class, 'get', 'as' => 'event.update.get'])->name('event.update.get');
         Route::post('/update/{id}', [EventUpdateController::class, 'post', 'as' => 'event.update.get'])->name('event.update.post');

@@ -2,7 +2,11 @@
 
 namespace App\Modules\Event\Services;
 
+use App\Http\Services\FileService;
 use App\Modules\Event\Models\Event;
+use App\Modules\Event\Models\EventDocument;
+use App\Modules\Event\Models\EventWriter;
+use App\Modules\Event\Requests\EventCreateRequest;
 use Illuminate\Database\Eloquent\Collection;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\Filters\Filter;
@@ -34,23 +38,61 @@ class EventService
         return Event::where('created_by', auth()->user()->id)->findOrFail($id);
     }
 
-    public function create(array $data): Event
+    public function create(EventCreateRequest $request): Event
     {
-        $tool = Event::create($data);
-        $tool->created_by = auth()->user()->id;
-        $tool->save();
-        return $tool;
+        $event = Event::create(
+            [
+                ...$request->safe()->only([
+                    'name',
+                    'invoice_rate',
+                    'start_date',
+                    'end_date',
+                    'start_time',
+                    'end_time',
+                    'is_recurring_event',
+                    'recurring_type',
+                    'recurring_days',
+                    'recurring_end_date',
+                    'notes',
+                ]),
+                'client_id' => $request->client,
+                'created_by' => auth()->user()->id,
+            ]
+        );
+        foreach ($request->writer_ids as $key=>$value) {
+            $event->writers()->save(new EventWriter([
+                'writer_id' => $value,
+                'billing_rate' => $request->billing_rates[$key],
+            ]));
+        }
+        $this->saveDocument($request, $event->id);
+        return $event;
     }
 
-    public function update(array $data, Event $tool): Event
+    public function update(array $data, Event $event): Event
     {
-        $tool->update($data);
-        return $tool;
+        $event->update($data);
+        return $event;
     }
 
-    public function delete(Event $tool): bool|null
+    public function delete(Event $event): bool|null
     {
-        return $tool->delete();
+        return $event->delete();
+    }
+
+    public function saveDocument(EventCreateRequest $request, Int $event_id)
+    {
+        foreach ($request->file('documents') as $documentfile) {
+            if($documentfile->isValid()){
+                $file = $documentfile->hashName();
+                $documentfile->storeAs((new EventDocument)->document_path,$file);
+                EventDocument::create([
+                    'document' => $file,
+                    'event_id' => $event_id,
+                    'created_by' => auth()->user()->id,
+                ]);
+            }
+        }
     }
 
 }

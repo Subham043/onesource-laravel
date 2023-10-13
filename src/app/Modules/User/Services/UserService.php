@@ -22,6 +22,34 @@ class UserService
         return User::all();
     }
 
+    public function allByWriterRole(): Collection
+    {
+        return User::with([
+            'roles',
+            'staff_profile' => function($query){
+                $query->with(['tools', 'client']);
+            },
+        ])->whereHas('roles', function($qry){
+            $qry->where('name', 'Writer');
+        })->whereHas('staff_profile', function($qry){
+            $qry->with(['tools', 'client'])->where('created_by', auth()->user()->id);
+        })->latest()->get();
+    }
+
+    public function allByClientRole(): Collection
+    {
+        return User::with([
+            'roles',
+            'staff_profile' => function($query){
+                $query->with(['tools', 'client']);
+            },
+        ])->whereHas('roles', function($qry){
+            $qry->where('name', 'Client');
+        })->whereHas('staff_profile', function($qry){
+            $qry->with(['tools', 'client'])->where('created_by', auth()->user()->id);
+        })->latest()->get();
+    }
+
     public function paginate(Int $total = 10): LengthAwarePaginator
     {
         $query = User::with([
