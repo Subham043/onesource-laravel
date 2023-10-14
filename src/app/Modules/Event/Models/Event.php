@@ -4,6 +4,7 @@ namespace App\Modules\Event\Models;
 
 use App\Enums\RecurringType;
 use App\Modules\Authentication\Models\User;
+use App\Modules\Client\Models\Client;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -57,7 +58,7 @@ class Event extends Model
 
     public function client()
     {
-        return $this->belongsTo(User::class, 'client_id')->withDefault();
+        return $this->belongsTo(Client::class, 'client_id')->withDefault();
     }
 
     public function writers()

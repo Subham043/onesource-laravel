@@ -7,6 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Stevebauman\Purify\Facades\Purify;
 use Illuminate\Validation\Rules\Enum;
+use Illuminate\Validation\Rule;
 
 
 class EventUpdateRequest extends FormRequest
@@ -36,28 +37,29 @@ class EventUpdateRequest extends FormRequest
             'start_time' => 'required|string',
             'end_time' => 'required|string',
             'is_recurring_event' => 'required|boolean',
-            'recurring_days' => 'required_if:is_recurring_event,1|numeric|gte:0',
-            'recurring_type' => ['required_if:is_recurring_event,1', new Enum(RecurringType::class)],
-            'recurring_end_date' => 'required_if:is_recurring_event,1|string',
+            'recurring_type' => ['nullable', 'required_if:is_recurring_event,1', new Enum(RecurringType::class)],
+            'recurring_days' => ['nullable', Rule::requiredIf($this->is_recurring_event==1 && $this->recurring_type=='Every'),'numeric','gte:0'],
+            'recurring_end_date' => 'nullable|required_if:is_recurring_event,1|string',
             'client' => [
                 'required',
                 'numeric',
-                'exists:users,id',
+                'exists:clients,id',
             ],
             'notes' => 'nullable|string',
-            'writers' => ['nullable', 'array', 'min:1'],
-            'writers.*.writer_id' => [
+            'writer_ids' => ['required', 'array', 'min:1'],
+            'writer_ids.*' => [
                 'required',
                 'numeric',
                 'exists:users,id',
             ],
-            'writers.*.billing_rate' => [
+            'billing_rates' => ['required', 'array', 'min:1'],
+            'billing_rates.*' => [
                 'required',
                 'numeric',
                 'gte:0',
             ],
             'documents' => ['nullable', 'array', 'min:1'],
-            'document.*' => 'required|mimes:pdf,doc,docx,dot,xls,xlsx,ppt,pptx,pps|max:5000',
+            'documents.*' => 'required|mimes:pdf,doc,docx,dot,xls,xlsx,ppt,pptx,pps|max:5000',
         ];
     }
 

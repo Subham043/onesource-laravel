@@ -1,30 +1,29 @@
 <?php
 
-namespace App\Modules\User\Controllers;
+namespace App\Modules\Event\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Modules\User\Services\UserService;
+use App\Modules\Event\Services\EventService;
 
-class UserDeleteController extends Controller
+class EventDeleteController extends Controller
 {
-    private $userService;
+    private $eventService;
 
-    public function __construct(UserService $userService)
+    public function __construct(EventService $eventService)
     {
-        $this->middleware('permission:delete users', ['only' => ['get']]);
-        $this->userService = $userService;
+        $this->middleware('permission:delete events', ['only' => ['get']]);
+        $this->eventService = $eventService;
     }
 
     public function get($id){
-        $user = $this->userService->getById($id);
+        $user = $this->eventService->getById($id);
 
         try {
             //code...
-            $this->userService->delete(
+            $this->eventService->delete(
                 $user
             );
-            $this->userService->syncRoles([], $user);
-            return redirect()->back()->with('success_status', 'User deleted successfully.');
+            return redirect()->back()->with('success_status', 'Event deleted successfully.');
         } catch (\Throwable $th) {
             return redirect()->back()->with('error_status', 'Something went wrong. Please try again');
         }

@@ -43,7 +43,7 @@ class EventCreateRequest extends FormRequest
             'client' => [
                 'required',
                 'numeric',
-                'exists:users,id',
+                'exists:clients,id',
             ],
             'notes' => 'nullable|string',
             'writer_ids' => ['required', 'array', 'min:1'],
