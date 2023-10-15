@@ -1,30 +1,28 @@
 <?php
 
-namespace App\Modules\User\Controllers;
+namespace App\Modules\Document\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Modules\User\Services\UserService;
+use App\Modules\Document\Services\DocumentService;
 
-class UserDeleteController extends Controller
+class DocumentDeleteController extends Controller
 {
-    private $userService;
+    private $eventDocumentService;
 
-    public function __construct(UserService $userService)
+    public function __construct(DocumentService $eventDocumentService)
     {
-        $this->middleware('permission:delete users', ['only' => ['get']]);
-        $this->userService = $userService;
+        $this->middleware('permission:delete documents', ['only' => ['get']]);
+        $this->eventDocumentService = $eventDocumentService;
     }
 
     public function get($id){
-        $user = $this->userService->getById($id);
-
+        $eventDocument = $this->eventDocumentService->getById($id);
         try {
             //code...
-            $this->userService->delete(
-                $user
+            $this->eventDocumentService->delete(
+                $eventDocument
             );
-            $this->userService->syncRoles([], $user);
-            return redirect()->back()->with('success_status', 'User deleted successfully.');
+            return redirect()->back()->with('success_status', 'Document deleted successfully.');
         } catch (\Throwable $th) {
             return redirect()->back()->with('error_status', 'Something went wrong. Please try again');
         }

@@ -21,11 +21,13 @@ use App\Modules\Customer\Controllers\CustomerUpdateController;
 use App\Modules\Customer\Controllers\CustomerViewController;
 use App\Modules\Dashboard\Controllers\DashboardController;
 use App\Modules\Document\Controllers\DocumentCreateController;
+use App\Modules\Document\Controllers\DocumentDeleteController;
 use App\Modules\Document\Controllers\DocumentPaginateController;
 use App\Modules\Event\Controllers\EventCreateController;
 use App\Modules\Event\Controllers\EventPaginateController;
 use App\Modules\Event\Controllers\EventUpdateController;
 use App\Modules\Event\Controllers\EventViewController;
+use App\Modules\Event\Controllers\EventWriterDeleteController;
 use App\Modules\Event\Event\Controllers\EventDeleteController;
 use App\Modules\Report\Conflict\Controllers\ConflictViewController;
 use App\Modules\Report\Controllers\ReportViewController;
@@ -135,6 +137,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/update/{id}', [EventUpdateController::class, 'post', 'as' => 'event.update.get'])->name('event.update.post');
         Route::get('/view/{id}', [EventViewController::class, 'get', 'as' => 'event.view.get'])->name('event.view.get');
         Route::get('/delete/{id}', [EventDeleteController::class, 'get', 'as' => 'event.delete.get'])->name('event.delete.get');
+        Route::get('/delete-writer/{id}', [EventWriterDeleteController::class, 'get', 'as' => 'event.delete_writer.get'])->name('event.delete_writer.get');
     });
 
     Route::prefix('/document')->group(function () {

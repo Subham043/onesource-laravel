@@ -49,9 +49,23 @@ class EventService
     public function getById(Int $id): Event|null
     {
         return Event::with([
-            'writers',
-            'documents'
+            'writers'=> function($qry){
+                $qry->with('writer');
+            },
+            'documents',
+            'client'
         ])->where('created_by', auth()->user()->id)->findOrFail($id);
+    }
+
+    public function getByWriterId(Int $id): EventWriter|null
+    {
+        return EventWriter::with([
+            'event'=> function($qry){
+                $qry->where('created_by', auth()->user()->id);
+            },
+        ])->whereHas('event', function($qry){
+            $qry->where('created_by', auth()->user()->id);
+        })->findOrFail($id);
     }
 
     public function create(EventCreateRequest $request): Event
@@ -119,6 +133,11 @@ class EventService
     public function delete(Event $event): bool|null
     {
         return $event->delete();
+    }
+
+    public function deleteWriter(EventWriter $eventWriter): bool|null
+    {
+        return $eventWriter->delete();
     }
 
     public function saveDocument(EventCreateRequest|EventUpdateRequest $request, Int $event_id)

@@ -389,9 +389,36 @@ validation
                 $(this).slideDown();
             },
             hide: function (deleteElement) {
-                if(confirm('Are you sure you want to delete this element?')) {
-                    $(this).slideUp(deleteElement);
-                }
+                iziToast.question({
+                    timeout: 20000,
+                    close: false,
+                    overlay: true,
+                    displayMode: 'once',
+                    id: 'question',
+                    zindex: 999,
+                    title: 'Hey',
+                    message: 'Are you sure about that?',
+                    position: 'center',
+                    buttons: [
+                        ['<button><b>YES</b></button>', function (instance, toast) {
+
+                            instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+                            $(this).slideUp(deleteElement);
+
+                        }, true],
+                        ['<button>NO</button>', function (instance, toast) {
+
+                            instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+
+                        }],
+                    ],
+                    onClosing: function(instance, toast, closedBy){
+                        console.info('Closing | closedBy: ' + closedBy);
+                    },
+                    onClosed: function(instance, toast, closedBy){
+                        console.info('Closed | closedBy: ' + closedBy);
+                    }
+                });
             },
             ready: function (setIndexes) {
             }
@@ -403,9 +430,36 @@ validation
                 $(this).slideDown();
             },
             hide: function (deleteElement) {
-                if(confirm('Are you sure you want to delete this element?')) {
-                    $(this).slideUp(deleteElement);
-                }
+                iziToast.question({
+                    timeout: 20000,
+                    close: false,
+                    overlay: true,
+                    displayMode: 'once',
+                    id: 'question',
+                    zindex: 999,
+                    title: 'Hey',
+                    message: 'Are you sure about that?',
+                    position: 'center',
+                    buttons: [
+                        ['<button><b>YES</b></button>', function (instance, toast) {
+
+                            instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+                            $(this).slideUp(deleteElement);
+
+                        }, true],
+                        ['<button>NO</button>', function (instance, toast) {
+
+                            instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+
+                        }],
+                    ],
+                    onClosing: function(instance, toast, closedBy){
+                        console.info('Closing | closedBy: ' + closedBy);
+                    },
+                    onClosed: function(instance, toast, closedBy){
+                        console.info('Closed | closedBy: ' + closedBy);
+                    }
+                });
             },
             ready: function (setIndexes) {
             }
