@@ -45,6 +45,7 @@ class DocumentService
                     'client'
                 ])->where('created_by', auth()->user()->id);
             },
+            'creator'
         ])->whereHas('event', function($qry){
             $qry->where('created_by', auth()->user()->id);
         })->latest();
