@@ -231,13 +231,6 @@ class UserSeeder extends Seeder
                 'add documents',
                 'list documents',
 
-                //permission for tools
-                'edit tools',
-                'delete tools',
-                'add tools',
-                'list tools',
-                'view tools',
-
             ]);
 
         Role::create(['name' => 'Client'])

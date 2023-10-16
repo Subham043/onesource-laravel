@@ -10,9 +10,11 @@
                         <h4 class="card-title">Event Details</h4>
                     </div>
                     <div >
+                        @can('edit events')
                         <a href="{{route('event.update.get', $event->id)}}" class="btn btn-primary">
                             Edit This Event
                         </a>
+                        @endcan
                     </div>
                 </div>
                 <div class="card-body">

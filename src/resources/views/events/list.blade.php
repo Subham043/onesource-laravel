@@ -11,8 +11,12 @@
                             <h4 class="mb-0 card-title">Events</h4>
                         </div>
                         <div>
+                            @can('add events')
                             <a href="{{route('event.create.get')}}" class="btn btn-primary">Add Event</a>
+                            @endcan
+                            @can('view calendar')
                             <a href="{{route('calendar.view.get')}}" class="btn btn-primary">Calendar View</a>
+                            @endcan
                         </div>
                     </div>
                     <div class="p-0 card-body">

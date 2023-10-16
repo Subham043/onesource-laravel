@@ -17,15 +17,18 @@ class DocumentDeleteController extends Controller
 
     public function get($id){
         $eventDocument = $this->eventDocumentService->getById($id);
-        try {
-            //code...
-            $this->eventDocumentService->delete(
-                $eventDocument
-            );
-            return redirect()->back()->with('success_status', 'Document deleted successfully.');
-        } catch (\Throwable $th) {
-            return redirect()->back()->with('error_status', 'Something went wrong. Please try again');
+        if((auth()->user()->current_role=='Admin' || auth()->user()->current_role=='Staff-Admin') || (auth()->user()->current_role=='Writer') && $eventDocument->created_by==auth()->user()->id){
+            try {
+                //code...
+                $this->eventDocumentService->delete(
+                    $eventDocument
+                );
+                return redirect()->back()->with('success_status', 'Document deleted successfully.');
+            } catch (\Throwable $th) {
+                return redirect()->back()->with('error_status', 'Something went wrong. Please try again');
+            }
         }
+        abort(404);
     }
 
 }
