@@ -7,6 +7,7 @@ use App\Modules\Authentication\Models\User;
 use App\Modules\Client\Models\Client;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class Event extends Model
 {
@@ -69,5 +70,26 @@ class Event extends Model
     public function documents()
     {
         return $this->hasMany(EventDocument::class, 'event_id');
+    }
+
+    public function scopeFilterByRoles(Builder $query): Builder
+    {
+        $query_builder = $query->with([
+            'writers'=> function($qry){
+                $qry->with('writer');
+            },
+            'documents',
+            'client'
+        ]);
+        if(auth()->user()->current_role=='Writer'){
+            $query_builder->whereHas('writers', function($qry){
+                $qry->where('writer_id', auth()->user()->id);
+            });
+        }elseif(auth()->user()->current_role=='Client'){
+
+        }else{
+            $query_builder->where('created_by', auth()->user()->current_role=='Staff-Admin' ? auth()->user()->member_profile_created_by_auth->created_by : auth()->user()->id);
+        }
+        return $query_builder;
     }
 }

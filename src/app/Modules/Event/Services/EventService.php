@@ -20,44 +20,12 @@ class EventService
 
     public function all(): Collection
     {
-        $query = Event::with([
-            'writers'=> function($qry){
-                $qry->with('writer');
-            },
-            'documents',
-            'client'
-        ]);
-        if(auth()->user()->current_role=='Writer'){
-            $query->whereHas('writers', function($qry){
-                $qry->where('writer_id', auth()->user()->id);
-            })->latest();
-        }elseif(auth()->user()->current_role=='Client'){
-
-        }else{
-            $query->where('created_by', auth()->user()->current_role=='Staff-Admin' ? auth()->user()->member_profile_created_by_auth->created_by : auth()->user()->id)->latest();
-        }
-        $data = $query->get();
-        return $data;
+        return Event::filterByRoles()->latest()->get();
     }
 
     public function paginate(Int $total = 10): LengthAwarePaginator
     {
-        $query = Event::with([
-            'writers'=> function($qry){
-                $qry->with('writer');
-            },
-            'documents',
-            'client'
-        ]);
-        if(auth()->user()->current_role=='Writer'){
-            $query->whereHas('writers', function($qry){
-                $qry->where('writer_id', auth()->user()->id);
-            })->latest();
-        }elseif(auth()->user()->current_role=='Client'){
-
-        }else{
-            $query->where('created_by', auth()->user()->current_role=='Staff-Admin' ? auth()->user()->member_profile_created_by_auth->created_by : auth()->user()->id)->latest();
-        }
+        $query = Event::filterByRoles()->latest();
         return QueryBuilder::for($query)
                 ->allowedFilters([
                     AllowedFilter::custom('search', new CommonFilter),
@@ -68,26 +36,7 @@ class EventService
 
     public function getById(Int $id): Event|null
     {
-        $query = Event::with([
-            'writers'=> function($qry){
-                $qry->with('writer');
-            },
-            'documents',
-            'client'
-        ]);
-        if(auth()->user()->current_role=='Writer'){
-            $query->whereHas('writers', function($qry){
-                $qry->where('writer_id', auth()->user()->id);
-            });
-        }elseif(auth()->user()->current_role=='Client'){
-            $query->whereHas('writers', function($qry){
-                $qry->where('writer_id', auth()->user()->id);
-            });
-        }else{
-            $query->where('created_by', auth()->user()->current_role=='Staff-Admin' ? auth()->user()->member_profile_created_by_auth->created_by : auth()->user()->id);
-        }
-        $data = $query->findOrFail($id);
-        return $data;
+        return Event::filterByRoles()->findOrFail($id);
     }
 
     public function getByWriterId(Int $id): EventWriter|null

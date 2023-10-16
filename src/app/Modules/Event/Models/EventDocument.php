@@ -6,6 +6,7 @@ use App\Modules\Authentication\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Builder;
 
 class EventDocument extends Model
 {
@@ -55,5 +56,47 @@ class EventDocument extends Model
     public function event()
     {
         return $this->belongsTo(Event::class, 'event_id')->withDefault();
+    }
+
+    public function scopeFilterByRoles(Builder $query): Builder
+    {
+        $query_builder = $query->with([
+            'event'=> function($qry){
+                if(auth()->user()->current_role=='Writer'){
+                    $qry->with([
+                        'writers'=> function($qry){
+                            $qry->with('writer')->where('writer_id', auth()->user()->id);
+                        },
+                        'documents',
+                        'client'
+                    ]);
+                }elseif(auth()->user()->current_role=='Client'){
+
+                }else{
+                    $qry->with([
+                        'writers'=> function($qry){
+                            $qry->with('writer');
+                        },
+                        'documents',
+                        'client'
+                    ])->where('created_by', auth()->user()->current_role=='Staff-Admin' ? auth()->user()->member_profile_created_by_auth->created_by : auth()->user()->id);
+                }
+            },
+            'creator'
+        ]);
+        if(auth()->user()->current_role=='Writer'){
+            $query_builder->whereHas('event', function($qr){
+                $qr->whereHas('writers', function($qry){
+                    $qry->where('writer_id', auth()->user()->id);
+                });
+            });
+        }elseif(auth()->user()->current_role=='Client'){
+
+        }else{
+            $query_builder->whereHas('event', function($qry){
+                $qry->where('created_by', auth()->user()->current_role=='Staff-Admin' ? auth()->user()->member_profile_created_by_auth->created_by : auth()->user()->id);
+            });
+        }
+        return $query_builder;
     }
 }
