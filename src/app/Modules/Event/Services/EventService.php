@@ -23,9 +23,13 @@ class EventService
         return Event::filterByRoles()->latest()->get();
     }
 
-    public function paginate(Int $total = 10): LengthAwarePaginator
+    public function paginate(Int $total = 10, bool $get_current=false): LengthAwarePaginator
     {
-        $query = Event::filterByRoles()->latest();
+        $query = Event::filterByRoles();
+        if($get_current){
+            $query->whereDate('start_date', today());
+        }
+        $query->latest();
         return QueryBuilder::for($query)
                 ->allowedFilters([
                     AllowedFilter::custom('search', new CommonFilter),

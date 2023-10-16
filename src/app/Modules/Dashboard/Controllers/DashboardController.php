@@ -3,15 +3,24 @@
 namespace App\Modules\Dashboard\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Modules\Event\Services\EventService;
+use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
+    private $eventService;
 
-    public function get(){
+    public function __construct(EventService $eventService)
+    {
+        $this->eventService = $eventService;
+    }
+
+    public function get(Request $request){
         if(auth()->user()->current_role=='Super Admin'){
             return redirect(route('customer.paginate.get'));
         }
-        return view('dashboard')->with([
+        $events = $this->eventService->paginate($request->total ?? 10, true);
+        return view('dashboard', compact(['events']))->with([
             'page_name' => 'Dashboard'
         ]);
     }
