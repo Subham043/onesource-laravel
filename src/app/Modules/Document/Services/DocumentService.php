@@ -26,10 +26,10 @@ class DocumentService
                     },
                     'documents',
                     'client'
-                ])->where('created_by', auth()->user()->id);
+                ])->where('created_by', auth()->user()->current_role=='Staff-Admin' ? auth()->user()->member_profile_created_by_auth->created_by : auth()->user()->id);
             },
         ])->whereHas('event', function($qry){
-            $qry->where('created_by', auth()->user()->id);
+            $qry->where('created_by', auth()->user()->current_role=='Staff-Admin' ? auth()->user()->member_profile_created_by_auth->created_by : auth()->user()->id);
         })->get();
     }
 
@@ -43,11 +43,11 @@ class DocumentService
                     },
                     'documents',
                     'client'
-                ])->where('created_by', auth()->user()->id);
+                ])->where('created_by', auth()->user()->current_role=='Staff-Admin' ? auth()->user()->member_profile_created_by_auth->created_by : auth()->user()->id);
             },
             'creator'
         ])->whereHas('event', function($qry){
-            $qry->where('created_by', auth()->user()->id);
+            $qry->where('created_by', auth()->user()->current_role=='Staff-Admin' ? auth()->user()->member_profile_created_by_auth->created_by : auth()->user()->id);
         })->latest();
         return QueryBuilder::for($query)
                 ->allowedFilters([
@@ -67,10 +67,10 @@ class DocumentService
                     },
                     'documents',
                     'client'
-                ])->where('created_by', auth()->user()->id);
+                ])->where('created_by', auth()->user()->current_role=='Staff-Admin' ? auth()->user()->member_profile_created_by_auth->created_by : auth()->user()->id);
             },
         ])->whereHas('event', function($qry){
-            $qry->where('created_by', auth()->user()->id);
+            $qry->where('created_by', auth()->user()->current_role=='Staff-Admin' ? auth()->user()->member_profile_created_by_auth->created_by : auth()->user()->id);
         })->findOrFail($id);
     }
 
@@ -84,7 +84,7 @@ class DocumentService
                     EventDocument::create([
                         'document' => $file,
                         'event_id' => $request->event,
-                        'created_by' => auth()->user()->id,
+                        'created_by' => auth()->user()->current_role=='Staff-Admin' ? auth()->user()->member_profile_created_by_auth->created_by : auth()->user()->id,
                     ]);
                 }
             }

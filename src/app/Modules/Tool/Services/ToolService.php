@@ -15,12 +15,12 @@ class ToolService
 
     public function all(): Collection
     {
-        return Tool::where('created_by', auth()->user()->id)->get();
+        return Tool::where('created_by', auth()->user()->current_role=='Staff-Admin' ? auth()->user()->member_profile_created_by_auth->created_by : auth()->user()->id)->get();
     }
 
     public function paginate(Int $total = 10): LengthAwarePaginator
     {
-        $query = Tool::where('created_by', auth()->user()->id)->latest();
+        $query = Tool::where('created_by', auth()->user()->current_role=='Staff-Admin' ? auth()->user()->member_profile_created_by_auth->created_by : auth()->user()->id)->latest();
         return QueryBuilder::for($query)
                 ->allowedFilters([
                     AllowedFilter::custom('search', new CommonFilter),
@@ -31,13 +31,13 @@ class ToolService
 
     public function getById(Int $id): Tool|null
     {
-        return Tool::where('created_by', auth()->user()->id)->findOrFail($id);
+        return Tool::where('created_by', auth()->user()->current_role=='Staff-Admin' ? auth()->user()->member_profile_created_by_auth->created_by : auth()->user()->id)->findOrFail($id);
     }
 
     public function create(array $data): Tool
     {
         $tool = Tool::create($data);
-        $tool->created_by = auth()->user()->id;
+        $tool->created_by = auth()->user()->current_role=='Staff-Admin' ? auth()->user()->member_profile_created_by_auth->created_by : auth()->user()->id;
         $tool->save();
         return $tool;
     }

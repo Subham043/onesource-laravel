@@ -29,8 +29,6 @@
                                         <th>Event Date</th>
                                         <th>Start Time</th>
                                         <th> End Time</th>
-                                        <th>Document Upload By</th>
-                                        <th>Document Upload Date</th>
                                         <th>&nbsp;</th>
                                     </tr>
                                 </thead>
@@ -62,10 +60,6 @@
                                         </td>
                                         <td>{{$item->event->start_time->format('h:i a')}}</td>
                                         <td>{{$item->event->end_time->format('h:i a')}}</td>
-                                        <td>{{$item->creator->name}}</td>
-                                        <td>
-                                            {{$item->created_at->format('M d Y')}}
-                                        </td>
                                         <td>
                                             @can('download documents')
                                             <a href="{{$item->document_link}}" download="" class="" data-bs-toggle="tooltip" data-bs-original-title="Download Document"> <svg width="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

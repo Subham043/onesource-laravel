@@ -78,9 +78,9 @@
                                 </i></span></label>
                         <div class="col-sm-10">
                             <select id="client" name="client" class="form-select shadow-none">
-                                <option value="" {{empty($data->staff_profile->client->id) ? 'selected' : ''}}>Select Client</option>
+                                <option value="" {{empty($data->member_profile_created_by_auth->client->id) ? 'selected' : ''}}>Select Client</option>
                                 @foreach ($client as $item)
-                                    <option value="{{$item->id}}" {{$data->staff_profile->client->id == $item->id ? 'selected' : ''}}>{{$item->name}}</option>
+                                    <option value="{{$item->id}}" {{$data->member_profile_created_by_auth->client->id == $item->id ? 'selected' : ''}}>{{$item->name}}</option>
                                 @endforeach
                             </select>
                             @error('client')
@@ -94,7 +94,7 @@
                                      <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='currentColor'><circle cx='6' cy='6' r='4.5'/><path stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/><circle cx='6' cy='8.2' r='.6' fill='currentColor' stroke='none'/></svg>
                                 </i></span></label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="billing_rate" name="billing_rate" value="{{$data->staff_profile->billing_rate}}">
+                            <input type="text" class="form-control" id="billing_rate" name="billing_rate" value="{{$data->member_profile_created_by_auth->billing_rate}}">
                             @error('billing_rate')
                                 <div class="invalid-message">{{ $message }}</div>
                             @enderror
@@ -104,9 +104,9 @@
                         <label class="control-label col-sm-2 align-self-center mb-0" for="tool">Tools :</label>
                         <div class="col-sm-10">
                             <select class="form-select shadow-none" id="tool" name="tool[]" multiple>
-                                <option value="" {{empty($data->staff_profile->tools) ? 'selected' : ''}}>Select Tools</option>
+                                <option value="" {{empty($data->member_profile_created_by_auth->tools) ? 'selected' : ''}}>Select Tools</option>
                                 @foreach ($tool as $item)
-                                    <option value="{{$item->id}}" {{(collect($data->staff_profile->tools->pluck('id'))->contains($item->id)) ? 'selected' : ''}}>{{$item->name}}</option>
+                                    <option value="{{$item->id}}" {{(collect($data->member_profile_created_by_auth->tools->pluck('id'))->contains($item->id)) ? 'selected' : ''}}>{{$item->name}}</option>
                                 @endforeach
                             </select>
                         </div>

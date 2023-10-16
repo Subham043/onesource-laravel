@@ -15,12 +15,12 @@ class ClientService
 
     public function all(): Collection
     {
-        return Client::where('created_by', auth()->user()->id)->get();
+        return Client::where('created_by', auth()->user()->current_role=='Staff-Admin' ? auth()->user()->member_profile_created_by_auth->created_by : auth()->user()->id)->get();
     }
 
     public function paginate(Int $total = 10): LengthAwarePaginator
     {
-        $query = Client::where('created_by', auth()->user()->id)->latest();
+        $query = Client::where('created_by', auth()->user()->current_role=='Staff-Admin' ? auth()->user()->member_profile_created_by_auth->created_by : auth()->user()->id)->latest();
         return QueryBuilder::for($query)
                 ->allowedFilters([
                     AllowedFilter::custom('search', new CommonFilter),
@@ -31,13 +31,13 @@ class ClientService
 
     public function getById(Int $id): Client|null
     {
-        return Client::where('created_by', auth()->user()->id)->findOrFail($id);
+        return Client::where('created_by', auth()->user()->current_role=='Staff-Admin' ? auth()->user()->member_profile_created_by_auth->created_by : auth()->user()->id)->findOrFail($id);
     }
 
     public function create(array $data): Client
     {
         $client = Client::create($data);
-        $client->created_by = auth()->user()->id;
+        $client->created_by = auth()->user()->current_role=='Staff-Admin' ? auth()->user()->member_profile_created_by_auth->created_by : auth()->user()->id;
         $client->save();
         return $client;
     }

@@ -48,14 +48,14 @@
                     <div class="form-group row">
                         <label class="control-label col-sm-2 align-self-center mb-0" for="eventName">Company:</label>
                         <div class="col-sm-10">
-                            {{$user->staff_profile->creator->owner_profile->company}}
+                            {{auth()->user()->current_role=='Staff-Admin' ? $user->member_profile_created_by_auth->creator->admin_profile->company : $user->member_profile_created_by_auth->creator->self_profile->company}}
                         </div>
                     </div>
                     @if($user->current_role!='Staff-Admin')
                     <div class="form-group row">
                         <label class="control-label col-sm-2 align-self-center mb-0" for="eventName">Billing Rate :</label>
                         <div class="col-sm-10">
-                            ${{$user->staff_profile->billing_rate}}
+                            ${{$user->member_profile_created_by_auth->billing_rate}}
                         </div>
                     </div>
                     @endif
@@ -63,7 +63,7 @@
                     <div class="form-group row">
                         <label class="control-label col-sm-2 align-self-center mb-0" for="eventName">Client :</label>
                         <div class="col-sm-10">
-                            {{$user->staff_profile->client->name}}
+                            {{$user->member_profile_created_by_auth->client->name}}
                         </div>
                     </div>
                     @endif
@@ -71,8 +71,8 @@
                     <div class="form-group row">
                         <label class="control-label col-sm-2 align-self-center mb-0" for="eventName">Tools :</label>
                         <div class="col-sm-10">
-                            @foreach($user->staff_profile->tools as $k=>$v)
-                                {{($k+1==count($user->staff_profile->tools)) ? $v->name : $v->name.', '}}
+                            @foreach($user->member_profile_created_by_auth->tools as $k=>$v)
+                                {{($k+1==count($user->member_profile_created_by_auth->tools)) ? $v->name : $v->name.', '}}
                             @endforeach
                         </div>
                     </div>
@@ -80,7 +80,7 @@
                     <div class="form-group row">
                         <label class="control-label col-sm-2 align-self-center mb-0" for="eventName">Registration Date :</label>
                         <div class="col-sm-10">
-                            {{$user->staff_profile->created_at->format('M d Y')}}
+                            {{$user->member_profile_created_by_auth->created_at->format('M d Y')}}
                         </div>
                     </div>
                     <div class="form-group row">

@@ -49,7 +49,9 @@
                                         </td>
                                         <td>
                                             <div class="d-flex align-items-center">
-                                                <a href="{{route('user.view.get', $item->id)}}">{{$item->staff_profile->created_at->format('M d Y')}}</a>
+                                                <a href="{{route('user.view.get', $item->id)}}">
+                                                    {{$item->member_profile_created_by_auth->created_at->format('M d Y')}}
+                                                </a>
                                             </div>
                                         </td>
 

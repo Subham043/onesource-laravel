@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Support\Facades\Hash;
 use App\Enums\Timezone;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Database\Eloquent\Builder;
 
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -131,19 +132,56 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Payment::class, 'paid_by');
     }
 
-    public function owner_profile()
+    public function self_profile()
     {
         return $this->hasOne(Profile::class, 'created_by')->withDefault()->where('created_by', auth()->user()->id)->whereColumn('user_id', 'created_by');
     }
 
-    public function staff_profile()
+    public function admin_profile()
     {
-        return $this->hasOne(Profile::class, 'user_id')->withDefault()->whereColumn('user_id', '<>', 'created_by')->where('created_by', auth()->user()->id);
+        return $this->hasOne(Profile::class, 'created_by')->withDefault()->where('created_by', auth()->user()->staff_member_profile->created_by)->whereColumn('user_id', 'created_by');
     }
 
-    public function staff_profile_not_belong_to_auth()
+    public function staff_member_profile()
+    {
+        return $this->hasOne(Profile::class, 'user_id')->withDefault()->where('user_id', auth()->user()->id)->whereColumn('user_id', '<>', 'created_by');
+    }
+
+    public function member_profile_created_by_auth()
+    {
+        return $this->hasOne(Profile::class, 'user_id')->withDefault()->whereColumn('user_id', '<>', 'created_by')->where('created_by', auth()->user()->current_role=='Staff-Admin' ? auth()->user()->staff_member_profile->created_by : auth()->user()->id);
+    }
+
+    public function member_profile_not_created_by_auth()
     {
         return $this->hasOne(Profile::class, 'user_id')->withDefault()->whereColumn('user_id', '<>', 'created_by');
+    }
+
+    public function scopeFilterByRole(Builder $query, String $role): Builder
+    {
+        return $query->whereHas('roles', function($qry) use($role){
+            $qry->where('name', $role);
+        });
+    }
+
+    public function scopeFilterMemberCreatedByAuth(Builder $query): Builder
+    {
+        $qry = $query->with([
+            'roles',
+        ]);
+        $qry->with([
+            'member_profile_created_by_auth' => function($query){
+                $query->with(['tools', 'client']);
+            },
+        ])->whereHas('member_profile_created_by_auth', function($qry){
+            $qry->with(['tools', 'client'])->where('created_by', auth()->user()->current_role=='Staff-Admin' ? auth()->user()->staff_member_profile->created_by : auth()->user()->id);
+        });
+        return $qry;
+    }
+
+    public function scopeFilterMemberByRoleCreatedByAuth(Builder $query, String $role): Builder
+    {
+        return $query->filterMemberCreatedByAuth()->filterByRole($role);
     }
 
 }

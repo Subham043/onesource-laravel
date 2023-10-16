@@ -28,12 +28,12 @@ class UserUpdatePostRequest extends UserCreatePostRequest
             //     $user_count = User::where('email', $value)->first();
             //     if(!empty($user_count)){
             //         $user_check_count = $user_count->with([
-            //             'staff_profile' => function($query){
+            //             'member_profile_created_by_auth' => function($query){
             //                 $query->where('created_by', auth()->user()->id)->whereHas('user', function($qr){
             //                     $qr->where('email', $this->email);
             //                 });
             //             },
-            //         ])->whereHas('staff_profile', function($qry){
+            //         ])->whereHas('member_profile_created_by_auth', function($qry){
             //             $qry->where('created_by', auth()->user()->id)->whereHas('user', function($qr){
             //                 $qr->where('email', $this->email);
             //             });
@@ -53,12 +53,12 @@ class UserUpdatePostRequest extends UserCreatePostRequest
             //     $user_count = User::where('phone', $value)->first();
             //     if(!empty($user_count)){
             //         $user_check_count = $user_count->with([
-            //             'staff_profile' => function($query){
+            //             'member_profile_created_by_auth' => function($query){
             //                 $query->where('created_by', auth()->user()->id)->whereHas('user', function($qr){
             //                     $qr->where('phone', $this->phone);
             //                 });
             //             },
-            //         ])->whereHas('staff_profile', function($qry){
+            //         ])->whereHas('member_profile_created_by_auth', function($qry){
             //             $qry->where('created_by', auth()->user()->id)->whereHas('user', function($qr){
             //                 $qr->where('phone', $this->phone);
             //             });

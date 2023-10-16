@@ -42,17 +42,21 @@ class UserCreateController extends Controller
                 );
                 return response()->json(["message" => "User created successfully.", "merge_available" => false], 201);
             } catch (\Throwable $th) {
+                throw $th;
                 return response()->json(["message" => "Something went wrong. Please try again."], 400);
             }
         }else{
+            if($user->current_role=='Super-Admin' || $user->current_role=='Admin' || $user->current_role=='Staff-Admin'){
+                return response()->json(["message" => "User already exists.", 'merge_available' => false], 400);
+            }
             $user_check_count = $user->with([
-                'staff_profile' => function($query) use($request){
-                    $query->where('created_by', auth()->user()->id)->whereHas('user', function($qr) use($request){
+                'member_profile_created_by_auth' => function($query) use($request){
+                    $query->where('created_by', auth()->user()->current_role=='Staff-Admin' ? auth()->user()->member_profile_created_by_auth->created_by : auth()->user()->id)->whereHas('user', function($qr) use($request){
                         $qr->where('phone', $request->phone)->orWhere('email', $request->email);
                     });
                 },
-            ])->whereHas('staff_profile', function($qry) use($request){
-                $qry->where('created_by', auth()->user()->id)->whereHas('user', function($qr) use($request){
+            ])->whereHas('member_profile_created_by_auth', function($qry) use($request){
+                $qry->where('created_by', auth()->user()->current_role=='Staff-Admin' ? auth()->user()->member_profile_created_by_auth->created_by : auth()->user()->id)->whereHas('user', function($qr) use($request){
                     $qr->where('phone', $request->phone)->orWhere('email', $request->email);
                 });
             })->first();

@@ -26,7 +26,7 @@ class EventService
             },
             'documents',
             'client'
-        ])->where('created_by', auth()->user()->id)->get();
+        ])->where('created_by', auth()->user()->current_role=='Staff-Admin' ? auth()->user()->member_profile_created_by_auth->created_by : auth()->user()->id)->get();
     }
 
     public function paginate(Int $total = 10): LengthAwarePaginator
@@ -37,7 +37,7 @@ class EventService
             },
             'documents',
             'client'
-        ])->where('created_by', auth()->user()->id)->latest();
+        ])->where('created_by', auth()->user()->current_role=='Staff-Admin' ? auth()->user()->member_profile_created_by_auth->created_by : auth()->user()->id)->latest();
         return QueryBuilder::for($query)
                 ->allowedFilters([
                     AllowedFilter::custom('search', new CommonFilter),
@@ -54,17 +54,17 @@ class EventService
             },
             'documents',
             'client'
-        ])->where('created_by', auth()->user()->id)->findOrFail($id);
+        ])->where('created_by', auth()->user()->current_role=='Staff-Admin' ? auth()->user()->member_profile_created_by_auth->created_by : auth()->user()->id)->findOrFail($id);
     }
 
     public function getByWriterId(Int $id): EventWriter|null
     {
         return EventWriter::with([
             'event'=> function($qry){
-                $qry->where('created_by', auth()->user()->id);
+                $qry->where('created_by', auth()->user()->current_role=='Staff-Admin' ? auth()->user()->member_profile_created_by_auth->created_by : auth()->user()->id);
             },
         ])->whereHas('event', function($qry){
-            $qry->where('created_by', auth()->user()->id);
+            $qry->where('created_by', auth()->user()->current_role=='Staff-Admin' ? auth()->user()->member_profile_created_by_auth->created_by : auth()->user()->id);
         })->findOrFail($id);
     }
 
@@ -86,7 +86,7 @@ class EventService
                     'notes',
                 ]),
                 'client_id' => $request->client,
-                'created_by' => auth()->user()->id,
+                'created_by' => auth()->user()->current_role=='Staff-Admin' ? auth()->user()->member_profile_created_by_auth->created_by : auth()->user()->id,
             ]
         );
         foreach ($request->writer_ids as $key=>$value) {
@@ -150,7 +150,7 @@ class EventService
                     EventDocument::create([
                         'document' => $file,
                         'event_id' => $event_id,
-                        'created_by' => auth()->user()->id,
+                        'created_by' => auth()->user()->current_role=='Staff-Admin' ? auth()->user()->member_profile_created_by_auth->created_by : auth()->user()->id,
                     ]);
                 }
             }

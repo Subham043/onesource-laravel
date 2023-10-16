@@ -24,42 +24,17 @@ class UserService
 
     public function allByWriterRole(): Collection
     {
-        return User::with([
-            'roles',
-            'staff_profile' => function($query){
-                $query->with(['tools', 'client']);
-            },
-        ])->whereHas('roles', function($qry){
-            $qry->where('name', 'Writer');
-        })->whereHas('staff_profile', function($qry){
-            $qry->with(['tools', 'client'])->where('created_by', auth()->user()->id);
-        })->latest()->get();
+        return User::filterMemberByRoleCreatedByAuth('Writer')->latest()->get();
     }
 
     public function allByClientRole(): Collection
     {
-        return User::with([
-            'roles',
-            'staff_profile' => function($query){
-                $query->with(['tools', 'client']);
-            },
-        ])->whereHas('roles', function($qry){
-            $qry->where('name', 'Client');
-        })->whereHas('staff_profile', function($qry){
-            $qry->with(['tools', 'client'])->where('created_by', auth()->user()->id);
-        })->latest()->get();
+        return User::filterMemberByRoleCreatedByAuth('Client')->latest()->get();
     }
 
     public function paginate(Int $total = 10): LengthAwarePaginator
     {
-        $query = User::with([
-            'roles',
-            'staff_profile' => function($query){
-                $query->with(['tools', 'client']);
-            },
-        ])->whereHas('staff_profile', function($qry){
-            $qry->with(['tools', 'client'])->where('created_by', auth()->user()->id);
-        })->latest();
+        $query = User::filterMemberCreatedByAuth()->latest();
         return QueryBuilder::for($query)
                 ->allowedFilters([
                     AllowedFilter::custom('search', new CommonFilter),
@@ -70,14 +45,7 @@ class UserService
 
     public function getById(Int $id): User|null
     {
-        return User::with([
-            'roles',
-            'staff_profile' => function($query){
-                $query->with(['tools', 'client']);
-            },
-        ])->whereHas('staff_profile', function($qry){
-            $qry->with(['tools', 'client'])->where('created_by', auth()->user()->id);
-        })->findOrFail($id);
+        return User::filterMemberCreatedByAuth()->findOrFail($id);
     }
 
     public function getByEmail(String $email): User
@@ -95,15 +63,15 @@ class UserService
             'timezone',
         ]));
         $user->syncRoles([$request->role]);
-        $profile = $user->staff_profile()->create([
+        $profile = $user->member_profile_created_by_auth()->create([
             'billing_rate'=> !empty($request->billing_rate) ? $request->billing_rate : null,
             'client_id'=> !empty($request->client) ? $request->client : null,
             'is_primary_user' => true,
-            'created_by' => auth()->user()->id
+            'created_by' => auth()->user()->current_role=='Staff-Admin' ? auth()->user()->member_profile_created_by_auth->created_by : auth()->user()->id,
         ]);
 
         if($request->role=='Writer' && $request->tool && count($request->tool)>0){
-            $user->staff_profile->tools()->sync($request->tool);
+            $user->member_profile_created_by_auth->tools()->sync($request->tool);
         }
 
         return $user;
@@ -119,13 +87,13 @@ class UserService
         //     'timezone',
         // ]), ...$password];
         // $user->update($data);
-        $user->staff_profile()->update([
+        $user->member_profile_created_by_auth()->update([
             'billing_rate'=> !empty($request->billing_rate) ? $request->billing_rate : null,
             'client_id'=> !empty($request->client) ? $request->client : null,
         ]);
 
         if($request->role=='Writer' && $request->tool && count($request->tool)>0){
-            $user->staff_profile->tools()->sync($request->tool);
+            $user->member_profile_created_by_auth->tools()->sync($request->tool);
         }
 
         return $user;
@@ -139,13 +107,13 @@ class UserService
             'timezone',
         ]), ...$password];
         $user->update($data);
-        $user->staff_profile()->update([
+        $user->member_profile_created_by_auth()->update([
             'billing_rate'=> !empty($request->billing_rate) ? $request->billing_rate : null,
             'client_id'=> !empty($request->client) ? $request->client : null,
         ]);
 
         if($request->role=='Writer' && $request->tool && count($request->tool)>0){
-            $user->staff_profile->tools()->sync($request->tool);
+            $user->member_profile_created_by_auth->tools()->sync($request->tool);
         }
 
         return $user;
@@ -153,15 +121,15 @@ class UserService
 
     public function merge(UserMergePostRequest $request, User $user): User
     {
-        $user->staff_profile()->create([
+        $user->member_profile_created_by_auth()->create([
             'billing_rate'=> !empty($request->billing_rate) ? $request->billing_rate : null,
             'client_id'=> !empty($request->client) ? $request->client : null,
             'is_primary_user' => true,
-            'created_by' => auth()->user()->id
+            'created_by' => auth()->user()->current_role=='Staff-Admin' ? auth()->user()->member_profile_created_by_auth->created_by : auth()->user()->id,
         ]);
 
         if($user->current_role=='Writer' && $request->tool && count($request->tool)>0){
-            $user->staff_profile->tools()->attach($request->tool);
+            $user->member_profile_created_by_auth->tools()->attach($request->tool);
         }
 
         return $user;
@@ -176,10 +144,10 @@ class UserService
     {
         $user = User::where('id', $id)->firstOrFail();
         $user_check_count = $user->with([
-            'staff_profile' => function($query) use($id){
+            'member_profile_created_by_auth' => function($query) use($id){
                 $query->where('created_by', auth()->user()->id)->where('user_id', $id);
             },
-        ])->whereHas('staff_profile', function($qry) use($id){
+        ])->whereHas('member_profile_created_by_auth', function($qry) use($id){
             $qry->where('created_by', auth()->user()->id)->where('user_id', $id);
         })->firstOrFail();
         if($user_check_count->current_role=='Admin' || $user_check_count->current_role=='Super-Admin' || $user_check_count->current_role=='Super Admin'){

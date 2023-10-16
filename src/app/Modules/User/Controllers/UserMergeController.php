@@ -21,12 +21,15 @@ class UserMergeController extends Controller
 
         $user = User::where('id', $id)->first();
         if(!empty($user)){
+            if($user->current_role=='Super-Admin' || $user->current_role=='Admin' || $user->current_role=='Staff-Admin'){
+                return response()->json(["message" => "User already exists."], 400);
+            }
             $user_check_count = $user->with([
-                'staff_profile' => function($query) use($id){
-                    $query->where('created_by', auth()->user()->id)->where('user_id', $id);
+                'member_profile_created_by_auth' => function($query) use($id){
+                    $query->where('created_by', auth()->user()->current_role=='Staff-Admin' ? auth()->user()->member_profile_created_by_auth->created_by : auth()->user()->id)->where('user_id', $id);
                 },
-            ])->whereHas('staff_profile', function($qry) use($id){
-                $qry->where('created_by', auth()->user()->id)->where('user_id', $id);
+            ])->whereHas('member_profile_created_by_auth', function($qry) use($id){
+                $qry->where('created_by', auth()->user()->current_role=='Staff-Admin' ? auth()->user()->member_profile_created_by_auth->created_by : auth()->user()->id)->where('user_id', $id);
             })->first();
             if(empty($user_check_count)){
                 try {

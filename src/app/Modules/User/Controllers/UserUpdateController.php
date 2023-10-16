@@ -37,12 +37,12 @@ class UserUpdateController extends Controller
 
         // $user = User::where('id', $id)->firstOrFail();
         // $user_check_count = $user->with([
-        //     'staff_profile' => function($query) use($request){
+        //     'member_profile_created_by_auth' => function($query) use($request){
         //         $query->where('created_by', auth()->user()->id)->whereHas('user', function($qr) use($request){
         //             $qr->where('phone', $request->phone)->orWhere('email', $request->email);
         //         });
         //     },
-        // ])->whereHas('staff_profile', function($qry) use($request){
+        // ])->whereHas('member_profile_created_by_auth', function($qry) use($request){
         //     $qry->where('created_by', auth()->user()->id)->whereHas('user', function($qr) use($request){
         //         $qr->where('phone', $request->phone)->orWhere('email', $request->email);
         //     });
