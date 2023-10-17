@@ -8,6 +8,7 @@ use App\Modules\Event\Models\EventDocument;
 use App\Modules\Event\Models\EventWriter;
 use App\Modules\Event\Requests\EventCreateRequest;
 use App\Modules\Event\Requests\EventUpdateRequest;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\Filters\Filter;
@@ -18,9 +19,18 @@ use Spatie\QueryBuilder\AllowedFilter;
 class EventService
 {
 
-    public function all(): Collection
+    public function all($get_current_month=false): Collection
     {
-        return Event::filterByRoles()->latest()->get();
+        $query = Event::filterByRoles()->latest();
+        if($get_current_month){
+            $query->whereBetween('start_date',
+            [
+                now()->startOfMonth(),
+                now()->endOfMonth()
+            ]);
+        }
+        $data = $query->get();
+        return $data;
     }
 
     public function paginate(Int $total = 10, bool $get_current=false): LengthAwarePaginator
