@@ -19,7 +19,7 @@ class DashboardController extends Controller
         if(auth()->user()->current_role=='Super Admin'){
             return redirect(route('customer.paginate.get'));
         }
-        $events = $this->eventService->paginate($request->total ?? 10, true);
+        $events = $this->eventService->paginate($request->total ?? 10);
         $current_month_events = $this->eventService->all(true);
         return view('dashboard', compact(['events', 'current_month_events']))->with([
             'page_name' => 'Dashboard'

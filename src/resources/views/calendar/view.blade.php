@@ -39,10 +39,11 @@
                 contentHeight: "auto",
                 eventLimit: true,
                 dayMaxEvents: 4,
+                displayEventTime: false,
                 header: {
-                    left: "prev,next today",
-                    center: "title",
-                    right: "dayGridMonth,timeGridWeek,timeGridDay,listWeek"
+                    right: "prev,next today",
+                    left: "title",
+                    // right: "dayGridMonth,timeGridWeek,timeGridDay,listWeek"
                 },
                 dateClick: function (info) {
                     $('#schedule-start-date').val(info.dateStr)

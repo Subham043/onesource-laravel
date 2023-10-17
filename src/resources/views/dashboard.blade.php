@@ -43,38 +43,108 @@
                                         </thead>
                                         <tbody>
                                             @foreach ($events->items() as $item)
-                                            <tr>
-                                                <td>
-                                                    <div class="d-flex align-items-center">
-                                                        <a href="{{route('event.view.get', $item->id)}}">EVD{{$item->id}}</a>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="iq-media-group iq-media-group-1">
-                                                        <a href="{{route('event.view.get', $item->id)}}"> {{$item->name}}</a>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="iq-media-group iq-media-group-1">
-                                                        {{$item->client->name}}
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    @foreach($item->writers as $k=>$v)
-                                                        {!!($k+1==count($item->writers)) ? $v->writer->name : $v->writer->name.'<br/> '!!}
-                                                    @endforeach
-                                                </td>
-                                                <td>
-                                                    {{$item->start_date->format('M d Y')}}
-                                                </td>
-                                                <td>{{$item->start_time->format('h:i a')}}</td>
-                                                <td>{{$item->end_time->format('h:i a')}}</td>
-                                                <td>
-                                                    @can('view events')
-                                                    <a href="{{route('event.view.get', $item->id)}}" class="btn btn-primary">View Event</a>
-                                                    @endcan
-                                                </td>
-                                            </tr>
+                                                @if($item->is_recurring_event)
+                                                    @if(in_array(now()->format('Y-m-d').'T05:30:00.000Z', $item->event_repeated_date))
+                                                    <tr>
+                                                        <td>
+                                                            <div class="d-flex align-items-center">
+                                                                <a href="{{route('event.view.get', $item->id)}}">EVD{{$item->id}}</a>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="iq-media-group iq-media-group-1">
+                                                                <a href="{{route('event.view.get', $item->id)}}"> {{$item->name}}</a>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="iq-media-group iq-media-group-1">
+                                                                {{$item->client->name}}
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            @foreach($item->writers as $k=>$v)
+                                                                {!!($k+1==count($item->writers)) ? $v->writer->name : $v->writer->name.'<br/> '!!}
+                                                            @endforeach
+                                                        </td>
+                                                        <td>
+                                                            {{$item->start_date->format('M d Y')}}
+                                                        </td>
+                                                        <td>{{$item->start_time->format('h:i a')}}</td>
+                                                        <td>{{$item->end_time->format('h:i a')}}</td>
+                                                        <td>
+                                                            @can('view events')
+                                                            <a href="{{route('event.view.get', $item->id)}}" class="btn btn-primary">View Event</a>
+                                                            @endcan
+                                                        </td>
+                                                    </tr>
+                                                    @endif
+                                                @elseif($item->start_date->format('Y-m-d').'T05:30:00.000Z'==$item->end_date->format('Y-m-d').'T05:30:00.000Z' && $item->start_date->format('Y-m-d').'T05:30:00.000Z'==now()->format('Y-m-d').'T05:30:00.000Z')
+                                                    <tr>
+                                                        <td>
+                                                            <div class="d-flex align-items-center">
+                                                                <a href="{{route('event.view.get', $item->id)}}">EVD{{$item->id}}</a>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="iq-media-group iq-media-group-1">
+                                                                <a href="{{route('event.view.get', $item->id)}}"> {{$item->name}}</a>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="iq-media-group iq-media-group-1">
+                                                                {{$item->client->name}}
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            @foreach($item->writers as $k=>$v)
+                                                                {!!($k+1==count($item->writers)) ? $v->writer->name : $v->writer->name.'<br/> '!!}
+                                                            @endforeach
+                                                        </td>
+                                                        <td>
+                                                            {{$item->start_date->format('M d Y')}}
+                                                        </td>
+                                                        <td>{{$item->start_time->format('h:i a')}}</td>
+                                                        <td>{{$item->end_time->format('h:i a')}}</td>
+                                                        <td>
+                                                            @can('view events')
+                                                            <a href="{{route('event.view.get', $item->id)}}" class="btn btn-primary">View Event</a>
+                                                            @endcan
+                                                        </td>
+                                                    </tr>
+                                                @elseif($item->start_date->format('Y-m-d').'T05:30:00.000Z'!=$item->end_date->format('Y-m-d').'T05:30:00.000Z' && (now()->format('Y-m-d').'T05:30:00.000Z'>=$item->start_date->format('Y-m-d').'T05:30:00.000Z' && now()->format('Y-m-d').'T05:30:00.000Z'<=$item->end_date->format('Y-m-d').'T05:30:00.000Z'))
+                                                    <tr>
+                                                        <td>
+                                                            <div class="d-flex align-items-center">
+                                                                <a href="{{route('event.view.get', $item->id)}}">EVD{{$item->id}}</a>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="iq-media-group iq-media-group-1">
+                                                                <a href="{{route('event.view.get', $item->id)}}"> {{$item->name}}</a>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="iq-media-group iq-media-group-1">
+                                                                {{$item->client->name}}
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            @foreach($item->writers as $k=>$v)
+                                                                {!!($k+1==count($item->writers)) ? $v->writer->name : $v->writer->name.'<br/> '!!}
+                                                            @endforeach
+                                                        </td>
+                                                        <td>
+                                                            {{$item->start_date->format('M d Y')}}
+                                                        </td>
+                                                        <td>{{$item->start_time->format('h:i a')}}</td>
+                                                        <td>{{$item->end_time->format('h:i a')}}</td>
+                                                        <td>
+                                                            @can('view events')
+                                                            <a href="{{route('event.view.get', $item->id)}}" class="btn btn-primary">View Event</a>
+                                                            @endcan
+                                                        </td>
+                                                    </tr>
+                                                @endif
                                             @endforeach
                                         </tbody>
                                     </table>
@@ -183,6 +253,7 @@
                 contentHeight: "auto",
                 eventLimit: true,
                 dayMaxEvents: 4,
+                displayEventTime: false,
                 header: {
                     left: "",
                     center: "title",
