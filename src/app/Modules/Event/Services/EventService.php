@@ -54,6 +54,24 @@ class EventService
         return QueryBuilder::for($query)
                 ->allowedFilters([
                     AllowedFilter::custom('search', new CommonFilter),
+                    AllowedFilter::callback('has_writer', function (Builder $qr, $value) {
+                        $qr->whereHas('writers', function($qry) use($value){
+                            $qry->where('writer_id', $value);
+                        });
+                    }),
+                    AllowedFilter::callback('has_client', function (Builder $qr, $value) {
+                        $qr->whereHas('client', function($qry) use($value){
+                            $qry->where('id', $value);
+                        });
+                    }),
+                    AllowedFilter::callback('has_start_date', function (Builder $qr, $value) {
+                        $qr->whereDate('start_date', '>=', $value);
+                    }),
+                    AllowedFilter::callback('has_end_date', function (Builder $qr, $value) {
+                        $qr->where('is_recurring_event', false)->whereDate('end_date', '<=', $value)->orWhere(function($qry) use($value){
+                            $qry->where('is_recurring_event', true)->whereDate('recurring_end_date', '<=', $value);
+                        });
+                    }),
                 ])
                 ->paginate($total)
                 ->appends(request()->query());

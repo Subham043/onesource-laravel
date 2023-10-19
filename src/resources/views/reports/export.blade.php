@@ -12,33 +12,32 @@
                         </div>
                         <div class="d-flex align-items-middle">
                         </div>
-                        <form class="d-flex align-items-center filterset">
-                            @csrf
+                        <form action="{{route('report.export.view.get')}}" method="GET" class="d-flex align-items-center filterset">
                             <div class="form-group">
                                 <label class="form-label" for="colFormLabelSm">Writer</label>
-                                <select class="form-select shadow-none writer-id-input" name="writer">
-                                    <option selected value="">Select Writer</option>
+                                <select class="form-select shadow-none writer-id-input" name="filter[has_writer]">
+                                    <option {{empty(request()->query('filter')['has_writer']) ? 'selected' : ''}} value="">Select Writer</option>
                                     @foreach($writers as $writer)
-                                        <option value="{{$writer->id}}">{{$writer->name}}</option>
+                                        <option value="{{$writer->id}}" {{!empty(request()->query('filter')['has_writer']) && request()->query('filter')['has_writer']==$writer->id ? 'selected' : ''}}>{{$writer->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label class="form-label" for="colFormLabelSm">Start Date</label>
-                                <input type="date" class="form-control" id="start_date" name="start_date">
+                                <input type="date" class="form-control" id="start_date" name="filter[has_start_date]" value="{{request()->query('filter')['has_start_date'] ?? ''}}">
                             </div>
                             <div class="form-group">
                                 <label class="form-label" for="colFormLabelSm">End Date Date</label>
-                                <input type="date" class="form-control" id="end_date" name="end_date">
+                                <input type="date" class="form-control" id="end_date" name="filter[has_end_date]" value="{{request()->query('filter')['has_end_date'] ?? ''}}">
                             </div>
                             <div class="form-group">
                                 <br />
                                 <button class="btn btn-link btn-soft-primary">
                                     Filter
                                 </button>
-                                <button class="btn btn-link btn-soft-light">
+                                <a href="{{route('report.export.view.get')}}" class="btn btn-link btn-soft-light">
                                     Reset
-                                </button>
+                                </a>
                             </div>
                         </form>
                     </div>
