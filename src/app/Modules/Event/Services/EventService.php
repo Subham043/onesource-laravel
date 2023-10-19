@@ -188,6 +188,14 @@ class CommonFilter implements Filter
 {
     public function __invoke(Builder $query, $value, string $property)
     {
-        $query->where('name', 'LIKE', '%' . $value . '%');
+        $query->where('name', 'LIKE', '%' . $value . '%')
+        ->orWhereHas('writers', function($qry) use($value){
+            $qry->whereHas('writer', function($qry) use($value){
+                $qry->where('name', 'LIKE', '%' . $value . '%');
+            });
+        })
+        ->orWhereHas('client', function($qry) use($value){
+            $qry->where('name', 'LIKE', '%' . $value . '%');
+        });
     }
 }
