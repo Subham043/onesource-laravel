@@ -37,21 +37,21 @@
                     <div class="form-group row">
                         <label class="control-label col-sm-2 align-self-center mb-0" for="start_date">Start Date:</label>
                         <div class="col-sm-3">
-                            <input type="date" class="form-control" id="start_date" name="start_date" value="{{$event->start_date->format('Y-m-d')}}">
+                            <input type="date" class="form-control" id="start_date" name="start_date" value="{{$event->start_date ? $event->start_date->format('Y-m-d') : ''}}">
                         </div>
                         <label class="control-label col-sm-2 align-self-center mb-0" for="start_time">Start Time:</label>
                         <div class="col-sm-3">
-                            <input type="time" class="form-control" id="start_time" name="start_time" value="{{$event->start_time->format('H:i:s')}}">
+                            <input type="time" class="form-control" id="start_time" name="start_time" value="{{$event->start_time ? $event->start_time->format('H:i:s') : ''}}">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="control-label col-sm-2 align-self-center mb-0" for="endt_date">End Date:</label>
                         <div class="col-sm-3">
-                            <input type="date" class="form-control" id="end_date" name="end_date" value="{{$event->end_date->format('Y-m-d')}}">
+                            <input type="date" class="form-control" id="end_date" name="end_date" value="{{$event->end_date ? $event->end_date->format('Y-m-d') : ''}}">
                         </div>
                         <label class="control-label col-sm-2 align-self-center mb-0" for="end_time">End Time:</label>
                         <div class="col-sm-3">
-                            <input type="time" class="form-control" id="end_time" name="end_time" value="{{$event->end_time->format('H:i:s')}}">
+                            <input type="time" class="form-control" id="end_time" name="end_time" value="{{$event->end_time ? $event->end_time->format('H:i:s') : ''}}">
                         </div>
                     </div>
                     <div class="form-group row noborder">
@@ -102,7 +102,7 @@
                             <div class="row mt-4">
                                 <label class="control-label col-sm-2 align-self-center mb-0" for="recurring_end_date">End Date:</label>
                                 <div class="col-sm-3">
-                                    <input type="date" class="form-control" name="recurring_end_date" id="recurring_end_date" value="{{$event->recurring_end_date->format('Y-m-d')}}"></div>
+                                    <input type="date" class="form-control" name="recurring_end_date" id="recurring_end_date" value="{{$event->recurring_end_date ? $event->recurring_end_date->format('Y-m-d') : ''}}"></div>
                             </div>
                         </div>
                     </div>

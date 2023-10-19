@@ -37,21 +37,21 @@
                     <div class="form-group row">
                         <label class="control-label col-sm-2 align-self-center mb-0" for="startDate">Start Date:</label>
                         <div class="col-sm-3">
-                            {{$event->start_date->format('M d Y')}}
+                            {{$event->start_date ? $event->start_date->format('M d Y') : ''}}
                         </div>
                         <label class="control-label col-sm-2 align-self-center mb-0" for="startTime">Start Time:</label>
                         <div class="col-sm-3">
-                            {{$event->start_time->format('h:i a')}}
+                            {{$event->start_time ? $event->start_time->format('h:i a') : ''}}
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="control-label col-sm-2 align-self-center mb-0" for="endtDate">End Date:</label>
                         <div class="col-sm-3">
-                            {{$event->end_date->format('M d Y')}}
+                            {{$event->end_date ? $event->end_date->format('M d Y') : ''}}
                         </div>
                         <label class="control-label col-sm-2 align-self-center mb-0" for="endTime">End Time:</label>
                         <div class="col-sm-3">
-                            {{$event->end_time->format('h:i a')}}
+                            {{$event->end_time ? $event->end_time->format('h:i a') : ''}}
                         </div>
                     </div>
                     <div class="form-group row noborder">
@@ -62,7 +62,7 @@
                             @else
                                 Yes <br />
                                 Recurrs  {{$event->recurring_type}} @if($event->recurring_type->value=='Every') {{$event->recurring_days}} Days,@else, @endif<br />
-                                End Day: {{$event->recurring_end_date->format('M d Y')}}
+                                End Day: {{$event->recurring_end_date ? $event->recurring_end_date->format('M d Y') : ''}}
                             @endif
                         </div>
                     </div>

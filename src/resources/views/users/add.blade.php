@@ -301,7 +301,7 @@ validation
         }
         successToast(response.data.message)
         event.target.reset();
-        // setInterval(location.reload(), 1500);
+        setInterval(location.reload(), 1500);
     }catch (error){
         if(error?.response?.data?.errors?.name){
             validation.showErrors({'#name': error?.response?.data?.errors?.name[0]})
@@ -383,7 +383,7 @@ validation
                         const response = await axios.post(url, formData)
                         successToast(response.data.message)
                         document.getElementById('loginForm').reset();
-                        // setInterval(location.reload(), 1500);
+                        setInterval(location.reload(), 1500);
                     }catch (error){
                         if(error?.response?.data?.errors?.billing_rate){
                             validation.showErrors({'#billing_rate': error?.response?.data?.errors?.billing_rate[0]})

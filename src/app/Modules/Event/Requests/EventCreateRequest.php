@@ -32,14 +32,18 @@ class EventCreateRequest extends FormRequest
         return [
             'name' => 'required|string|max:500',
             'invoice_rate' => 'required|numeric|gte:0',
-            'start_date' => 'required|string',
-            'end_date' => 'required|string',
-            'start_time' => 'required|string',
-            'end_time' => 'required|string',
+            'start_date' => ['required', 'date', 'after_or_equal:today'],
+            'end_date' => ['required', 'date', 'after_or_equal:start_date'],
+            'start_time' => ['required', 'string'],
+            'end_time' => ['required', 'string', function ($attribute, $value, $fail) {
+                if($this->start_date==$this->end_date && $value == $this->start_time){
+                    $fail('The '.$attribute.' cannot be same as start time.');
+                }
+            }],
             'is_recurring_event' => 'required|boolean',
             'recurring_type' => ['nullable', 'required_if:is_recurring_event,1', new Enum(RecurringType::class)],
             'recurring_days' => ['nullable', Rule::requiredIf($this->is_recurring_event==1 && $this->recurring_type=='Every'),'numeric','gte:0'],
-            'recurring_end_date' => 'nullable|required_if:is_recurring_event,1|string',
+            'recurring_end_date' => ['nullable', 'required_if:is_recurring_event,1', 'date', 'after:start_date'],
             'client' => [
                 'required',
                 'numeric',

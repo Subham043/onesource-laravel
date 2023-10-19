@@ -10,9 +10,11 @@
                         <h4 class="card-title">User Details</h4>
                     </div>
                     <div >
+                        @can('edit users')
                         <a href="{{route('user.update.get', $user->id)}}" class="btn btn-primary">
                             Edit This User
                         </a>
+                        @endcan
                     </div>
                 </div>
                 <div class="card-body">

@@ -213,7 +213,7 @@ validation
 
         const response = await axios.post('{{route('user.update.post', $data->id)}}', formData)
         successToast(response.data.message)
-        // setInterval(location.reload(), 1500);
+        setInterval(location.reload(), 1500);
     }catch (error){
         if(error?.response?.data?.errors?.role){
             validation.showErrors({'#role': error?.response?.data?.errors?.role[0]})
