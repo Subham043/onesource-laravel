@@ -173,7 +173,9 @@ class Event extends Model
                 $qry->where('writer_id', auth()->user()->id);
             });
         }elseif(auth()->user()->current_role=='Client'){
-
+            $query_builder->whereHas('client', function($qry){
+                $qry->whereIn('id', auth()->user()->profiles->pluck('client_id')->filter());
+            });
         }else{
             $query_builder->where('created_by', auth()->user()->current_role=='Staff-Admin' ? auth()->user()->member_profile_created_by_auth->created_by : auth()->user()->id);
         }

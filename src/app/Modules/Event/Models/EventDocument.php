@@ -71,7 +71,13 @@ class EventDocument extends Model
                         'client'
                     ]);
                 }elseif(auth()->user()->current_role=='Client'){
-
+                    $qry->with([
+                        'writers'=> function($qry){
+                            $qry->with('writer');
+                        },
+                        'documents',
+                        'client'
+                    ]);
                 }else{
                     $qry->with([
                         'writers'=> function($qry){
@@ -91,7 +97,11 @@ class EventDocument extends Model
                 });
             });
         }elseif(auth()->user()->current_role=='Client'){
-
+            $query_builder->whereHas('event', function($qr){
+                $qr->whereHas('client', function($qry){
+                    $qry->whereIn('id', auth()->user()->profiles->pluck('client_id')->filter());
+                });
+            });
         }else{
             $query_builder->whereHas('event', function($qry){
                 $qry->where('created_by', auth()->user()->current_role=='Staff-Admin' ? auth()->user()->member_profile_created_by_auth->created_by : auth()->user()->id);

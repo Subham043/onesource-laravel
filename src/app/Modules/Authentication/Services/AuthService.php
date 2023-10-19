@@ -58,4 +58,10 @@ class AuthService
         return Auth::user();
     }
 
+    public function updateProfile(array $data, User $user): User
+    {
+        $user->update($data);
+        return $user;
+    }
+
 }

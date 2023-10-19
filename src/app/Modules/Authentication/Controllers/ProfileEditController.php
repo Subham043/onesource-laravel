@@ -32,7 +32,7 @@ class ProfileEditController extends Controller
         try {
             //code...
             $user = $this->authService->authenticated_user();
-            $this->userService->update(
+            $this->authService->updateProfile(
                 $request->safe()->only(['name', 'email', 'phone', 'password', 'timezone']),
                 $user
             );

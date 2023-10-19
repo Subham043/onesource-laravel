@@ -247,6 +247,7 @@ class UserSeeder extends Seeder
                 'view calendar',
 
                 //permission for documents
+                'list documents',
                 'download documents',
 
             ]);
