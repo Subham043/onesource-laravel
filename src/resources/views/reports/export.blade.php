@@ -12,448 +12,93 @@
                         </div>
                         <div class="d-flex align-items-middle">
                         </div>
-                        <div class="d-flex align-items-center filterset">
+                        <form class="d-flex align-items-center filterset">
+                            @csrf
                             <div class="form-group">
                                 <label class="form-label" for="colFormLabelSm">Writer</label>
-                                <input type="email" class="form-control form-control-sm" id="colFormLabelSm"
-                                    placeholder="Writer">
+                                <select class="form-select shadow-none writer-id-input" name="writer">
+                                    <option selected value="">Select Writer</option>
+                                    @foreach($writers as $writer)
+                                        <option value="{{$writer->id}}">{{$writer->name}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label class="form-label" for="colFormLabelSm">Start Date</label>
-                                <input type="date" class="form-control form-control-sm" id="exampleInputdate"
-                                    value="2023-01-27">
+                                <input type="date" class="form-control" id="start_date" name="start_date">
                             </div>
                             <div class="form-group">
                                 <label class="form-label" for="colFormLabelSm">End Date Date</label>
-                                <input type="date" class="form-control form-control-sm" id="exampleInputdate"
-                                    value="2023-01-27">
+                                <input type="date" class="form-control" id="end_date" name="end_date">
                             </div>
-                            <div class="form-group"><br /><a href="quickbook-export.html"
-                                    class="btn btn-link btn-soft-light">
+                            <div class="form-group">
+                                <br />
+                                <button class="btn btn-link btn-soft-primary">
+                                    Filter
+                                </button>
+                                <button class="btn btn-link btn-soft-light">
                                     Reset
-                                </a></div>
-                        </div>
+                                </button>
+                            </div>
+                        </form>
                     </div>
                     <div class="p-0 card-body">
+                        @if($data->total() > 0)
                         <div class="mt-4 table-responsive">
-                            <script language="javascript" nonce="{{ csp_nonce() }}">
-                                function toggle(source) {
-                                    checkboxes = document.getElementsByName('foo');
-                                    for (var i = 0, n = checkboxes.length; i < n; i++) {
-                                        checkboxes[i].checked = source.checked;
-                                    }
-                                }
-                            </script>
                             <table id="basic-table" class="table mb-0 table-striped" role="grid">
                                 <thead>
                                     <tr>
-                                        <th style="max-width: 10px;"><input type="checkbox" class="form-check-input"
-                                                id="customCheck1" data-bs-toggle="tooltip"
-                                                data-bs-original-title="Select All" onClick="toggle(this)"> </th>
                                         <th>Event ID</th>
                                         <th>Event</th>
+                                        <th>Client</th>
                                         <th>Writer</th>
                                         <th>Date</th>
                                         <th>Start Time</th>
                                         <th>End Time</th>
-                                        <th>Prep</th>
-                                        <th>1Fuzion ID</th>
                                         <th>&nbsp;</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach ($data->items() as $item)
                                     <tr>
                                         <td>
                                             <div class="d-flex align-items-center">
-                                                <input type="checkbox" class="form-check-input" name="foo"
-                                                    id="customCheck1">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <a href="{{route('event.view.get', 1)}}">EVD1x</a>
+                                                <a href="{{route('event.view.get', $item->id)}}">EVD{{$item->id}}</a>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="iq-media-group iq-media-group-1">
-                                                <a href="{{route('event.paginate.get')}}"> Event Name</a>
-                                            </div>
-                                        </td>
-                                        <td>John Doe</td>
-                                        <td>
-                                            5th Jan 2023</td>
-                                        <td>10:30 AM </td>
-                                        <td> 11:30 AM</td>
-                                        <td> <svg width="32" viewBox="0 0 24 24" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M14.3955 9.59497L9.60352 14.387" stroke="#FF0000"
-                                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                                </path>
-                                                <path d="M14.3971 14.3898L9.60107 9.59277" stroke="#FF0000"
-                                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                                </path>
-                                            </svg> </td>
-                                        <td>
-                                            1Fuzid
-                                        </td>
-                                        <td>
-                                            <a href="{{route('event.view.get', 1)}}" class="btn btn-primary">View Event</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <input type="checkbox" class="form-check-input" name="foo"
-                                                    id="customCheck1">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <a href="{{route('event.view.get', 1)}}">EVD1x</a>
+                                                <a href="{{route('event.view.get', $item->id)}}"> {{$item->name}}</a>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="iq-media-group iq-media-group-1">
-                                                <a href="#"> Event Name</a>
+                                                {{$item->client->name}}
                                             </div>
                                         </td>
-                                        <td>John Doe</td>
                                         <td>
-                                            5th Jan 2023</td>
-                                        <td>10:30 AM </td>
-                                        <td> 11:30 AM </td>
-                                        <td><svg width="32" viewBox="0 0 24 24" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M9.38574 11.8746L11.2777 13.7696L15.1757 9.86963"
-                                                    stroke="#1aa053" stroke-width="1.5" stroke-linecap="round"
-                                                    stroke-linejoin="round"></path>
-                                            </svg></td>
-                                        <td>
-                                            1Fuzid
+                                            @foreach($item->writers as $k=>$v)
+                                                {!!($k+1==count($item->writers)) ? $v->writer->name : $v->writer->name.'<br/> '!!}
+                                            @endforeach
                                         </td>
                                         <td>
-                                            <a href="{{route('event.view.get', 1)}}" class="btn btn-primary">View Event</a>
+                                            {{$item->start_date->format('M d Y')}}
+                                        </td>
+                                        <td>{{$item->start_time->format('h:i a')}}</td>
+                                        <td>{{$item->end_time->format('h:i a')}}</td>
+                                        <td>
+                                            @can('view events')
+                                            <a href="{{route('event.view.get', $item->id)}}" class="btn btn-primary">View Event</a>
+                                            @endcan
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <input type="checkbox" class="form-check-input" name="foo"
-                                                    id="customCheck1">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <a href="{{route('event.view.get', 1)}}">EVD1x</a>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="iq-media-group iq-media-group-1">
-                                                <a href="{{route('event.view.get', 1)}}"> Event Name</a>
-                                            </div>
-                                        </td>
-                                        <td>John Doe</td>
-                                        <td>
-                                            5th Jan 2023</td>
-                                        <td>10:30 AM </td>
-                                        <td> 11:30 AM </td>
-                                        <td> <svg width="32" viewBox="0 0 24 24" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M14.3955 9.59497L9.60352 14.387" stroke="#FF0000"
-                                                    stroke-width="1.5" stroke-linecap="round"
-                                                    stroke-linejoin="round"></path>
-                                                <path d="M14.3971 14.3898L9.60107 9.59277" stroke="#FF0000"
-                                                    stroke-width="1.5" stroke-linecap="round"
-                                                    stroke-linejoin="round"></path>
-                                            </svg> </td>
-                                        <td>
-                                            1Fuzid
-                                        </td>
-                                        <td>
-                                            <a href="{{route('event.view.get', 1)}}" class="btn btn-primary">View Event</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <input type="checkbox" class="form-check-input" name="foo"
-                                                    id="customCheck1">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <a href="{{route('event.view.get', 1)}}">EVD1x</a>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="iq-media-group iq-media-group-1">
-                                                <a href="{{route('event.view.get', 1)}}"> Event Name</a>
-                                            </div>
-                                        </td>
-                                        <td>John Doe</td>
-                                        <td>
-                                            5th Jan 2023</td>
-                                        <td>10:30 AM </td>
-                                        <td> 11:30 AM </td>
-                                        <td><svg width="32" viewBox="0 0 24 24" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M9.38574 11.8746L11.2777 13.7696L15.1757 9.86963"
-                                                    stroke="#1aa053" stroke-width="1.5" stroke-linecap="round"
-                                                    stroke-linejoin="round"></path>
-                                            </svg></td>
-                                        <td>
-                                        </td>
-                                        <td>
-                                            <a href="{{route('event.view.get', 1)}}" class="btn btn-primary">View Event</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <input type="checkbox" class="form-check-input" name="foo"
-                                                    id="customCheck1">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <a href="{{route('event.view.get', 1)}}">EVD1x</a>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="iq-media-group iq-media-group-1">
-                                                <a href="{{route('event.view.get', 1)}}"> Event Name</a>
-                                            </div>
-                                        </td>
-                                        <td>John Doe</td>
-                                        <td>
-                                            5th Jan 2023</td>
-                                        <td>10:30 AM </td>
-                                        <td> 11:30 AM </td>
-                                        <td> <svg width="32" viewBox="0 0 24 24" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M14.3955 9.59497L9.60352 14.387" stroke="#FF0000"
-                                                    stroke-width="1.5" stroke-linecap="round"
-                                                    stroke-linejoin="round"></path>
-                                                <path d="M14.3971 14.3898L9.60107 9.59277" stroke="#FF0000"
-                                                    stroke-width="1.5" stroke-linecap="round"
-                                                    stroke-linejoin="round"></path>
-                                            </svg> </td>
-                                        <td>
-                                        </td>
-                                        <td>
-                                            <a href="{{route('event.view.get', 1)}}" class="btn btn-primary">View Event</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <input type="checkbox" class="form-check-input" name="foo"
-                                                    id="customCheck1">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <a href="{{route('event.view.get', 1)}}">EVD1x</a>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="iq-media-group iq-media-group-1">
-                                                <a href="{{route('event.view.get', 1)}}"> Event Name</a>
-                                            </div>
-                                        </td>
-                                        <td>John Doe</td>
-                                        <td>
-                                            5th Jan 2023</td>
-                                        <td>10:30 AM </td>
-                                        <td> 11:30 AM </td>
-                                        <td><svg width="32" viewBox="0 0 24 24" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M9.38574 11.8746L11.2777 13.7696L15.1757 9.86963"
-                                                    stroke="#1aa053" stroke-width="1.5" stroke-linecap="round"
-                                                    stroke-linejoin="round"></path>
-                                            </svg></td>
-                                        <td>
-                                        </td>
-                                        <td>
-                                            <a href="{{route('event.view.get', 1)}}" class="btn btn-primary">View Event</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <input type="checkbox" class="form-check-input" name="foo"
-                                                    id="customCheck1">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <a href="{{route('event.view.get', 1)}}">EVD1x</a>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="iq-media-group iq-media-group-1">
-                                                <a href="{{route('event.paginate.get')}}"> Event Name</a>
-                                            </div>
-                                        </td>
-                                        <td>John Doe</td>
-                                        <td>
-                                            5th Jan 2023</td>
-                                        <td>10:30 AM </td>
-                                        <td> 11:30 AM </td>
-                                        <td><svg width="32" viewBox="0 0 24 24" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M9.38574 11.8746L11.2777 13.7696L15.1757 9.86963"
-                                                    stroke="#1aa053" stroke-width="1.5" stroke-linecap="round"
-                                                    stroke-linejoin="round"></path>
-                                            </svg></td>
-                                        <td>
-                                        </td>
-                                        <td>
-                                            <a href="{{route('event.view.get', 1)}}" class="btn btn-primary">View Event</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <input type="checkbox" class="form-check-input" name="foo"
-                                                    id="customCheck1">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <a href="{{route('event.view.get', 1)}}">EVD1x</a>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="iq-media-group iq-media-group-1">
-                                                <a href="{{route('event.view.get', 1)}}"> Event Name</a>
-                                            </div>
-                                        </td>
-                                        <td>John Doe<br /> Jane Doe<br /> John </td>
-                                        <td>
-                                            5th Jan 2023</td>
-                                        <td> 10:30 AM </td>
-                                        <td> 11:30 AM</td>
-                                        <td> <svg width="32" viewBox="0 0 24 24" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M14.3955 9.59497L9.60352 14.387" stroke="#FF0000"
-                                                    stroke-width="1.5" stroke-linecap="round"
-                                                    stroke-linejoin="round"></path>
-                                                <path d="M14.3971 14.3898L9.60107 9.59277" stroke="#FF0000"
-                                                    stroke-width="1.5" stroke-linecap="round"
-                                                    stroke-linejoin="round"></path>
-                                            </svg> </td>
-                                        <td>
-                                        </td>
-                                        <td>
-                                            <a href="{{route('event.view.get', 1)}}" class="btn btn-primary">View Event</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <input type="checkbox" class="form-check-input" name="foo"
-                                                    id="customCheck1">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <a href="{{route('event.view.get', 1)}}">EVD1x</a>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="iq-media-group iq-media-group-1">
-                                                <a href="{{route('event.view.get', 1)}}"> Event Name</a>
-                                            </div>
-                                        </td>
-                                        <td>John Doe</td>
-                                        <td>
-                                            5th Jan 2023</td>
-                                        <td>10:30 AM </td>
-                                        <td> 11:30 AM </td>
-                                        <td><svg width="32" viewBox="0 0 24 24" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M9.38574 11.8746L11.2777 13.7696L15.1757 9.86963"
-                                                    stroke="#1aa053" stroke-width="1.5" stroke-linecap="round"
-                                                    stroke-linejoin="round"></path>
-                                            </svg></td>
-                                        <td>
-                                        </td>
-                                        <td>
-                                            <a href="{{route('event.view.get', 1)}}" class="btn btn-primary">View Event</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <input type="checkbox" class="form-check-input" name="foo"
-                                                    id="customCheck1">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <a href="{{route('event.view.get', 1)}}">EVD1x</a>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="iq-media-group iq-media-group-1">
-                                                <a href="{{route('event.view.get', 1)}}"> Event Name</a>
-                                            </div>
-                                        </td>
-                                        <td>John Doe</td>
-                                        <td>
-                                            6th Jan 2023</td>
-                                        <td>10:30 AM </td>
-                                        <td> 11:30 AM </td>
-                                        <td><svg width="32" viewBox="0 0 24 24" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M9.38574 11.8746L11.2777 13.7696L15.1757 9.86963"
-                                                    stroke="#1aa053" stroke-width="1.5" stroke-linecap="round"
-                                                    stroke-linejoin="round"></path>
-                                            </svg></td>
-                                        <td>
-                                        </td>
-                                        <td>
-                                            <a href="{{route('event.view.get', 1)}}" class="btn btn-primary">View Event</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <input type="checkbox" class="form-check-input" name="foo"
-                                                    id="customCheck1">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <a href="{{route('event.view.get', 1)}}">EVD1x</a>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="iq-media-group iq-media-group-1">
-                                                <a href="#"> Event Name</a>
-                                            </div>
-                                        </td>
-                                        <td>John Doe</td>
-                                        <td>
-                                            5th Jan 2023</td>
-                                        <td>10:30 AM </td>
-                                        <td> 11:30 AM </td>
-                                        <td><svg width="32" viewBox="0 0 24 24" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M9.38574 11.8746L11.2777 13.7696L15.1757 9.86963"
-                                                    stroke="#1aa053" stroke-width="1.5" stroke-linecap="round"
-                                                    stroke-linejoin="round"></path>
-                                            </svg></td>
-                                        <td>
-                                        </td>
-                                        <td>
-                                            <a href="#" class="btn btn-primary">View Event</a>
-                                        </td>
-                                    </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
+                        @else
+                            <p class="text-center">No data available</p>
+                        @endif
                         <div style="padding: 20px; text-align: right; "><a href="#" class="btn btn-primary">
                                 <svg class="icon-32" width="32" viewBox="0 0 24 24" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">

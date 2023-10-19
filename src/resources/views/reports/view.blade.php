@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="row">
+    @can('view conflicts')
     <div class="col-sm-12 col-lg-4">
 
         <div class="card">
@@ -30,6 +31,8 @@
         </div>
 
     </div>
+    @endcan
+    @can('view exports')
     <div class="col-sm-12 col-lg-4">
 
         <div class="card">
@@ -50,6 +53,8 @@
         </div>
 
     </div>
+    @endcan
+    @can('view quickbook')
     <div class="col-sm-12 col-lg-4">
 
         <div class="card">
@@ -79,5 +84,6 @@
         </div>
 
     </div>
+    @endcan
 </div>
 @stop

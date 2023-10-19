@@ -8,7 +8,6 @@ use App\Modules\Event\Models\EventDocument;
 use App\Modules\Event\Models\EventWriter;
 use App\Modules\Event\Requests\EventCreateRequest;
 use App\Modules\Event\Requests\EventUpdateRequest;
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\Filters\Filter;
@@ -39,6 +38,18 @@ class EventService
         if($get_current){
             $query->whereDate('start_date', today());
         }
+        $query->latest();
+        return QueryBuilder::for($query)
+                ->allowedFilters([
+                    AllowedFilter::custom('search', new CommonFilter),
+                ])
+                ->paginate($total)
+                ->appends(request()->query());
+    }
+
+    public function paginateReport(Int $total = 10): LengthAwarePaginator
+    {
+        $query = Event::filterByRoles();
         $query->latest();
         return QueryBuilder::for($query)
                 ->allowedFilters([
