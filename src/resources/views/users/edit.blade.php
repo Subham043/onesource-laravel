@@ -15,7 +15,7 @@
                     <div class="form-group row">
                         <label class="control-label col-sm-2 align-self-center mb-0" for="name">Name:</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="name" name="name" readonly disabled aria-describedby="name"
+                            <input type="text" class="form-control" id="name" name="name" aria-describedby="name"
                                 value="{{$data->name}}">
                                 @error('name')
                                     <div class="invalid-message">{{ $message }}</div>
@@ -33,7 +33,9 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="control-label col-sm-2 align-self-center mb-0" for="phone">Phone:</label>
+                        <label class="control-label col-sm-2 align-self-center mb-0" for="phone">Phone: <span data-bs-toggle="tooltip" data-bs-original-title="Phone Format: No dashes (0001234567)"><i class="icon">
+                            <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='currentColor'><circle cx='6' cy='6' r='4.5'/><path stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/><circle cx='6' cy='8.2' r='.6' fill='currentColor' stroke='none'/></svg>
+                       </i></span></label>
                         <div class="col-sm-10">
                             <input type="tel" class="form-control" id="phone" name="phone" readonly disabled aria-describedby="phone"
                                 value="{{$data->phone}}">
@@ -55,7 +57,7 @@
                     <div class="form-group row">
                         <label class="control-label col-sm-2 align-self-center mb-0" for="timezone">Time Zone :</label>
                         <div class="col-sm-10">
-                            <select id="timezone" name="timezone" disabled class="form-select shadow-none">
+                            <select id="timezone" name="timezone" class="form-select shadow-none">
                                 <option value="" {{empty($data->timezone) ? 'selected' : ''}}>Select</option>
                                 <option value="Pacific/Honolulu GMT-10:00" {{!empty($data->timezone) && $data->timezone->value == 'Pacific/Honolulu GMT-10:00' ? 'selected' : ''}}>Pacific/Honolulu GMT-10:00</option>
                                 <option value="America/Anchorage GMT-9:00" {{!empty($data->timezone) && $data->timezone->value == 'America/Anchorage GMT-9:00' ? 'selected' : ''}}>America/Anchorage GMT-9:00</option>
@@ -90,7 +92,7 @@
                     </div>
 
                     <div id="billing_rate_div" class="form-group row  {{$data->current_role==='Client' || $data->current_role==='Writer' ? 'd-flex' : 'd-none'}}">
-                        <label class="control-label col-sm-2 align-self-center mb-0" for="billing_rate">Billing Rate : <span data-bs-toggle="tooltip" data-bs-original-title="Shown Only If Role Is Client or Writer"><i class="icon">
+                        <label class="control-label col-sm-2 align-self-center mb-0" for="billing_rate">Billing Rate : <span data-bs-toggle="tooltip" data-bs-original-title="Billing rate should look like 000.00 (no dollar sign)"><i class="icon">
                                      <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='currentColor'><circle cx='6' cy='6' r='4.5'/><path stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/><circle cx='6' cy='8.2' r='.6' fill='currentColor' stroke='none'/></svg>
                                 </i></span></label>
                         <div class="col-sm-10">
@@ -112,6 +114,7 @@
                         </div>
                     </div>
                     <button type="submit" id="submitBtn" class="btn btn-primary">Update User</button>
+                    <a href="{{route('user.paginate.get')}}" class="btn btn-warning" id="submitBtn">Cancel</a>
                 </div>
             </div>
         </form>
@@ -131,6 +134,18 @@ const validation = new JustValidate('#loginForm', {
 });
 // apply rules to form fields
 validation
+  .addField('#name', [
+    {
+      rule: 'required',
+      errorMessage: 'Name is required',
+    },
+  ])
+  .addField('#timezone', [
+    {
+      rule: 'required',
+      errorMessage: 'Timezone is required',
+    },
+  ])
   .addField('#role', [
     {
       rule: 'required',
@@ -195,6 +210,8 @@ validation
     submitBtn.disabled = true;
     try {
         var formData = new FormData();
+        formData.append('name',document.getElementById('name').value)
+        formData.append('timezone',document.getElementById('timezone').value)
         formData.append('role',document.getElementById('role').value)
         if(document.getElementById('role').value=='Client'){
             formData.append('client',document.getElementById('client').value)
@@ -213,8 +230,14 @@ validation
 
         const response = await axios.post('{{route('user.update.post', $data->id)}}', formData)
         successToast(response.data.message)
-        setInterval(location.reload(), 1500);
+        setInterval(window.location.replace("{{route('user.paginate.get')}}"), 1500);
     }catch (error){
+        if(error?.response?.data?.errors?.name){
+            validation.showErrors({'#name': error?.response?.data?.errors?.name[0]})
+        }
+        if(error?.response?.data?.errors?.timezone){
+            validation.showErrors({'#timezone': error?.response?.data?.errors?.timezone[0]})
+        }
         if(error?.response?.data?.errors?.role){
             validation.showErrors({'#role': error?.response?.data?.errors?.role[0]})
         }

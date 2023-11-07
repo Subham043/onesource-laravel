@@ -220,6 +220,7 @@
                             <div class="form-group row">
                                 <div class="col-sm-10">
                                     <button type="submit" class="btn btn-primary">Save</button>
+                                    <a href="{{route('customer.paginate.get')}}" class="btn btn-warning" id="submitBtn">Cancel</a>
                                 </div>
                             </div>
                         </form>

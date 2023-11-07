@@ -175,7 +175,7 @@
                                         <h3>Sign In Information </h3>
                                         <div class="col-lg-12">
                                             <div class="form-group">
-                                                <label for="email" class="form-label">Email ID <sup>*</sup> <span data-bs-toggle="tooltip" data-bs-original-title="This is your user ID on Sign In"><i class="icon">
+                                                <label for="email" class="form-label">Email ID <sup>*</sup> <span data-bs-toggle="tooltip" data-bs-original-title="This is your user ID on Sign In & Check your spam folder for verification email."><i class="icon">
                                                     <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='currentColor'><circle cx='6' cy='6' r='4.5'/><path stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/><circle cx='6' cy='8.2' r='.6' fill='currentColor' stroke='none'/></svg>
                                                 </i></span></label>
                                                 <input type="email" class="form-control" id="email" name="email" aria-describedby="email" value="{{old('email')}}">
@@ -187,7 +187,14 @@
                                         <div class="col-lg-12">
                                             <div class="form-group">
                                                 <label for="password" class="form-label">Password</label>
-                                                <input type="password" class="form-control" id="password" name="password" aria-describedby="password">
+                                                <div class="input-group mb-3">
+                                                    <input type="password" class="form-control" id="password" name="password" aria-describedby="password" aria-describedby="password-show">
+                                                    <div class="input-group-append">
+                                                        <button class="btn btn-dark input-group-text" type="button" id="password-show">
+                                                          show
+                                                        </button>
+                                                    </div>
+                                                </div>
                                                 @error('password')
                                                     <div class="invalid-message">{{ $message }}</div>
                                                 @enderror
@@ -301,6 +308,17 @@
 
 @section('javascript')
 <script type="text/javascript" nonce="{{ csp_nonce() }}">
+
+document.getElementById('password-show').addEventListener("click", function(){
+    const password = document.getElementById('password');
+    if(password.getAttribute("type") == 'password'){
+        password.setAttribute("type", "text") ;
+        document.getElementById('password-show').innerText = "hide"
+    }else{
+        password.setAttribute("type", "password");
+        document.getElementById('password-show').innerText = "show"
+    }
+})
 
 // initialize the validation library
 const validation = new JustValidate('#loginForm', {

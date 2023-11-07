@@ -20,7 +20,7 @@ class UserUpdatePostRequest extends UserCreatePostRequest
     public function rules()
     {
         return [
-            // 'name' => ['required', 'string'],
+            'name' => ['required', 'string'],
             // 'email' => ['required','email:rfc,dns', function ($attribute, $value, $fail) {
             //     if($value==auth()->user()->email){
             //         $fail('The '.$attribute.' entered is already taken.');
@@ -81,7 +81,7 @@ class UserUpdatePostRequest extends UserCreatePostRequest
             //             ->uncompromised()
             // ],
             // 'confirm_password' => ['required_with:password','same:password'],
-            // 'timezone' => ['required', new Enum(Timezone::class)],
+            'timezone' => ['required', new Enum(Timezone::class)],
             'role' => ['required', 'string', 'in:Admin,Staff-Admin,Client,Writer', 'exists:Spatie\Permission\Models\Role,name'],
             'billing_rate' => ['nullable', Rule::requiredIf($this->role==='Client' || $this->role==='Writer'), 'numeric', 'gt:0'],
             'tool' => ['nullable', Rule::requiredIf($this->role==='Writer'), 'array', 'min:1'],

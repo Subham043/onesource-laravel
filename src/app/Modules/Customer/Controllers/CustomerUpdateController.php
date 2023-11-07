@@ -32,7 +32,7 @@ class CustomerUpdateController extends Controller
                 $request,
                 $customer
             );
-            return redirect()->intended(route('customer.update.get', $customer->id))->with('success_status', 'User updated successfully.');
+            return redirect()->intended(route('customer.paginate.get'))->with('success_status', 'User updated successfully.');
         } catch (\Throwable $th) {
             return redirect()->intended(route('customer.update.get', $customer->id))->with('error_status', 'Something went wrong. Please try again');
         }

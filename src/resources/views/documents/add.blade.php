@@ -50,6 +50,7 @@
                     <div class="card my-0">
                         <div class="card-body pt-0">
                             <button type="submit" class="btn btn-primary" id="submitBtn">Submit</button>
+                            <a href="{{route('document.paginate.get')}}" class="btn btn-warning" id="submitBtn">Cancel</a>
                         </div>
                     </div>
                 </div>
@@ -104,7 +105,7 @@ validation
         const response = await axios.post('{{route('document.create.post')}}', formData)
         successToast(response.data.message)
         event.target.reset();
-        // setInterval(location.reload(), 1500);
+        setInterval(window.location.replace("{{route('document.paginate.get')}}"), 1500);
     }catch (error){
         if(error?.response?.data?.errors?.event){
             validation.showErrors({'#event': error?.response?.data?.errors?.event[0]})

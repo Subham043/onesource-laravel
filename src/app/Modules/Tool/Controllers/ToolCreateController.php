@@ -28,7 +28,7 @@ class ToolCreateController extends Controller
             $this->toolService->create(
                 $request->validated(),
             );
-            return redirect()->intended(route('tool.create.get'))->with('success_status', 'Tool created successfully.');
+            return redirect()->intended(route('tool.paginate.get'))->with('success_status', 'Tool created successfully.');
         } catch (\Throwable $th) {
             return redirect()->intended(route('tool.create.get'))->with('error_status', 'Something went wrong. Please try again');
         }

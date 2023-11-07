@@ -22,6 +22,7 @@
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary">Create Tool</button>
+                    <a href="{{route('tool.paginate.get')}}" class="btn btn-warning" id="submitBtn">Cancel</a>
                 </div>
             </div>
         </form>

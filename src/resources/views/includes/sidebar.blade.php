@@ -1,4 +1,4 @@
-<aside class="sidebar sidebar-default navs-rounded-all {{auth()->user()->current_role == 'Super Admin' ? 'sidebar-mini' : ''}}">
+<aside class="sidebar sidebar-default navs-rounded-all sidebar-mini">
     <div class="sidebar-header d-flex align-items-center justify-content-start">
         <a href="{{route('dashboard.get')}}" class="navbar-brand">
             <!--Logo start-->

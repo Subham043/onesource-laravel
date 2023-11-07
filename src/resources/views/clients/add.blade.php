@@ -22,6 +22,7 @@
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary">Create Client</button>
+                    <a href="{{route('client.paginate.get')}}" class="btn btn-warning" id="submitBtn">Cancel</a>
                 </div>
             </div>
         </form>

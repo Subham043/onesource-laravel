@@ -63,7 +63,7 @@ class EventCreateRequest extends FormRequest
                 'gte:0',
             ],
             'documents' => ['required', 'array', 'min:1'],
-            'documents.*' => 'required|mimes:pdf,doc,docx,dot,xls,xlsx,ppt,pptx,pps|max:5000',
+            'documents.*' => 'required|mimes:pdf,doc,docx,dot,xls,xlsx,ppt,pptx,pps,jpg,jpeg,png,webp|max:5000',
         ];
     }
 

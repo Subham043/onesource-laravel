@@ -26,7 +26,14 @@
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label for="password" class="form-label">Password</label>
-                                        <input type="password" class="form-control" id="password" name="password" aria-describedby="password">
+                                        <div class="input-group mb-3">
+                                            <input type="password" class="form-control" id="password" name="password" aria-describedby="password" aria-describedby="password-show">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-dark input-group-text" type="button" id="password-show">
+                                                  show
+                                                </button>
+                                            </div>
+                                        </div>
                                         @error('password')
                                             <div class="invalid-message">{{ $message }}</div>
                                         @enderror
@@ -60,6 +67,17 @@
 
 @section('javascript')
 <script type="text/javascript" nonce="{{ csp_nonce() }}">
+
+document.getElementById('password-show').addEventListener("click", function(){
+    const password = document.getElementById('password');
+    if(password.getAttribute("type") == 'password'){
+        password.setAttribute("type", "text") ;
+        document.getElementById('password-show').innerText = "hide"
+    }else{
+        password.setAttribute("type", "password");
+        document.getElementById('password-show').innerText = "show"
+    }
+})
 
 // initialize the validation library
 const validation = new JustValidate('#loginForm', {

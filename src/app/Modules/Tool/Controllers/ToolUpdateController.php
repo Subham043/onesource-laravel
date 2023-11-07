@@ -32,7 +32,7 @@ class ToolUpdateController extends Controller
                 $request->validated(),
                 $tool
             );
-            return redirect()->intended(route('tool.update.get', $tool->id))->with('success_status', 'Tool updated successfully.');
+            return redirect()->intended(route('tool.paginate.get'))->with('success_status', 'Tool updated successfully.');
         } catch (\Throwable $th) {
             return redirect()->intended(route('tool.update.get', $tool->id))->with('error_status', 'Something went wrong. Please try again');
         }

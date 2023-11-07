@@ -54,7 +54,14 @@
                         <div class="form-group row">
                             <label class="control-label col-sm-2 align-self-center mb-0" for="password">Password:</label>
                             <div class="col-sm-10">
-                                <input type="password" class="form-control" id="password" name="password">
+                                <div class="input-group mb-3">
+                                    <input type="password" class="form-control" id="password" name="password" aria-describedby="password" aria-describedby="password-show">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-dark input-group-text" type="button" id="password-show">
+                                          show
+                                        </button>
+                                    </div>
+                                </div>
                                 @error('password')
                                     <div class="invalid-message">{{ $message }}</div>
                                 @enderror
@@ -105,6 +112,17 @@
 @section('javascript')
 <script type="text/javascript" nonce="{{ csp_nonce() }}">
 
+document.getElementById('password-show').addEventListener("click", function(){
+    const password = document.getElementById('password');
+    if(password.getAttribute("type") == 'password'){
+        password.setAttribute("type", "text") ;
+        document.getElementById('password-show').innerText = "hide"
+    }else{
+        password.setAttribute("type", "password");
+        document.getElementById('password-show').innerText = "show"
+    }
+})
+
 // initialize the validation library
 const validation = new JustValidate('#profileForm', {
       errorFieldCssClass: 'is-invalid',
@@ -143,35 +161,17 @@ validation
   ])
   .addField('#old_password', [
     {
-      rule: 'required',
-      errorMessage: 'Current Password is required',
+        validator: (value, fields) => true
     },
   ])
   .addField('#password', [
     {
-      rule: 'required',
-      errorMessage: 'Password is required',
+        validator: (value, fields) => true
     },
-    {
-      rule: 'strongPassword',
-    }
   ])
   .addField('#confirm_password', [
     {
-      rule: 'required',
-      errorMessage: 'Confirm Password is required',
-    },
-    {
-        validator: (value, fields) => {
-        if (fields['#password'] && fields['#password'].elem) {
-            const repeatPasswordValue = fields['#password'].elem.value;
-
-            return value === repeatPasswordValue;
-        }
-
-        return true;
-        },
-        errorMessage: 'Password and Confirm Password must be same',
+        validator: (value, fields) => true
     },
   ])
   .onSuccess((event) => {

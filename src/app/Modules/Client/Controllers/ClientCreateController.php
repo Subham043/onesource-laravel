@@ -28,7 +28,7 @@ class ClientCreateController extends Controller
             $this->clientService->create(
                 $request->validated(),
             );
-            return redirect()->intended(route('client.create.get'))->with('success_status', 'Client created successfully.');
+            return redirect()->intended(route('client.paginate.get'))->with('success_status', 'Client created successfully.');
         } catch (\Throwable $th) {
             return redirect()->intended(route('client.create.get'))->with('error_status', 'Something went wrong. Please try again');
         }

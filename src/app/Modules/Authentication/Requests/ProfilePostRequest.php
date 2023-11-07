@@ -36,12 +36,12 @@ class ProfilePostRequest extends FormRequest
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,'.Auth::user()->id,
             'phone' => 'required|numeric|gt:0|unique:users,phone,'.Auth::user()->id,
-            'old_password' => ['required','string', function ($attribute, $value, $fail) {
+            'old_password' => ['nullable', 'required_with:password','string', function ($attribute, $value, $fail) {
                 if (!Hash::check($value, Auth::user()->password)) {
                     $fail('The '.$attribute.' entered is incorrect.');
                 }
             }],
-            'password' => ['required',
+            'password' => ['nullable', 'required_with:old_password',
                 'string',
                 Password::min(8)
                         ->letters()
@@ -50,7 +50,7 @@ class ProfilePostRequest extends FormRequest
                         ->symbols()
                         ->uncompromised()
             ],
-            'confirm_password' => 'string|min:6|required_with:password|same:password',
+            'confirm_password' => 'nullable|string|min:6|required_with:password|same:password',
             'timezone' => ['required', new Enum(Timezone::class)],
         ];
     }

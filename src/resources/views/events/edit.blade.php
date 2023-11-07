@@ -235,6 +235,7 @@
                         <textarea class="form-control" id="notes" name="notes" aria-label="Notes">{{$event->notes}}</textarea>
                     </div>
                     <button type="submit" class="btn btn-primary" id="submitBtn">Update Event</button>
+                    <a href="{{route('event.paginate.get')}}" class="btn btn-warning" id="submitBtn">Cancel</a>
                 </div>
             </div>
         </form>
@@ -384,7 +385,7 @@ validation
         const response = await axios.post('{{route('event.update.post', $event->id)}}', formData)
         successToast(response.data.message)
         event.target.reset();
-        setInterval(location.reload(), 1500);
+        setInterval(window.location.replace("{{route('event.paginate.get')}}"), 1500);
     }catch (error){
         if(error?.response?.data?.errors?.name){
             validation.showErrors({'#name': error?.response?.data?.errors?.name[0]})

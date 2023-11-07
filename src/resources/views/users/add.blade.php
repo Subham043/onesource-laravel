@@ -33,7 +33,9 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="control-label col-sm-2 align-self-center mb-0" for="phone">Phone:</label>
+                        <label class="control-label col-sm-2 align-self-center mb-0" for="phone">Phone: <span data-bs-toggle="tooltip" data-bs-original-title="Phone Format: No dashes (0001234567)"><i class="icon">
+                            <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='currentColor'><circle cx='6' cy='6' r='4.5'/><path stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/><circle cx='6' cy='8.2' r='.6' fill='currentColor' stroke='none'/></svg>
+                       </i></span></label>
                         <div class="col-sm-10">
                             <input type="tel" class="form-control" id="phone" name="phone" aria-describedby="phone"
                                 value="{{old('phone')}}">
@@ -45,7 +47,14 @@
                     <div class="form-group row">
                         <label class="control-label col-sm-2 align-self-center mb-0" for="password">Password:</label>
                         <div class="col-sm-10">
-                            <input type="password" class="form-control" id="password" name="password" aria-describedby="password">
+                            <div class="input-group mb-3">
+                                <input type="password" class="form-control" id="password" name="password" aria-describedby="password" aria-describedby="password-show">
+                                <div class="input-group-append">
+                                    <button class="btn btn-dark input-group-text" type="button" id="password-show">
+                                      show
+                                    </button>
+                                </div>
+                            </div>
                                 @error('password')
                                     <div class="invalid-message">{{ $message }}</div>
                                 @enderror
@@ -112,7 +121,7 @@
                         </div>
                     </div>
                     <div id="billing_rate_div" class="form-group row  {{old('role')==='Client' || old('role')==='Writer' ? 'd-flex' : 'd-none'}}">
-                        <label class="control-label col-sm-2 align-self-center mb-0" for="billing_rate">Billing Rate : <span data-bs-toggle="tooltip" data-bs-original-title="Shown Only If Role Is Client or Writer"><i class="icon">
+                        <label class="control-label col-sm-2 align-self-center mb-0" for="billing_rate">Billing Rate : <span data-bs-toggle="tooltip" data-bs-original-title="Billing rate should look like 000.00 (no dollar sign)"><i class="icon">
                                      <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='currentColor'><circle cx='6' cy='6' r='4.5'/><path stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/><circle cx='6' cy='8.2' r='.6' fill='currentColor' stroke='none'/></svg>
                                 </i></span></label>
                         <div class="col-sm-10">
@@ -134,6 +143,7 @@
                         </div>
                     </div>
                     <button type="submit" id="submitBtn" class="btn btn-primary">Create User</button>
+                    <a href="{{route('user.paginate.get')}}" class="btn btn-warning" id="submitBtn">Cancel</a>
                 </div>
             </div>
         </form>
@@ -144,6 +154,17 @@
 
 @section('javascript')
 <script type="text/javascript" nonce="{{ csp_nonce() }}">
+
+document.getElementById('password-show').addEventListener("click", function(){
+    const password = document.getElementById('password');
+    if(password.getAttribute("type") == 'password'){
+        password.setAttribute("type", "text") ;
+        document.getElementById('password-show').innerText = "hide"
+    }else{
+        password.setAttribute("type", "password");
+        document.getElementById('password-show').innerText = "show"
+    }
+})
 
 // initialize the validation library
 const validation = new JustValidate('#loginForm', {
@@ -301,7 +322,7 @@ validation
         }
         successToast(response.data.message)
         event.target.reset();
-        setInterval(location.reload(), 1500);
+        setInterval(window.location.replace("{{route('user.paginate.get')}}"), 1500);
     }catch (error){
         if(error?.response?.data?.errors?.name){
             validation.showErrors({'#name': error?.response?.data?.errors?.name[0]})

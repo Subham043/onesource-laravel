@@ -37,7 +37,7 @@
                                     <tr>
                                         <td>
                                             <div class="d-flex align-items-center">
-                                                <a href="#">{{str_replace("storage/documents/","",$item->document)}}</a>
+                                                <a href="#" data-bs-toggle="tooltip" data-bs-original-title="{{str_replace("storage/documents/","",$item->document)}}">{{str()->limit(str_replace("storage/documents/","",$item->document), 30)}}...</a>
                                             </div>
                                         </td>
                                         <td>

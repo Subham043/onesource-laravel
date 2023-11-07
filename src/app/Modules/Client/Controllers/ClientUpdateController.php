@@ -32,7 +32,7 @@ class ClientUpdateController extends Controller
                 $request->validated(),
                 $client
             );
-            return redirect()->intended(route('client.update.get', $client->id))->with('success_status', 'Client updated successfully.');
+            return redirect()->intended(route('client.paginate.get'))->with('success_status', 'Client updated successfully.');
         } catch (\Throwable $th) {
             return redirect()->intended(route('client.update.get', $client->id))->with('error_status', 'Something went wrong. Please try again');
         }

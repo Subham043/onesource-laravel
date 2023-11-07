@@ -32,8 +32,15 @@ class ProfileEditController extends Controller
         try {
             //code...
             $user = $this->authService->authenticated_user();
+            $password_arr = [];
+            if(!empty($request->password)){
+                $password_arr = [ ...$request->safe()->only(['password'])];
+            }
             $this->authService->updateProfile(
-                $request->safe()->only(['name', 'email', 'phone', 'password', 'timezone']),
+                [
+                    ...$request->safe()->only(['name', 'email', 'phone', 'timezone']),
+                    ...$password_arr,
+                ],
                 $user
             );
             if ($request->user()->isDirty('email')) {
