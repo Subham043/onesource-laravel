@@ -24,6 +24,9 @@ return new class extends Migration
             $table->string('recurring_days', 500)->nullable();
             $table->timestamp('recurring_end_date', 0)->nullable();
             $table->text('notes')->nullable();
+            $table->boolean('is_active')->default(1);
+            $table->boolean('is_prep_ready')->default(0);
+            $table->string('fuzion_id', 500)->nullable();
             $table->foreignId('client_id')->nullable()->constrained('clients')->nullOnDelete();
             $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
             $table->timestamps();

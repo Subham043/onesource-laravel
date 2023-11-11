@@ -1,5 +1,10 @@
 @extends('layouts.main')
 
+@section('css')
+<link rel="stylesheet" href="{{ asset('assets/css/filepond.min.css')}}" type="text/css" />
+<link rel="stylesheet" href="{{ asset('assets/css/filepond-plugin-image-preview.min.css')}}" type="text/css" />
+@stop
+
 @section('content')
 <div>
     <div class="col-sm-12 col-lg-12">
@@ -29,7 +34,9 @@
                             </select></div>
                     </div>
                     <div class="form-group row">
-                        <label class="control-label col-sm-2 align-self-center mb-0" for="invRate">Invoice Rate:</label>
+                        <label class="control-label col-sm-2 align-self-center mb-0" for="invRate">Invoice Rate: <span data-bs-toggle="tooltip" data-bs-original-title="Invoice rate should look like 000.00 (no dollar sign)"><i class="icon">
+                            <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='currentColor'><circle cx='6' cy='6' r='4.5'/><path stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/><circle cx='6' cy='8.2' r='.6' fill='currentColor' stroke='none'/></svg>
+                       </i></span></label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="invoice_rate" name="invoice_rate" value="{{$event->invoice_rate}}">
                         </div>
@@ -106,6 +113,30 @@
                             </div>
                         </div>
                     </div>
+                    <div class="form-group row">
+                        <label class="control-label col-sm-2 align-self-center mb-0" for="fuzion_id">1FUZION ID:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="fuzion_id" name="fuzion_id" value="{{$event->fuzion_id}}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="control-label col-sm-2 align-self-center mb-0" for="is_active">Active:</label>
+                        <div class="col-sm-10">
+                            <select class="form-select shadow-none" id="is_active" name="is_active">
+                                <option {{$event->is_active==1 ? 'selected' : ''}} value="1">YES</option>
+                                <option {{$event->is_active==0 ? 'selected' : ''}} value="0">No</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row noborder">
+                        <label class="control-label col-sm-2 align-self-center mb-0" for="is_prep_ready">Is Prep Ready:</label>
+                        <div class="col-sm-10">
+                            <select class="form-select shadow-none" id="is_prep_ready" name="is_prep_ready">
+                                <option  {{$event->is_prep_ready==1 ? 'selected' : ''}} value="1">YES</option>
+                                <option {{$event->is_prep_ready==0 ? 'selected' : ''}} value="0">No</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="card repeater-writer">
@@ -133,8 +164,10 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <label class="control-label col-sm-2 align-self-center mb-0">Billing Rate:</label>
-                            <div class="col-sm-3">
+                            <label class="control-label col-sm-2 align-self-center mb-0">Billing Rate: <span data-bs-toggle="tooltip" data-bs-original-title="Billing rate should look like 000.00 (no dollar sign)"><i class="icon">
+                                <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='currentColor'><circle cx='6' cy='6' r='4.5'/><path stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/><circle cx='6' cy='8.2' r='.6' fill='currentColor' stroke='none'/></svg>
+                           </i></span></label>
+                            <div class="col-sm-3 billing-rate-div">
                                 <input type="text" class="form-control billing-rate-input" name="billing_rate[]" value="{{$v->billing_rate}}">
                             </div>
                             <div class="col-sm-1">
@@ -154,8 +187,10 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <label class="control-label col-sm-2 align-self-center mb-0">Billing Rate:</label>
-                            <div class="col-sm-3">
+                            <label class="control-label col-sm-2 align-self-center mb-0">Billing Rate: <span data-bs-toggle="tooltip" data-bs-original-title="Billing rate should look like 000.00 (no dollar sign)"><i class="icon">
+                                <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='currentColor'><circle cx='6' cy='6' r='4.5'/><path stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/><circle cx='6' cy='8.2' r='.6' fill='currentColor' stroke='none'/></svg>
+                           </i></span></label>
+                            <div class="col-sm-3 billing-rate-div">
                                 <input type="text" class="form-control billing-rate-input" name="billing_rate[]">
                             </div>
                             <div class="col-sm-1">
@@ -165,17 +200,11 @@
                     </div>
                 </div>
             </div>
-            <div class="card repeater-document">
+            <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <div class="header-title">
                         <h4 class="card-title">Documents</h4>
                     </div>
-                    <div class="col-sm-auto">
-                        <button data-repeater-create class="btn btn-primary" type="button">Add Document</button>
-                    </div>
-                </div>
-                <div class="col-sm-12">
-                    <div id="document-error mt-2"></div>
                 </div>
                 <div class="card-body" data-repeater-list="documents">
                     <div class="form-group">
@@ -216,13 +245,9 @@
                         </table>
                     </div>
                     <p class="mt-5"><strong>Add Documents </strong></p>
-                    <div class="form-group row justify-content-between" data-repeater-item>
-                        <div class="col-sm-11">
-                            <input class="form-control document-input" type="file" name="document[]">
-                        </div>
-                        <div class="col-sm-1">
-                            <button data-repeater-delete class="btn btn-danger" type="button">-</button>
-                        </div>
+                    <div id="document-error mt-2"></div>
+                    <div class="col-12">
+                        <input class="form-control filepond" type="file" name="upload" id="upload" multiple data-allow-reorder="true" data-max-file-size="5MB" data-max-files="3">
                     </div>
                 </div>
                 <div class="card-header d-flex justify-content-between">
@@ -246,8 +271,18 @@
 @section('javascript')
 <script src="{{asset('assets/js/plugins/jquery.js')}}"></script>
 <script src="{{asset('assets/js/plugins/jquery.repeater.js')}}"></script>
+<script src="{{ asset('assets/js/plugins/filepond.min.js') }}"></script>
+<script src="{{ asset('assets/js/plugins/filepond-plugin-image-preview.min.js') }}"></script>
+<script src="{{ asset('assets/js/plugins/filepond-plugin-file-validate-size.min.js') }}"></script>
+<script src="{{ asset('assets/js/plugins/filepond-plugin-image-exif-orientation.min.js') }}"></script>
+<script src="{{ asset('assets/js/plugins/filepond-plugin-file-encode.min.js') }}"></script>
 
 <script type="text/javascript" nonce="{{ csp_nonce() }}">
+
+FilePond.registerPlugin(FilePondPluginImagePreview);
+const inputUploadElement = document.querySelector('#upload');
+// Create the FilePond instance
+const pond = FilePond.create(inputUploadElement,{allowMultiple: true});
 
 // initialize the validation library
 const validation = new JustValidate('#loginForm', {
@@ -313,7 +348,7 @@ validation
   ],{
       errorsContainer: '#writer-error',
     })
-  .addField('.document-input', [
+  .addField('#upload', [
     {
         validator: (value, fields) => true
     },
@@ -335,6 +370,11 @@ validation
         validator: (value, fields) => true
     },
   ])
+  .addField('#fuzion_id', [
+    {
+        validator: (value, fields) => true
+    },
+  ])
   .addField('#recurring_type_weekly', [
     {
         validator: (value, fields) => true
@@ -350,6 +390,7 @@ validation
     try {
         var formData = new FormData();
         formData.append('name',document.getElementById('name').value)
+        formData.append('fuzion_id',document.getElementById('fuzion_id').value)
         formData.append('client',document.getElementById('client').value)
         formData.append('invoice_rate',document.getElementById('invoice_rate').value)
         formData.append('start_date',document.getElementById('start_date').value)
@@ -357,6 +398,8 @@ validation
         formData.append('start_time',document.getElementById('start_time').value)
         formData.append('end_time',document.getElementById('end_time').value)
         formData.append('notes',document.getElementById('notes').value)
+        formData.append('is_active',document.getElementById('is_active').value)
+        formData.append('is_prep_ready',document.getElementById('is_prep_ready').value)
         formData.append('is_recurring_event',document.getElementById('is_recurring_event').checked ? 1 : 0)
         if(document.getElementById('is_recurring_event').checked){
             if(document.querySelector('input[name="recurring_type"]:checked')){
@@ -370,16 +413,17 @@ validation
         const writer_input_selector = document.querySelectorAll('.writer-id-input');
         const billing_rate_input_selector = document.querySelectorAll('.billing-rate-input');
         for (let writer_index = 0; writer_index < writer_input_selector.length; writer_index++) {
-            formData.append('writer_ids[]',writer_input_selector[writer_index].value)
+            if(writer_input_selector[writer_index].value.length>0){
+                formData.append('writer_ids[]',writer_input_selector[writer_index].value)
+            }
         }
         for (let billing_index = 0; billing_index < billing_rate_input_selector.length; billing_index++) {
-            formData.append('billing_rates[]',billing_rate_input_selector[billing_index].value)
-        }
-        const document_input_selector = document.querySelectorAll('.document-input');
-        for (let document_index = 0; document_index < document_input_selector.length; document_index++) {
-            if((document_input_selector[document_index].files).length>0){
-                formData.append('documents[]',document_input_selector[document_index].files[0])
+            if(billing_rate_input_selector[billing_index].value.length>0){
+                formData.append('billing_rates[]',billing_rate_input_selector[billing_index].value)
             }
+        }
+        for (let document_index = 0; document_index < pond.getFiles().length; document_index++) {
+            formData.append('documents[]',pond.getFiles()[document_index].file)
         }
 
         const response = await axios.post('{{route('event.update.post', $event->id)}}', formData)
@@ -389,6 +433,9 @@ validation
     }catch (error){
         if(error?.response?.data?.errors?.name){
             validation.showErrors({'#name': error?.response?.data?.errors?.name[0]})
+        }
+        if(error?.response?.data?.errors?.fuzion_id){
+            validation.showErrors({'#fuzion_id': error?.response?.data?.errors?.fuzion_id[0]})
         }
         if(error?.response?.data?.errors?.client){
             validation.showErrors({'#client': error?.response?.data?.errors?.client[0]})
@@ -421,7 +468,7 @@ validation
             validation.showErrors({'#recurring_type_weekly': error?.response?.data?.errors?.recurring_type[0]})
         }
         if(error?.response?.data?.errors?.documents){
-            validation.showErrors({'.document-input': error?.response?.data?.errors?.documents[0]})
+            validation.showErrors({'#upload': error?.response?.data?.errors?.documents[0]})
         }
         if(error?.response?.data?.errors?.writer_ids){
             validation.showErrors({'.writer-id-input': error?.response?.data?.errors?.writer_ids[0]})
@@ -442,53 +489,30 @@ validation
 
 
 (function( $ ) {
+    $('.writer-id-input').on('input', function () {
+        const data = @json($writers);
+        const event = data.filter((item)=>item.id==$(this).val());
+        if(event.length>0){
+            $(this).parent().parent().find('.billing-rate-div .billing-rate-input').val(event[0].member_profile_created_by_auth.billing_rate);
+        }else{
+            $(this).parent().parent().find('.billing-rate-div .billing-rate-input').val('');
+        }
+    });
     $(document).ready(function() {
         $('.repeater-writer').repeater({
             initEmpty:true,
             isFirstItemUndeletable: true,
             show: function () {
                 $(this).slideDown();
-            },
-            hide: function (deleteElement) {
-                iziToast.question({
-                    timeout: 20000,
-                    close: false,
-                    overlay: true,
-                    displayMode: 'once',
-                    id: 'question',
-                    zindex: 999,
-                    title: 'Hey',
-                    message: 'Are you sure about that?',
-                    position: 'center',
-                    buttons: [
-                        ['<button><b>YES</b></button>', function (instance, toast) {
-
-                            instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
-                            $(this).slideUp(deleteElement);
-
-                        }, true],
-                        ['<button>NO</button>', function (instance, toast) {
-
-                            instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
-
-                        }],
-                    ],
-                    onClosing: function(instance, toast, closedBy){
-                        console.info('Closing | closedBy: ' + closedBy);
-                    },
-                    onClosed: function(instance, toast, closedBy){
-                        console.info('Closed | closedBy: ' + closedBy);
+                $('.writer-id-input').on('input', function () {
+                    const data = @json($writers);
+                    const event = data.filter((item)=>item.id==$(this).val());
+                    if(event.length>0){
+                        $(this).parent().parent().find('.billing-rate-div .billing-rate-input').val(event[0].member_profile_created_by_auth.billing_rate);
+                    }else{
+                        $(this).parent().parent().find('.billing-rate-div .billing-rate-input').val('');
                     }
                 });
-            },
-            ready: function (setIndexes) {
-            }
-        });
-        $('.repeater-document').repeater({
-            initEmpty:false,
-            isFirstItemUndeletable: true,
-            show: function () {
-                $(this).slideDown();
             },
             hide: function (deleteElement) {
                 iziToast.question({

@@ -32,7 +32,7 @@ class EventUpdateRequest extends FormRequest
         return [
             'name' => 'required|string|max:500',
             'invoice_rate' => 'required|numeric|gte:0',
-            'start_date' => ['required', 'date', 'after_or_equal:today'],
+            'start_date' => ['required', 'date'],
             'end_date' => ['required', 'date', 'after_or_equal:start_date'],
             'start_time' => ['required', 'string'],
             'end_time' => ['required', 'string', function ($attribute, $value, $fail) {
@@ -40,6 +40,9 @@ class EventUpdateRequest extends FormRequest
                     $fail('The '.$attribute.' cannot be same as start time.');
                 }
             }],
+            'is_active' => 'required|boolean',
+            'is_prep_ready' => 'required|boolean',
+            'fuzion_id' => 'nullable|string|max:500',
             'is_recurring_event' => 'required|boolean',
             'recurring_type' => ['nullable', 'required_if:is_recurring_event,1', new Enum(RecurringType::class)],
             'recurring_days' => ['nullable', Rule::requiredIf($this->is_recurring_event==1 && $this->recurring_type=='Every'),'numeric','gte:0'],
@@ -50,13 +53,13 @@ class EventUpdateRequest extends FormRequest
                 'exists:clients,id',
             ],
             'notes' => 'nullable|string',
-            'writer_ids' => ['required', 'array', 'min:1'],
+            'writer_ids' => ['nullable', 'array', 'min:1'],
             'writer_ids.*' => [
                 'required',
                 'numeric',
                 'exists:users,id',
             ],
-            'billing_rates' => ['required', 'array', 'min:1'],
+            'billing_rates' => ['nullable', 'array', 'min:1'],
             'billing_rates.*' => [
                 'required',
                 'numeric',

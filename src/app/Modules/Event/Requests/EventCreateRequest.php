@@ -40,6 +40,9 @@ class EventCreateRequest extends FormRequest
                     $fail('The '.$attribute.' cannot be same as start time.');
                 }
             }],
+            'is_active' => 'required|boolean',
+            'is_prep_ready' => 'required|boolean',
+            'fuzion_id' => 'nullable|string|max:500',
             'is_recurring_event' => 'required|boolean',
             'recurring_type' => ['nullable', 'required_if:is_recurring_event,1', new Enum(RecurringType::class)],
             'recurring_days' => ['nullable', Rule::requiredIf($this->is_recurring_event==1 && $this->recurring_type=='Every'),'numeric','gte:0'],
@@ -50,19 +53,19 @@ class EventCreateRequest extends FormRequest
                 'exists:clients,id',
             ],
             'notes' => 'nullable|string',
-            'writer_ids' => ['required', 'array', 'min:1'],
+            'writer_ids' => ['nullable', 'array', 'min:1'],
             'writer_ids.*' => [
                 'required',
                 'numeric',
                 'exists:users,id',
             ],
-            'billing_rates' => ['required', 'array', 'min:1'],
+            'billing_rates' => ['nullable', 'array', 'min:1'],
             'billing_rates.*' => [
                 'required',
                 'numeric',
                 'gte:0',
             ],
-            'documents' => ['required', 'array', 'min:1'],
+            'documents' => ['nullable', 'array', 'min:1'],
             'documents.*' => 'required|mimes:pdf,doc,docx,dot,xls,xlsx,ppt,pptx,pps,jpg,jpeg,png,webp|max:5000',
         ];
     }

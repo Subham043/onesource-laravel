@@ -48,10 +48,10 @@ class ProfilePostRequest extends FormRequest
                         ->mixedCase()
                         ->numbers()
                         ->symbols()
-                        ->uncompromised()
             ],
             'confirm_password' => 'nullable|string|min:6|required_with:password|same:password',
             'timezone' => ['required', new Enum(Timezone::class)],
+            'image' => 'nullable|image|max:5000'
         ];
     }
 

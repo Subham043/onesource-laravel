@@ -6,6 +6,7 @@ use App\Http\Services\FileService;
 use App\Modules\Event\Models\Event;
 use App\Modules\Event\Models\EventDocument;
 use App\Modules\Document\Requests\DocumentCreateRequest;
+use App\Modules\Document\Requests\DocumentDeleteRequest;
 use Illuminate\Database\Eloquent\Collection;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\Filters\Filter;
@@ -42,7 +43,8 @@ class DocumentService
         if($request->file('documents')){
             foreach ($request->file('documents') as $documentfile) {
                 if($documentfile->isValid()){
-                    $file = $documentfile->hashName();
+                    $event = Event::findOrFail($request->event);
+                    $file = str()->snake($event->name).'_EVD'.$event->id.'_'.$documentfile->hashName();
                     $documentfile->storeAs((new EventDocument)->document_path,$file);
                     EventDocument::create([
                         'document' => $file,
@@ -52,6 +54,11 @@ class DocumentService
                 }
             }
         }
+    }
+
+    public function docDelete(DocumentDeleteRequest $request): void
+    {
+        EventDocument::filterByRoles()->whereIn('id', $request->document)->delete();
     }
 
     public function delete(EventDocument $eventDocument): bool|null

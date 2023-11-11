@@ -28,7 +28,10 @@ class Event extends Model
         'end_date',
         'start_time',
         'end_time',
+        'fuzion_id',
         'is_recurring_event',
+        'is_active',
+        'is_prep_ready',
         'recurring_type',
         'recurring_days',
         'recurring_end_date',
@@ -46,6 +49,8 @@ class Event extends Model
         'end_time' => 'datetime',
         'recurring_end_date' => 'datetime',
         'is_recurring_event' => 'boolean',
+        'is_active' => 'boolean',
+        'is_prep_ready' => 'boolean',
         'recurring_type' => RecurringType::class,
     ];
 

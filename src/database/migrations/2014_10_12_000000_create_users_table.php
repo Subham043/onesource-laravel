@@ -23,6 +23,7 @@ return new class extends Migration
             $table->text('answer_2')->nullable();
             $table->text('question_3')->nullable();
             $table->text('answer_3')->nullable();
+            $table->text('image')->nullable();
             $table->boolean('is_blocked')->default(0);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

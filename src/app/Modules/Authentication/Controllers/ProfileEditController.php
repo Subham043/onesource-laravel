@@ -4,6 +4,7 @@ namespace App\Modules\Authentication\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Services\RateLimitService;
+use App\Modules\Authentication\Models\User;
 use App\Modules\Authentication\Requests\ProfilePostRequest;
 use App\Modules\Authentication\Services\AuthService;
 use App\Modules\User\Services\UserService;
@@ -36,13 +37,19 @@ class ProfileEditController extends Controller
             if(!empty($request->password)){
                 $password_arr = [ ...$request->safe()->only(['password'])];
             }
-            $this->authService->updateProfile(
+            $data = $this->authService->updateProfile(
                 [
                     ...$request->safe()->only(['name', 'email', 'phone', 'timezone']),
                     ...$password_arr,
                 ],
                 $user
             );
+            if($request->file('image') && $request->file('image')->isValid()){
+                $file = $request->file('image')->hashName();
+                $request->file('image')->storeAs((new User)->image_path,$file);
+                $data->image = $file;
+                $data->save();
+            }
             if ($request->user()->isDirty('email')) {
                 $request->user()->email_verified_at = null;
                 $request->user()->sendEmailVerificationNotification();

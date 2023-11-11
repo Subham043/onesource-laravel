@@ -54,7 +54,7 @@
                             {{$event->end_time ? $event->end_time->format('h:i a') : ''}}
                         </div>
                     </div>
-                    <div class="form-group row noborder">
+                    <div class="form-group row">
                         <label class="control-label col-sm-2 align-self-center mb-0" for="recurringEvent">Recurring Event:</label>
                         <div class="col-sm-10">
                             @if(!$event->is_recurring_event)
@@ -64,6 +64,44 @@
                                 Recurrs  {{$event->recurring_type}} @if($event->recurring_type->value=='Every') {{$event->recurring_days}} Days,@else, @endif<br />
                                 End Day: {{$event->recurring_end_date ? $event->recurring_end_date->format('M d Y') : ''}}
                             @endif
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="control-label col-sm-2 align-self-center mb-0" for="eventName">Fuzion ID:</label>
+                        <div class="col-sm-10">
+                            {{$event->fuzion_id}}
+                        </div>
+                    </div>
+                    <div class="form-group row noborder">
+                        <label class="control-label col-sm-2 align-self-center mb-0" for="endtDate">Cancelled:</label>
+                        <div class="col-sm-3">
+                            <a href="#" class="remove-item-btn" data-link="{{route('event.status.get', $event->id)}}" data-bs-toggle="tooltip" data-bs-original-title="Cancelled">
+                                @if(!$event->is_active)
+                                <svg width="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9.38574 11.8746L11.2777 13.7696L15.1757 9.86963" stroke="#1aa053" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                </svg>
+                                @else
+                                <svg width="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M14.3955 9.59497L9.60352 14.387" stroke="#FF0000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    <path d="M14.3971 14.3898L9.60107 9.59277" stroke="#FF0000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                </svg>
+                                @endif
+                            </a>
+                        </div>
+                        <label class="control-label col-sm-2 align-self-center mb-0" for="endTime">Prep:</label>
+                        <div class="col-sm-3">
+                            <a href="#" class="remove-item-btn" data-link="{{route('event.prep.get', $event->id)}}" data-bs-toggle="tooltip" data-bs-original-title="Prep">
+                                @if($event->is_prep_ready)
+                                <svg width="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9.38574 11.8746L11.2777 13.7696L15.1757 9.86963" stroke="#1aa053" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                </svg>
+                                @else
+                                <svg width="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M14.3955 9.59497L9.60352 14.387" stroke="#FF0000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    <path d="M14.3971 14.3898L9.60107 9.59277" stroke="#FF0000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                </svg>
+                                @endif
+                            </a>
                         </div>
                     </div>
                 </div>

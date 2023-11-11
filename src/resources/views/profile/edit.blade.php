@@ -3,7 +3,7 @@
 @section('content')
     <div>
         <div class="col-sm-12 col-lg-12">
-            <form id="profileForm" method="POST" action="{{route('profile.edit.post')}}" class="form-horizontal">
+            <form id="profileForm" method="POST" action="{{route('profile.edit.post')}}" class="form-horizontal" enctype="multipart/form-data">
                 @csrf
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
@@ -100,6 +100,15 @@
 
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label class="control-label col-sm-2 align-self-center mb-0" for="image">Image:</label>
+                            <div class="col-sm-10">
+                                <input type="file" class="form-control" id="image" name="image" aria-describedby="image">
+                                    @error('image')
+                                        <div class="invalid-message">{{ $message }}</div>
+                                    @enderror
+                            </div>
+                        </div>
                         <button type="submit" class="btn btn-primary">Save</button>
                     </div>
                 </div>
@@ -170,6 +179,11 @@ validation
     },
   ])
   .addField('#confirm_password', [
+    {
+        validator: (value, fields) => true
+    },
+  ])
+  .addField('#image', [
     {
         validator: (value, fields) => true
     },

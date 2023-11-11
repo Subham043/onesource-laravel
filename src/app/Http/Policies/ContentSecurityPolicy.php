@@ -38,6 +38,7 @@ class ContentSecurityPolicy extends Basic
         $this
         //start of
         ->addDirective(Directive::IMG, 'data:')
+        ->addDirective(Directive::IMG, 'blob:')
         ->addDirective(Directive::FONT, 'data:') //remove as this and above belongs for development template of welcome page
 
         //start of common

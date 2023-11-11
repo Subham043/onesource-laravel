@@ -42,7 +42,6 @@ class RegisterPostRequest extends FormRequest
                         ->mixedCase()
                         ->numbers()
                         ->symbols()
-                        ->uncompromised()
             ],
             'confirm_password' => ['required_with:password','same:password'],
             'timezone' => ['required', new Enum(Timezone::class)],

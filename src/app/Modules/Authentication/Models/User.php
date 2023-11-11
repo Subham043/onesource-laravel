@@ -42,6 +42,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'question_3',
         'answer_3',
         'is_blocked',
+        'image'
     ];
 
     /**
@@ -56,7 +57,10 @@ class User extends Authenticatable implements MustVerifyEmail
 
     protected $append = [
         'current_role',
+        'image_link'
     ];
+
+    public $image_path = 'users';
 
     /**
      * The attributes that should be cast.
@@ -95,6 +99,20 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return Attribute::make(
             set: fn (string $value) => Hash::make($value),
+        );
+    }
+
+    protected function image(): Attribute
+    {
+        return Attribute::make(
+            set: fn (string $value) => 'storage/'.$this->image_path.'/'.$value,
+        );
+    }
+
+    protected function imageLink(): Attribute
+    {
+        return new Attribute(
+            get: fn () => $this->image ? asset($this->image) : asset('avatar.png'),
         );
     }
 

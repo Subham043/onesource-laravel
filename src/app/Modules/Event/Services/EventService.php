@@ -7,6 +7,7 @@ use App\Modules\Event\Models\Event;
 use App\Modules\Event\Models\EventDocument;
 use App\Modules\Event\Models\EventWriter;
 use App\Modules\Event\Requests\EventCreateRequest;
+use App\Modules\Event\Requests\EventCancelUpdateRequest;
 use App\Modules\Event\Requests\EventUpdateRequest;
 use Illuminate\Database\Eloquent\Collection;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -109,19 +110,31 @@ class EventService
                     'recurring_days',
                     'recurring_end_date',
                     'notes',
+                    'fuzion_id',
+                    'is_prep_ready',
+                    'is_active',
                 ]),
                 'client_id' => $request->client,
                 'created_by' => auth()->user()->current_role=='Staff-Admin' ? auth()->user()->member_profile_created_by_auth->created_by : auth()->user()->id,
             ]
         );
-        foreach ($request->writer_ids as $key=>$value) {
-            $event->writers()->save(new EventWriter([
-                'writer_id' => $value,
-                'billing_rate' => $request->billing_rates[$key],
-            ]));
+        if($request->writer_ids && $request->billing_rates){
+            foreach ($request->writer_ids as $key=>$value) {
+                if(!empty($value) && !empty($request->billing_rates[$key])){
+                    $event->writers()->save(new EventWriter([
+                        'writer_id' => $value,
+                        'billing_rate' => $request->billing_rates[$key],
+                    ]));
+                }
+            }
         }
         $this->saveDocument($request, $event->id);
         return $event;
+    }
+
+    public function prepUpdate(EventCancelUpdateRequest $request): void
+    {
+        Event::filterByRoles()->whereIn('id', $request->event)->update(['is_active' => false]);
     }
 
     public function update(EventUpdateRequest $request, Event $event): Event
@@ -140,16 +153,23 @@ class EventService
                     'recurring_days',
                     'recurring_end_date',
                     'notes',
+                    'fuzion_id',
+                    'is_prep_ready',
+                    'is_active',
                 ]),
                 'client_id' => $request->client,
             ]
         );
-        $event->writers()->delete();
-        foreach ($request->writer_ids as $key=>$value) {
-            $event->writers()->save(new EventWriter([
-                'writer_id' => $value,
-                'billing_rate' => $request->billing_rates[$key],
-            ]));
+        if($request->writer_ids && $request->billing_rates){
+            $event->writers()->delete();
+            foreach ($request->writer_ids as $key=>$value) {
+                if(!empty($value) && !empty($request->billing_rates[$key])){
+                    $event->writers()->save(new EventWriter([
+                        'writer_id' => $value,
+                        'billing_rate' => $request->billing_rates[$key],
+                    ]));
+                }
+            }
         }
         $this->saveDocument($request, $event->id);
         return $event;
@@ -170,7 +190,7 @@ class EventService
         if($request->file('documents')){
             foreach ($request->file('documents') as $documentfile) {
                 if($documentfile->isValid()){
-                    $file = $documentfile->hashName();
+                    $file = str()->snake($request->name).'_EVD'.$event_id.'_'.$documentfile->hashName();
                     $documentfile->storeAs((new EventDocument)->document_path,$file);
                     EventDocument::create([
                         'document' => $file,

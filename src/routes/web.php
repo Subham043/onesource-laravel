@@ -22,9 +22,13 @@ use App\Modules\Customer\Controllers\CustomerViewController;
 use App\Modules\Dashboard\Controllers\DashboardController;
 use App\Modules\Document\Controllers\DocumentCreateController;
 use App\Modules\Document\Controllers\DocumentDeleteController;
+use App\Modules\Document\Controllers\DocumentDeleteMultipleController;
 use App\Modules\Document\Controllers\DocumentPaginateController;
 use App\Modules\Event\Controllers\EventCreateController;
 use App\Modules\Event\Controllers\EventPaginateController;
+use App\Modules\Event\Controllers\EventCancelUpdateController;
+use App\Modules\Event\Controllers\EventSingleCancelController;
+use App\Modules\Event\Controllers\EventSinglePrepController;
 use App\Modules\Event\Controllers\EventUpdateController;
 use App\Modules\Event\Controllers\EventViewController;
 use App\Modules\Event\Controllers\EventWriterDeleteController;
@@ -138,6 +142,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/view/{id}', [EventViewController::class, 'get', 'as' => 'event.view.get'])->name('event.view.get');
         Route::get('/delete/{id}', [EventDeleteController::class, 'get', 'as' => 'event.delete.get'])->name('event.delete.get');
         Route::get('/delete-writer/{id}', [EventWriterDeleteController::class, 'get', 'as' => 'event.delete_writer.get'])->name('event.delete_writer.get');
+        Route::get('/status/{id}', [EventSingleCancelController::class, 'get', 'as' => 'event.status.get'])->name('event.status.get');
+        Route::get('/prep/{id}', [EventSinglePrepController::class, 'get', 'as' => 'event.prep.get'])->name('event.prep.get');
+        Route::post('/status-update', [EventCancelUpdateController::class, 'post', 'as' => 'event.status.post'])->name('event.status.post');
     });
 
     Route::prefix('/document')->group(function () {
@@ -145,6 +152,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/create', [DocumentCreateController::class, 'get', 'as' => 'document.create.get'])->name('document.create.get');
         Route::post('/create', [DocumentCreateController::class, 'post', 'as' => 'document.create.get'])->name('document.create.post');
         Route::get('/delete/{id}', [DocumentDeleteController::class, 'get', 'as' => 'document.delete.get'])->name('document.delete.get');
+        Route::post('/delete-multiple', [DocumentDeleteMultipleController::class, 'post', 'as' => 'document.delete.post'])->name('document.delete.post');
     });
 
     Route::prefix('/calendar')->group(function () {

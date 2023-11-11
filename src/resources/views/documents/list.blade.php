@@ -11,6 +11,9 @@
                             <h4 class="mb-2 card-title">Documents</h4>
                         </div>
                         <div>
+                            @can('delete documents')
+                            <button id="delete_documents" class="btn btn-primary d-none">Delete Documents</button>
+                            @endcan
                             @can('add documents')
                             <a href="{{route('document.create.get')}}" class="btn btn-primary">Add Document</a>
                             @endcan
@@ -22,6 +25,9 @@
                             <table id="basic-table" class="table mb-0 table-striped" role="grid">
                                 <thead>
                                     <tr>
+                                        <th style="max-width: 10px;">
+                                            <input type="checkbox" class="form-check-input" id="checkAll"  data-bs-toggle="tooltip" data-bs-original-title="Select All">
+                                        </th>
                                         <th>Document Name</th>
                                         <th>Event ID</th>
                                         <th>Client</th>
@@ -35,6 +41,13 @@
                                 <tbody>
                                     @foreach ($data->items() as $item)
                                     <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                @if((auth()->user()->current_role=='Admin' || auth()->user()->current_role=='Staff-Admin') || (auth()->user()->current_role=='Writer') && $item->created_by==auth()->user()->id)
+                                                    <input type="checkbox" class="form-check-input document-checkbox" value="{{$item->id}}" data-bs-toggle="tooltip" data-bs-original-title="Select {{str_replace("storage/documents/","",$item->document)}}">
+                                                @endif
+                                            </div>
+                                        </td>
                                         <td>
                                             <div class="d-flex align-items-center">
                                                 <a href="#" data-bs-toggle="tooltip" data-bs-original-title="{{str_replace("storage/documents/","",$item->document)}}">{{str()->limit(str_replace("storage/documents/","",$item->document), 30)}}...</a>
@@ -92,4 +105,128 @@
         </div>
     </div>
 </div>
+@stop
+
+@section('javascript')
+
+<script type="text/javascript" nonce="{{ csp_nonce() }}">
+    let document_arr = []
+    const checkAll = document.getElementById('checkAll');
+    checkAll.addEventListener('input', function(){
+        const document_checkbox = document.querySelectorAll('.document-checkbox');
+        if(checkAll.checked){
+            for (let index = 0; index < document_checkbox.length; index++) {
+                if(document_checkbox[index].value.length>0){
+                    document_checkbox[index].checked = true
+                    if(!document_arr.includes(document_checkbox[index].value)){
+                        document_arr.push(document_checkbox[index].value);
+                    }
+                }
+            }
+        }else{
+            for (let index = 0; index < document_checkbox.length; index++) {
+                if(document_checkbox[index].value.length>0){
+                    document_checkbox[index].checked = false
+                    document_arr= [];
+                }
+            }
+        }
+        toggleCancelBtn()
+    })
+
+
+    document.querySelectorAll('.document-checkbox').forEach(el => {
+        el.addEventListener('input', function(event){
+            toggleSingleCancelBtn(event)
+        })
+    });
+
+    const toggleCancelBtn = () => {
+        document.querySelectorAll('.document-checkbox').forEach(el => {
+            if(el.checked && document_arr.length>0){
+                document.getElementById('delete_documents').classList.add('d-inline-block')
+                document.getElementById('delete_documents').classList.remove('d-none')
+            }else{
+                document.getElementById('delete_documents').classList.add('d-none')
+                document.getElementById('delete_documents').classList.remove('d-inline-block')
+            }
+        })
+    }
+
+    const toggleSingleCancelBtn = (event) => {
+        if(!event.target.checked){
+            document_arr = document_arr.filter(function(item) {
+                return item !== event.target.value
+            })
+        }else{
+            if(!document_arr.includes(event.target.value)){
+                document_arr.push(event.target.value)
+            }
+        }
+        if(!event.target.checked && document_arr.length<1){
+            document.getElementById('delete_documents').classList.add('d-none')
+            document.getElementById('delete_documents').classList.remove('d-inline-block')
+        }else{
+            document.getElementById('delete_documents').classList.add('d-inline-block')
+            document.getElementById('delete_documents').classList.remove('d-none')
+        }
+    }
+
+
+    document.getElementById('delete_documents').addEventListener('click', function(){
+        delete_documents_handler()
+    })
+
+    const delete_documents_handler = () => {
+        iziToast.question({
+            timeout: 20000,
+            close: false,
+            overlay: true,
+            displayMode: 'once',
+            id: 'question',
+            zindex: 999,
+            title: 'Hey',
+            message: 'Are you sure about that?',
+            position: 'center',
+            buttons: [
+                ['<button><b>YES</b></button>', async function (instance, toast) {
+
+                    instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+                    var submitBtn = document.getElementById('delete_documents');
+                    submitBtn.innerHTML = spinner
+                    submitBtn.disabled = true;
+                    try {
+
+                        const response = await axios.post('{{route('document.delete.post')}}', {document: document_arr})
+                        successToast(response.data.message)
+                        setInterval(window.location.replace("{{route('document.paginate.get')}}"), 1500);
+                    }catch (error){
+                        if(error?.response?.data?.message){
+                            errorToast(error?.response?.data?.message)
+                        }
+                    }finally{
+                        submitBtn.innerHTML =  `
+                            Cancel Event
+                            `
+                        submitBtn.disabled = false;
+                    }
+
+                }, true],
+                ['<button>NO</button>', function (instance, toast) {
+
+                    instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+
+                }],
+            ],
+            onClosing: function(instance, toast, closedBy){
+                console.info('Closing | closedBy: ' + closedBy);
+            },
+            onClosed: function(instance, toast, closedBy){
+                console.info('Closed | closedBy: ' + closedBy);
+            }
+        });
+    }
+
+
+</script>
 @stop
