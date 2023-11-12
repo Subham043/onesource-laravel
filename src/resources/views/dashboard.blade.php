@@ -149,7 +149,7 @@
                                         </tbody>
                                     </table>
                                     <div class="card-header">
-                                        {{$data->onEachSide(5)->links()}}
+                                        {{$events->onEachSide(5)->links()}}
                                     </div>
                                 </div>
                             @else
