@@ -69,9 +69,7 @@ class EventService
                         $qr->whereDate('start_date', '>=', $value);
                     }),
                     AllowedFilter::callback('has_end_date', function (Builder $qr, $value) {
-                        $qr->where('is_recurring_event', false)->whereDate('end_date', '<=', $value)->orWhere(function($qry) use($value){
-                            $qry->where('is_recurring_event', true)->whereDate('recurring_end_date', '<=', $value);
-                        });
+                        $qr->whereDate('end_date', '<=', $value);
                     }),
                 ])
                 ->paginate($total)

@@ -15,7 +15,7 @@ class CalendarViewController extends Controller
         $this->eventService = $eventService;
     }
     public function get(){
-        $current_month_events = $this->eventService->all(true);
+        $current_month_events = $this->eventService->all(false);
         return view('calendar.view')->with([
             'page_name' => 'Calendar',
             'current_month_events' => $current_month_events

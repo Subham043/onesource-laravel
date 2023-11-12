@@ -66,9 +66,6 @@
                         <div class="col-sm-10">
                             <input class="form-check-input" type="checkbox" value="1" id="is_recurring_event" name="is_recurring_event" {{$event->is_recurring_event ? 'checked' : ''}}>
                         </div>
-                        <div class="col-sm-12">
-                            <div id="recurring-error"></div>
-                        </div>
                     </div>
                     <div class="form-group row">
                         <label class="control-label col-sm-2 align-self-center mb-0" for="">Recurring Type:</label>
@@ -76,7 +73,7 @@
                             <div id="recurring-error"></div>
                             <div class="form-group row align-items-center">
                                 <div class="col-lg-2 col-md-3 col-sm-12">
-                                    <input class="form-check-input" type="radio" value="Daily" id="recurring_type_daily" name="recurring_type" {{!empty($event->recurring_type) && $event->recurring_type->value=='Weekly' ? 'checked' : ''}}>
+                                    <input class="form-check-input" type="radio" value="Daily" id="recurring_type_daily" name="recurring_type" {{!empty($event->recurring_type) && $event->recurring_type->value=='Daily' ? 'checked' : ''}}>
                                     <label class="form-check-label" for="recurring_type_daily">
                                         Daily :
                                     </label>
@@ -181,19 +178,19 @@
                                             <div class="d-flex align-items-center gap-2">
                                                 <span class="col-auto">The</span>
                                                 <select class="form-select shadow-none" style="width: 170px" name="recurring_monthly_second_type" id="recurring_monthly_second_type">
-                                                    <option value="First" {{!empty($event->recurring_monthly_second_type) && $event->recurring_monthly_second_type->value=='First' ? 'seleted' : ''}}>First</option>
-                                                    <option value="Second" {{!empty($event->recurring_monthly_second_type) && $event->recurring_monthly_second_type->value=='Second' ? 'seleted' : ''}}>Second</option>
-                                                    <option value="Third" {{!empty($event->recurring_monthly_second_type) && $event->recurring_monthly_second_type->value=='Third' ? 'seleted' : ''}}>Third</option>
-                                                    <option value="Fourth" {{!empty($event->recurring_monthly_second_type) && $event->recurring_monthly_second_type->value=='Fourth' ? 'seleted' : ''}}>Fourth</option>
+                                                    <option value="First" {{!empty($event->recurring_monthly_second_type) && $event->recurring_monthly_second_type->value=='First' ? 'selected' : ''}}>First</option>
+                                                    <option value="Second" {{!empty($event->recurring_monthly_second_type) && $event->recurring_monthly_second_type->value=='Second' ? 'selected' : ''}}>Second</option>
+                                                    <option value="Third" {{!empty($event->recurring_monthly_second_type) && $event->recurring_monthly_second_type->value=='Third' ? 'selected' : ''}}>Third</option>
+                                                    <option value="Fourth" {{!empty($event->recurring_monthly_second_type) && $event->recurring_monthly_second_type->value=='Fourth' ? 'selected' : ''}}>Fourth</option>
                                                 </select>
                                                 <select class="form-select shadow-none" style="width: 170px" name="recurring_monthly_second_days" id="recurring_monthly_second_days">
-                                                    <option value="Sunday" {{!empty($event->recurring_monthly_second_days) && $event->recurring_monthly_second_days->value=='Sunday' ? 'seleted' : ''}}>Sunday</option>
-                                                    <option value="Monday" {{!empty($event->recurring_monthly_second_days) && $event->recurring_monthly_second_days->value=='Monday' ? 'seleted' : ''}}>Monday</option>
-                                                    <option value="Tuesday" {{!empty($event->recurring_monthly_second_days) && $event->recurring_monthly_second_days->value=='Tuesday' ? 'seleted' : ''}}>Tuesday</option>
-                                                    <option value="Wednesday" {{!empty($event->recurring_monthly_second_days) && $event->recurring_monthly_second_days->value=='Wednesday' ? 'seleted' : ''}}>Wednesday</option>
-                                                    <option value="Thursday" {{!empty($event->recurring_monthly_second_days) && $event->recurring_monthly_second_days->value=='Thursday' ? 'seleted' : ''}}>Thursday</option>
-                                                    <option value="Friday" {{!empty($event->recurring_monthly_second_days) && $event->recurring_monthly_second_days->value=='Friday' ? 'seleted' : ''}}>Friday</option>
-                                                    <option value="Saturday" {{!empty($event->recurring_monthly_second_days) && $event->recurring_monthly_second_days->value=='Saturday' ? 'seleted' : ''}}>Saturday</option>
+                                                    <option value="Sunday" {{!empty($event->recurring_monthly_second_days) && $event->recurring_monthly_second_days->value=='Sunday' ? 'selected' : ''}}>Sunday</option>
+                                                    <option value="Monday" {{!empty($event->recurring_monthly_second_days) && $event->recurring_monthly_second_days->value=='Monday' ? 'selected' : ''}}>Monday</option>
+                                                    <option value="Tuesday" {{!empty($event->recurring_monthly_second_days) && $event->recurring_monthly_second_days->value=='Tuesday' ? 'selected' : ''}}>Tuesday</option>
+                                                    <option value="Wednesday" {{!empty($event->recurring_monthly_second_days) && $event->recurring_monthly_second_days->value=='Wednesday' ? 'selected' : ''}}>Wednesday</option>
+                                                    <option value="Thursday" {{!empty($event->recurring_monthly_second_days) && $event->recurring_monthly_second_days->value=='Thursday' ? 'selected' : ''}}>Thursday</option>
+                                                    <option value="Friday" {{!empty($event->recurring_monthly_second_days) && $event->recurring_monthly_second_days->value=='Friday' ? 'selected' : ''}}>Friday</option>
+                                                    <option value="Saturday" {{!empty($event->recurring_monthly_second_days) && $event->recurring_monthly_second_days->value=='Saturday' ? 'selected' : ''}}>Saturday</option>
                                                 </select>
                                                 <span class="col-auto">of every</span>
                                                 <input type="text" class="form-control col-auto" style="width: 70px" id="recurring_monthly_second_months" name="recurring_monthly_second_months" value="{{$event->recurring_monthly_second_months}}">
@@ -216,18 +213,18 @@
                                             <div class="d-flex align-items-center gap-2">
                                                 <span class="col-auto">Every</span>
                                                 <select class="form-select shadow-none" style="width: 170px" name="recurring_yearly_months" id="recurring_yearly_months">
-                                                    <option value="1" {{!empty($event->recurring_yearly_months) && $event->recurring_yearly_months->value==1 ? 'seleted' : ''}}>January</option>
-                                                    <option value="2" {{!empty($event->recurring_yearly_months) && $event->recurring_yearly_months->value==2 ? 'seleted' : ''}}>February</option>
-                                                    <option value="3" {{!empty($event->recurring_yearly_months) && $event->recurring_yearly_months->value==3 ? 'seleted' : ''}}>March</option>
-                                                    <option value="4" {{!empty($event->recurring_yearly_months) && $event->recurring_yearly_months->value==4 ? 'seleted' : ''}}>April</option>
-                                                    <option value="5" {{!empty($event->recurring_yearly_months) && $event->recurring_yearly_months->value==5 ? 'seleted' : ''}}>May</option>
-                                                    <option value="6" {{!empty($event->recurring_yearly_months) && $event->recurring_yearly_months->value==6 ? 'seleted' : ''}}>June</option>
-                                                    <option value="7" {{!empty($event->recurring_yearly_months) && $event->recurring_yearly_months->value==7 ? 'seleted' : ''}}>July</option>
-                                                    <option value="8" {{!empty($event->recurring_yearly_months) && $event->recurring_yearly_months->value==8 ? 'seleted' : ''}}>August</option>
-                                                    <option value="9" {{!empty($event->recurring_yearly_months) && $event->recurring_yearly_months->value==9 ? 'seleted' : ''}}>September</option>
-                                                    <option value="10" {{!empty($event->recurring_yearly_months) && $event->recurring_yearly_months->value==0 ? 'seleted' : ''}}>October</option>
-                                                    <option value="11" {{!empty($event->recurring_yearly_months) && $event->recurring_yearly_months->value==11 ? 'seleted' : ''}}>November</option>
-                                                    <option value="12" {{!empty($event->recurring_yearly_months) && $event->recurring_yearly_months->value==12 ? 'seleted' : ''}}>December</option>
+                                                    <option value="1" {{!empty($event->recurring_yearly_months) && $event->recurring_yearly_months->value==1 ? 'selected' : ''}}>January</option>
+                                                    <option value="2" {{!empty($event->recurring_yearly_months) && $event->recurring_yearly_months->value==2 ? 'selected' : ''}}>February</option>
+                                                    <option value="3" {{!empty($event->recurring_yearly_months) && $event->recurring_yearly_months->value==3 ? 'selected' : ''}}>March</option>
+                                                    <option value="4" {{!empty($event->recurring_yearly_months) && $event->recurring_yearly_months->value==4 ? 'selected' : ''}}>April</option>
+                                                    <option value="5" {{!empty($event->recurring_yearly_months) && $event->recurring_yearly_months->value==5 ? 'selected' : ''}}>May</option>
+                                                    <option value="6" {{!empty($event->recurring_yearly_months) && $event->recurring_yearly_months->value==6 ? 'selected' : ''}}>June</option>
+                                                    <option value="7" {{!empty($event->recurring_yearly_months) && $event->recurring_yearly_months->value==7 ? 'selected' : ''}}>July</option>
+                                                    <option value="8" {{!empty($event->recurring_yearly_months) && $event->recurring_yearly_months->value==8 ? 'selected' : ''}}>August</option>
+                                                    <option value="9" {{!empty($event->recurring_yearly_months) && $event->recurring_yearly_months->value==9 ? 'selected' : ''}}>September</option>
+                                                    <option value="10" {{!empty($event->recurring_yearly_months) && $event->recurring_yearly_months->value==10 ? 'selected' : ''}}>October</option>
+                                                    <option value="11" {{!empty($event->recurring_yearly_months) && $event->recurring_yearly_months->value==11 ? 'selected' : ''}}>November</option>
+                                                    <option value="12" {{!empty($event->recurring_yearly_months) && $event->recurring_yearly_months->value==12 ? 'selected' : ''}}>December</option>
                                                 </select>
                                                 <input type="text" class="form-control col-auto" style="width: 70px" id="recurring_yearly_days" name="recurring_yearly_days" value="{{$event->recurring_yearly_days}}">
                                             </div>
