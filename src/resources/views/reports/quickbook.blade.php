@@ -126,6 +126,9 @@
                                     </tbody>
                                     @endif
                                 </table>
+                                <div class="card-header">
+                                    {{$data->onEachSide(5)->links()}}
+                                </div>
                             </div>
                             <div style="padding: 20px; text-align: right; ">
                                 <a href="#" class="btn btn-primary">

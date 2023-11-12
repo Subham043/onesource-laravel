@@ -103,6 +103,9 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                            <div class="card-header">
+                                {{$data->onEachSide(5)->links()}}
+                            </div>
                         </div>
                         @else
                             <p class="text-center">No data available</p>
