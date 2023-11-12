@@ -2,7 +2,10 @@
 
 namespace App\Modules\Event\Requests;
 
+use App\Enums\DayType;
+use App\Enums\MonthType;
 use App\Enums\RecurringInnerType;
+use App\Enums\RecurringMonthInnerType;
 use App\Enums\RecurringType;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;

@@ -61,8 +61,23 @@
                                 No
                             @else
                                 Yes <br />
-                                Recurrs  {{$event->recurring_type}} @if($event->recurring_type->value=='Every') {{$event->recurring_days}} Days,@else, @endif<br />
-                                End Day: {{$event->recurring_end_date ? $event->recurring_end_date->format('M d Y') : ''}}
+                                @if($event->recurring_type->value=='Daily')
+                                    @if($event->recurring_daily_type->value=='First')
+                                        Reccurs every {{$event->recurring_daily_days}} Days
+                                    @else
+                                        Reccurs every weekday
+                                    @endif
+                                @elseif($event->recurring_type->value=='Weekly')
+                                    Reccurs every {{$event->recurring_weekly_weeks}} week(s) on : {{$event->recurring_weekly_sunday ? 'Sun, ' : ''}} {{$event->recurring_weekly_monday ? 'Mon, ' : ''}} {{$event->recurring_weekly_tuesday ? 'Tue, ' : ''}} {{$event->recurring_weekly_wednesday ? 'Wed, ' : ''}} {{$event->recurring_weekly_thursday ? 'Thu, ' : ''}} {{$event->recurring_weekly_friday ? 'Fri, ' : ''}} {{$event->recurring_weekly_saturday ? 'Sat, ' : ''}}
+                                @elseif($event->recurring_type->value=='Monthly')
+                                    @if($event->recurring_monthly_type->value=='First')
+                                        Reccurs day {{$event->recurring_monthly_first_days}} of every {{$event->recurring_monthly_first_months}} month(s)
+                                    @else
+                                        Reccurs the {{$event->recurring_monthly_second_type}}, {{$event->recurring_monthly_second_days}} of every {{$event->recurring_monthly_second_months}} month(s)
+                                    @endif
+                                @elseif($event->recurring_type->value=='Yearly')
+                                    Reccurs every {{$event->recurring_yearly_months->name}}, {{$event->recurring_yearly_days}}
+                                @endif
                             @endif
                         </div>
                     </div>
