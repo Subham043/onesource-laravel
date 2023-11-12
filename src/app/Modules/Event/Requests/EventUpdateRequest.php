@@ -69,7 +69,7 @@ class EventUpdateRequest extends FormRequest
 
             'recurring_weekly_friday' => ['nullable', Rule::requiredIf($this->is_recurring_event==1 && $this->recurring_type==RecurringType::WEEKLY), 'boolean'],
 
-            'recurring_weekly_sunday' => ['nullable', Rule::requiredIf($this->is_recurring_event==1 && $this->recurring_type==RecurringType::WEEKLY), 'boolean'],
+            'recurring_weekly_saturday' => ['nullable', Rule::requiredIf($this->is_recurring_event==1 && $this->recurring_type==RecurringType::WEEKLY), 'boolean'],
 
             //recurring monthly type
             'recurring_monthly_type' => ['nullable', Rule::requiredIf($this->is_recurring_event==1 && $this->recurring_type==RecurringType::MONTHLY), new Enum(RecurringInnerType::class)],
