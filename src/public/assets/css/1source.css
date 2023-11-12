@@ -16026,7 +16026,7 @@ thead, tbody, tfoot, tr, td, th {
   padding: 0 calc(var(--bs-gutter-x, 0.75rem) * 2);
 }
 .nav .search-input {
-  width: auto;
+  width: 350px;
 }
 .nav .search-input.input-group .input-group-text {
   padding-right: 0;
@@ -21421,7 +21421,7 @@ body.offcanvas-active {
 }
 
 /*
- * Background color 
+ * Background color
  */
 .bg-soft-primary {
   color: #344ed1;

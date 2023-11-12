@@ -37,6 +37,8 @@ use App\Modules\Report\Conflict\Controllers\ConflictViewController;
 use App\Modules\Report\Controllers\ReportViewController;
 use App\Modules\Report\Export\Controllers\ExportViewController;
 use App\Modules\Report\Quickbook\Controllers\QuickbookViewController;
+use App\Modules\Seacrh\Controllers\SeacrhViewController;
+use App\Modules\Search\Controllers\SearchViewController;
 use App\Modules\Tool\Controllers\ToolCreateController;
 use App\Modules\Tool\Controllers\ToolDeleteController;
 use App\Modules\Tool\Controllers\ToolPaginateController;
@@ -130,6 +132,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/update/{id}', [ClientUpdateController::class, 'post', 'as' => 'client.update.get'])->name('client.update.post');
         Route::get('/view/{id}', [ClientViewController::class, 'get', 'as' => 'client.view.get'])->name('client.view.get');
         Route::get('/delete/{id}', [ClientDeleteController::class, 'get', 'as' => 'client.delete.get'])->name('client.delete.get');
+    });
+
+    Route::prefix('/search')->group(function () {
+        Route::get('/', [SearchViewController::class, 'get', 'as' => 'search.paginate.get'])->name('search.paginate.get');
     });
 
     Route::prefix('/event')->group(function () {

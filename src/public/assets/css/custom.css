@@ -579,7 +579,7 @@ body.uikit .btn-download {
 
 @media (min-width: 770px) {
   .nav .search-input {
-    max-width: 300px;
+    max-width: 350px;
     margin-left: calc(50% - 150px);
 }
 }
@@ -612,4 +612,7 @@ body{font-size: .9rem}
 }
 .remove-item-btn>*{
     pointer-events: none;
+}
+.Pagination svg{
+    font-size: 20px;
 }
