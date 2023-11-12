@@ -57,9 +57,7 @@
                                         </button>
                                     </div>
                                 </div>
-                                @error('old_password')
-                                    <div class="invalid-message">{{ $message }}</div>
-                                @enderror
+                                <div id="old_password_error" class="invalid-message">@error('old_password'){{ $message }}@enderror</div>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -77,9 +75,7 @@
                                         </button>
                                     </div>
                                 </div>
-                                @error('password')
-                                    <div class="invalid-message">{{ $message }}</div>
-                                @enderror
+                                <div id="password_error" class="invalid-message">@error('password'){{ $message }}@enderror</div>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -98,9 +94,7 @@
                                         </button>
                                     </div>
                                 </div>
-                                @error('confirm_password')
-                                    <div class="invalid-message">{{ $message }}</div>
-                                @enderror
+                                <div id="confirm_password_error" class="invalid-message">@error('confirm_password'){{ $message }}@enderror</div>
                             </div>
                         </div>
 
@@ -253,17 +247,23 @@ validation
     {
         validator: (value, fields) => true
     },
-  ])
+  ], {
+    errorsContainer: '#old_password_error'
+  })
   .addField('#password', [
     {
         validator: (value, fields) => true
     },
-  ])
+  ], {
+    errorsContainer: '#password_error'
+  })
   .addField('#confirm_password', [
     {
         validator: (value, fields) => true
     },
-  ])
+  ], {
+    errorsContainer: '#confirm_password_error'
+  })
   .addField('#image', [
     {
         validator: (value, fields) => true

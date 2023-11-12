@@ -38,9 +38,7 @@
                                                 </button>
                                             </div>
                                         </div>
-                                        @error('password')
-                                            <div class="invalid-message">{{ $message }}</div>
-                                        @enderror
+                                        <div id="password_error" class="invalid-message">@error('password'){{ $message }}@enderror</div>
                                     </div>
                                 </div>
                                 <div class="col-lg-12 d-flex justify-content-between">
@@ -117,7 +115,9 @@ validation
       rule: 'required',
       errorMessage: 'Password is required',
     },
-  ])
+  ], {
+    errorsContainer: '#password_error'
+  })
   .onSuccess((event) => {
     event.target.submit();
   });

@@ -199,9 +199,7 @@
                                                         </button>
                                                     </div>
                                                 </div>
-                                                @error('password')
-                                                    <div class="invalid-message">{{ $message }}</div>
-                                                @enderror
+                                                <div id="password_error" class="invalid-message">@error('password'){{ $message }}@enderror</div>
                                             </div>
                                         </div>
                                         <div class="col-lg-12">
@@ -219,9 +217,7 @@
                                                         </button>
                                                     </div>
                                                 </div>
-                                                @error('confirm_password')
-                                                    <div class="invalid-message">{{ $message }}</div>
-                                                @enderror
+                                                <div id="confirm_password_error" class="invalid-message">@error('confirm_password'){{ $message }}@enderror</div>
                                             </div>
                                         </div>
                                         <h5 class="mt-5 mb-2">Account Recovery Questions</h5>
@@ -484,7 +480,9 @@ validation
     {
       rule: 'strongPassword',
     }
-  ])
+  ], {
+    errorsContainer: '#password_error'
+  })
   .addField('#confirm_password', [
     {
       rule: 'required',
@@ -502,7 +500,9 @@ validation
         },
         errorMessage: 'Password and Confirm Password must be same',
     },
-  ])
+  ], {
+    errorsContainer: '#confirm_password_error'
+  })
   .onSuccess((event) => {
     event.target.submit();
   });
