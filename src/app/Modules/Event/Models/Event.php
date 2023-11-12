@@ -2,6 +2,10 @@
 
 namespace App\Modules\Event\Models;
 
+use App\Enums\DayType;
+use App\Enums\MonthType;
+use App\Enums\RecurringInnerType;
+use App\Enums\RecurringMonthInnerType;
 use App\Enums\RecurringType;
 use App\Modules\Authentication\Models\User;
 use App\Modules\Client\Models\Client;
@@ -29,12 +33,30 @@ class Event extends Model
         'start_time',
         'end_time',
         'fuzion_id',
-        'is_recurring_event',
         'is_active',
         'is_prep_ready',
+        'is_recurring_event',
         'recurring_type',
-        'recurring_days',
-        'recurring_end_date',
+        // 'recurring_days',
+        // 'recurring_end_date',
+        'recurring_daily_type',
+        'recurring_daily_days',
+        'recurring_weekly_weeks',
+        'recurring_weekly_sunday',
+        'recurring_weekly_monday',
+        'recurring_weekly_tuesday',
+        'recurring_weekly_wednesday',
+        'recurring_weekly_thursday',
+        'recurring_weekly_friday',
+        'recurring_weekly_saturday',
+        'recurring_monthly_type',
+        'recurring_monthly_first_days',
+        'recurring_monthly_first_months',
+        'recurring_monthly_second_type',
+        'recurring_monthly_second_days',
+        'recurring_monthly_second_months',
+        'recurring_yearly_months',
+        'recurring_yearly_days',
         'notes',
         'client_id',
         'created_by',
@@ -47,15 +69,37 @@ class Event extends Model
         'end_date' => 'datetime',
         'start_time' => 'datetime',
         'end_time' => 'datetime',
-        'recurring_end_date' => 'datetime',
+        'recurring_daily_days' => 'int',
+        'recurring_weekly_weeks' => 'int',
+        'recurring_weekly_sunday' => 'boolean',
+        'recurring_weekly_monday' => 'boolean',
+        'recurring_weekly_tuesday' => 'boolean',
+        'recurring_weekly_wednesday' => 'boolean',
+        'recurring_weekly_thursday' => 'boolean',
+        'recurring_weekly_friday' => 'boolean',
+        'recurring_weekly_saturday' => 'boolean',
+        'recurring_monthly_first_days' => 'int',
+        'recurring_monthly_first_months' => 'int',
+        'recurring_monthly_second_months' => 'int',
+        'recurring_yearly_days' => 'int',
         'is_recurring_event' => 'boolean',
         'is_active' => 'boolean',
         'is_prep_ready' => 'boolean',
         'recurring_type' => RecurringType::class,
+        'recurring_daily_type' => RecurringInnerType::class,
+        'recurring_monthly_type' => RecurringInnerType::class,
+        'recurring_monthly_second_days' => DayType::class,
+        'recurring_monthly_second_type' => RecurringMonthInnerType::class,
+        'recurring_yearly_months' => MonthType::class,
     ];
 
     protected $attributes = [
         'recurring_type' => RecurringType::DAILY,
+        'recurring_daily_type' => RecurringInnerType::FIRST,
+        'recurring_monthly_type' => RecurringInnerType::FIRST,
+        'recurring_monthly_second_days' => DayType::SUNDAY,
+        'recurring_monthly_second_type' => RecurringMonthInnerType::FIRST,
+        'recurring_yearly_months' => MonthType::JANUARY,
     ];
 
     protected $appends = ['event_title', 'event_link', 'event_start_date', 'event_end_date', 'event_repeated_date', 'event_rgb'];
@@ -148,15 +192,16 @@ class Event extends Model
                 }elseif($this->recurring_type==RecurringType::YEARLY){
                     $start_date_event = $start_date_event->addDays(365);
                     array_push($data_arr, $start_date_event->format('Y-m-d').'T05:30:00.000Z');
-                }elseif($this->recurring_type==RecurringType::EVERY){
-                    $start_date_event = $start_date_event->addDays($this->recurring_days);
-                    array_push($data_arr, $start_date_event->format('Y-m-d').'T05:30:00.000Z');
-                }elseif($this->recurring_type==RecurringType::EVERYWEEKDAY){
-                    $start_date_event = $start_date_event->addDays(1);
-                    if(!$this->isWeekend($start_date_event)){
-                        array_push($data_arr, $start_date_event->format('Y-m-d').'T05:30:00.000Z');
-                    }
                 }
+                // elseif($this->recurring_type==RecurringType::EVERY){
+                //     $start_date_event = $start_date_event->addDays($this->recurring_days);
+                //     array_push($data_arr, $start_date_event->format('Y-m-d').'T05:30:00.000Z');
+                // }elseif($this->recurring_type==RecurringType::EVERYWEEKDAY){
+                //     $start_date_event = $start_date_event->addDays(1);
+                //     if(!$this->isWeekend($start_date_event)){
+                //         array_push($data_arr, $start_date_event->format('Y-m-d').'T05:30:00.000Z');
+                //     }
+                // }
             }
         }
         return new Attribute(

@@ -2,6 +2,7 @@
 
 namespace App\Modules\Event\Requests;
 
+use App\Enums\RecurringInnerType;
 use App\Enums\RecurringType;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -44,9 +45,50 @@ class EventUpdateRequest extends FormRequest
             'is_prep_ready' => 'required|boolean',
             'fuzion_id' => 'nullable|string|max:500',
             'is_recurring_event' => 'required|boolean',
+
+            //recurring type
             'recurring_type' => ['nullable', 'required_if:is_recurring_event,1', new Enum(RecurringType::class)],
-            'recurring_days' => ['nullable', Rule::requiredIf($this->is_recurring_event==1 && $this->recurring_type=='Every'),'numeric','gte:0'],
-            'recurring_end_date' => ['nullable', 'required_if:is_recurring_event,1', 'date', 'after:start_date'],
+
+            //recurring daily type
+            'recurring_daily_type' => ['nullable', Rule::requiredIf($this->is_recurring_event==1 && $this->recurring_type==RecurringType::DAILY), new Enum(RecurringInnerType::class)],
+
+            'recurring_daily_days' => ['nullable', Rule::requiredIf($this->is_recurring_event==1 && $this->recurring_type==RecurringType::DAILY && $this->recurring_daily_type==RecurringInnerType::FIRST), 'numeric', 'gt:0', 'lte:31'],
+
+            //recurring weekly type
+            'recurring_weekly_weeks' => ['nullable', Rule::requiredIf($this->is_recurring_event==1 && $this->recurring_type==RecurringType::WEEKLY), 'numeric', 'gt:0', 'lte:4'],
+
+            'recurring_weekly_sunday' => ['nullable', Rule::requiredIf($this->is_recurring_event==1 && $this->recurring_type==RecurringType::WEEKLY), 'boolean'],
+
+            'recurring_weekly_monday' => ['nullable', Rule::requiredIf($this->is_recurring_event==1 && $this->recurring_type==RecurringType::WEEKLY), 'boolean'],
+
+            'recurring_weekly_tuesday' => ['nullable', Rule::requiredIf($this->is_recurring_event==1 && $this->recurring_type==RecurringType::WEEKLY), 'boolean'],
+
+            'recurring_weekly_wednesday' => ['nullable', Rule::requiredIf($this->is_recurring_event==1 && $this->recurring_type==RecurringType::WEEKLY), 'boolean'],
+
+            'recurring_weekly_thursday' => ['nullable', Rule::requiredIf($this->is_recurring_event==1 && $this->recurring_type==RecurringType::WEEKLY), 'boolean'],
+
+            'recurring_weekly_friday' => ['nullable', Rule::requiredIf($this->is_recurring_event==1 && $this->recurring_type==RecurringType::WEEKLY), 'boolean'],
+
+            'recurring_weekly_sunday' => ['nullable', Rule::requiredIf($this->is_recurring_event==1 && $this->recurring_type==RecurringType::WEEKLY), 'boolean'],
+
+            //recurring monthly type
+            'recurring_monthly_type' => ['nullable', Rule::requiredIf($this->is_recurring_event==1 && $this->recurring_type==RecurringType::MONTHLY), new Enum(RecurringInnerType::class)],
+
+            'recurring_monthly_first_days' => ['nullable', Rule::requiredIf($this->is_recurring_event==1 && $this->recurring_type==RecurringType::MONTHLY && $this->recurring_monthly_type==RecurringInnerType::FIRST), 'numeric', 'gt:0', 'lte:31'],
+
+            'recurring_monthly_first_months' => ['nullable', Rule::requiredIf($this->is_recurring_event==1 && $this->recurring_type==RecurringType::MONTHLY && $this->recurring_monthly_type==RecurringInnerType::FIRST), 'numeric', 'gt:0', 'lte:12'],
+
+            'recurring_monthly_second_type' => ['nullable', Rule::requiredIf($this->is_recurring_event==1 && $this->recurring_type==RecurringType::MONTHLY && $this->recurring_monthly_type==RecurringInnerType::SECOND), new Enum(RecurringMonthInnerType::class)],
+
+            'recurring_monthly_second_days' => ['nullable', Rule::requiredIf($this->is_recurring_event==1 && $this->recurring_type==RecurringType::MONTHLY && $this->recurring_monthly_type==RecurringInnerType::SECOND), new Enum(DayType::class)],
+
+            'recurring_monthly_second_months' => ['nullable', Rule::requiredIf($this->is_recurring_event==1 && $this->recurring_type==RecurringType::MONTHLY && $this->recurring_monthly_type==RecurringInnerType::SECOND), 'numeric', 'gt:0', 'lte:12'],
+
+            //recurring yearly type
+            'recurring_yearly_months' => ['nullable', Rule::requiredIf($this->is_recurring_event==1 && $this->recurring_type==RecurringType::YEARLY), new Enum(MonthType::class)],
+
+            'recurring_yearly_days' => ['nullable', Rule::requiredIf($this->is_recurring_event==1 && $this->recurring_type==RecurringType::YEARLY), 'numeric', 'gt:0', 'lte:31'],
+
             'client' => [
                 'required',
                 'numeric',
