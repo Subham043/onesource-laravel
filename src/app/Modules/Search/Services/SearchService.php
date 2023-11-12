@@ -79,7 +79,8 @@ class CommonDocumentFilter implements Filter
     {
         $query->where('document', 'LIKE', '%' . $value . '%')
         ->orWhereHas('event', function($qryy) use($value){
-            $qryy->whereHas('writers', function($qry) use($value){
+            $qryy->where('name', 'LIKE', '%' . $value . '%')
+            ->orWhereHas('writers', function($qry) use($value){
                 $qry->whereHas('writer', function($qry) use($value){
                     $qry->where('name', 'LIKE', '%' . $value . '%');
                 });
