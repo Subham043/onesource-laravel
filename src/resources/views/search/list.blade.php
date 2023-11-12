@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="row">
+    @if(!empty(request()->query('filter')['search']))
     <div class="col-md-12 col-lg-12">
         <div class="row">
             <div class="col-md-12 col-lg-12">
@@ -328,5 +329,10 @@
             </div>
         </div>
     </div>
+    @else
+    <div class="col-md-12 col-lg-12">
+        <p class="text-center">Type in searchbar to search something...</p>
+    </div>
+    @endif
 </div>
 @stop

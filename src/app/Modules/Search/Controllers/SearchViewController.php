@@ -16,9 +16,9 @@ class SearchViewController extends Controller
         $this->searchService = $searchService;
     }
     public function get(Request $request){
-        $event_data = $this->searchService->event_paginate($request->total ?? 1);
-        $document_data = $this->searchService->document_paginate($request->total ?? 10);
-        $user_data = $this->searchService->user_paginate($request->total ?? 10);
+        $event_data = $request->query('filter')['search'] ? $this->searchService->event_paginate($request->total ?? 10) : null;
+        $document_data = $request->query('filter')['search'] ? $this->searchService->document_paginate($request->total ?? 10) : null;
+        $user_data = $request->query('filter')['search'] ? $this->searchService->user_paginate($request->total ?? 10) : null;
         return view('search.list')->with([
             'page_name' => 'Search',
             'event_data' => $event_data,
