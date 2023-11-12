@@ -421,16 +421,6 @@ validation
         validator: (value, fields) => true
     }
   ])
-//   .addField('#recurring_end_date', [
-//     {
-//         validator: (value, fields) => true
-//     },
-//   ])
-//   .addField('#recurring_days', [
-//     {
-//         validator: (value, fields) => true
-//     },
-//   ])
   .addField('#fuzion_id', [
     {
         validator: (value, fields) => true

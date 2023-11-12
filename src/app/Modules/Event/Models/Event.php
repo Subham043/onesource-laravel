@@ -93,15 +93,6 @@ class Event extends Model
         'recurring_yearly_months' => MonthType::class,
     ];
 
-    protected $attributes = [
-        'recurring_type' => RecurringType::DAILY,
-        'recurring_daily_type' => RecurringInnerType::FIRST,
-        'recurring_monthly_type' => RecurringInnerType::FIRST,
-        'recurring_monthly_second_days' => DayType::SUNDAY,
-        'recurring_monthly_second_type' => RecurringMonthInnerType::FIRST,
-        'recurring_yearly_months' => MonthType::JANUARY,
-    ];
-
     protected $appends = ['event_title', 'event_link', 'event_start_date', 'event_end_date', 'event_repeated_date', 'event_rgb'];
 
     public function creator()
