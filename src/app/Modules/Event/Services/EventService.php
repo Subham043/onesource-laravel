@@ -48,6 +48,33 @@ class EventService
                 ->appends(request()->query());
     }
 
+    public function excelReport(): Collection
+    {
+        $query = Event::filterByRoles();
+        $query->latest();
+        return QueryBuilder::for($query)
+                ->allowedFilters([
+                    AllowedFilter::custom('search', new CommonFilter),
+                    AllowedFilter::callback('has_writer', function (Builder $qr, $value) {
+                        $qr->whereHas('writers', function($qry) use($value){
+                            $qry->where('writer_id', $value);
+                        });
+                    }),
+                    AllowedFilter::callback('has_client', function (Builder $qr, $value) {
+                        $qr->whereHas('client', function($qry) use($value){
+                            $qry->where('id', $value);
+                        });
+                    }),
+                    AllowedFilter::callback('has_start_date', function (Builder $qr, $value) {
+                        $qr->whereDate('start_date', '>=', $value);
+                    }),
+                    AllowedFilter::callback('has_end_date', function (Builder $qr, $value) {
+                        $qr->whereDate('end_date', '<=', $value);
+                    }),
+                ])
+                ->get();
+    }
+
     public function paginateReport(Int $total = 10): LengthAwarePaginator
     {
         $query = Event::filterByRoles();

@@ -101,7 +101,8 @@
                         @else
                             <p class="text-center">No data available</p>
                         @endif
-                        <div style="padding: 20px; text-align: right; "><a href="#" class="btn btn-primary">
+                        <div style="padding: 20px; text-align: right; ">
+                            <a href="{{route('report.export.excel.get', request()->query())}}" class="btn btn-primary" download>
                                 <svg class="icon-32" width="32" viewBox="0 0 24 24" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path opacity="0.4"
@@ -110,7 +111,9 @@
                                     <path
                                         d="M7.72033 12.8555L11.4683 16.6205C11.7503 16.9035 12.2493 16.9035 12.5323 16.6205L16.2803 12.8555C16.5723 12.5615 16.5713 12.0865 16.2773 11.7945C15.9833 11.5025 15.5093 11.5025 15.2163 11.7965L12.7493 14.2735V7.91846C12.7493 7.50346 12.4133 7.16846 11.9993 7.16846C11.5853 7.16846 11.2493 7.50346 11.2493 7.91846V14.2735L8.78333 11.7965C8.63633 11.6495 8.44433 11.5765 8.25133 11.5765C8.06033 11.5765 7.86833 11.6495 7.72233 11.7945C7.42933 12.0865 7.42833 12.5615 7.72033 12.8555Z"
                                         fill="currentColor"></path>
-                                </svg> Export to 1CapApp</a></div>
+                                </svg> Export to 1CapApp
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>

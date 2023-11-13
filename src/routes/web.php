@@ -35,6 +35,7 @@ use App\Modules\Event\Controllers\EventWriterDeleteController;
 use App\Modules\Event\Event\Controllers\EventDeleteController;
 use App\Modules\Report\Conflict\Controllers\ConflictViewController;
 use App\Modules\Report\Controllers\ReportViewController;
+use App\Modules\Report\Export\Controllers\ExportExcelController;
 use App\Modules\Report\Export\Controllers\ExportViewController;
 use App\Modules\Report\Quickbook\Controllers\QuickbookViewController;
 use App\Modules\Seacrh\Controllers\SeacrhViewController;
@@ -169,6 +170,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/', [ReportViewController::class, 'get', 'as' => 'report.view.get'])->name('report.view.get');
         Route::get('/conflict', [ConflictViewController::class, 'get', 'as' => 'report.conflict.view.get'])->name('report.conflict.view.get');
         Route::get('/export', [ExportViewController::class, 'get', 'as' => 'report.export.view.get'])->name('report.export.view.get');
+        Route::get('/export-excel', [ExportExcelController::class, 'get', 'as' => 'report.export.excel.get'])->name('report.export.excel.get');
         Route::get('/quickbook', [QuickbookViewController::class, 'get', 'as' => 'report.quickbook.view.get'])->name('report.quickbook.view.get');
     });
 
