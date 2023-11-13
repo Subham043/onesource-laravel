@@ -616,3 +616,20 @@ body{font-size: .9rem}
 .Pagination svg{
     font-size: 20px;
 }
+.select2-container--default .select2-selection--single{
+    display: flex !important;
+    align-items: center !important;
+    flex-wrap: wrap !important;
+}
+.select2-container--default .select2-selection--single{
+    border: 1px solid #eee !important;
+    padding: 0.4rem 1rem !important;
+    height: auto !important;
+}
+.select2-dropdown{
+    border: 1px solid #eee !important;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow{
+    top: 7px !important;
+    right: 15px !important;
+}

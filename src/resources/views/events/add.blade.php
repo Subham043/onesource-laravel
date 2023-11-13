@@ -1,6 +1,7 @@
 @extends('layouts.main')
 
 @section('css')
+<link rel="stylesheet" href="{{ asset('assets/css/select2.min.css')}}" type="text/css" />
 <link rel="stylesheet" href="{{ asset('assets/css/filepond.min.css')}}" type="text/css" />
 <link rel="stylesheet" href="{{ asset('assets/css/filepond-plugin-image-preview.min.css')}}" type="text/css" />
 @stop
@@ -83,7 +84,7 @@
                                         <input class="form-check-input col-auto" type="radio" value="First" id="recurring_daily_type_days" name="recurring_daily_type">
                                         <label class="form-check-label mx-1 col-8" for="recurring_daily_type_days">
                                             <div class="d-flex align-items-center gap-2">
-                                                <span class="col-auto">Every</span> <input type="text" class="form-control col-auto" style="width: 50px" id="recurring_daily_days" name="recurring_daily_days"> <span class="col-auto">days</span>
+                                                <span class="col-auto">Every</span> <input type="text" class="form-control col-auto" style="width: 70px;text-align:center" id="recurring_daily_days" name="recurring_daily_days"> <span class="col-auto">days</span>
                                             </div>
                                         </label>
                                     </div>
@@ -106,7 +107,7 @@
                                     <div class="d-flex align-items-center mb-2">
                                         <label class="form-check-label mx-1 col-8">
                                             <div class="d-flex align-items-center gap-2">
-                                                <span class="col-auto">Recur every</span> <input type="text" class="form-control col-auto" style="width: 50px" id="recurring_weekly_weeks" name="recurring_weekly_weeks"> <span class="col-auto">week(s) on:</span>
+                                                <span class="col-auto">Recur every</span> <input type="text" class="form-control col-auto" style="width: 70px;text-align:center" id="recurring_weekly_weeks" name="recurring_weekly_weeks"> <span class="col-auto">week(s) on:</span>
                                             </div>
                                         </label>
                                     </div>
@@ -168,7 +169,7 @@
                                         <input class="form-check-input col-auto" type="radio" value="First" id="recurring_monthly_type_days" name="recurring_monthly_type">
                                         <label class="form-check-label mx-1 col-8" for="recurring_monthly_type_days">
                                             <div class="d-flex align-items-center gap-2">
-                                                <span class="col-auto">Day</span> <input type="text" class="form-control col-auto" style="width: 50px" id="recurring_monthly_first_days" name="recurring_monthly_first_days"> <span class="col-auto">of every</span> <input type="text" class="form-control col-auto" style="width: 50px" id="recurring_monthly_first_months" name="recurring_monthly_first_months"> <span class="col-auto">month(s)</span>
+                                                <span class="col-auto">Day</span> <input type="text" class="form-control col-auto" style="width: 70px;text-align:center" id="recurring_monthly_first_days" name="recurring_monthly_first_days"> <span class="col-auto">of every</span> <input type="text" class="form-control col-auto" style="width: 70px;text-align:center" id="recurring_monthly_first_months" name="recurring_monthly_first_months"> <span class="col-auto">month(s)</span>
                                             </div>
                                         </label>
                                     </div>
@@ -193,7 +194,7 @@
                                                     <option value="Saturday">Saturday</option>
                                                 </select>
                                                 <span class="col-auto">of every</span>
-                                                <input type="text" class="form-control col-auto" style="width: 70px" id="recurring_monthly_second_months" name="recurring_monthly_second_months">
+                                                <input type="text" class="form-control col-auto" style="width: 70px;text-align:center" id="recurring_monthly_second_months" name="recurring_monthly_second_months">
                                                 <span class="col-auto">month(s)</span>
                                             </div>
                                         </label>
@@ -226,7 +227,7 @@
                                                     <option value="11">November</option>
                                                     <option value="12">December</option>
                                                 </select>
-                                                <input type="text" class="form-control col-auto" style="width: 70px" id="recurring_yearly_days" name="recurring_yearly_days">
+                                                <input type="text" class="form-control col-auto" style="width: 70px;text-align:center" id="recurring_yearly_days" name="recurring_yearly_days">
                                             </div>
                                         </label>
                                     </div>
@@ -274,7 +275,7 @@
                 </div>
                 <div class="card-body">
                     <div class="col-12" data-repeater-list="writer">
-                        <div class="form-group row" data-repeater-item>
+                        <div class="form-group row align-items-center" data-repeater-item>
                             <label class="control-label col-sm-2 align-self-center mb-0">Writer:</label>
                             <div class="col-sm-4">
                                 <select class="form-select shadow-none writer-id-input" name="writer_id[]">
@@ -332,6 +333,7 @@
 @section('javascript')
 <script src="{{asset('assets/js/plugins/jquery.js')}}"></script>
 <script src="{{asset('assets/js/plugins/jquery.repeater.js')}}"></script>
+<script src="{{ asset('assets/js/plugins/select2.min.js') }}"></script>
 <script src="{{ asset('assets/js/plugins/filepond.min.js') }}"></script>
 <script src="{{ asset('assets/js/plugins/filepond-plugin-image-preview.min.js') }}"></script>
 <script src="{{ asset('assets/js/plugins/filepond-plugin-file-validate-size.min.js') }}"></script>
@@ -622,20 +624,23 @@ validation
 
 
 (function( $ ) {
-    $('.writer-id-input').on('input', function () {
-        const data = @json($writers);
-        const event = data.filter((item)=>item.id==$(this).val());
-        if(event.length>0){
-            $(this).parent().parent().find('.billing-rate-div .billing-rate-input').val(event[0].member_profile_created_by_auth.billing_rate);
-        }else{
-            $(this).parent().parent().find('.billing-rate-div .billing-rate-input').val('');
-        }
-    });
+    // $('.js-example-basic-single').select2();
+
+    // $('.writer-id-input').on('input', function () {
+    //     const data = @json($writers);
+    //     const event = data.filter((item)=>item.id==$(this).val());
+    //     if(event.length>0){
+    //         $(this).parent().parent().find('.billing-rate-div .billing-rate-input').val(event[0].member_profile_created_by_auth.billing_rate);
+    //     }else{
+    //         $(this).parent().parent().find('.billing-rate-div .billing-rate-input').val('');
+    //     }
+    // });
     $(document).ready(function() {
         $('.repeater-writer').repeater({
-            initEmpty:false,
+            initEmpty:true,
             isFirstItemUndeletable: true,
             show: function () {
+                var dd = $(this).children().children();
                 $(this).slideDown();
                 $('.writer-id-input').on('input', function () {
                     const data = @json($writers);
@@ -646,6 +651,8 @@ validation
                         $(this).parent().parent().find('.billing-rate-div .billing-rate-input').val('');
                     }
                 });
+                // $('.js-example-basic-single').select2("destroy");
+                $('select[name="'+dd[0].attributes.name.nodeValue+'"]').select2();
             },
             hide: function (deleteElement) {
                 iziToast.question({
@@ -671,16 +678,11 @@ validation
 
                         }],
                     ],
-                    onClosing: function(instance, toast, closedBy){
-                        console.info('Closing | closedBy: ' + closedBy);
-                    },
-                    onClosed: function(instance, toast, closedBy){
-                        console.info('Closed | closedBy: ' + closedBy);
-                    }
+                    onClosing: function(instance, toast, closedBy){},
+                    onClosed: function(instance, toast, closedBy){}
                 });
             },
-            ready: function (setIndexes) {
-            }
+            ready: function (setIndexes) {}
         });
     });
 })(jQuery);

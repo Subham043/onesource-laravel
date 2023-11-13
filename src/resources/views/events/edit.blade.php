@@ -1,6 +1,7 @@
 @extends('layouts.main')
 
 @section('css')
+<link rel="stylesheet" href="{{ asset('assets/css/select2.min.css')}}" type="text/css" />
 <link rel="stylesheet" href="{{ asset('assets/css/filepond.min.css')}}" type="text/css" />
 <link rel="stylesheet" href="{{ asset('assets/css/filepond-plugin-image-preview.min.css')}}" type="text/css" />
 @stop
@@ -83,7 +84,7 @@
                                         <input class="form-check-input col-auto" type="radio" value="First" id="recurring_daily_type_days" name="recurring_daily_type" {{!empty($event->recurring_daily_type) && $event->recurring_daily_type->value=='First' ? 'checked' : ''}}>
                                         <label class="form-check-label mx-1 col-8" for="recurring_daily_type_days">
                                             <div class="d-flex align-items-center gap-2">
-                                                <span class="col-auto">Every</span> <input type="text" class="form-control col-auto" style="width: 50px" id="recurring_daily_days" name="recurring_daily_days" value="{{$event->recurring_daily_days}}"> <span class="col-auto">days</span>
+                                                <span class="col-auto">Every</span> <input type="text" class="form-control col-auto" style="width: 70px;text-align:center" id="recurring_daily_days" name="recurring_daily_days" value="{{$event->recurring_daily_days}}"> <span class="col-auto">days</span>
                                             </div>
                                         </label>
                                     </div>
@@ -106,7 +107,7 @@
                                     <div class="d-flex align-items-center mb-2">
                                         <label class="form-check-label mx-1 col-8">
                                             <div class="d-flex align-items-center gap-2">
-                                                <span class="col-auto">Recur every</span> <input type="text" class="form-control col-auto" style="width: 50px" id="recurring_weekly_weeks" name="recurring_weekly_weeks" value="{{$event->recurring_weekly_weeks}}"> <span class="col-auto">week(s) on:</span>
+                                                <span class="col-auto">Recur every</span> <input type="text" class="form-control col-auto" style="width: 70px;text-align:center" id="recurring_weekly_weeks" name="recurring_weekly_weeks" value="{{$event->recurring_weekly_weeks}}"> <span class="col-auto">week(s) on:</span>
                                             </div>
                                         </label>
                                     </div>
@@ -168,7 +169,7 @@
                                         <input class="form-check-input col-auto" type="radio" value="First" id="recurring_monthly_type_days" name="recurring_monthly_type" {{!empty($event->recurring_monthly_type) && $event->recurring_monthly_type->value=='First' ? 'checked' : ''}}>
                                         <label class="form-check-label mx-1 col-8" for="recurring_monthly_type_days">
                                             <div class="d-flex align-items-center gap-2">
-                                                <span class="col-auto">Day</span> <input type="text" class="form-control col-auto" style="width: 50px" id="recurring_monthly_first_days" name="recurring_monthly_first_days" value="{{$event->recurring_monthly_first_days}}"> <span class="col-auto">of every</span> <input type="text" class="form-control col-auto" style="width: 50px" id="recurring_monthly_first_months" name="recurring_monthly_first_months" value="{{$event->recurring_monthly_first_months}}"> <span class="col-auto">month(s)</span>
+                                                <span class="col-auto">Day</span> <input type="text" class="form-control col-auto" style="width: 70px;text-align:center" id="recurring_monthly_first_days" name="recurring_monthly_first_days" value="{{$event->recurring_monthly_first_days}}"> <span class="col-auto">of every</span> <input type="text" class="form-control col-auto" style="width: 70px;text-align:center" id="recurring_monthly_first_months" name="recurring_monthly_first_months" value="{{$event->recurring_monthly_first_months}}"> <span class="col-auto">month(s)</span>
                                             </div>
                                         </label>
                                     </div>
@@ -193,7 +194,7 @@
                                                     <option value="Saturday" {{!empty($event->recurring_monthly_second_days) && $event->recurring_monthly_second_days->value=='Saturday' ? 'selected' : ''}}>Saturday</option>
                                                 </select>
                                                 <span class="col-auto">of every</span>
-                                                <input type="text" class="form-control col-auto" style="width: 70px" id="recurring_monthly_second_months" name="recurring_monthly_second_months" value="{{$event->recurring_monthly_second_months}}">
+                                                <input type="text" class="form-control col-auto" style="width: 70px;text-align:center" id="recurring_monthly_second_months" name="recurring_monthly_second_months" value="{{$event->recurring_monthly_second_months}}">
                                                 <span class="col-auto">month(s)</span>
                                             </div>
                                         </label>
@@ -226,7 +227,7 @@
                                                     <option value="11" {{!empty($event->recurring_yearly_months) && $event->recurring_yearly_months->value==11 ? 'selected' : ''}}>November</option>
                                                     <option value="12" {{!empty($event->recurring_yearly_months) && $event->recurring_yearly_months->value==12 ? 'selected' : ''}}>December</option>
                                                 </select>
-                                                <input type="text" class="form-control col-auto" style="width: 70px" id="recurring_yearly_days" name="recurring_yearly_days" value="{{$event->recurring_yearly_days}}">
+                                                <input type="text" class="form-control col-auto" style="width: 70px;text-align:center" id="recurring_yearly_days" name="recurring_yearly_days" value="{{$event->recurring_yearly_days}}">
                                             </div>
                                         </label>
                                     </div>
@@ -275,10 +276,10 @@
                 <div class="card-body">
                     <div class="col-12">
                         @foreach($event->writers as $k=>$v)
-                        <div class="form-group row">
+                        <div class="form-group row align-items-center">
                             <label class="control-label col-sm-2 align-self-center mb-0">Writer:</label>
                             <div class="col-sm-4">
-                                <select class="form-select shadow-none writer-id-input" name="writer_id[]">
+                                <select class="form-select shadow-none writer-id-input js-example-basic-single" name="writer_id[]">
                                     <option value="">Select Writer</option>
                                     @foreach($writers as $writer)
                                         <option value="{{$writer->id}}" {{$v->writer->id==$writer->id ? 'selected' : ''}}>{{$writer->name}}</option>
@@ -298,7 +299,7 @@
                         @endforeach
                     </div>
                     <div class="col-12" data-repeater-list="writer">
-                        <div class="form-group row" data-repeater-item>
+                        <div class="form-group row align-items-center" data-repeater-item>
                             <label class="control-label col-sm-2 align-self-center mb-0">Writer:</label>
                             <div class="col-sm-4">
                                 <select class="form-select shadow-none writer-id-input" name="writer_id[]">
@@ -327,45 +328,47 @@
                         <h4 class="card-title">Documents</h4>
                     </div>
                 </div>
+                @if($event->documents->count()>0)
+                <div class="form-group">
+                    <table id="basic-table" class="table mb-0 table-striped mt-3" role="grid">
+                        <thead>
+                            <tr>
+                                <th>Document Name</th>
+                                <th>&nbsp;</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($event->documents as $document)
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <a href="{{$document->document_link}}" download>{{str_replace("storage/documents/","",$document->document)}}</a>
+                                    </div>
+                                </td>
+                                <td>
+                                    @can('download documents')
+                                    <a href="{{$document->document_link}}" download data-bs-toggle="tooltip" data-bs-original-title="Download Document"> <svg width="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path opacity="0.4" d="M17.554 7.29614C20.005 7.29614 22 9.35594 22 11.8876V16.9199C22 19.4453 20.01 21.5 17.564 21.5L6.448 21.5C3.996 21.5 2 19.4412 2 16.9096V11.8773C2 9.35181 3.991 7.29614 6.438 7.29614H7.378L17.554 7.29614Z" fill="currentColor"></path>
+                                            <path d="M12.5464 16.0374L15.4554 13.0695C15.7554 12.7627 15.7554 12.2691 15.4534 11.9634C15.1514 11.6587 14.6644 11.6597 14.3644 11.9654L12.7714 13.5905L12.7714 3.2821C12.7714 2.85042 12.4264 2.5 12.0004 2.5C11.5754 2.5 11.2314 2.85042 11.2314 3.2821L11.2314 13.5905L9.63742 11.9654C9.33742 11.6597 8.85043 11.6587 8.54843 11.9634C8.39743 12.1168 8.32142 12.3168 8.32142 12.518C8.32142 12.717 8.39743 12.9171 8.54643 13.0695L11.4554 16.0374C11.6004 16.1847 11.7964 16.268 12.0004 16.268C12.2054 16.268 12.4014 16.1847 12.5464 16.0374Z" fill="currentColor"></path>
+                                        </svg>
+                                    </a>
+                                    @endcan
+                                    @can('delete documents')
+                                    <a href="#" class="remove-item-btn" data-link="{{route('document.delete.get', $document->id)}}" data-bs-toggle="tooltip" data-bs-original-title="Delete Document"> <svg width="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path opacity="0.4" d="M19.643 9.48851C19.643 9.5565 19.11 16.2973 18.8056 19.1342C18.615 20.8751 17.4927 21.9311 15.8092 21.9611C14.5157 21.9901 13.2494 22.0001 12.0036 22.0001C10.6809 22.0001 9.38741 21.9901 8.13185 21.9611C6.50477 21.9221 5.38147 20.8451 5.20057 19.1342C4.88741 16.2873 4.36418 9.5565 4.35445 9.48851C4.34473 9.28351 4.41086 9.08852 4.54507 8.93053C4.67734 8.78453 4.86796 8.69653 5.06831 8.69653H18.9388C19.1382 8.69653 19.3191 8.78453 19.4621 8.93053C19.5953 9.08852 19.6624 9.28351 19.643 9.48851Z" fill="currentColor"></path>
+                                            <path d="M21 5.97686C21 5.56588 20.6761 5.24389 20.2871 5.24389H17.3714C16.7781 5.24389 16.2627 4.8219 16.1304 4.22692L15.967 3.49795C15.7385 2.61698 14.9498 2 14.0647 2H9.93624C9.0415 2 8.26054 2.61698 8.02323 3.54595L7.87054 4.22792C7.7373 4.8219 7.22185 5.24389 6.62957 5.24389H3.71385C3.32386 5.24389 3 5.56588 3 5.97686V6.35685C3 6.75783 3.32386 7.08982 3.71385 7.08982H20.2871C20.6761 7.08982 21 6.75783 21 6.35685V5.97686Z" fill="currentColor"></path>
+                                        </svg>
+                                    </a>
+                                    @endcan
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+                @endif
                 <div class="card-body" data-repeater-list="documents">
-                    <div class="form-group">
-                        <table id="basic-table" class="table mb-0 table-striped mt-3" role="grid">
-                            <thead>
-                                <tr>
-                                    <th>Document Name</th>
-                                    <th>&nbsp;</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($event->documents as $document)
-                                <tr>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <a href="{{$document->document_link}}" download>{{str_replace("storage/documents/","",$document->document)}}</a>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        @can('download documents')
-                                        <a href="{{$document->document_link}}" download data-bs-toggle="tooltip" data-bs-original-title="Download Document"> <svg width="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path opacity="0.4" d="M17.554 7.29614C20.005 7.29614 22 9.35594 22 11.8876V16.9199C22 19.4453 20.01 21.5 17.564 21.5L6.448 21.5C3.996 21.5 2 19.4412 2 16.9096V11.8773C2 9.35181 3.991 7.29614 6.438 7.29614H7.378L17.554 7.29614Z" fill="currentColor"></path>
-                                                <path d="M12.5464 16.0374L15.4554 13.0695C15.7554 12.7627 15.7554 12.2691 15.4534 11.9634C15.1514 11.6587 14.6644 11.6597 14.3644 11.9654L12.7714 13.5905L12.7714 3.2821C12.7714 2.85042 12.4264 2.5 12.0004 2.5C11.5754 2.5 11.2314 2.85042 11.2314 3.2821L11.2314 13.5905L9.63742 11.9654C9.33742 11.6597 8.85043 11.6587 8.54843 11.9634C8.39743 12.1168 8.32142 12.3168 8.32142 12.518C8.32142 12.717 8.39743 12.9171 8.54643 13.0695L11.4554 16.0374C11.6004 16.1847 11.7964 16.268 12.0004 16.268C12.2054 16.268 12.4014 16.1847 12.5464 16.0374Z" fill="currentColor"></path>
-                                            </svg>
-                                        </a>
-                                        @endcan
-                                        @can('delete documents')
-                                        <a href="#" class="remove-item-btn" data-link="{{route('document.delete.get', $document->id)}}" data-bs-toggle="tooltip" data-bs-original-title="Delete Document"> <svg width="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path opacity="0.4" d="M19.643 9.48851C19.643 9.5565 19.11 16.2973 18.8056 19.1342C18.615 20.8751 17.4927 21.9311 15.8092 21.9611C14.5157 21.9901 13.2494 22.0001 12.0036 22.0001C10.6809 22.0001 9.38741 21.9901 8.13185 21.9611C6.50477 21.9221 5.38147 20.8451 5.20057 19.1342C4.88741 16.2873 4.36418 9.5565 4.35445 9.48851C4.34473 9.28351 4.41086 9.08852 4.54507 8.93053C4.67734 8.78453 4.86796 8.69653 5.06831 8.69653H18.9388C19.1382 8.69653 19.3191 8.78453 19.4621 8.93053C19.5953 9.08852 19.6624 9.28351 19.643 9.48851Z" fill="currentColor"></path>
-                                                <path d="M21 5.97686C21 5.56588 20.6761 5.24389 20.2871 5.24389H17.3714C16.7781 5.24389 16.2627 4.8219 16.1304 4.22692L15.967 3.49795C15.7385 2.61698 14.9498 2 14.0647 2H9.93624C9.0415 2 8.26054 2.61698 8.02323 3.54595L7.87054 4.22792C7.7373 4.8219 7.22185 5.24389 6.62957 5.24389H3.71385C3.32386 5.24389 3 5.56588 3 5.97686V6.35685C3 6.75783 3.32386 7.08982 3.71385 7.08982H20.2871C20.6761 7.08982 21 6.75783 21 6.35685V5.97686Z" fill="currentColor"></path>
-                                            </svg>
-                                        </a>
-                                        @endcan
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                    <p class="mt-5"><strong>Add Documents </strong></p>
+                    <p><strong>Add Documents </strong></p>
                     <div id="document-error mt-2"></div>
                     <div class="col-12">
                         <input class="form-control filepond" type="file" name="upload" id="upload" multiple data-allow-reorder="true" data-max-file-size="5MB" data-max-files="3">
@@ -392,6 +395,7 @@
 @section('javascript')
 <script src="{{asset('assets/js/plugins/jquery.js')}}"></script>
 <script src="{{asset('assets/js/plugins/jquery.repeater.js')}}"></script>
+<script src="{{ asset('assets/js/plugins/select2.min.js') }}"></script>
 <script src="{{ asset('assets/js/plugins/filepond.min.js') }}"></script>
 <script src="{{ asset('assets/js/plugins/filepond-plugin-image-preview.min.js') }}"></script>
 <script src="{{ asset('assets/js/plugins/filepond-plugin-file-validate-size.min.js') }}"></script>
@@ -680,6 +684,7 @@ validation
 
 
 (function( $ ) {
+    $('.js-example-basic-single').select2();
     $('.writer-id-input').on('input', function () {
         const data = @json($writers);
         const event = data.filter((item)=>item.id==$(this).val());
@@ -694,6 +699,7 @@ validation
             initEmpty:true,
             isFirstItemUndeletable: true,
             show: function () {
+                var dd = $(this).children().children();
                 $(this).slideDown();
                 $('.writer-id-input').on('input', function () {
                     const data = @json($writers);
@@ -704,6 +710,7 @@ validation
                         $(this).parent().parent().find('.billing-rate-div .billing-rate-input').val('');
                     }
                 });
+                $('select[name="'+dd[0].attributes.name.nodeValue+'"]').select2();
             },
             hide: function (deleteElement) {
                 iziToast.question({

@@ -123,6 +123,7 @@
             </div>
         </form>
     </div>
+    @if($event->writers->count()>0)
     <div class="card">
         <div class="card-header d-flex justify-content-between">
             <div class="header-title">
@@ -144,7 +145,10 @@
             @endforeach
         </div>
     </div>
+    @endif
+
     <div class="card">
+        @if($event->documents->count()>0)
         <div class="card-header d-flex justify-content-between">
             <div class="header-title">
                 <h4 class="card-title">Documents</h4>
@@ -180,6 +184,7 @@
                 </tbody>
             </table>
         </div>
+        @endif
 
         <div class="card-header d-flex justify-content-between">
             <div class="header-title">
