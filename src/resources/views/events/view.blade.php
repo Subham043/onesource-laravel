@@ -167,7 +167,7 @@
                     <tr>
                         <td>
                             <div class="d-flex align-items-center">
-                                <a href="{{$document->document_link}}" download>{{str_replace("storage/documents/","",$document->document)}}</a>
+                                <a href="{{$document->document_link}}" download>{{str()->snake($event->name).'_EVD'.$event->id.'.'.\File::extension(str_replace("storage/documents/","",$document->document))}}</a>
                             </div>
                         </td>
                         <td>
