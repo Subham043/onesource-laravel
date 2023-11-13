@@ -17,6 +17,15 @@
     <link rel='stylesheet' href="{{asset('assets/vendor/fullcalendar/daygrid/main.css')}}" />
     <link rel='stylesheet' href="{{asset('assets/vendor/fullcalendar/timegrid/main.css')}}" />
     <link rel='stylesheet' href="{{asset('assets/vendor/fullcalendar/list/main.css')}}" />
+    <style nonce="{{ csp_nonce() }}">
+        .header-auth-img{
+            object-fit: contain;
+            height: 50px;
+            width: 50px;
+            border: 1px solid #ccc;
+            border-radius: 50%;
+        }
+    </style>
     @yield('css')
 </head>
 
