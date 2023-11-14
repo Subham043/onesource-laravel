@@ -4,6 +4,7 @@ namespace App\Modules\Event\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Modules\Client\Services\ClientService;
+use App\Modules\Document\Models\DocumentNotification;
 use App\Modules\Event\Requests\EventCreateRequest;
 use App\Modules\Event\Services\EventService;
 use App\Modules\User\Services\UserService;
@@ -27,6 +28,7 @@ class EventCreateController extends Controller
         $writers = $this->userService->allByWriterRole();
         return view('events.add', compact(['clients', 'writers']))->with([
             'page_name' => 'Event',
+            'notifications' => DocumentNotification::filterByRoles()->latest()->limit(4)->get()
         ]);
     }
 

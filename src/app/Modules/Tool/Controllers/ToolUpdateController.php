@@ -3,6 +3,7 @@
 namespace App\Modules\Tool\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Modules\Document\Models\DocumentNotification;
 use App\Modules\Tool\Requests\ToolRequest;
 use App\Modules\Tool\Services\ToolService;
 
@@ -19,7 +20,8 @@ class ToolUpdateController extends Controller
     public function get($id){
         $data = $this->toolService->getById($id);
         return view('tools.edit', compact(['data']))->with([
-            'page_name' => 'Tool'
+            'page_name' => 'Tool',
+            'notifications' => DocumentNotification::filterByRoles()->latest()->limit(4)->get()
         ]);
     }
 

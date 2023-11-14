@@ -5,6 +5,7 @@ namespace App\Modules\Client\Controllers;
 use App\Http\Controllers\Controller;
 use App\Modules\Client\Requests\ClientRequest;
 use App\Modules\Client\Services\ClientService;
+use App\Modules\Document\Models\DocumentNotification;
 
 class ClientUpdateController extends Controller
 {
@@ -19,7 +20,8 @@ class ClientUpdateController extends Controller
     public function get($id){
         $data = $this->clientService->getById($id);
         return view('clients.edit', compact(['data']))->with([
-            'page_name' => 'Client'
+            'page_name' => 'Client',
+            'notifications' => DocumentNotification::filterByRoles()->latest()->limit(4)->get()
         ]);
     }
 

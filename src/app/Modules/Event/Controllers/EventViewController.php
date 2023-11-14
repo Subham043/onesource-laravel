@@ -3,6 +3,7 @@
 namespace App\Modules\Event\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Modules\Document\Models\DocumentNotification;
 use App\Modules\Event\Services\EventService;
 
 class EventViewController extends Controller
@@ -18,7 +19,8 @@ class EventViewController extends Controller
     public function get($id){
         $event = $this->eventService->getById($id);
         return view('events.view', compact(['event']))->with([
-            'page_name' => 'Event'
+            'page_name' => 'Event',
+            'notifications' => DocumentNotification::filterByRoles()->latest()->limit(4)->get()
         ]);
     }
 }

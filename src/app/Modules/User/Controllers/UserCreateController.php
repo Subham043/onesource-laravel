@@ -5,6 +5,7 @@ namespace App\Modules\User\Controllers;
 use App\Http\Controllers\Controller;
 use App\Modules\Authentication\Models\User;
 use App\Modules\Client\Services\ClientService;
+use App\Modules\Document\Models\DocumentNotification;
 use App\Modules\Tool\Services\ToolService;
 use App\Modules\User\Requests\UserCreatePostRequest;
 use App\Modules\User\Services\UserService;
@@ -27,7 +28,8 @@ class UserCreateController extends Controller
         $client = $this->clientService->all();
         $tool = $this->toolService->all();
         return view('users.add', compact(['client', 'tool']))->with([
-            'page_name' => 'User'
+            'page_name' => 'User',
+            'notifications' => DocumentNotification::filterByRoles()->latest()->limit(4)->get()
         ]);
     }
 

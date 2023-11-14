@@ -3,6 +3,7 @@
 namespace App\Modules\Document\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Modules\Document\Models\DocumentNotification;
 use App\Modules\Document\Requests\DocumentCreateRequest;
 use App\Modules\Document\Services\DocumentService;
 use App\Modules\Event\Services\EventService;
@@ -22,7 +23,8 @@ class DocumentCreateController extends Controller
     public function get(){
         $events = $this->eventService->all();
         return view('documents.add', compact(['events']))->with([
-            'page_name' => 'Document'
+            'page_name' => 'Document',
+            'notifications' => DocumentNotification::filterByRoles()->latest()->limit(4)->get()
         ]);
     }
 

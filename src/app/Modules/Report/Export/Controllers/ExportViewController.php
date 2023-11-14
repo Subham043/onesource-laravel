@@ -3,6 +3,7 @@
 namespace App\Modules\Report\Export\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Modules\Document\Models\DocumentNotification;
 use App\Modules\Event\Services\EventService;
 use App\Modules\User\Services\UserService;
 use Illuminate\Http\Request;
@@ -22,7 +23,8 @@ class ExportViewController extends Controller
         $data = $this->eventService->paginateReport($request->total ?? 10);
         $writers = $this->userService->allByWriterRole();
         return view('reports.export', compact(['data', 'writers']))->with([
-            'page_name' => 'Export'
+            'page_name' => 'Export',
+            'notifications' => DocumentNotification::filterByRoles()->latest()->limit(4)->get()
         ])
         ->with('search', $request->query('filter')['search'] ?? '');
     }

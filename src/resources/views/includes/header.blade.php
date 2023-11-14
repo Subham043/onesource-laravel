@@ -43,50 +43,18 @@
                                 </div>
                             </div>
                             <div class="p-0 card-body">
-                                <a href="javascript:void(0)" class="iq-sub-card">
+                                @foreach($notifications as $k=>$item)
+                                <a href="{{route('event.view.get', $item->document->event->id)}}" class="iq-sub-card">
                                     <div class="d-flex align-items-center">
-                                        <img class="p-1 avatar-40 rounded-pill bg-soft-primary" src="{{asset('assets/images/shapes/01.png')}}" alt="">
-                                        <div class="ms-3 w-100">
-                                            <h6 class="mb-0 ">New Document: Event Name</h6>
+                                        <div class="w-100">
+                                            <h6 class="mb-0 ">{{$item->document->event->name}}</h6>
                                             <div class="d-flex justify-content-between align-items-center">
-                                                <p class="mb-0">documentName.docs</p>
+                                                <p class="mb-0">{{str()->limit(str()->snake($item->document->event->name).'_EVD'.$item->document->event->id.'.'.\File::extension(str_replace("storage/documents/","",$item->document->document)), 35)}}</p>
                                             </div>
                                         </div>
                                     </div>
                                 </a>
-                                <a href="javascript:void(0)" class="iq-sub-card">
-                                    <div class="d-flex align-items-center">
-                                        <img class="p-1 avatar-40 rounded-pill bg-soft-primary" src="{{asset('assets/images/shapes/01.png')}}" alt="">
-                                        <div class="ms-3 w-100">
-                                            <h6 class="mb-0 ">New Document: Event Name</h6>
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <p class="mb-0">documentName.docs</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                                <a href="javascript:void(0)" class="iq-sub-card">
-                                    <div class="d-flex align-items-center">
-                                        <img class="p-1 avatar-40 rounded-pill bg-soft-primary" src="{{asset('assets/images/shapes/01.png')}}" alt="">
-                                        <div class="ms-3 w-100">
-                                            <h6 class="mb-0 ">New Document: Event Name</h6>
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <p class="mb-0">documentName.docs</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                                <a href="javascript:void(0)" class="iq-sub-card">
-                                    <div class="d-flex align-items-center">
-                                        <img class="p-1 avatar-40 rounded-pill bg-soft-primary" src="{{asset('assets/images/shapes/01.png')}}" alt="">
-                                        <div class="ms-3 w-100">
-                                            <h6 class="mb-0 ">New Document: Event Name</h6>
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <p class="mb-0">documentName.docs</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
+                                @endforeach
                             </div>
                         </div>
                     </div>

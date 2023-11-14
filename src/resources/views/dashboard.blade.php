@@ -183,48 +183,15 @@
                             </div>
                         </div>
                         <div class="card-body">
+                            @foreach($document_notification as $k=>$item)
                             <div class="mb-2  d-flex profile-media align-items-top">
                                 <div class="mt-1 profile-dots-pills border-primary"></div>
                                 <div class="ms-4">
-                                    <h6 class="mb-1 "><a href="#">New Document - Document_Title.docx</a></h6>
-                                    <span class="mb-0">5th JAN 8:10 AM | <a href="#"> Job Title </a></span>
+                                    <h6 class="mb-1 "><a href="{{$item->document->document_link}}" download data-bs-toggle="tooltip" data-bs-original-title="{{str()->snake($item->document->event->name).'_EVD'.$item->document->event->id.'.'.\File::extension(str_replace("storage/documents/","",$item->document->document))}}">{{str()->limit(str()->snake($item->document->event->name).'_EVD'.$item->document->event->id.'.'.\File::extension(str_replace("storage/documents/","",$item->document->document)), 35)}}</a></h6>
+                                    <span class="mb-0">{{$item->created_at->format('M d Y h:i a')}}</span>
                                 </div>
                             </div>
-                            <div class="mb-2  d-flex profile-media align-items-top">
-                                <div class="mt-1 profile-dots-pills border-primary"></div>
-                                <div class="ms-4">
-                                    <h6 class="mb-1 "><a href="#">New Document - Document_Title.docx</a></h6>
-                                    <span class="mb-0">5th JAN 8:10 AM | <a href="#"> Job Title </a></span>
-                                </div>
-                            </div>
-                            <div class="mb-2  d-flex profile-media align-items-top">
-                                <div class="mt-1 profile-dots-pills border-primary"></div>
-                                <div class="ms-4">
-                                    <h6 class="mb-1 "><a href="#">New Document - Document_Title.docx</a></h6>
-                                    <span class="mb-0">5th JAN 8:10 AM | <a href="#"> Job Title </a></span>
-                                </div>
-                            </div>
-                            <div class="mb-2  d-flex profile-media align-items-top">
-                                <div class="mt-1 profile-dots-pills border-primary"></div>
-                                <div class="ms-4">
-                                    <h6 class="mb-1 "><a href="#">New Document - Document_Title.docx</a></h6>
-                                    <span class="mb-0">5th JAN 8:10 AM | <a href="#"> Job Title </a></span>
-                                </div>
-                            </div>
-                            <div class="mb-2  d-flex profile-media align-items-top">
-                                <div class="mt-1 profile-dots-pills border-primary"></div>
-                                <div class="ms-4">
-                                    <h6 class="mb-1 "><a href="#">New Document - Document_Title.docx</a></h6>
-                                    <span class="mb-0">5th JAN 8:10 AM | <a href="#"> Job Title </a></span>
-                                </div>
-                            </div>
-                            <div class="mb-2  d-flex profile-media align-items-top">
-                                <div class="mt-1 profile-dots-pills border-primary"></div>
-                                <div class="ms-4">
-                                    <h6 class="mb-1 "><a href="#">New Document - Document_Title.docx</a></h6>
-                                    <span class="mb-0">5th JAN 8:10 AM | <a href="#"> Job Title </a></span>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>

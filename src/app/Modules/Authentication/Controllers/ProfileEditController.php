@@ -7,6 +7,7 @@ use App\Http\Services\RateLimitService;
 use App\Modules\Authentication\Models\User;
 use App\Modules\Authentication\Requests\ProfilePostRequest;
 use App\Modules\Authentication\Services\AuthService;
+use App\Modules\Document\Models\DocumentNotification;
 use App\Modules\User\Services\UserService;
 use Illuminate\Auth\Events\Registered;
 
@@ -24,7 +25,8 @@ class ProfileEditController extends Controller
     public function get(){
         $data = $this->authService->authenticated_user();
         return view('profile.edit', compact('data'))->with([
-            'page_name' => 'Profile'
+            'page_name' => 'Profile',
+            'notifications' => DocumentNotification::filterByRoles()->latest()->limit(4)->get()
         ]);
     }
 

@@ -3,6 +3,7 @@
 namespace App\Modules\Event\Models;
 
 use App\Modules\Authentication\Models\User;
+use App\Modules\Document\Models\DocumentNotification;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -33,6 +34,16 @@ class EventDocument extends Model
     public $document_path = 'documents';
 
     protected $appends = ['document_link'];
+
+    public static function boot(): void
+    {
+        parent::boot();
+        static::created(fn (Model $model) =>
+            DocumentNotification::create([
+                'event_document_id' => $model->id
+            ]),
+        );
+    }
 
     protected function document(): Attribute
     {

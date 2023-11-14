@@ -3,6 +3,7 @@
 namespace App\Modules\Search\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Modules\Document\Models\DocumentNotification;
 use App\Modules\Search\Services\SearchService;
 use Illuminate\Http\Request;
 
@@ -24,6 +25,7 @@ class SearchViewController extends Controller
             'event_data' => $event_data,
             'document_data' => $document_data,
             'user_data' => $user_data,
+            'notifications' => DocumentNotification::filterByRoles()->latest()->limit(4)->get()
         ]);
     }
 }

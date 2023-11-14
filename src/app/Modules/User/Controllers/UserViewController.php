@@ -3,6 +3,7 @@
 namespace App\Modules\User\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Modules\Document\Models\DocumentNotification;
 use App\Modules\User\Services\UserService;
 
 class UserViewController extends Controller
@@ -19,7 +20,8 @@ class UserViewController extends Controller
         $user = $this->userService->getById($id);
         return view('users.view')->with([
             'page_name' => 'User',
-            'user' => $user
+            'user' => $user,
+            'notifications' => DocumentNotification::filterByRoles()->latest()->limit(4)->get()
         ]);
     }
 }

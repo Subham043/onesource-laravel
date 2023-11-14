@@ -4,6 +4,7 @@ namespace App\Modules\Authentication\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Modules\Authentication\Services\AuthService;
+use App\Modules\Document\Models\DocumentNotification;
 
 class ProfileViewController extends Controller
 {
@@ -17,7 +18,8 @@ class ProfileViewController extends Controller
     public function get(){
         $data = $this->authService->authenticated_user();
         return view('profile.view', compact('data'))->with([
-            'page_name' => 'Profile'
+            'page_name' => 'Profile',
+            'notifications' => DocumentNotification::filterByRoles()->latest()->limit(4)->get()
         ]);
     }
 }

@@ -5,6 +5,7 @@ namespace App\Modules\User\Controllers;
 use App\Http\Controllers\Controller;
 use App\Modules\Authentication\Models\User;
 use App\Modules\Client\Services\ClientService;
+use App\Modules\Document\Models\DocumentNotification;
 use App\Modules\Tool\Services\ToolService;
 use App\Modules\User\Requests\UserUpdatePostRequest;
 use App\Modules\User\Services\UserService;
@@ -29,7 +30,8 @@ class UserUpdateController extends Controller
         $tool = $this->toolService->all();
         $user_roles = $data->getRoleNames()->toArray();
         return view('users.edit', compact(['client', 'tool', 'data']))->with([
-            'page_name' => 'User'
+            'page_name' => 'User',
+            'notifications' => DocumentNotification::filterByRoles()->latest()->limit(4)->get()
         ]);
     }
 

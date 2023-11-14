@@ -4,6 +4,7 @@ namespace App\Modules\Report\Quickbook\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Modules\Client\Services\ClientService;
+use App\Modules\Document\Models\DocumentNotification;
 use App\Modules\Event\Services\EventService;
 use App\Modules\User\Services\UserService;
 use Illuminate\Http\Request;
@@ -27,7 +28,8 @@ class QuickbookViewController extends Controller
         $clients = $this->clientService->all();
         $writers = $this->userService->allByWriterRole();
         return view('reports.quickbook', compact(['data', 'clients', 'writers']))->with([
-            'page_name' => 'Quickbook'
+            'page_name' => 'Quickbook',
+            'notifications' => DocumentNotification::filterByRoles()->latest()->limit(4)->get()
         ])
         ->with('search', $request->query('filter')['search'] ?? '');
     }

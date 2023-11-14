@@ -4,6 +4,7 @@ namespace App\Modules\Client\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Modules\Client\Services\ClientService;
+use App\Modules\Document\Models\DocumentNotification;
 use Illuminate\Http\Request;
 
 class ClientPaginateController extends Controller
@@ -19,7 +20,8 @@ class ClientPaginateController extends Controller
         $data = $this->clientService->paginate($request->total ?? 10);
         return view('clients.list', compact(['data']))
             ->with('search', $request->query('filter')['search'] ?? '')->with([
-                'page_name' => 'Client'
+                'page_name' => 'Client',
+                'notifications' => DocumentNotification::filterByRoles()->latest()->limit(4)->get()
             ]);
     }
 

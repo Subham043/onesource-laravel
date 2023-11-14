@@ -3,6 +3,7 @@
 namespace App\Modules\Calendar\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Modules\Document\Models\DocumentNotification;
 use App\Modules\Event\Services\EventService;
 
 class CalendarViewController extends Controller
@@ -18,7 +19,8 @@ class CalendarViewController extends Controller
         $current_month_events = $this->eventService->all(false);
         return view('calendar.view')->with([
             'page_name' => 'Calendar',
-            'current_month_events' => $current_month_events
+            'current_month_events' => $current_month_events,
+            'notifications' => DocumentNotification::filterByRoles()->latest()->limit(4)->get()
         ]);
     }
 }
