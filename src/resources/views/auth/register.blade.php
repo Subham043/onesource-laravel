@@ -1,5 +1,9 @@
 @extends('layouts.auth')
 
+@section('css')
+<link rel="stylesheet" href="{{ asset('assets/css/intlTelInput.css')}}" type="text/css" />
+@stop
+
 @section('content')
 <div class="row m-0 align-items-center bg-white">
     <div class="col-md-12">
@@ -318,6 +322,8 @@
 @stop
 
 @section('javascript')
+<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/intlTelInput.min.js"></script>
+
 <script type="text/javascript" nonce="{{ csp_nonce() }}">
 
 document.getElementById('password-show').addEventListener("click", function(){
@@ -363,6 +369,19 @@ document.getElementById('confirm_password-show').addEventListener("click", funct
         </svg>`
     }
 })
+
+const countryData = window.intlTelInput(document.querySelector("#phone"), {
+    utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/utils.js",
+    autoInsertDialCode: true,
+    initialCountry: "in",
+    nationalMode: false,
+    geoIpLookup: callback => {
+        fetch("https://ipapi.co/json")
+        .then(res => res.json())
+        .then(data => callback(data.country_code))
+        .catch(() => callback("us"));
+    },
+});
 
 // initialize the validation library
 const validation = new JustValidate('#loginForm', {

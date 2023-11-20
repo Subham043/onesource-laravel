@@ -46,7 +46,7 @@ class UserUpdatePostRequest extends UserCreatePostRequest
             //         }
             //     }
             // }],
-            // 'phone' => ['required','numeric', 'gt:0', function ($attribute, $value, $fail) {
+            // 'phone' => ['required','regex:/(^[0-9 \+\-]+$)+/', function ($attribute, $value, $fail) {
             //     if($value==auth()->user()->phone){
             //         $fail('The '.$attribute.' entered is already taken.');
             //     }

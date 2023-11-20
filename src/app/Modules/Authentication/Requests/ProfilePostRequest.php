@@ -35,7 +35,7 @@ class ProfilePostRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,'.Auth::user()->id,
-            'phone' => 'required|numeric|gt:0|unique:users,phone,'.Auth::user()->id,
+            'phone' => 'required|regex:/(^[0-9 \+\-]+$)+/|unique:users,phone,'.Auth::user()->id,
             'old_password' => ['nullable', 'required_with:password','string', function ($attribute, $value, $fail) {
                 if (!Hash::check($value, Auth::user()->password)) {
                     $fail('The '.$attribute.' entered is incorrect.');

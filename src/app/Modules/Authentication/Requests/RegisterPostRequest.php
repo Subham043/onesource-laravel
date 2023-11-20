@@ -34,7 +34,7 @@ class RegisterPostRequest extends FormRequest
         return [
             'name' => ['required', 'string'],
             'email' => ['required','email:rfc,dns','unique:users'],
-            'phone' => ['required','numeric', 'gt:0', 'unique:users'],
+            'phone' => ['required','regex:/(^[0-9 \+\-]+$)+/', 'unique:users'],
             'password' => ['required',
                 'string',
                 PasswordValidation::min(8)

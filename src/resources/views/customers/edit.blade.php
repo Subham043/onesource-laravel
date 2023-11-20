@@ -1,5 +1,9 @@
 @extends('layouts.main')
 
+@section('css')
+<link rel="stylesheet" href="{{ asset('assets/css/intlTelInput.css')}}" type="text/css" />
+@stop
+
 @section('content')
     <div class="row">
         <div class="col-md-12">
@@ -234,8 +238,22 @@
 
 
 @section('javascript')
+<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/intlTelInput.min.js"></script>
+
 <script type="text/javascript" nonce="{{ csp_nonce() }}">
 
+const countryData = window.intlTelInput(document.querySelector("#phone"), {
+    utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/utils.js",
+    autoInsertDialCode: true,
+    initialCountry: "in",
+    nationalMode: false,
+    geoIpLookup: callback => {
+        fetch("https://ipapi.co/json")
+        .then(res => res.json())
+        .then(data => callback(data.country_code))
+        .catch(() => callback("us"));
+    },
+});
 // initialize the validation library
 const validation = new JustValidate('#loginForm', {
       errorFieldCssClass: 'is-invalid',
