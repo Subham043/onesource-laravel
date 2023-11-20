@@ -364,7 +364,9 @@ validation
             if(document.getElementById('tool')?.length>0){
                 for (let index = 0; index < document.getElementById('tool').length; index++) {
                     if(document.getElementById('tool')[index].selected) {
-                        formData.append('tool[]',document.getElementById('tool')[index].value)
+                        if(document.getElementById('tool')[index].value!=""){
+                            formData.append('tool[]',document.getElementById('tool')[index].value)
+                        }
                     }
                 }
             }
@@ -450,7 +452,9 @@ validation
                             if(document.getElementById('tool')?.length>0){
                                 for (let index = 0; index < document.getElementById('tool').length; index++) {
                                     if(document.getElementById('tool')[index].selected) {
-                                        formData.append('tool[]',document.getElementById('tool')[index].value)
+                                        if(document.getElementById('tool')[index].value!=""){
+                                            formData.append('tool[]',document.getElementById('tool')[index].value)
+                                        }
                                     }
                                 }
                             }

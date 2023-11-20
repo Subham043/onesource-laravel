@@ -34,7 +34,6 @@ class UserCreateController extends Controller
     }
 
     public function post(UserCreatePostRequest $request){
-
         $user = User::where('email', $request->email)->orWhere('phone', $request->phone)->first();
         if(empty($user)){
             try {
