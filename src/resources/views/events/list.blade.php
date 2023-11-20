@@ -29,9 +29,11 @@
                             <table id="basic-table" class="table mb-0 table-striped" role="grid">
                                 <thead>
                                     <tr>
+                                        @can('edit events')
                                         <th style="max-width: 10px;">
                                             <input type="checkbox" class="form-check-input" id="checkAll"  data-bs-toggle="tooltip" data-bs-original-title="Select All">
                                         </th>
+                                        @endcan
                                         <th>Event ID</th>
                                         <th>Event</th>
                                         <th>Client</th>
@@ -47,11 +49,13 @@
                                 <tbody>
                                     @foreach ($data->items() as $item)
                                     <tr>
+                                        @can('edit events')
                                         <td>
                                             <div class="d-flex align-items-center">
                                                 <input type="checkbox" class="form-check-input event-checkbox" value="{{$item->id}}" data-bs-toggle="tooltip" data-bs-original-title="Select EVD{{$item->id}}">
                                             </div>
                                         </td>
+                                        @endcan
                                         <td>
                                             <div class="d-flex align-items-center">
                                                 <a href="{{route('event.view.get', $item->id)}}">EVD{{$item->id}}</a>
@@ -145,7 +149,7 @@
 @stop
 
 @section('javascript')
-
+@can('edit events')
 <script type="text/javascript" nonce="{{ csp_nonce() }}">
     let event_arr = []
     const checkAll = document.getElementById('checkAll');
@@ -266,4 +270,5 @@
 
 
 </script>
+@endcan
 @stop

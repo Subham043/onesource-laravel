@@ -26,9 +26,11 @@
                             <table id="basic-table" class="table mb-0 table-striped" role="grid">
                                 <thead>
                                     <tr>
+                                        @can('delete documents')
                                         <th style="max-width: 10px;">
                                             <input type="checkbox" class="form-check-input" id="checkAll"  data-bs-toggle="tooltip" data-bs-original-title="Select All">
                                         </th>
+                                        @endcan
                                         <th>Document Name</th>
                                         <th>Event ID</th>
                                         <th>Client</th>
@@ -42,6 +44,7 @@
                                 <tbody>
                                     @foreach ($data->items() as $item)
                                     <tr>
+                                        @can('delete documents')
                                         <td>
                                             <div class="d-flex align-items-center">
                                                 @if((auth()->user()->current_role=='Admin' || auth()->user()->current_role=='Staff-Admin') || (auth()->user()->current_role=='Writer') && $item->created_by==auth()->user()->id)
@@ -49,6 +52,7 @@
                                                 @endif
                                             </div>
                                         </td>
+                                        @endcan
                                         <td>
                                             <div class="d-flex align-items-center">
                                                 <a href="#" data-bs-toggle="tooltip" data-bs-original-title="{{str_replace("storage/documents/","",$item->document)}}">{{str()->snake($item->event->name).'_EVD'.$item->event->id.'.'.\File::extension(str_replace("storage/documents/","",$item->document))}}</a>
@@ -113,6 +117,7 @@
 
 @section('javascript')
 
+@can('delete documents')
 <script type="text/javascript" nonce="{{ csp_nonce() }}">
     let document_arr = []
     const checkAll = document.getElementById('checkAll');
@@ -233,4 +238,6 @@
 
 
 </script>
+@endcan
+
 @stop
