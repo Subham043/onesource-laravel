@@ -17,6 +17,7 @@
                             @can('add documents')
                             <a href="{{route('document.create.get')}}" class="btn btn-primary">Add Document</a>
                             @endcan
+                            <a href="{{route('dashboard.get')}}" class="btn btn-primary">Return To Dashboard</a>
                         </div>
                     </div>
                     <div class="p-0 card-body">

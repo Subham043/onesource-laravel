@@ -188,19 +188,7 @@ validation
   ])
   .addField('#tool', [
     {
-        validator: (value, fields) => {
-        if (fields['#role'] && fields['#role'].elem) {
-            const roleValue = fields['#role'].elem.value;
-
-            if((roleValue === 'Writer') && value.length==0){
-                return false;
-            }
-            return true;
-        }
-
-            return true;
-        },
-        errorMessage: 'Tool is required',
+        validator: (value, fields) => true
     },
   ])
   .onSuccess(async(event) => {

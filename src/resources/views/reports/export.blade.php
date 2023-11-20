@@ -4,6 +4,9 @@
 <div class="row">
     <div class="col-md-12 col-lg-12">
         <div class="row">
+            <div class="col-12 d-flex justify-content-end mb-3">
+                <a href="{{route('dashboard.get')}}" class="btn btn-primary">Return To Dashboard</a>
+            </div>
             <div class="col-md-12 col-lg-12">
                 <div class="overflow-hidden card" data-aos="fade-up" data-aos-delay="600">
                     <div class="flex-wrap card-header d-flex justify-content-between">

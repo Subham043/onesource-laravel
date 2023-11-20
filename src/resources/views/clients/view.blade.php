@@ -13,6 +13,7 @@
                         <a href="{{route('client.update.get', $data->id)}}" class="btn btn-primary">
                             Edit This Client
                         </a>
+                        <a href="{{route('dashboard.get')}}" class="btn btn-primary">Return To Dashboard</a>
                     </div>
                 </div>
                 <div class="card-body">

@@ -130,6 +130,9 @@
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary">Save</button>
+                        <a href="{{route('profile.view.get')}}" class="btn btn-danger">
+                            Cancel
+                        </a>
                     </div>
                 </div>
             </form>

@@ -84,8 +84,8 @@ class UserUpdatePostRequest extends UserCreatePostRequest
             'timezone' => ['required', new Enum(Timezone::class)],
             'role' => ['required', 'string', 'in:Admin,Staff-Admin,Client,Writer', 'exists:Spatie\Permission\Models\Role,name'],
             'billing_rate' => ['nullable', Rule::requiredIf($this->role==='Client' || $this->role==='Writer'), 'numeric', 'gt:0'],
-            'tool' => ['nullable', Rule::requiredIf($this->role==='Writer'), 'array', 'min:1'],
-            'tool.*' => ['nullable', Rule::requiredIf($this->role==='Writer'), 'numeric', 'exists:App\Modules\Tool\Models\Tool,id'],
+            'tool' => ['nullable', Rule::excludeIf($this->role!=='Writer'), 'array', 'min:1'],
+            'tool.*' => ['nullable', Rule::excludeIf($this->role!=='Writer'), 'numeric', 'exists:App\Modules\Tool\Models\Tool,id'],
             'client' => ['nullable', Rule::requiredIf($this->role==='Client'), 'exists:App\Modules\Client\Models\Client,id'],
         ];
     }

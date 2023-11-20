@@ -319,19 +319,7 @@ validation
   ])
   .addField('#tool', [
     {
-        validator: (value, fields) => {
-        if (fields['#role'] && fields['#role'].elem) {
-            const roleValue = fields['#role'].elem.value;
-
-            if((roleValue === 'Writer') && value.length==0){
-                return false;
-            }
-            return true;
-        }
-
-            return true;
-        },
-        errorMessage: 'Tool is required',
+        validator: (value, fields) => true
     },
   ])
   .onSuccess(async(event) => {
@@ -365,7 +353,7 @@ validation
 
         const response = await axios.post('{{route('user.create.post')}}', formData)
         if(response.data.merge_available){
-            deleteHandler(response.data.message, response.data.url)
+            mergeHandler(response.data.message, response.data.url)
             return;
         }
         successToast(response.data.message)
@@ -413,7 +401,7 @@ validation
     }
   });
 
-  function deleteHandler(message, url){
+  function mergeHandler(message, url){
         iziToast.question({
             // timeout: 50000,
             timeout: 0,

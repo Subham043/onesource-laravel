@@ -3,6 +3,9 @@
 @section('content')
 <div>
     <div class="row">
+        <div class="col-12 d-flex justify-content-end mb-3">
+            <a href="{{route('dashboard.get')}}" class="btn btn-primary">Return To Dashboard</a>
+        </div>
         <div class="col-lg-12">
             <div class="row">
                 <div class="col-lg-12">

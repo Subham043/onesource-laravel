@@ -15,6 +15,7 @@
                             Edit This Event
                         </a>
                         @endcan
+                        <a href="{{route('dashboard.get')}}" class="btn btn-primary">Return To Dashboard</a>
                     </div>
                 </div>
                 <div class="card-body">
@@ -82,7 +83,7 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="control-label col-sm-2 align-self-center mb-0" for="eventName">Fuzion ID:</label>
+                        <label class="control-label col-sm-2 align-self-center mb-0" for="eventName">1FUZION:</label>
                         <div class="col-sm-10">
                             {{$event->fuzion_id}}
                         </div>

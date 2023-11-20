@@ -20,6 +20,7 @@
                             @can('view calendar')
                             <a href="{{route('calendar.view.get')}}" class="btn btn-primary">Calendar View</a>
                             @endcan
+                            <a href="{{route('dashboard.get')}}" class="btn btn-primary">Return To Dashboard</a>
                         </div>
                     </div>
                     <div class="p-0 card-body">
@@ -39,7 +40,7 @@
                                         <th>Start Time</th>
                                         <th>End Time</th>
                                         <th>Prep</th>
-                                        <th>Fuzion ID</th>
+                                        <th>1FUZION</th>
                                         <th>&nbsp;</th>
                                     </tr>
                                 </thead>

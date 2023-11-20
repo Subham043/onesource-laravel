@@ -3,6 +3,9 @@
 @section('content')
 <div class="row">
     @can('view conflicts')
+    <div class="col-12 d-flex justify-content-end mb-3">
+        <a href="{{route('dashboard.get')}}" class="btn btn-primary">Return To Dashboard</a>
+    </div>
     <div class="col-sm-12 col-lg-4">
 
         <div class="card">

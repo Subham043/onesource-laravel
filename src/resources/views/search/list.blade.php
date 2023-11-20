@@ -2,6 +2,9 @@
 
 @section('content')
 <div class="row">
+    <div class="col-12 d-flex justify-content-end mb-3">
+        <a href="{{route('dashboard.get')}}" class="btn btn-primary">Return To Dashboard</a>
+    </div>
     @if(!empty(request()->query('filter')['search']))
     <div class="col-md-12 col-lg-12">
         <div class="row">
@@ -34,7 +37,7 @@
                                         <th>Start Time</th>
                                         <th>End Time</th>
                                         <th>Prep</th>
-                                        <th>Fuzion ID</th>
+                                        <th>1FUZION</th>
                                         <th>&nbsp;</th>
                                     </tr>
                                 </thead>
