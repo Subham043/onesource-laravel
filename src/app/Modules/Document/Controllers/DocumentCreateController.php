@@ -37,7 +37,7 @@ class DocumentCreateController extends Controller
             );
             return response()->json(["message" => "Document created successfully."], 201);
         } catch (\Throwable $th) {
-            throw $th;
+            // throw $th;
             return response()->json(["message" => "Something went wrong. Please try again."], 400);
         }
 
