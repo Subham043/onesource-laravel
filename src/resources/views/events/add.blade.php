@@ -68,7 +68,7 @@
                             <input class="form-check-input" type="checkbox" value="1" id="is_recurring_event" name="is_recurring_event">
                         </div>
                     </div>
-                    <div class="form-group row">
+                    <div id="recurring_block_div" class="form-group row d-none">
                         <label class="control-label col-sm-2 align-self-center mb-0" for="">Recurring Type:</label>
                         <div class="col-sm-10">
                             <div id="recurring-error"></div>
@@ -622,6 +622,16 @@ validation
     }
   });
 
+  document.getElementById('is_recurring_event').addEventListener("change", function(){
+    if(document.getElementById('is_recurring_event').checked){
+        document.getElementById('recurring_block_div').classList.add('d-flex');
+        document.getElementById('recurring_block_div').classList.remove('d-none');
+    }else{
+        document.getElementById('recurring_block_div').classList.add('d-none');
+        document.getElementById('recurring_block_div').classList.remove('d-flex');
+    }
+  });
+
 
 (function( $ ) {
     // $('.js-example-basic-single').select2();
@@ -633,6 +643,15 @@ validation
     //         $(this).parent().parent().find('.billing-rate-div .billing-rate-input').val(event[0].member_profile_created_by_auth.billing_rate);
     //     }else{
     //         $(this).parent().parent().find('.billing-rate-div .billing-rate-input').val('');
+    //     }
+    // });
+    // $('#client').on('input', function () {
+    //     const data = @json($clients);
+    //     const event = data.filter((item)=>item.id==$(this).val());
+    //     if(event.length>0){
+    //         $('#invoice_rate').val(event[0].member_profile_created_by_auth.billing_rate);
+    //     }else{
+    //         $('#invoice_rate').val('');
     //     }
     // });
     $(document).ready(function() {

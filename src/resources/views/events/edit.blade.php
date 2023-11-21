@@ -68,7 +68,7 @@
                             <input class="form-check-input" type="checkbox" value="1" id="is_recurring_event" name="is_recurring_event" {{$event->is_recurring_event ? 'checked' : ''}}>
                         </div>
                     </div>
-                    <div class="form-group row">
+                    <div id="recurring_block_div" class="form-group row {{$event->is_recurring_event ? 'd-flex' : 'd-none'}}">
                         <label class="control-label col-sm-2 align-self-center mb-0" for="">Recurring Type:</label>
                         <div class="col-sm-10">
                             <div id="recurring-error"></div>
@@ -679,6 +679,16 @@ validation
             Update Event
             `
         submitBtn.disabled = false;
+    }
+  });
+
+  document.getElementById('is_recurring_event').addEventListener("change", function(){
+    if(document.getElementById('is_recurring_event').checked){
+        document.getElementById('recurring_block_div').classList.add('d-flex');
+        document.getElementById('recurring_block_div').classList.remove('d-none');
+    }else{
+        document.getElementById('recurring_block_div').classList.add('d-none');
+        document.getElementById('recurring_block_div').classList.remove('d-flex');
     }
   });
 
