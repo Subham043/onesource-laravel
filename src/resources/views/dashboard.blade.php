@@ -408,9 +408,12 @@
                                     title: '{{$event_data->event_title}}',
                                     url: '{{$event_data->event_link}}',
                                     start: '{{$val}}',
-                                    backgroundColor: 'rgba({{$event_data->event_rgb}},0.2)',
-                                    textColor: 'rgba({{$event_data->event_rgb}},1)',
-                                    borderColor: 'rgba({{$event_data->event_rgb}},1)'
+                                    // backgroundColor: 'rgba({{$event_data->event_rgb}},0.2)',
+                                    // textColor: 'rgba({{$event_data->event_rgb}},1)',
+                                    // borderColor: 'rgba({{$event_data->event_rgb}},1)'
+                                    backgroundColor: 'rgb(255 255 255)',
+                                    textColor: 'rgb(9 15 58)',
+                                    borderColor: 'rgb(9 15 58)'
                                 },
                             @endforeach
                         @else
@@ -419,9 +422,12 @@
                                 url: '{{$event_data->event_link}}',
                                 start: '{{$event_data->event_start_date}}',
                                 end: '{{$event_data->event_end_date}}',
-                                backgroundColor: 'rgba({{$event_data->event_rgb}},0.2)',
-                                textColor: 'rgba({{$event_data->event_rgb}},1)',
-                                borderColor: 'rgba({{$event_data->event_rgb}},1)'
+                                // backgroundColor: 'rgba({{$event_data->event_rgb}},0.2)',
+                                // textColor: 'rgba({{$event_data->event_rgb}},1)',
+                                // borderColor: 'rgba({{$event_data->event_rgb}},1)'
+                                backgroundColor: 'rgb(255 255 255)',
+                                textColor: 'rgb(132 185 26)',
+                                borderColor: 'rgb(132 185 26)'
                             },
                         @endif
                     @endforeach
