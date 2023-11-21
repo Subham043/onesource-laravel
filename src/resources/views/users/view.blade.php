@@ -109,6 +109,12 @@
                             @endif
                         </div>
                     </div>
+                    <div class="form-group row">
+                        <label class="control-label col-sm-2 align-self-center mb-0" for="client">Image:</label>
+                        <div class="col-sm-10">
+                            <img src="{{$user->image_link}}" style="height: 100px;object-fit:contain;" />
+                        </div>
+                    </div>
 
                 </div>
             </div>

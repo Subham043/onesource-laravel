@@ -55,7 +55,7 @@
                                         @endcan
                                         <td>
                                             <div class="d-flex align-items-center">
-                                                <a href="#" data-bs-toggle="tooltip" data-bs-original-title="{{str_replace("storage/documents/","",$item->document)}}">{{str()->snake($item->event->name).'_EVD'.$item->event->id.'.'.\File::extension(str_replace("storage/documents/","",$item->document))}}</a>
+                                                <a href="#" data-bs-toggle="tooltip" data-bs-original-title="{{str_replace("storage/documents/","",$item->document)}}">{{str()->limit(str_replace("storage/documents/","",$item->document), 30)}}</a>
                                             </div>
                                         </td>
                                         <td>

@@ -21,7 +21,7 @@
             <ul class="navbar-nav iq-main-menu" id="sidebar-menu">
                 @can('view dashboard')
                     <li class="nav-item">
-                        <a class="nav-link " aria-current="page" href="{{route('dashboard.get')}}">
+                        <a class="nav-link " data-bs-toggle="tooltip" data-bs-original-title="Dashboard" aria-current="page" href="{{route('dashboard.get')}}">
                             <i class="icon">
                                 <svg width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path opacity="0.4"
@@ -39,7 +39,7 @@
 
                 @can('list customers')
                     <li class="nav-item">
-                        <a class="nav-link " aria-current="page" href="{{ route('customer.paginate.get') }}">
+                        <a class="nav-link " data-bs-toggle="tooltip" data-bs-original-title="Customers" aria-current="page" href="{{ route('customer.paginate.get') }}">
                             <i class="icon">
                                 <svg class="icon-32" width="32" viewBox="0 0 24 24" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -70,7 +70,7 @@
 
                 @can('list events')
                     <li class="nav-item">
-                        <a class="nav-link " aria-current="page" href="{{route('event.paginate.get')}}">
+                        <a class="nav-link " data-bs-toggle="tooltip" data-bs-original-title="Events" aria-current="page" href="{{route('event.paginate.get')}}">
                             <i class="icon">
                                 <svg width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path opacity="0.4"
@@ -91,7 +91,7 @@
 
                 @can('view calendar')
                     <li class="nav-item">
-                        <a class="nav-link " aria-current="page" href="{{route('calendar.view.get')}}">
+                        <a class="nav-link " data-bs-toggle="tooltip" data-bs-original-title="Calendar" aria-current="page" href="{{route('calendar.view.get')}}">
                             <i class="icon">
                                 <svg width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" clip-rule="evenodd"
@@ -115,7 +115,7 @@
 
                 @can('list documents')
                     <li class="nav-item">
-                        <a class="nav-link " aria-current="page" href="{{route('document.paginate.get')}}">
+                        <a class="nav-link " data-bs-toggle="tooltip" data-bs-original-title="Documents" aria-current="page" href="{{route('document.paginate.get')}}">
                             <i class="icon">
                                 <svg width="20" viewBox="0 0 24 24" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -134,7 +134,7 @@
 
                 @can('list users')
                     <li class="nav-item">
-                        <a class="nav-link " aria-current="page" href="{{route('user.paginate.get')}}">
+                        <a class="nav-link " data-bs-toggle="tooltip" data-bs-original-title="Users" aria-current="page" href="{{route('user.paginate.get')}}">
                             <i class="icon">
                                 <svg width="20" viewBox="0 0 24 24" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -165,7 +165,7 @@
 
                 @can('list clients')
                     <li class="nav-item">
-                        <a class="nav-link " aria-current="page" href="{{ route('client.paginate.get') }}">
+                        <a class="nav-link " data-bs-toggle="tooltip" data-bs-original-title="Client" aria-current="page" href="{{ route('client.paginate.get') }}">
                             <i class="icon">
                                 <svg width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M11 21H4C4 17.4735 6.60771 14.5561 10 14.0709M19.8726 15.2038C19.8044 15.2079 19.7357 15.21 19.6667 15.21C18.6422 15.21 17.7077 14.7524 17 14C16.2923 14.7524 15.3578 15.2099 14.3333 15.2099C14.2643 15.2099 14.1956 15.2078 14.1274 15.2037C14.0442 15.5853 14 15.9855 14 16.3979C14 18.6121 15.2748 20.4725 17 21C18.7252 20.4725 20 18.6121 20 16.3979C20 15.9855 19.9558 15.5853 19.8726 15.2038ZM15 7C15 9.20914 13.2091 11 11 11C8.79086 11 7 9.20914 7 7C7 4.79086 8.79086 3 11 3C13.2091 3 15 4.79086 15 7Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -178,7 +178,7 @@
 
                 @can('list tools')
                     <li class="nav-item">
-                        <a class="nav-link " aria-current="page" href="{{ route('tool.paginate.get') }}">
+                        <a class="nav-link " data-bs-toggle="tooltip" data-bs-original-title="Tools" aria-current="page" href="{{ route('tool.paginate.get') }}">
                             <i class="icon">
                                 <svg width="20" viewBox="0 0 24 24" version="1.1"
                                     xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -209,7 +209,7 @@
 
                 @can('view reports')
                     <li class="nav-item">
-                        <a class="nav-link " aria-current="page" href="{{route('report.view.get')}}">
+                        <a class="nav-link " data-bs-toggle="tooltip" data-bs-original-title="Reports" aria-current="page" href="{{route('report.view.get')}}">
                             <i class="icon">
                                 <svg width="20" viewBox="0 0 24 24" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">

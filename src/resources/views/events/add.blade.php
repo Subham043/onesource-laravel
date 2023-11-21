@@ -236,7 +236,7 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="control-label col-sm-2 align-self-center mb-0" for="fuzion_id">11FUZION:</label>
+                        <label class="control-label col-sm-2 align-self-center mb-0" for="fuzion_id">1FUZION:</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="fuzion_id" name="fuzion_id">
                         </div>

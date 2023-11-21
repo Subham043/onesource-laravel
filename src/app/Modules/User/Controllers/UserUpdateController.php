@@ -64,6 +64,12 @@ class UserUpdateController extends Controller
         try {
             //code...
             $this->userService->update($request,$user);
+            if($request->file('image') && $request->file('image')->isValid()){
+                $file = $request->file('image')->hashName();
+                $request->file('image')->storeAs((new User)->image_path,$file);
+                $user->image = $file;
+                $user->save();
+            }
             return response()->json(["message" => "User updated successfully.", "merge_available" => false], 200);
         } catch (\Throwable $th) {
             return response()->json(["message" => "Something went wrong. Please try again."], 400);

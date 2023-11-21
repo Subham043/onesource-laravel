@@ -58,7 +58,7 @@ class UserCreatePostRequest extends FormRequest
                     }
                 }
             }],
-            'phone' => ['required','regex:/(^[0-9 \+\-]+$)+/', function ($attribute, $value, $fail) {
+            'phone' => ['required','regex:/(^[0-9 \+\-\(\)]+$)+/', function ($attribute, $value, $fail) {
                 if($value==auth()->user()->phone){
                     $fail('The '.$attribute.' entered is already taken.');
                 }
@@ -99,6 +99,7 @@ class UserCreatePostRequest extends FormRequest
             'tool' => ['nullable', Rule::excludeIf($this->role!=='Writer'), 'array', 'min:1'],
             'tool.*' => ['nullable', Rule::excludeIf($this->role!=='Writer'), 'numeric', 'exists:App\Modules\Tool\Models\Tool,id'],
             'client' => ['nullable', Rule::requiredIf($this->role==='Client'), 'exists:App\Modules\Client\Models\Client,id'],
+            'image' => 'nullable|image|max:5000'
         ];
     }
 

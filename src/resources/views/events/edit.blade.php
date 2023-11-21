@@ -236,7 +236,7 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="control-label col-sm-2 align-self-center mb-0" for="fuzion_id">11FUZION:</label>
+                        <label class="control-label col-sm-2 align-self-center mb-0" for="fuzion_id">1FUZION:</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="fuzion_id" name="fuzion_id" value="{{$event->fuzion_id}}">
                         </div>
@@ -342,7 +342,7 @@
                             <tr>
                                 <td>
                                     <div class="d-flex align-items-center">
-                                        <a href="{{$document->document_link}}" download>{{str()->snake($event->name).'_EVD'.$event->id.'.'.\File::extension(str_replace("storage/documents/","",$document->document))}}</a>
+                                        <a href="{{$document->document_link}}" download>{{str_replace("storage/documents/","",$document->document)}}</a>
                                     </div>
                                 </td>
                                 <td>

@@ -37,7 +37,9 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="control-label col-sm-2 align-self-center mb-0" for="phone">Phone:</label>
+                            <label class="control-label col-sm-2 align-self-center mb-0" for="phone">Phone: <span data-bs-toggle="tooltip" data-bs-original-title="Phone Format: 123-456-7810 or (123) 456-7810"><i class="icon">
+                                <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='currentColor'><circle cx='6' cy='6' r='4.5'/><path stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/><circle cx='6' cy='8.2' r='.6' fill='currentColor' stroke='none'/></svg>
+                           </i></span></label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" id="phone" name="phone" aria-describedby="phone"
                                     value="{{$data->phone}}">
@@ -65,7 +67,9 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="control-label col-sm-2 align-self-center mb-0" for="password">Password:</label>
+                            <label class="control-label col-sm-2 align-self-center mb-0" for="password">Password: <span data-bs-toggle="tooltip" data-bs-original-title="Password must contain atleast one upper case letter, one lower case letter, one number, one special character and should be minimum of 8 characters"><i class="icon">
+                                <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='currentColor'><circle cx='6' cy='6' r='4.5'/><path stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/><circle cx='6' cy='8.2' r='.6' fill='currentColor' stroke='none'/></svg>
+                           </i></span></label>
                             <div class="col-sm-10">
                                 <div class="input-group mb-3">
                                     <input type="password" class="form-control" id="password" name="password" aria-describedby="password" aria-describedby="password-show">
@@ -84,7 +88,9 @@
                         </div>
                         <div class="form-group row">
                             <label class="control-label col-sm-2 align-self-center mb-0" for="confirm_password">Confirm
-                                Password:</label>
+                                Password: <span data-bs-toggle="tooltip" data-bs-original-title="It must be same as the password given above"><i class="icon">
+                                    <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='currentColor'><circle cx='6' cy='6' r='4.5'/><path stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/><circle cx='6' cy='8.2' r='.6' fill='currentColor' stroke='none'/></svg>
+                               </i></span></label>
                             <div class="col-sm-10">
                                 <div class="input-group mb-3">
                                     <input type="password" class="form-control" id="confirm_password" name="confirm_password" aria-describedby="confirm_password" aria-describedby="confirm_password-show">
@@ -219,7 +225,7 @@ document.getElementById('confirm_password-show').addEventListener("click", funct
 const countryData = window.intlTelInput(document.querySelector("#phone"), {
     utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/utils.js",
     autoInsertDialCode: true,
-    initialCountry: "in",
+    initialCountry: "us",
     nationalMode: false,
     geoIpLookup: callback => {
         fetch("https://ipapi.co/json")

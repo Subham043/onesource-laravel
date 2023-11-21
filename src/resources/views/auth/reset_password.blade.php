@@ -26,7 +26,9 @@
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="form-group">
-                                        <label for="password" class="form-label">Password</label>
+                                        <label for="password" class="form-label">Password <span data-bs-toggle="tooltip" data-bs-original-title="Password must contain atleast one upper case letter, one lower case letter, one number, one special character and should be minimum of 8 characters"><i class="icon">
+                                            <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='currentColor'><circle cx='6' cy='6' r='4.5'/><path stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/><circle cx='6' cy='8.2' r='.6' fill='currentColor' stroke='none'/></svg>
+                                       </i></span></label>
                                         <div class="input-group mb-3">
                                             <input type="password" class="form-control" id="password" name="password" aria-describedby="password" aria-describedby="password-show">
                                             <div class="input-group-append">
@@ -44,7 +46,9 @@
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="form-group">
-                                        <label for="password_confirmation" class="form-label">Password</label>
+                                        <label for="password_confirmation" class="form-label">Confirm Password <span data-bs-toggle="tooltip" data-bs-original-title="It must be same as the password given above"><i class="icon">
+                                            <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='currentColor'><circle cx='6' cy='6' r='4.5'/><path stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/><circle cx='6' cy='8.2' r='.6' fill='currentColor' stroke='none'/></svg>
+                                       </i></span></label>
                                         <div class="input-group mb-3">
                                             <input type="password" class="form-control" id="confirm_password" name="confirm_password" aria-describedby="confirm_password" aria-describedby="confirm_password-show">
                                             <div class="input-group-append">

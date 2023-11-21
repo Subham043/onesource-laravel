@@ -87,6 +87,7 @@ class UserUpdatePostRequest extends UserCreatePostRequest
             'tool' => ['nullable', Rule::excludeIf($this->role!=='Writer'), 'array', 'min:1'],
             'tool.*' => ['nullable', Rule::excludeIf($this->role!=='Writer'), 'numeric', 'exists:App\Modules\Tool\Models\Tool,id'],
             'client' => ['nullable', Rule::requiredIf($this->role==='Client'), 'exists:App\Modules\Client\Models\Client,id'],
+            'image' => 'nullable|image|max:5000'
         ];
     }
 }

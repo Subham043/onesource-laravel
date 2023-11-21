@@ -32,7 +32,7 @@ class CustomerUpdatePostRequest extends FormRequest
         return [
             'name' => ['required', 'string'],
             'email' => ['required','email:rfc,dns','unique:users,email,'.$this->route('id')],
-            'phone' => ['required','regex:/(^[0-9 \+\-]+$)+/', 'unique:users,phone,'.$this->route('id')],
+            'phone' => ['required','regex:/(^[0-9 \+\-\(\)]+$)+/', 'unique:users,phone,'.$this->route('id')],
             'timezone' => ['required', new Enum(Timezone::class)],
             'company' => ['required', 'string'],
             'address' => ['required', 'string'],

@@ -38,9 +38,15 @@ class UserCreateController extends Controller
         if(empty($user)){
             try {
                 //code...
-                $this->userService->create(
+                $user_data = $this->userService->create(
                     $request
                 );
+                if($request->file('image') && $request->file('image')->isValid()){
+                    $file = $request->file('image')->hashName();
+                    $request->file('image')->storeAs((new User)->image_path,$file);
+                    $user_data->image = $file;
+                    $user_data->save();
+                }
                 return response()->json(["message" => "User created successfully.", "merge_available" => false], 201);
             } catch (\Throwable $th) {
                 // throw $th;

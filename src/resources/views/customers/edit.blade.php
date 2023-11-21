@@ -43,7 +43,9 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="control-label col-sm-2 align-self-center mb-0" for="phone">Phone:</label>
+                                <label class="control-label col-sm-2 align-self-center mb-0" for="phone">Phone: <span data-bs-toggle="tooltip" data-bs-original-title="Phone Format: 123-456-7810 or (123) 456-7810"><i class="icon">
+                                    <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='currentColor'><circle cx='6' cy='6' r='4.5'/><path stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/><circle cx='6' cy='8.2' r='.6' fill='currentColor' stroke='none'/></svg>
+                               </i></span></label>
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control" id="phone" name="phone" aria-describedby="phone"
                                         value="{{$data->phone}}">
@@ -245,7 +247,7 @@
 const countryData = window.intlTelInput(document.querySelector("#phone"), {
     utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/utils.js",
     autoInsertDialCode: true,
-    initialCountry: "in",
+    initialCountry: "us",
     nationalMode: false,
     geoIpLookup: callback => {
         fetch("https://ipapi.co/json")
