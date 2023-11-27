@@ -2,13 +2,15 @@
 
 namespace App\Modules\Event\Services;
 
-use App\Http\Services\FileService;
+use App\Modules\Authentication\Models\User;
 use App\Modules\Event\Models\Event;
 use App\Modules\Event\Models\EventDocument;
 use App\Modules\Event\Models\EventWriter;
 use App\Modules\Event\Requests\EventCreateRequest;
 use App\Modules\Event\Requests\EventCancelUpdateRequest;
 use App\Modules\Event\Requests\EventUpdateRequest;
+use App\Modules\User\Services\UserService;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\Filters\Filter;
@@ -101,6 +103,28 @@ class EventService
                 ])
                 ->paginate($total)
                 ->appends(request()->query());
+    }
+
+    public function allConflict(): Collection
+    {
+        return User::with([
+            'writerEvents' => function($qry){
+                $qry->with(['event']);
+            }
+        ])
+        ->whereHas('writerEvents', function($qry){
+            $qry->whereHas('event', function($qr){
+                $start_date = Carbon::now()->startOfMonth();
+                $date = $start_date;
+                $end_date = Carbon::now()->lastOfMonth();
+                while($start_date>=$date && $end_date<=$date){
+                    $qr->whereDate('end_date', '>=', $date->format('Y-m-d'))->whereDate('start_date', '<=', $date->format('Y-m-d'));
+                    $date->addDays(1);
+                }
+            });
+        })
+        ->whereIn('id', (new UserService)->allByWriterRole()->pluck('id'))
+        ->get();
     }
 
     public function getById(Int $id): Event|null

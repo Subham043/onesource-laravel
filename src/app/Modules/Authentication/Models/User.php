@@ -14,6 +14,7 @@ use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Support\Facades\Hash;
 use App\Enums\Timezone;
+use App\Modules\Event\Models\EventWriter;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -173,6 +174,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function member_profile_not_created_by_auth()
     {
         return $this->hasOne(Profile::class, 'user_id')->withDefault()->whereColumn('user_id', '<>', 'created_by');
+    }
+
+    public function writerEvents()
+    {
+        return $this->hasMany(EventWriter::class, 'writer_id');
     }
 
     public function scopeFilterByRole(Builder $query, String $role): Builder

@@ -276,7 +276,7 @@
                 <div class="card-body">
                     <div class="col-12">
                         @foreach($event->writers as $k=>$v)
-                        <div class="form-group row align-items-center">
+                        <div class="form-group row align-items-center {{request()->query('writer_conflict')==$v->writer_id ? 'alert alert-danger' : ''}}">
                             <label class="control-label col-sm-2 align-self-center mb-0">Writer:</label>
                             <div class="col-sm-4">
                                 <select class="form-select shadow-none writer-id-input js-example-basic-single" name="writer_id[]">

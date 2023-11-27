@@ -25,7 +25,7 @@
             </div>
             <div class="card-body">
                 <div class="">
-                    <h5 class="mb-3">5 Conflicts</h5>
+                    <h5 class="mb-3">{{$conflict_count}} Conflicts</h5>
                     <div>
                         <a href="{{route('report.conflict.view.get')}}" class="btn btn-primary">Resolve</a>
                     </div>
