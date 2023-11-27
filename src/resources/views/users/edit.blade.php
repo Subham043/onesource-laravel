@@ -1,7 +1,35 @@
 @extends('layouts.main')
 
 @section('css')
+<link rel="stylesheet" href="{{ asset('assets/css/select2.min.css')}}" type="text/css" />
 <link rel="stylesheet" href="{{ asset('assets/css/intlTelInput.css')}}" type="text/css" />
+<style nonce="{{ csp_nonce() }}">
+    .select2-container {
+        width: 100% !important;
+        padding: 0.5rem 0rem;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #8A92A6;
+        background-color: #fff;
+        -webkit-background-clip: padding-box;
+        background-clip: padding-box;
+        border: 1px solid #eee;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        -webkit-border-radius: 0.25rem;
+        border-radius: 0.25rem;
+        -webkit-box-shadow: 0 0 0 0;
+        box-shadow: 0 0 0 0;
+    }
+    .select2-container--default.select2-container--focus .select2-selection--multiple, .select2-container--default .select2-selection--multiple{
+        border: none !important;
+        padding-bottom: 0 !important;
+        min-height: auto !important
+
+    }
+</style>
 @stop
 
 @section('content')
@@ -110,7 +138,6 @@
                         <label class="control-label col-sm-2 align-self-center mb-0" for="tool">Tools :</label>
                         <div class="col-sm-10">
                             <select class="form-select shadow-none" id="tool" name="tool[]" multiple>
-                                <option value="" {{empty($data->member_profile_created_by_auth->tools) ? 'selected' : ''}}>Select Tools</option>
                                 @foreach ($tool as $item)
                                     <option value="{{$item->id}}" {{(collect($data->member_profile_created_by_auth->tools->pluck('id'))->contains($item->id)) ? 'selected' : ''}}>{{$item->name}}</option>
                                 @endforeach
@@ -134,9 +161,17 @@
 
 
 @section('javascript')
+<script src="{{asset('assets/js/plugins/jquery.js')}}"></script>
+<script src="{{ asset('assets/js/plugins/select2.min.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/intlTelInput.min.js"></script>
 
 <script type="text/javascript" nonce="{{ csp_nonce() }}">
+
+(function( $ ) {
+    $(document).ready(function() {
+        $('#tool').select2();
+    });
+})(jQuery);
 
 const countryData = window.intlTelInput(document.querySelector("#phone"), {
     utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/utils.js",

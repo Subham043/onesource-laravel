@@ -42,6 +42,7 @@ class ContentSecurityPolicy extends Basic
         ->addDirective(Directive::FONT, 'data:') //remove as this and above belongs for development template of welcome page
 
         //start of common
+        ->addDirective(Directive::IMG, 'intl-tel-input.com')
         ->addDirective(Directive::IMG, 'i3.ytimg.com')
         ->addDirective(Directive::FONT, 'at.alicdn.com')
         ->addDirective(Directive::FONT, 'fonts.gstatic.com')

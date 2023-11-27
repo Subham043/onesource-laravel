@@ -9,6 +9,7 @@
                 </svg>
             </i>
         </div>
+        @can('list events')
         <form action="{{route('search.paginate.get')}}" method="GET" class="input-group search-input">
             <span class="input-group-text" id="search-input">
                 <svg width="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -18,6 +19,7 @@
             </span>
             <input type="search" class="form-control" name="filter[search]" placeholder="Search Event, Document, User..." value="{{request()->query('filter')['search'] ?? ''}}">
         </form>
+        @endcan
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon">
                 <span class="mt-2 navbar-toggler-bar bar1"></span>
@@ -27,6 +29,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="mb-2 navbar-nav ms-auto align-items-center navbar-list mb-lg-0">
+                @can('list events')
                 <li class="nav-item dropdown">
                     <a href="javascript:void(0)" class="nav-link" id="notification-drop" data-bs-toggle="dropdown">
                         <svg width="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -59,6 +62,7 @@
                         </div>
                     </div>
                 </li>
+                @endcan
                 <li class="nav-item dropdown">
                     <a class="py-0 nav-link d-flex align-items-center ms-3" href="javascript:void(0)" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <div class="d-flex align-items-center">
