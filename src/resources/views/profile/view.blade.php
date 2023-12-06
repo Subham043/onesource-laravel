@@ -46,7 +46,7 @@
                                 {{$data->current_role}}</div>
                         </div>
                         <div class="form-group row">
-                            <label class="control-label col-sm-2 align-self-center mb-0" for="client">Image:</label>
+                            <label class="control-label col-sm-2 align-self-center mb-0" for="client">Profile Picture:</label>
                             <div class="col-sm-10">
                                 <img src="{{$data->image_link}}" style="height: 100px;object-fit:contain;" />
                             </div>

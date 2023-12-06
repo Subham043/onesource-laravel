@@ -39,7 +39,7 @@ class CustomerUpdatePostRequest extends FormRequest
             'city' => ['required', 'string'],
             'state' => ['required', new Enum(State::class)],
             'zip' => ['required', 'string'],
-            'website' => ['required', 'url'],
+            'website' => ['required', 'string'],
         ];
     }
 

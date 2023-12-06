@@ -22,7 +22,7 @@ class DashboardController extends Controller
         }
         $document_notification = DocumentNotification::filterByRoles()->latest()->limit(7)->get();
         $events = $this->eventService->paginate($request->total ?? 10);
-        $current_month_events = $this->eventService->all(true);
+        $current_month_events = $this->eventService->all(false);
         return view('dashboard', compact(['events', 'current_month_events']))->with([
             'page_name' => 'Dashboard',
             'document_notification' => $document_notification,

@@ -38,8 +38,9 @@
                                         <th>Event</th>
                                         <th>Client</th>
                                         <th>Writer</th>
-                                        <th>Date</th>
+                                        <th>Start Date</th>
                                         <th>Start Time</th>
+                                        <th>End Date</th>
                                         <th>End Time</th>
                                         <th>Prep</th>
                                         <th>1FUZION</th>
@@ -80,6 +81,9 @@
                                             {{$item->start_date->format('M d Y')}}
                                         </td>
                                         <td>{{$item->start_time->format('h:i a')}}</td>
+                                        <td>
+                                            {{$item->end_date->format('M d Y')}}
+                                        </td>
                                         <td>{{$item->end_time->format('h:i a')}}</td>
                                         <td>
                                             @if($item->is_prep_ready)
@@ -103,15 +107,14 @@
                                             @can('edit events')
                                                 @if(!$item->is_active)
                                                 <a href="#" class="remove-item-btn" data-link="{{route('event.status.get', $item->id)}}" data-bs-toggle="tooltip" data-bs-original-title="Event is Cancelled. Click to Activate it">
-                                                    <svg width="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M9.38574 11.8746L11.2777 13.7696L15.1757 9.86963" stroke="#1aa053" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" viewBox="0 0 24 24" fill="none">
+                                                        <circle cx="12" cy="12" r="5" fill="red"></circle>
                                                     </svg>
                                                 </a>
                                                 @else
                                                 <a href="#" class="remove-item-btn" data-link="{{route('event.status.get', $item->id)}}" data-bs-toggle="tooltip" data-bs-original-title="Event is Active. Click to Cancel it">
-                                                    <svg width="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M14.3955 9.59497L9.60352 14.387" stroke="#FF0000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                                        <path d="M14.3971 14.3898L9.60107 9.59277" stroke="#FF0000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" viewBox="0 0 24 24" fill="none">
+                                                        <circle cx="12" cy="12" r="5" fill="green"></circle>
                                                     </svg>
                                                 </a>
                                                 @endif

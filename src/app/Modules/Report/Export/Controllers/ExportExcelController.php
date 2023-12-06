@@ -19,6 +19,8 @@ class ExportExcelController extends Controller
     }
     public function get(Request $request){
         $data = $this->eventService->excelReport();
-        return Excel::download(new ExcelExport($data), '1capapp.xlsx');
+        return Excel::download(new ExcelExport($data), '1capapp.csv', \Maatwebsite\Excel\Excel::CSV, [
+                'Content-Type' => 'text/csv',
+        ]);
     }
 }

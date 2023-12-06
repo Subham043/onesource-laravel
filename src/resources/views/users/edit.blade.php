@@ -145,7 +145,7 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="control-label col-sm-2 align-self-center mb-0" for="image">Image:</label>
+                        <label class="control-label col-sm-2 align-self-center mb-0" for="image">Profile Picture:</label>
                         <div class="col-sm-10">
                             <input type="file" class="form-control" id="image" name="image" aria-describedby="image">
                         </div>
