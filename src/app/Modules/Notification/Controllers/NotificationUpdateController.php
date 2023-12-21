@@ -22,7 +22,7 @@ class NotificationUpdateController extends Controller
     public function get($id){
         $notification = $this->notificationService->getById($id);
         return view('notifications.edit', compact(['notification']))->with([
-            'page_name' => 'Notification',
+            'page_name' => 'Notification Setting',
             'notifications' => DocumentNotification::filterByRoles()->latest()->limit(4)->get()
         ]);
     }

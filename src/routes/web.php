@@ -37,6 +37,7 @@ use App\Modules\Notification\Controllers\NotificationCreateController;
 use App\Modules\Notification\Controllers\NotificationDeleteController;
 use App\Modules\Notification\Controllers\NotificationPaginateController;
 use App\Modules\Notification\Controllers\NotificationSendController;
+use App\Modules\Notification\Controllers\NotificationTemplateController;
 use App\Modules\Notification\Controllers\NotificationUpdateController;
 use App\Modules\Report\Conflict\Controllers\ConflictViewController;
 use App\Modules\Report\Controllers\ReportViewController;
@@ -180,6 +181,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::prefix('/notification')->group(function () {
         Route::get('/', [NotificationSendController::class, 'get', 'as' => 'notification.send.get'])->name('notification.send.get');
+        Route::prefix('/template')->group(function () {
+            Route::get('/', [NotificationTemplateController::class, 'get', 'as' => 'notification.template.get'])->name('notification.template.get');
+            Route::post('/', [NotificationTemplateController::class, 'post', 'as' => 'notification.template.post'])->name('notification.template.post');
+        });
         Route::prefix('/setting')->group(function () {
             Route::get('/', [NotificationPaginateController::class, 'get', 'as' => 'notification.paginate.get'])->name('notification.paginate.get');
             Route::get('/create', [NotificationCreateController::class, 'get', 'as' => 'notification.create.get'])->name('notification.create.get');

@@ -24,7 +24,7 @@
                         <a href="{{route('notification.paginate.get')}}" class="btn btn-primary">Settings</a>
                         @endcan
                         @can('add events')
-                        <a href="{{route('event.create.get')}}" class="btn btn-primary">Template</a>
+                        <a href="{{route('notification.template.get')}}" class="btn btn-primary">Template</a>
                         @endcan
                         @can('add events')
                         <a href="{{route('event.create.get')}}" class="btn btn-primary">Logs</a>

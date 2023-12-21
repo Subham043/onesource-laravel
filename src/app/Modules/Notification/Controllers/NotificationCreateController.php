@@ -19,7 +19,7 @@ class NotificationCreateController extends Controller
 
     public function get(){
         return view('notifications.add')->with([
-            'page_name' => 'Notification',
+            'page_name' => 'Notification Setting',
             'notifications' => DocumentNotification::filterByRoles()->latest()->limit(4)->get()
         ]);
     }

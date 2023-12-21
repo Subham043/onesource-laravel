@@ -20,7 +20,7 @@ class NotificationPaginateController extends Controller
     public function get(Request $request){
         $data = $this->notificationService->paginate($request->total ?? 10);
         return view('notifications.list', compact(['data']))->with([
-            'page_name' => 'Notification',
+            'page_name' => 'Notification Setting',
             'notifications' => DocumentNotification::filterByRoles()->latest()->limit(4)->get()
         ])
         ->with('search', $request->query('filter')['search'] ?? '');
