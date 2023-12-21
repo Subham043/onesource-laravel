@@ -32,7 +32,12 @@ use App\Modules\Event\Controllers\EventSinglePrepController;
 use App\Modules\Event\Controllers\EventUpdateController;
 use App\Modules\Event\Controllers\EventViewController;
 use App\Modules\Event\Controllers\EventWriterDeleteController;
-use App\Modules\Event\Event\Controllers\EventDeleteController;
+use App\Modules\Event\Controllers\EventDeleteController;
+use App\Modules\Notification\Controllers\NotificationCreateController;
+use App\Modules\Notification\Controllers\NotificationDeleteController;
+use App\Modules\Notification\Controllers\NotificationPaginateController;
+use App\Modules\Notification\Controllers\NotificationSendController;
+use App\Modules\Notification\Controllers\NotificationUpdateController;
 use App\Modules\Report\Conflict\Controllers\ConflictViewController;
 use App\Modules\Report\Controllers\ReportViewController;
 use App\Modules\Report\Export\Controllers\ExportExcelController;
@@ -143,7 +148,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/', [EventPaginateController::class, 'get', 'as' => 'event.paginate.get'])->name('event.paginate.get');
         Route::get('/create', [EventCreateController::class, 'get', 'as' => 'event.create.get'])->name('event.create.get');
         Route::post('/create', [EventCreateController::class, 'post', 'as' => 'event.create.post'])->name('event.create.post');
-        Route::post('/create', [EventCreateController::class, 'post', 'as' => 'event.create.get'])->name('event.create.post');
         Route::get('/update/{id}', [EventUpdateController::class, 'get', 'as' => 'event.update.get'])->name('event.update.get');
         Route::post('/update/{id}', [EventUpdateController::class, 'post', 'as' => 'event.update.get'])->name('event.update.post');
         Route::get('/view/{id}', [EventViewController::class, 'get', 'as' => 'event.view.get'])->name('event.view.get');
@@ -172,6 +176,18 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/export', [ExportViewController::class, 'get', 'as' => 'report.export.view.get'])->name('report.export.view.get');
         Route::get('/export-excel', [ExportExcelController::class, 'get', 'as' => 'report.export.excel.get'])->name('report.export.excel.get');
         Route::get('/quickbook', [QuickbookViewController::class, 'get', 'as' => 'report.quickbook.view.get'])->name('report.quickbook.view.get');
+    });
+
+    Route::prefix('/notification')->group(function () {
+        Route::get('/', [NotificationSendController::class, 'get', 'as' => 'notification.send.get'])->name('notification.send.get');
+        Route::prefix('/setting')->group(function () {
+            Route::get('/', [NotificationPaginateController::class, 'get', 'as' => 'notification.paginate.get'])->name('notification.paginate.get');
+            Route::get('/create', [NotificationCreateController::class, 'get', 'as' => 'notification.create.get'])->name('notification.create.get');
+            Route::post('/create', [NotificationCreateController::class, 'post', 'as' => 'notification.create.post'])->name('notification.create.post');
+            Route::get('/update/{id}', [NotificationUpdateController::class, 'get', 'as' => 'notification.update.get'])->name('notification.update.get');
+            Route::post('/update/{id}', [NotificationUpdateController::class, 'post', 'as' => 'notification.update.get'])->name('notification.update.post');
+            Route::get('/delete/{id}', [NotificationDeleteController::class, 'get', 'as' => 'notification.delete.get'])->name('notification.delete.get');
+        });
     });
 
 });
