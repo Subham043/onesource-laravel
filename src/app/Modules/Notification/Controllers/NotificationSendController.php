@@ -5,18 +5,22 @@ namespace App\Modules\Notification\Controllers;
 use App\Http\Controllers\Controller;
 use App\Modules\Client\Services\ClientService;
 use App\Modules\Document\Models\DocumentNotification;
+use App\Modules\Notification\Requests\SendNotificationRequest;
+use App\Modules\Notification\Services\NotificationService;
 use App\Modules\User\Services\UserService;
 
 class NotificationSendController extends Controller
 {
     private $userService;
     private $clientService;
+    private $notificationService;
 
-    public function __construct(UserService $userService, ClientService $clientService)
+    public function __construct(UserService $userService, ClientService $clientService, NotificationService $notificationService)
     {
-        $this->middleware('permission:add events', ['only' => ['get','post']]);
+        $this->middleware('permission:list events', ['only' => ['get','post']]);
         $this->userService = $userService;
         $this->clientService = $clientService;
+        $this->notificationService = $notificationService;
     }
 
     public function get(){
@@ -28,18 +32,31 @@ class NotificationSendController extends Controller
         ]);
     }
 
-    // public function post(EventCreateRequest $request){
+    public function post(SendNotificationRequest $request){
 
-    //     try {
-    //         //code...
-    //         $this->eventService->create(
-    //             $request
-    //         );
-    //         return response()->json(["message" => "Event created successfully."], 201);
-    //     } catch (\Throwable $th) {
-    //         // throw $th;
-    //         return response()->json(["message" => "Something went wrong. Please try again."], 400);
-    //     }
+        try {
+            //code...
+            if($request->notificationType=='writer'){
+                $data = $this->notificationService->sendWriterNotification(
+                    $request->writer
+                );
+                if($data && $data>0){
+                    return response()->json(["message" => "This user has ".$data." events scheduled.", "count" => $data], 200);
+                }
+                return response()->json(["message" => "No event available today.", "count" => $data], 200);
+            }else{
+                $data = $this->notificationService->sendClientNotification(
+                    $request->client
+                );
+                if($data && $data>0){
+                    return response()->json(["message" => "This user has ".$data." events scheduled.", "count" => $data], 200);
+                }
+                return response()->json(["message" => "No event available today.", "count" => $data], 200);
+            }
+        } catch (\Throwable $th) {
+            // throw $th;
+            return response()->json(["message" => "Something went wrong. Please try again."], 400);
+        }
 
-    // }
+    }
 }

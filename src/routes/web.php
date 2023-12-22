@@ -181,6 +181,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::prefix('/notification')->group(function () {
         Route::get('/', [NotificationSendController::class, 'get', 'as' => 'notification.send.get'])->name('notification.send.get');
+        Route::post('/', [NotificationSendController::class, 'post', 'as' => 'notification.send.post'])->name('notification.send.post');
         Route::prefix('/template')->group(function () {
             Route::get('/', [NotificationTemplateController::class, 'get', 'as' => 'notification.template.get'])->name('notification.template.get');
             Route::post('/', [NotificationTemplateController::class, 'post', 'as' => 'notification.template.post'])->name('notification.template.post');
