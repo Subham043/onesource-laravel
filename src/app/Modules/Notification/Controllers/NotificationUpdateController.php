@@ -14,7 +14,7 @@ class NotificationUpdateController extends Controller
 
     public function __construct(NotificationService $notificationService)
     {
-        $this->middleware('permission:edit events', ['only' => ['get','post']]);
+        $this->middleware('permission:edit notifications', ['only' => ['get','post']]);
         $this->notificationService = $notificationService;
     }
 

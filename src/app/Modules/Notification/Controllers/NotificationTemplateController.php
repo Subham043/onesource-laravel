@@ -13,7 +13,7 @@ class NotificationTemplateController extends Controller
 
     public function __construct(TemplateService $templateService)
     {
-        $this->middleware('permission:add events', ['only' => ['get','post']]);
+        $this->middleware('permission:list notifications', ['only' => ['get','post']]);
         $this->templateService = $templateService;
     }
 

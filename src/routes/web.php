@@ -35,6 +35,7 @@ use App\Modules\Event\Controllers\EventWriterDeleteController;
 use App\Modules\Event\Controllers\EventDeleteController;
 use App\Modules\Notification\Controllers\NotificationCreateController;
 use App\Modules\Notification\Controllers\NotificationDeleteController;
+use App\Modules\Notification\Controllers\NotificationLogController;
 use App\Modules\Notification\Controllers\NotificationPaginateController;
 use App\Modules\Notification\Controllers\NotificationSendController;
 use App\Modules\Notification\Controllers\NotificationTemplateController;
@@ -185,6 +186,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::prefix('/template')->group(function () {
             Route::get('/', [NotificationTemplateController::class, 'get', 'as' => 'notification.template.get'])->name('notification.template.get');
             Route::post('/', [NotificationTemplateController::class, 'post', 'as' => 'notification.template.post'])->name('notification.template.post');
+        });
+        Route::prefix('/log')->group(function () {
+            Route::get('/', [NotificationLogController::class, 'get', 'as' => 'notification.log.get'])->name('notification.log.get');
         });
         Route::prefix('/setting')->group(function () {
             Route::get('/', [NotificationPaginateController::class, 'get', 'as' => 'notification.paginate.get'])->name('notification.paginate.get');

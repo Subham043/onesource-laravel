@@ -13,7 +13,7 @@ class NotificationCreateController extends Controller
 
     public function __construct(NotificationService $notificationService)
     {
-        $this->middleware('permission:add events', ['only' => ['get','post']]);
+        $this->middleware('permission:add notifications', ['only' => ['get','post']]);
         $this->notificationService = $notificationService;
     }
 

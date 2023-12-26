@@ -59,6 +59,13 @@ class UserSeeder extends Seeder
         Permission::create(['name' => 'list events']);
         Permission::create(['name' => 'view events']);
 
+        //permission for notifications
+        Permission::create(['name' => 'edit notifications']);
+        Permission::create(['name' => 'delete notifications']);
+        Permission::create(['name' => 'add notifications']);
+        Permission::create(['name' => 'list notifications']);
+        Permission::create(['name' => 'view notifications']);
+
         //permission for calendar
         Permission::create(['name' => 'view calendar']);
 
@@ -129,6 +136,13 @@ class UserSeeder extends Seeder
                 'list events',
                 'view events',
 
+                //permission for notifications
+                'edit notifications',
+                'delete notifications',
+                'add notifications',
+                'list notifications',
+                'view notifications',
+
                 //permission for calendar
                 'view calendar',
 
@@ -187,6 +201,13 @@ class UserSeeder extends Seeder
                 'add events',
                 'list events',
                 'view events',
+
+                //permission for notifications
+                'edit notifications',
+                'delete notifications',
+                'add notifications',
+                'list notifications',
+                'view notifications',
 
                 //permission for calendar
                 'view calendar',
@@ -265,3 +286,7 @@ class UserSeeder extends Seeder
 
     }
 }
+
+
+// INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES (NULL, 'add notifications', 'web', NULL, NULL), (NULL, 'view notifications', 'web', NULL, NULL), (NULL, 'delete notifications', 'web', NULL, NULL), (NULL, 'list notifications', 'web', NULL, NULL), (NULL, 'edit notifications', 'web', NULL, NULL);
+// INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES ('42', '3'), ('42', '4'), ('43', '3'), ('43', '4'), ('44', '3'), ('44', '4'), ('45', '3'), ('45', '4'), ('46', '3'), ('46', '4');

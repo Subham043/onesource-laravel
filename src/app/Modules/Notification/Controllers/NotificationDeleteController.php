@@ -11,7 +11,7 @@ class NotificationDeleteController extends Controller
 
     public function __construct(NotificationService $notificationService)
     {
-        $this->middleware('permission:delete events', ['only' => ['get']]);
+        $this->middleware('permission:delete notifications', ['only' => ['get']]);
         $this->notificationService = $notificationService;
     }
 

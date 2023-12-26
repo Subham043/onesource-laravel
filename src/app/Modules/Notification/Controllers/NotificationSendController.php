@@ -18,7 +18,7 @@ class NotificationSendController extends Controller
 
     public function __construct(UserService $userService, ClientService $clientService, NotificationService $notificationService)
     {
-        $this->middleware('permission:list events', ['only' => ['get','post']]);
+        $this->middleware('permission:list notifications', ['only' => ['get','post']]);
         $this->userService = $userService;
         $this->clientService = $clientService;
         $this->notificationService = $notificationService;

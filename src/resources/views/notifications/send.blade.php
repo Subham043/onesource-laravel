@@ -20,14 +20,14 @@
                         <h4 class="card-title">Send Notification</h4>
                     </div>
                     <div>
-                        @can('add events')
+                        @can('add notifications')
                         <a href="{{route('notification.paginate.get')}}" class="btn btn-primary">Settings</a>
                         @endcan
-                        @can('add events')
+                        @can('add notifications')
                         <a href="{{route('notification.template.get')}}" class="btn btn-primary">Template</a>
                         @endcan
-                        @can('add events')
-                        <a href="{{route('event.create.get')}}" class="btn btn-primary">Logs</a>
+                        @can('add notifications')
+                        <a href="{{route('notification.log.get')}}" class="btn btn-primary">Logs</a>
                         @endcan
                         <a href="{{route('dashboard.get')}}" class="btn btn-primary">Return To Dashboard</a>
                     </div>
