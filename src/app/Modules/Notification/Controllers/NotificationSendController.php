@@ -8,6 +8,7 @@ use App\Modules\Document\Models\DocumentNotification;
 use App\Modules\Notification\Requests\SendNotificationRequest;
 use App\Modules\Notification\Services\NotificationService;
 use App\Modules\User\Services\UserService;
+use Illuminate\Console\Scheduling\Schedule;
 
 class NotificationSendController extends Controller
 {
@@ -23,7 +24,7 @@ class NotificationSendController extends Controller
         $this->notificationService = $notificationService;
     }
 
-    public function get(){
+    public function get(Schedule $schedule){
         $clients = $this->clientService->all();
         $writers = $this->userService->allByWriterRole();
         return view('notifications.send', compact(['clients', 'writers']))->with([

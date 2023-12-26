@@ -3,11 +3,10 @@
 namespace App\Modules\Notification\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Modules\Client\Services\ClientService;
 use App\Modules\Document\Models\DocumentNotification;
 use App\Modules\Notification\Requests\NotificationRequest;
+use App\Modules\Notification\Services\CronService;
 use App\Modules\Notification\Services\NotificationService;
-use App\Modules\User\Services\UserService;
 
 class NotificationUpdateController extends Controller
 {
