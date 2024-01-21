@@ -4,7 +4,7 @@
 <div class="row">
     @can('view conflicts')
     <div class="col-12 d-flex justify-content-end mb-3">
-        <a href="{{route('dashboard.get')}}" class="btn btn-primary">Return To Dashboard</a>
+        <a href="{{route('dashboard.get')}}" class="btn btn-primary">Dashboard</a>
     </div>
     <div class="col-sm-12 col-lg-4">
 
@@ -25,7 +25,7 @@
             </div>
             <div class="card-body">
                 <div class="">
-                    <h5 class="mb-3">{{$conflict_count}} Conflicts</h5>
+                    <h5 class="mb-3">{{$conflict_count}} writers have conflicts</h5>
                     <div>
                         <a href="{{route('report.conflict.view.get')}}" class="btn btn-primary">Resolve</a>
                     </div>

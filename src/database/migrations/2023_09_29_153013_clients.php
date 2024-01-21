@@ -14,6 +14,9 @@ return new class extends Migration
         Schema::create('clients', function (Blueprint $table) {
             $table->id();
             $table->string('name', 500);
+            $table->string('email', 500)->nullable();
+            $table->string('phone', 500)->nullable();
+            $table->text('address')->nullable();
             $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
             $table->timestamps();
         });
@@ -27,3 +30,5 @@ return new class extends Migration
         Schema::dropIfExists('clients');
     }
 };
+
+// ALTER TABLE `clients` ADD `email` VARCHAR(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL AFTER `name`, ADD `phone` VARCHAR(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL AFTER `email`, ADD `address` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL AFTER `phone`;

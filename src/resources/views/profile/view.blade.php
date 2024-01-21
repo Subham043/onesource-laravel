@@ -13,7 +13,7 @@
                             <a href="{{route('profile.edit.get')}}" class="btn btn-primary">
                                 Edit Profile
                             </a>
-                            <a href="{{route('dashboard.get')}}" class="btn btn-primary">Return To Dashboard</a>
+                            <a href="{{route('dashboard.get')}}" class="btn btn-primary">Dashboard</a>
                         </div>
                     </div>
                     <div class="card-body">

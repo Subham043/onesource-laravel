@@ -591,7 +591,7 @@ body.uikit .btn-download {
 .table thead tr th {
     padding: 8px 12px;
 }
-.cwrapper { max-width:1400px; margin:0px auto; background:#f1f1f1; }
+.cwrapper { max-width:100%; margin:0px; background:#f1f1f1; }
 .table tr td:last-child{ text-align:right; padding-right: 24px}
 .table tr td:first-child, .table tr th:first-child{padding-left: 24px}
 body{font-size: .9rem}

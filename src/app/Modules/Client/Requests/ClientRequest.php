@@ -28,6 +28,9 @@ class ClientRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:500',
+            'email' => ['required','email:rfc,dns'],
+            'phone' => ['required','regex:/(^[0-9 \+\-\(\)]+$)+/'],
+            'address' => 'required|string',
         ];
     }
 

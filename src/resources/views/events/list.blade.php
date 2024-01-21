@@ -7,8 +7,21 @@
             <div class="col-md-12 col-lg-12">
                 <div class="overflow-hidden card" data-aos="fade-up" data-aos-delay="600">
                     <div class="flex-wrap card-header d-flex justify-content-between align-items-center">
-                        <div class="header-title">
+                        <div class="header-title d-flex align-items-center gap-2">
                             <h4 class="mb-0 card-title">Events</h4>
+                            <form method="GET" action="{{route('event.paginate.get')}}" id='sort-form' class="col-auto">
+                                <select class="form-select shadow-none" id="sort" name="sort">
+                                    <option value="" {{empty(request()->query('sort')) ? 'selected' : ''}}>Sort By</option>
+                                    <option value="name" {{request()->query('sort')=='name' ? 'selected' : ''}}>Event:A-Z</option>
+                                    <option value="-name" {{request()->query('sort')=='-name' ? 'selected' : ''}}>Event:Z-A</option>
+                                    <option value="-id" {{request()->query('sort')=='-id' ? 'selected' : ''}}>Event ID:Latest</option>
+                                    <option value="id" {{request()->query('sort')=='id' ? 'selected' : ''}}>Event ID:Oldest</option>
+                                    <option value="-start_date" {{request()->query('sort')=='-start_date' ? 'selected' : ''}}>Event Date:Latest</option>
+                                    <option value="start_date" {{request()->query('sort')=='start_date' ? 'selected' : ''}}>Event Date:Oldest</option>
+                                    <option value="-start_time" {{request()->query('sort')=='-start_time' ? 'selected' : ''}}>Event Time:Latest</option>
+                                    <option value="start_time" {{request()->query('sort')=='start_time' ? 'selected' : ''}}>Event Time:Oldest</option>
+                                </select>
+                            </form>
                         </div>
                         <div>
                             @can('edit events')
@@ -20,7 +33,7 @@
                             @can('view calendar')
                             <a href="{{route('calendar.view.get')}}" class="btn btn-primary">Calendar View</a>
                             @endcan
-                            <a href="{{route('dashboard.get')}}" class="btn btn-primary">Return To Dashboard</a>
+                            <a href="{{route('dashboard.get')}}" class="btn btn-primary">Dashboard</a>
                         </div>
                     </div>
                     <div class="p-0 card-body">
@@ -35,9 +48,9 @@
                                         </th>
                                         @endcan
                                         <th>Event ID</th>
-                                        <th>Event</th>
-                                        <th>Client</th>
-                                        <th>Writer</th>
+                                        <th style="max-width: 170px; width: 170px;text-wrap:balance;">Event</th>
+                                        <th style="max-width: 170px; width: 170px;text-wrap:balance;">Client</th>
+                                        <th style="max-width: 170px; width: 170px;text-wrap:balance;">Writer</th>
                                         <th>Start Date</th>
                                         <th>Start Time</th>
                                         <th>End Date</th>
@@ -62,19 +75,19 @@
                                                 <a href="{{route('event.view.get', $item->id)}}">EVD{{$item->id}}</a>
                                             </div>
                                         </td>
-                                        <td>
+                                        <td style="max-width: 170px; width: 170px;text-wrap:balance;">
                                             <div class="iq-media-group iq-media-group-1">
                                                 <a href="{{route('event.view.get', $item->id)}}"> {{$item->name}}</a>
                                             </div>
                                         </td>
-                                        <td>
+                                        <td style="max-width: 170px; width: 170px;text-wrap:balance;">
                                             <div class="iq-media-group iq-media-group-1">
                                                 {{$item->client->name}}
                                             </div>
                                         </td>
-                                        <td>
+                                        <td style="max-width: 170px; width: 170px;text-wrap:balance;">
                                             @foreach($item->writers as $k=>$v)
-                                                {!!($k+1==count($item->writers)) ? $v->writer->name : $v->writer->name.'<br/> '!!}
+                                                {!!($k+1==count($item->writers)) ? '<span style="max-width: 170px; width: 170px;text-wrap:balance;">'.$v->writer->name.'</span>' : '<span style="max-width: 170px; width: 170px;text-wrap:balance;">'.$v->writer->name.'</span><br/> '!!}
                                             @endforeach
                                         </td>
                                         <td>
@@ -157,6 +170,11 @@
 
 @section('javascript')
 @can('edit events')
+<script type="text/javascript" nonce="{{ csp_nonce() }}">
+    document.getElementById('sort').addEventListener('change', function() {
+        document.getElementById('sort-form').submit();
+    });
+</script>
 <script type="text/javascript" nonce="{{ csp_nonce() }}">
     let event_arr = []
     const checkAll = document.getElementById('checkAll');

@@ -12,7 +12,7 @@
                         </div>
                         <div>
                             <a href="{{route('client.create.get')}}" class="btn btn-primary">Add Client</a>
-                            <a href="{{route('dashboard.get')}}" class="btn btn-primary">Return To Dashboard</a>
+                            <a href="{{route('dashboard.get')}}" class="btn btn-primary">Dashboard</a>
                         </div>
                     </div>
                     <div class="p-0 card-body">
@@ -22,6 +22,8 @@
                                 <thead>
                                     <tr>
                                         <th> Name</th>
+                                        <th> Email</th>
+                                        <th> Phone</th>
 
                                         <th>&nbsp;</th>
                                     </tr>
@@ -32,6 +34,16 @@
                                         <td>
                                             <div class="d-flex align-items-center">
                                                 <a href="{{route('user.view.get', 1)}}">{{$item->name}}</a>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                {{$item->email}}
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                {{$item->phone}}
                                             </div>
                                         </td>
 

@@ -576,7 +576,11 @@ validation
         const response = await axios.post('{{route('event.update.post', $event->id)}}', formData)
         successToast(response.data.message)
         event.target.reset();
+        @if(!empty(request()->query('writer_conflict')))
+        setInterval(window.location.replace("{{route('report.conflict.view.get')}}"), 1500);
+        @else
         setInterval(window.location.replace("{{route('event.paginate.get')}}"), 1500);
+        @endif
     }catch (error){
         if(error?.response?.data?.errors?.name){
             validation.showErrors({'#name': error?.response?.data?.errors?.name[0]})

@@ -41,9 +41,9 @@
                                                 </th>
                                                 @endcan
                                                 <th>Event ID</th>
-                                                <th>Event</th>
-                                                <th>Client</th>
-                                                <th>Writer</th>
+                                                <th style="max-width: 170px; width: 170px;text-wrap:balance;">Event</th>
+                                                <th style="max-width: 170px; width: 170px;text-wrap:balance;">Client</th>
+                                                <th style="max-width: 170px; width: 170px;text-wrap:balance;">Writer</th>
                                                 <th>Start Date</th>
                                                 <th>Start Time</th>
                                                 <th>End Date</th>
@@ -71,17 +71,17 @@
                                                                 <a href="{{route('event.view.get', $item->id)}}">EVD{{$item->id}}</a>
                                                             </div>
                                                         </td>
-                                                        <td>
+                                                        <td style="max-width: 170px; width: 170px;text-wrap:balance;">
                                                             <div class="iq-media-group iq-media-group-1">
                                                                 <a href="{{route('event.view.get', $item->id)}}"> {{$item->name}}</a>
                                                             </div>
                                                         </td>
-                                                        <td>
+                                                        <td style="max-width: 170px; width: 170px;text-wrap:balance;">
                                                             <div class="iq-media-group iq-media-group-1">
                                                                 {{$item->client->name}}
                                                             </div>
                                                         </td>
-                                                        <td>
+                                                        <td style="max-width: 170px; width: 170px;text-wrap:balance;">
                                                             @foreach($item->writers as $k=>$v)
                                                                 {!!($k+1==count($item->writers)) ? $v->writer->name : $v->writer->name.'<br/> '!!}
                                                             @endforeach
@@ -160,17 +160,17 @@
                                                                 <a href="{{route('event.view.get', $item->id)}}">EVD{{$item->id}}</a>
                                                             </div>
                                                         </td>
-                                                        <td>
+                                                        <td style="max-width: 170px; width: 170px;text-wrap:balance;">
                                                             <div class="iq-media-group iq-media-group-1">
                                                                 <a href="{{route('event.view.get', $item->id)}}"> {{$item->name}}</a>
                                                             </div>
                                                         </td>
-                                                        <td>
+                                                        <td style="max-width: 170px; width: 170px;text-wrap:balance;">
                                                             <div class="iq-media-group iq-media-group-1">
                                                                 {{$item->client->name}}
                                                             </div>
                                                         </td>
-                                                        <td>
+                                                        <td style="max-width: 170px; width: 170px;text-wrap:balance;">
                                                             @foreach($item->writers as $k=>$v)
                                                                 {!!($k+1==count($item->writers)) ? $v->writer->name : $v->writer->name.'<br/> '!!}
                                                             @endforeach
@@ -248,17 +248,17 @@
                                                                 <a href="{{route('event.view.get', $item->id)}}">EVD{{$item->id}}</a>
                                                             </div>
                                                         </td>
-                                                        <td>
+                                                        <td style="max-width: 170px; width: 170px;text-wrap:balance;">
                                                             <div class="iq-media-group iq-media-group-1">
                                                                 <a href="{{route('event.view.get', $item->id)}}"> {{$item->name}}</a>
                                                             </div>
                                                         </td>
-                                                        <td>
+                                                        <td style="max-width: 170px; width: 170px;text-wrap:balance;">
                                                             <div class="iq-media-group iq-media-group-1">
                                                                 {{$item->client->name}}
                                                             </div>
                                                         </td>
-                                                        <td>
+                                                        <td style="max-width: 170px; width: 170px;text-wrap:balance;">
                                                             @foreach($item->writers as $k=>$v)
                                                                 {!!($k+1==count($item->writers)) ? $v->writer->name : $v->writer->name.'<br/> '!!}
                                                             @endforeach
@@ -365,14 +365,32 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            @foreach($document_notification as $k=>$item)
-                            <div class="mb-2  d-flex profile-media align-items-top">
-                                <div class="mt-1 profile-dots-pills border-primary"></div>
-                                <div class="ms-4">
-                                    <h6 class="mb-1 "><a href="{{$item->document->document_link}}" download data-bs-toggle="tooltip" data-bs-original-title="{{str()->snake($item->document->event->name).'_EVD'.$item->document->event->id.'.'.\File::extension(str_replace("storage/documents/","",$item->document->document))}}">{{str()->limit(str()->snake($item->document->event->name).'_EVD'.$item->document->event->id.'.'.\File::extension(str_replace("storage/documents/","",$item->document->document)), 35)}}</a></h6>
-                                    <span class="mb-0">{{$item->created_at->format('M d Y h:i a')}}</span>
-                                </div>
-                            </div>
+                            @foreach($document_notification as $k=>$itm)
+                                @if(!empty($itm->event_document_id))
+                                    <div class="mb-2  d-flex profile-media align-items-top">
+                                        <div class="mt-1 profile-dots-pills border-primary"></div>
+                                        <div class="ms-4">
+                                            <h6 class="mb-1 "><a href="{{$itm->document->document_link}}" download data-bs-toggle="tooltip" data-bs-original-title="{{str()->snake($itm->document->event->name).'_EVD'.$itm->document->event->id.'.'.\File::extension(str_replace("storage/documents/","",$itm->document->document))}}">{{str()->limit(str()->snake($itm->document->event->name).'_EVD'.$itm->document->event->id.'.'.\File::extension(str_replace("storage/documents/","",$itm->document->document)), 35)}}</a></h6>
+                                            <span class="mb-0">{{$itm->created_at->format('M d Y h:i a')}}</span>
+                                        </div>
+                                    </div>
+                                @elseif(!empty($itm->created_event_id))
+                                    <div class="mb-2  d-flex profile-media align-items-top">
+                                        <div class="mt-1 profile-dots-pills border-primary"></div>
+                                        <div class="ms-4">
+                                            <h6 class="mb-1 "><a href="{{$itm->created_event->event_link}}" data-bs-toggle="tooltip" data-bs-original-title="{{$itm->created_event->name}}">{{str()->limit($itm->created_event->name, 35)}}</a></h6>
+                                            <span class="mb-0">{{$itm->created_at->format('M d Y h:i a')}}</span>
+                                        </div>
+                                    </div>
+                                @elseif(!empty($itm->updated_event_id))
+                                    <div class="mb-2  d-flex profile-media align-items-top">
+                                        <div class="mt-1 profile-dots-pills border-primary"></div>
+                                        <div class="ms-4">
+                                            <h6 class="mb-1 "><a href="{{$itm->updated_event->event_link}}" data-bs-toggle="tooltip" data-bs-original-title="{{$itm->updated_event->name}}">{{str()->limit($itm->updated_event->name, 35)}}</a></h6>
+                                            <span class="mb-0">{{$itm->created_at->format('M d Y h:i a')}}</span>
+                                        </div>
+                                    </div>
+                                @endif
                             @endforeach
                         </div>
                     </div>

@@ -47,16 +47,40 @@
                             </div>
                             <div class="p-0 card-body">
                                 @foreach($notifications as $k=>$item)
-                                <a href="{{route('event.view.get', $item->document->event->id)}}" class="iq-sub-card">
-                                    <div class="d-flex align-items-center">
-                                        <div class="w-100">
-                                            <h6 class="mb-0 ">{{$item->document->event->name}}</h6>
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <p class="mb-0">{{str()->limit(str()->snake($item->document->event->name).'_EVD'.$item->document->event->id.'.'.\File::extension(str_replace("storage/documents/","",$item->document->document)), 35)}}</p>
+                                    @if(!empty($item->event_document_id))
+                                        <a href="{{route('event.view.get', $item->document->event->id)}}" class="iq-sub-card">
+                                            <div class="d-flex align-items-center">
+                                                <div class="w-100">
+                                                    <h6 class="mb-0 ">{{$item->document->event->name}}</h6>
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <p class="mb-0">{{str()->limit(str()->snake($item->document->event->name).'_EVD'.$item->document->event->id.'.'.\File::extension(str_replace("storage/documents/","",$item->document->document)), 35)}}</p>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                </a>
+                                        </a>
+                                    @elseif(!empty($item->created_event_id))
+                                        <a href="{{route('event.view.get', $item->created_event->id)}}" class="iq-sub-card">
+                                            <div class="d-flex align-items-center">
+                                                <div class="w-100">
+                                                    <h6 class="mb-0 ">{{$item->created_event->name}}</h6>
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <p class="mb-0">Event Created</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    @elseif(!empty($item->updated_event_id))
+                                        <a href="{{route('event.view.get', $item->updated_event->id)}}" class="iq-sub-card">
+                                            <div class="d-flex align-items-center">
+                                                <div class="w-100">
+                                                    <h6 class="mb-0 ">{{$item->updated_event->name}}</h6>
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <p class="mb-0">Event Updated</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    @endif
                                 @endforeach
                             </div>
                         </div>

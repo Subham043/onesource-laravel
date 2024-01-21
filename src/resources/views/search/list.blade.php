@@ -3,7 +3,7 @@
 @section('content')
 <div class="row">
     <div class="col-12 d-flex justify-content-end mb-3">
-        <a href="{{route('dashboard.get')}}" class="btn btn-primary">Return To Dashboard</a>
+        <a href="{{route('dashboard.get')}}" class="btn btn-primary">Dashboard</a>
     </div>
     @if(!empty(request()->query('filter')['search']))
     <div class="col-md-12 col-lg-12">

@@ -13,6 +13,8 @@ use Spatie\QueryBuilder\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\AllowedSort;
+use Spatie\QueryBuilder\Sorts\Sort;
 
 class DocumentService
 {
@@ -24,8 +26,22 @@ class DocumentService
 
     public function paginate(Int $total = 10): LengthAwarePaginator
     {
-        $query = EventDocument::filterByRoles()->latest();
+        $query = EventDocument::filterByRoles();
         return QueryBuilder::for($query)
+                // ->allowedIncludes(['event'])
+                ->defaultSort('document')
+                ->allowedSorts([
+                    AllowedSort::custom('id', new StringLengthSort(), 'id'),
+                    AllowedSort::custom('document', new StringLengthSort(), 'document'),
+                    AllowedSort::custom('writer', new WriterSort(), 'writer'),
+                    AllowedSort::callback('start_date', function (Builder $query, bool $descending, string $property) {
+                        $direction = $descending ? 'DESC' : 'ASC';
+                        // dd($query->toSql());
+                        $query->whereHas('event', function($qr) use($direction){
+                            $qr->orderBy('start_date', $direction);
+                        });
+                    }),
+                ])
                 ->allowedFilters([
                     AllowedFilter::custom('search', new CommonFilter),
                 ])
@@ -77,5 +93,32 @@ class CommonFilter implements Filter
     public function __invoke(Builder $query, $value, string $property)
     {
         $query->where('name', 'LIKE', '%' . $value . '%');
+    }
+}
+
+class StringLengthSort implements Sort
+{
+    public function __invoke(Builder $query, bool $descending, string $property)
+    {
+        $direction = $descending ? 'DESC' : 'ASC';
+
+        $query->orderByRaw("LENGTH(`{$property}`) {$direction}")->orderBy($property, $direction);
+    }
+}
+
+class WriterSort implements Sort
+{
+    public function __invoke(Builder $query, bool $descending, string $property)
+    {
+        $direction = $descending ? 'DESC' : 'ASC';
+        $query->where(function($qq) use($direction){
+            $qq->whereHas('event', function($qr) use($direction){
+                $qr->whereHas('writers', function($qry) use($direction){
+                    $qry->whereHas('writer', function($qury) use($direction){
+                        $qury->orderBy('name', $direction);
+                    });
+                });
+            });
+        });
     }
 }

@@ -8,7 +8,7 @@
                 <div class="overflow-hidden card" data-aos="fade-up" data-aos-delay="600">
                     <div class="flex-wrap py-2 d-flex justify-content-center">
                         <div class="header-title">
-                            <h4 class="card-title mb-0">You have {{$data->count()}} Conflicts</h4>
+                            <h4 class="card-title mb-0">{{$data->count()}} writers have conflicts</h4>
                         </div>
                     </div>
                 </div>
@@ -28,6 +28,7 @@
                                         <th>Conflict Type</th>
                                         <th>Event ID</th>
                                         <th>Event</th>
+                                        <th>Writer</th>
                                         <th>Date</th>
                                         <th>Start Time</th>
                                         <th>End Time</th>
@@ -76,6 +77,11 @@
                                                 </div>
                                             </td>
                                         @endif
+                                        <td>
+                                            @foreach($v->event->writers as $ke=>$val)
+                                                {!!($ke+1==count($v->event->writers)) ? '<span style="max-width: 170px; width: 170px;text-wrap:balance;">'.$val->writer->name.'</span>' : '<span style="max-width: 170px; width: 170px;text-wrap:balance;">'.$val->writer->name.'</span><br/> '!!}
+                                            @endforeach
+                                        </td>
                                         <td>
                                             {{$v->event->start_date->format('M d Y')}}
                                         </td>

@@ -12,7 +12,7 @@
                         </div>
                         <div>
                             <a href="{{route('tool.create.get')}}" class="btn btn-primary">Add Tool</a>
-                            <a href="{{route('dashboard.get')}}" class="btn btn-primary">Return To Dashboard</a>
+                            <a href="{{route('dashboard.get')}}" class="btn btn-primary">Dashboard</a>
                         </div>
                     </div>
                     <div class="p-0 card-body">

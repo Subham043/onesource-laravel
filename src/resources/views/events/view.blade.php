@@ -15,7 +15,7 @@
                             Edit This Event
                         </a>
                         @endcan
-                        <a href="{{route('dashboard.get')}}" class="btn btn-primary">Return To Dashboard</a>
+                        <a href="{{route('dashboard.get')}}" class="btn btn-primary">Dashboard</a>
                     </div>
                 </div>
                 <div class="card-body">
@@ -29,12 +29,14 @@
                         <label class="control-label col-sm-2 align-self-center mb-0" for="client">Client:</label>
                         <div class="col-sm-10">{{$event->client->name}} </div>
                     </div>
+                    @can('edit events')
                     <div class="form-group row">
                         <label class="control-label col-sm-2 align-self-center mb-0" for="invRate">Invoice Rate:</label>
                         <div class="col-sm-10">
                             $ {{$event->invoice_rate}}
                         </div>
                     </div>
+                    @endcan
                     <div class="form-group row">
                         <label class="control-label col-sm-2 align-self-center mb-0" for="startDate">Start Date:</label>
                         <div class="col-sm-3">
@@ -130,6 +132,7 @@
             </div>
         </form>
     </div>
+    @can('edit events')
     @if($event->writers->count()>0)
     <div class="card">
         <div class="card-header d-flex justify-content-between">
@@ -153,6 +156,7 @@
         </div>
     </div>
     @endif
+    @endcan
 
     <div class="card">
         @if($event->documents->count()>0)

@@ -17,6 +17,8 @@ use Spatie\QueryBuilder\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\AllowedSort;
+use Spatie\QueryBuilder\Sorts\Sort;
 
 class EventService
 {
@@ -41,8 +43,14 @@ class EventService
         if($get_current){
             $query->whereDate('start_date', today());
         }
-        $query->latest();
         return QueryBuilder::for($query)
+                ->defaultSort('name')
+                ->allowedSorts([
+                    'start_date',
+                    'start_time',
+                    AllowedSort::custom('id', new StringLengthSort(), 'id'),
+                    AllowedSort::custom('name', new StringLengthSort(), 'name'),
+                ])
                 ->allowedFilters([
                     AllowedFilter::custom('search', new CommonFilter),
                 ])
@@ -298,5 +306,15 @@ class CommonFilter implements Filter
         ->orWhereHas('client', function($qry) use($value){
             $qry->where('name', 'LIKE', '%' . $value . '%');
         });
+    }
+}
+
+class StringLengthSort implements Sort
+{
+    public function __invoke(Builder $query, bool $descending, string $property)
+    {
+        $direction = $descending ? 'DESC' : 'ASC';
+
+        $query->orderByRaw("LENGTH(`{$property}`) {$direction}")->orderBy($property, $direction);
     }
 }

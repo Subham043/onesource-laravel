@@ -78,7 +78,6 @@ class UserUpdatePostRequest extends UserCreatePostRequest
             //             ->mixedCase()
             //             ->numbers()
             //             ->symbols()
-            //             ->uncompromised()
             // ],
             // 'confirm_password' => ['required_with:password','same:password'],
             'timezone' => ['required', new Enum(Timezone::class)],

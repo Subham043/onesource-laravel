@@ -9,6 +9,7 @@ use App\Enums\RecurringMonthInnerType;
 use App\Enums\RecurringType;
 use App\Modules\Authentication\Models\User;
 use App\Modules\Client\Models\Client;
+use App\Modules\Document\Models\DocumentNotification;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -93,6 +94,21 @@ class Event extends Model
     ];
 
     protected $appends = ['event_title', 'event_link', 'event_start_date', 'event_end_date', 'event_repeated_date', 'event_rgb'];
+
+    public static function boot(): void
+    {
+        parent::boot();
+        static::created(fn (Model $model) =>
+            DocumentNotification::create([
+                'created_event_id' => $model->id
+            ]),
+        );
+        static::updated(fn (Model $model) =>
+            DocumentNotification::create([
+                'updated_event_id' => $model->id
+            ]),
+        );
+    }
 
     public function creator()
     {

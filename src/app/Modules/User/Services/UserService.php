@@ -13,6 +13,8 @@ use Spatie\QueryBuilder\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\AllowedSort;
+use Spatie\QueryBuilder\Sorts\Sort;
 
 class UserService
 {
@@ -34,8 +36,13 @@ class UserService
 
     public function paginate(Int $total = 10): LengthAwarePaginator
     {
-        $query = User::filterMemberCreatedByAuth()->latest();
+        $query = User::filterMemberCreatedByAuth();
         return QueryBuilder::for($query)
+                ->defaultSort('name')
+                ->allowedSorts([
+                    AllowedSort::custom('id', new StringLengthSort(), 'id'),
+                    AllowedSort::custom('name', new StringLengthSort(), 'name'),
+                ])
                 ->allowedFilters([
                     AllowedFilter::custom('search', new CommonFilter),
                 ])
@@ -173,5 +180,15 @@ class CommonFilter implements Filter
     {
         $query->where('name', 'LIKE', '%' . $value . '%')
         ->orWhere('email', 'LIKE', '%' . $value . '%');
+    }
+}
+
+class StringLengthSort implements Sort
+{
+    public function __invoke(Builder $query, bool $descending, string $property)
+    {
+        $direction = $descending ? 'DESC' : 'ASC';
+
+        $query->orderByRaw("LENGTH(`{$property}`) {$direction}")->orderBy($property, $direction);
     }
 }

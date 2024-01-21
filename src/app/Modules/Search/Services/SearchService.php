@@ -10,6 +10,8 @@ use Spatie\QueryBuilder\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\AllowedSort;
+use Spatie\QueryBuilder\Sorts\Sort;
 
 class SearchService
 {
@@ -20,8 +22,12 @@ class SearchService
         if($get_current){
             $query->whereDate('start_date', today());
         }
-        $query->latest();
         $data = QueryBuilder::for($query)
+                ->defaultSort('name')
+                ->allowedSorts([
+                    AllowedSort::custom('id', new StringLengthSort(), 'id'),
+                    AllowedSort::custom('name', new StringLengthSort(), 'name'),
+                ])
                 ->allowedFilters([
                     AllowedFilter::custom('search', new CommonEventFilter),
                 ])
@@ -32,8 +38,13 @@ class SearchService
 
     public function document_paginate(Int $total = 10): LengthAwarePaginator
     {
-        $query = EventDocument::filterByRoles()->latest();
+        $query = EventDocument::filterByRoles();
         $data = QueryBuilder::for($query)
+                ->defaultSort('document')
+                ->allowedSorts([
+                    AllowedSort::custom('id', new StringLengthSort(), 'id'),
+                    AllowedSort::custom('document', new StringLengthSort(), 'document'),
+                ])
                 ->allowedFilters([
                     AllowedFilter::custom('search', new CommonDocumentFilter),
                 ])
@@ -44,8 +55,13 @@ class SearchService
 
     public function user_paginate(Int $total = 10): LengthAwarePaginator
     {
-        $query = User::filterMemberCreatedByAuth()->latest();
+        $query = User::filterMemberCreatedByAuth();
         $data = QueryBuilder::for($query)
+                ->defaultSort('name')
+                ->allowedSorts([
+                    AllowedSort::custom('id', new StringLengthSort(), 'id'),
+                    AllowedSort::custom('name', new StringLengthSort(), 'name'),
+                ])
                 ->allowedFilters([
                     AllowedFilter::custom('search', new CommonUserFilter),
                 ])
@@ -99,5 +115,16 @@ class CommonUserFilter implements Filter
     {
         $query->where('name', 'LIKE', '%' . $value . '%')
         ->orWhere('email', 'LIKE', '%' . $value . '%');
+    }
+}
+
+
+class StringLengthSort implements Sort
+{
+    public function __invoke(Builder $query, bool $descending, string $property)
+    {
+        $direction = $descending ? 'DESC' : 'ASC';
+
+        $query->orderByRaw("LENGTH(`{$property}`) {$direction}")->orderBy($property, $direction);
     }
 }

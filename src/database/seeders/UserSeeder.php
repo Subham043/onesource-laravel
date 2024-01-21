@@ -289,4 +289,4 @@ class UserSeeder extends Seeder
 
 
 // INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES (NULL, 'add notifications', 'web', NULL, NULL), (NULL, 'view notifications', 'web', NULL, NULL), (NULL, 'delete notifications', 'web', NULL, NULL), (NULL, 'list notifications', 'web', NULL, NULL), (NULL, 'edit notifications', 'web', NULL, NULL);
-// INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES ('42', '3'), ('42', '4'), ('43', '3'), ('43', '4'), ('44', '3'), ('44', '4'), ('45', '3'), ('45', '4'), ('46', '3'), ('46', '4');
+// INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES ('42', '3'), ('42', '4'), ('43', '3'), ('43', '4'), ('44', '3'), ('44', '4'), ('40', '3'), ('40', '4'), ('41', '3'), ('41', '4');

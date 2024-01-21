@@ -13,7 +13,7 @@
                         <a href="{{route('client.update.get', $data->id)}}" class="btn btn-primary">
                             Edit This Client
                         </a>
-                        <a href="{{route('dashboard.get')}}" class="btn btn-primary">Return To Dashboard</a>
+                        <a href="{{route('dashboard.get')}}" class="btn btn-primary">Dashboard</a>
                     </div>
                 </div>
                 <div class="card-body">
@@ -21,6 +21,24 @@
                         <label class="control-label col-sm-2 align-self-center mb-0" for="eventName">Name:</label>
                         <div class="col-sm-10">
                             {{$data->name}}
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="control-label col-sm-2 align-self-center mb-0" for="eventName">Email:</label>
+                        <div class="col-sm-10">
+                            {{$data->email}}
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="control-label col-sm-2 align-self-center mb-0" for="eventName">Phone:</label>
+                        <div class="col-sm-10">
+                            {{$data->phone}}
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="control-label col-sm-2 align-self-center mb-0" for="eventName">Address:</label>
+                        <div class="col-sm-10">
+                            {{$data->address}}
                         </div>
                     </div>
                 </div>

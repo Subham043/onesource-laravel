@@ -10,6 +10,14 @@
                     <div class="header-title">
                         <h4 class="card-title">Update Notification</h4>
                     </div>
+                    <div>
+                        @can('add notifications')
+                        <a href="{{route('notification.template.get')}}" class="btn btn-primary">Template</a>
+                        @endcan
+                        @can('add notifications')
+                        <a href="{{route('notification.log.get')}}" class="btn btn-primary">Logs</a>
+                        @endcan
+                    </div>
                 </div>
                 <div class="card-body">
                     <div class="form-group row">

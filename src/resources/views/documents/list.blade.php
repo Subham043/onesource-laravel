@@ -7,8 +7,21 @@
             <div class="col-md-12 col-lg-12">
                 <div class="overflow-hidden card" data-aos="fade-up" data-aos-delay="600">
                     <div class="flex-wrap card-header d-flex justify-content-between">
-                        <div class="header-title">
+                        <div class="header-title d-flex align-items-center gap-2">
                             <h4 class="mb-2 card-title">Documents</h4>
+                            <form method="GET" action="{{route('document.paginate.get')}}" id='sort-form' class="col-auto">
+                                <select class="form-select shadow-none" id="sort" name="sort">
+                                    <option value="" {{empty(request()->query('sort')) ? 'selected' : ''}}>Sort By</option>
+                                    <option value="writer" {{request()->query('sort')=='writer' ? 'selected' : ''}}>Writer:A-Z</option>
+                                    <option value="-writer" {{request()->query('sort')=='-writer' ? 'selected' : ''}}>Writer:Z-A</option>
+                                    <option value="-id" {{request()->query('sort')=='-id' ? 'selected' : ''}}>Event ID:Latest</option>
+                                    <option value="id" {{request()->query('sort')=='id' ? 'selected' : ''}}>Event ID:Oldest</option>
+                                    <option value="-start_date" {{request()->query('sort')=='-start_date' ? 'selected' : ''}}>Event Date:Latest</option>
+                                    <option value="start_date" {{request()->query('sort')=='start_date' ? 'selected' : ''}}>Event Date:Oldest</option>
+                                    <option value="-start_time" {{request()->query('sort')=='-start_time' ? 'selected' : ''}}>Event Time:Latest</option>
+                                    <option value="start_time" {{request()->query('sort')=='start_time' ? 'selected' : ''}}>Event Time:Oldest</option>
+                                </select>
+                            </form>
                         </div>
                         <div>
                             @can('delete documents')
@@ -17,7 +30,7 @@
                             @can('add documents')
                             <a href="{{route('document.create.get')}}" class="btn btn-primary">Add Document</a>
                             @endcan
-                            <a href="{{route('dashboard.get')}}" class="btn btn-primary">Return To Dashboard</a>
+                            <a href="{{route('dashboard.get')}}" class="btn btn-primary">Dashboard</a>
                         </div>
                     </div>
                     <div class="p-0 card-body">
@@ -33,10 +46,11 @@
                                         @endcan
                                         <th>Document Name</th>
                                         <th>Event ID</th>
-                                        <th>Client</th>
-                                        <th>Writer</th>
-                                        <th>Event Date</th>
+                                        <th style="max-width: 170px; width: 170px;text-wrap:balance;">Client</th>
+                                        <th style="max-width: 170px; width: 170px;text-wrap:balance;">Writer</th>
+                                        <th>Start Date</th>
                                         <th>Start Time</th>
+                                        <th>End Date</th>
                                         <th> End Time</th>
                                         <th>&nbsp;</th>
                                     </tr>
@@ -63,12 +77,12 @@
                                                 <a href="{{route('event.view.get', $item->event->id)}}">EVD{{$item->event->id}}</a>
                                             </div>
                                         </td>
-                                        <td>
+                                        <td style="max-width: 170px; width: 170px;text-wrap:balance;">
                                             <div class="iq-media-group iq-media-group-1">
                                                 {{$item->event->client->name}}
                                             </div>
                                         </td>
-                                        <td>
+                                        <td style="max-width: 170px; width: 170px;text-wrap:balance;">
                                             @foreach($item->event->writers as $k=>$v)
                                                 {!!($k+1==count($item->event->writers)) ? $v->writer->name : $v->writer->name.'<br/> '!!}
                                             @endforeach
@@ -77,6 +91,9 @@
                                             {{$item->event->start_date->format('M d Y')}}
                                         </td>
                                         <td>{{$item->event->start_time->format('h:i a')}}</td>
+                                        <td>
+                                            {{$item->event->end_date->format('M d Y')}}
+                                        </td>
                                         <td>{{$item->event->end_time->format('h:i a')}}</td>
                                         <td>
                                             @can('download documents')
@@ -116,7 +133,11 @@
 @stop
 
 @section('javascript')
-
+<script type="text/javascript" nonce="{{ csp_nonce() }}">
+    document.getElementById('sort').addEventListener('change', function() {
+        document.getElementById('sort-form').submit();
+    });
+</script>
 @can('delete documents')
 <script type="text/javascript" nonce="{{ csp_nonce() }}">
     let document_arr = []
