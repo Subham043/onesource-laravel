@@ -169,12 +169,12 @@
 @stop
 
 @section('javascript')
-@can('edit events')
 <script type="text/javascript" nonce="{{ csp_nonce() }}">
     document.getElementById('sort').addEventListener('change', function() {
         document.getElementById('sort-form').submit();
     });
 </script>
+@can('edit events')
 <script type="text/javascript" nonce="{{ csp_nonce() }}">
     let event_arr = []
     const checkAll = document.getElementById('checkAll');

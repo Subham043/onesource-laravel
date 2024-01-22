@@ -7,8 +7,17 @@
             <div class="col-md-12 col-lg-12">
                 <div class="overflow-hidden card" data-aos="fade-up" data-aos-delay="600">
                     <div class="flex-wrap card-header d-flex justify-content-between">
-                        <div class="header-title">
+                        <div class="header-title d-flex align-items-center gap-2">
                             <h4 class="mb-2 card-title">Users</h4>
+                            <form method="GET" action="{{route('user.paginate.get')}}" id='sort-form' class="col-auto">
+                                <select class="form-select shadow-none" id="sort" name="filter[role]">
+                                    <option value="all" {{empty(request()->query('filter')['role']) ? 'selected' : ''}}>Filter By</option>
+                                    <option value="all" {{!empty(request()->query('filter')['role']) && request()->query('filter')['role']=='all' ? 'selected' : ''}}>All</option>
+                                    <option value="Admin" {{!empty(request()->query('filter')['role']) && request()->query('filter')['role']=='Admin' ? 'selected' : ''}}>Admin</option>
+                                    <option value="Writer" {{!empty(request()->query('filter')['role']) && request()->query('filter')['role']=='Writer' ? 'selected' : ''}}>Writer</option>
+                                    <option value="Client" {{!empty(request()->query('filter')['role']) && request()->query('filter')['role']=='Client' ? 'selected' : ''}}>Client</option>
+                                </select>
+                            </form>
                         </div>
                         <div>
                             <a href="{{route('user.create.get')}}" class="btn btn-primary">Add User</a>
@@ -116,4 +125,11 @@
         </div>
     </div>
 </div>
+@stop
+@section('javascript')
+<script type="text/javascript" nonce="{{ csp_nonce() }}">
+    document.getElementById('sort').addEventListener('change', function() {
+        document.getElementById('sort-form').submit();
+    });
+</script>
 @stop

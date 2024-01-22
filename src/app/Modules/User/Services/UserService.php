@@ -42,9 +42,20 @@ class UserService
                 ->allowedSorts([
                     AllowedSort::custom('id', new StringLengthSort(), 'id'),
                     AllowedSort::custom('name', new StringLengthSort(), 'name'),
-                ])
-                ->allowedFilters([
-                    AllowedFilter::custom('search', new CommonFilter),
+                    ])
+                    ->allowedFilters([
+                        AllowedFilter::custom('search', new CommonFilter),
+                        AllowedFilter::callback('role', function (Builder $query, $value, string $property) {
+                            if($value=='Admin' || $value=='admin'){
+                                $query->whereHas('roles', function($qr) use($value){
+                                    $qr->where('name', 'Admin')->orWhere('name', 'Staff-Admin');
+                                });
+                            }elseif($value!='all'){
+                                $query->whereHas('roles', function($qr) use($value){
+                                    $qr->where('name', $value);
+                                });
+                            }
+                        }),
                 ])
                 ->paginate($total)
                 ->appends(request()->query());
