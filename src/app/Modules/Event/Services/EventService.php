@@ -3,6 +3,7 @@
 namespace App\Modules\Event\Services;
 
 use App\Modules\Authentication\Models\User;
+use App\Modules\Event\Jobs\EventSingleNotificationJob;
 use App\Modules\Event\Models\Event;
 use App\Modules\Event\Models\EventDocument;
 use App\Modules\Event\Models\EventWriter;
@@ -202,6 +203,7 @@ class EventService
             }
         }
         $this->saveDocument($request, $event->id);
+        $this->sendNotification($event->id, 'created');
         return $event;
     }
 
@@ -261,6 +263,7 @@ class EventService
             }
         }
         $this->saveDocument($request, $event->id);
+        $this->sendNotification($event->id, 'updated');
         return $event;
     }
 
@@ -288,6 +291,16 @@ class EventService
                     ]);
                 }
             }
+        }
+    }
+
+    public function sendNotification(int $event_id, string $type): void
+    {
+        $event = Event::filterByRoles()->find($event_id);
+        dispatch(new EventSingleNotificationJob($event->creator, $event, $type));
+        foreach ($event->writers as $key => $value) {
+            # code...
+            dispatch(new EventSingleNotificationJob($value->writer, $event, $type));
         }
     }
 

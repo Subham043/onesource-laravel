@@ -10,6 +10,7 @@ use App\Enums\RecurringType;
 use App\Modules\Authentication\Models\User;
 use App\Modules\Client\Models\Client;
 use App\Modules\Document\Models\DocumentNotification;
+use App\Modules\Event\Services\EventService;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -98,16 +99,16 @@ class Event extends Model
     public static function boot(): void
     {
         parent::boot();
-        static::created(fn (Model $model) =>
+        static::created(function(Model $model){
             DocumentNotification::create([
                 'created_event_id' => $model->id
-            ]),
-        );
-        static::updated(fn (Model $model) =>
+            ]);
+        });
+        static::updated(function(Model $model){
             DocumentNotification::create([
                 'updated_event_id' => $model->id
-            ]),
-        );
+            ]);
+        });
     }
 
     public function creator()
