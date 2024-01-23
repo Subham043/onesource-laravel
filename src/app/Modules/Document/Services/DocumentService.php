@@ -26,20 +26,34 @@ class DocumentService
 
     public function paginate(Int $total = 10): LengthAwarePaginator
     {
-        $query = EventDocument::filterByRoles();
+        $query = EventDocument::filterByRoles()
+        ->selectRaw('event_documents.*, events.*, event_writers.*')
+        ->join('events', 'events.id', '=', 'event_documents.event_id')
+        ->join('event_writers', 'event_writers.event_id', '=', 'events.id')
+        ->join('users', 'event_writers.writer_id', '=', 'users.id');
         return QueryBuilder::for($query)
-                // ->allowedIncludes(['event'])
                 ->defaultSort('document')
                 ->allowedSorts([
-                    AllowedSort::custom('id', new StringLengthSort(), 'id'),
                     AllowedSort::custom('document', new StringLengthSort(), 'document'),
-                    AllowedSort::custom('writer', new WriterSort(), 'writer'),
+                    AllowedSort::callback('writer', function (Builder $query, bool $descending, string $property) {
+                        $direction = $descending ? 'DESC' : 'ASC';
+                        $query->orderBy('users.name', $direction);
+                    }),
+                    AllowedSort::callback('client', function (Builder $query, bool $descending, string $property) {
+                        $direction = $descending ? 'DESC' : 'ASC';
+                        $query->orderBy('events.client_id', $direction);
+                    }),
+                    AllowedSort::callback('id', function (Builder $query, bool $descending, string $property) {
+                        $direction = $descending ? 'DESC' : 'ASC';
+                        $query->orderBy('events.id', $direction);
+                    }),
+                    AllowedSort::callback('start_time', function (Builder $query, bool $descending, string $property) {
+                        $direction = $descending ? 'DESC' : 'ASC';
+                        $query->orderBy('events.start_time', $direction);
+                    }),
                     AllowedSort::callback('start_date', function (Builder $query, bool $descending, string $property) {
                         $direction = $descending ? 'DESC' : 'ASC';
-                        // dd($query->toSql());
-                        $query->whereHas('event', function($qr) use($direction){
-                            $qr->orderBy('start_date', $direction);
-                        });
+                        $query->orderBy('events.start_date', $direction);
                     }),
                 ])
                 ->allowedFilters([
@@ -103,22 +117,5 @@ class StringLengthSort implements Sort
         $direction = $descending ? 'DESC' : 'ASC';
 
         $query->orderByRaw("LENGTH(`{$property}`) {$direction}")->orderBy($property, $direction);
-    }
-}
-
-class WriterSort implements Sort
-{
-    public function __invoke(Builder $query, bool $descending, string $property)
-    {
-        $direction = $descending ? 'DESC' : 'ASC';
-        $query->where(function($qq) use($direction){
-            $qq->whereHas('event', function($qr) use($direction){
-                $qr->whereHas('writers', function($qry) use($direction){
-                    $qry->whereHas('writer', function($qury) use($direction){
-                        $qury->orderBy('name', $direction);
-                    });
-                });
-            });
-        });
     }
 }

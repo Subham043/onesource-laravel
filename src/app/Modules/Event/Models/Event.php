@@ -10,7 +10,6 @@ use App\Enums\RecurringType;
 use App\Modules\Authentication\Models\User;
 use App\Modules\Client\Models\Client;
 use App\Modules\Document\Models\DocumentNotification;
-use App\Modules\Event\Services\EventService;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
