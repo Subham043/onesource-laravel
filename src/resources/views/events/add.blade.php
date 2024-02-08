@@ -52,8 +52,8 @@
                             <input type="time" class="form-control" id="start_time" name="start_time">
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label class="control-label col-sm-2 align-self-center mb-0" for="endt_date">End Date:</label>
+                    <div id="main_time_div" class="form-group row">
+                        <label class="control-label col-sm-2 align-self-center mb-0" for="end_date">End Date:</label>
                         <div class="col-sm-3">
                             <input type="date" class="form-control" id="end_date" name="end_date">
                         </div>
@@ -235,6 +235,16 @@
                             </div>
                         </div>
                     </div>
+                    <div id="recurring_block_time_div" class="form-group row d-none">
+                        <label class="control-label col-sm-2 align-self-center mb-0" for="recurring_end_date">Recurring End Date:</label>
+                        <div class="col-sm-3">
+                            <input type="date" class="form-control" id="recurring_end_date" name="end_date">
+                        </div>
+                        <label class="control-label col-sm-2 align-self-center mb-0" for="recurring_end_time">Recurring End Time:</label>
+                        <div class="col-sm-3">
+                            <input type="time" class="form-control" id="recurring_end_time" name="end_time">
+                        </div>
+                    </div>
                     <div class="form-group row">
                         <label class="control-label col-sm-2 align-self-center mb-0" for="fuzion_id">1FUZION:</label>
                         <div class="col-sm-10">
@@ -385,18 +395,18 @@ validation
       errorMessage: 'Start Time is required',
     },
   ])
-  .addField('#end_date', [
-    {
-      rule: 'required',
-      errorMessage: 'End Date is required',
-    },
-  ])
-  .addField('#end_time', [
-    {
-      rule: 'required',
-      errorMessage: 'End Time is required',
-    },
-  ])
+//   .addField('#end_date', [
+//     {
+//       rule: 'required',
+//       errorMessage: 'End Date is required',
+//     },
+//   ])
+//   .addField('#end_time', [
+//     {
+//       rule: 'required',
+//       errorMessage: 'End Time is required',
+//     },
+//   ])
   .addField('.writer-id-input', [
     {
         validator: (value, fields) => true
@@ -428,6 +438,26 @@ validation
         validator: (value, fields) => true
     },
   ])
+  .addField('#end_date', [
+    {
+        validator: (value, fields) => true
+    },
+  ])
+  .addField('#end_time', [
+    {
+        validator: (value, fields) => true
+    },
+  ])
+  .addField('#recurring_end_date', [
+    {
+        validator: (value, fields) => true
+    },
+  ])
+  .addField('#recurring_end_time', [
+    {
+        validator: (value, fields) => true
+    },
+  ])
   .addField('#recurring_type_weekly', [
     {
         validator: (value, fields) => true
@@ -447,9 +477,14 @@ validation
         formData.append('client',document.getElementById('client').value)
         formData.append('invoice_rate',document.getElementById('invoice_rate').value)
         formData.append('start_date',document.getElementById('start_date').value)
-        formData.append('end_date',document.getElementById('end_date').value)
         formData.append('start_time',document.getElementById('start_time').value)
-        formData.append('end_time',document.getElementById('end_time').value)
+        if(document.getElementById('is_recurring_event').checked){
+            formData.append('end_date',document.getElementById('recurring_end_date').value)
+            formData.append('end_time',document.getElementById('recurring_end_time').value)
+        }else{
+            formData.append('end_date',document.getElementById('end_date').value)
+            formData.append('end_time',document.getElementById('end_time').value)
+        }
         formData.append('notes',document.getElementById('notes').value)
         formData.append('is_active',document.getElementById('is_active').value)
         formData.append('is_prep_ready',document.getElementById('is_prep_ready').value)
@@ -533,14 +568,23 @@ validation
         if(error?.response?.data?.errors?.start_date){
             validation.showErrors({'#start_date': error?.response?.data?.errors?.start_date[0]})
         }
-        if(error?.response?.data?.errors?.end_date){
-            validation.showErrors({'#end_date': error?.response?.data?.errors?.end_date[0]})
-        }
         if(error?.response?.data?.errors?.start_time){
             validation.showErrors({'#start_time': error?.response?.data?.errors?.start_time[0]})
         }
-        if(error?.response?.data?.errors?.end_time){
-            validation.showErrors({'#end_time': error?.response?.data?.errors?.end_time[0]})
+        if(document.getElementById('is_recurring_event').checked){
+            if(error?.response?.data?.errors?.end_date){
+                validation.showErrors({'#recurring_end_date': error?.response?.data?.errors?.end_date[0]})
+            }
+            if(error?.response?.data?.errors?.end_time){
+                validation.showErrors({'#recurring_end_time': error?.response?.data?.errors?.end_time[0]})
+            }
+        }else{
+            if(error?.response?.data?.errors?.end_date){
+                validation.showErrors({'#end_date': error?.response?.data?.errors?.end_date[0]})
+            }
+            if(error?.response?.data?.errors?.end_time){
+                validation.showErrors({'#end_time': error?.response?.data?.errors?.end_time[0]})
+            }
         }
         if(error?.response?.data?.errors?.notes){
             validation.showErrors({'#notes': error?.response?.data?.errors?.notes[0]})
@@ -626,9 +670,17 @@ validation
     if(document.getElementById('is_recurring_event').checked){
         document.getElementById('recurring_block_div').classList.add('d-flex');
         document.getElementById('recurring_block_div').classList.remove('d-none');
+        document.getElementById('recurring_block_time_div').classList.add('d-flex');
+        document.getElementById('recurring_block_time_div').classList.remove('d-none');
+        document.getElementById('main_time_div').classList.add('d-none');
+        document.getElementById('main_time_div').classList.remove('d-flex');
     }else{
         document.getElementById('recurring_block_div').classList.add('d-none');
         document.getElementById('recurring_block_div').classList.remove('d-flex');
+        document.getElementById('recurring_block_time_div').classList.add('d-none');
+        document.getElementById('recurring_block_time_div').classList.remove('d-flex');
+        document.getElementById('main_time_div').classList.add('d-flex');
+        document.getElementById('main_time_div').classList.remove('d-none');
     }
   });
 
