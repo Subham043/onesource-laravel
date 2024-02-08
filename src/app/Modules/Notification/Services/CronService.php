@@ -28,12 +28,12 @@ class CronService
                 'roles' => function($qry){
                     $qry->whereIn('name', ['Writer', 'Client']);
                 },
-                'member_profile_created_by_auth' => function($query) use($value){
+                'cron_member_profile_created_by_auth' => function($query) use($value){
                     $query->with(['tools', 'client'])->where('created_by', $value->id);
                 },
             ])->whereHas('roles', function($qry){
                 $qry->whereIn('name', ['Writer', 'Client']);
-            })->whereHas('member_profile_created_by_auth', function($qry) use($value){
+            })->whereHas('cron_member_profile_created_by_auth', function($qry) use($value){
                 $qry->with(['tools', 'client'])->where('created_by', $value->id);
             })->get();
             $notifications = Notification::where('created_by', $value->id)->latest()->get();
@@ -89,13 +89,13 @@ class CronService
         $date =  Carbon::today();
         $data = Event::with([
             'client'=> function($qry) use($user){
-                $qry->where('id',$user->member_profile_created_by_auth->client->id);
+                $qry->where('id',$user->cron_member_profile_created_by_auth->client->id);
             },
         ])->where('is_active', true)
         ->whereDate('end_date', '>=', $date->format('Y-m-d'))
         ->whereDate('start_date', '<=', $date->format('Y-m-d'))
         ->whereHas('client', function($qry) use($user){
-            $qry->where('id', $user->member_profile_created_by_auth->client->id);
+            $qry->where('id', $user->cron_member_profile_created_by_auth->client->id);
         })->get();
 
         $new_data = $data->filter(function($item) {

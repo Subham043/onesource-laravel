@@ -16,8 +16,10 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         $schedule->call(function(){
+            Log::alert('yes');
             (new CronService)->__invoke();
-        })->everyMinute();
+        // })->everyTwoMinutes();
+        })->dailyAt('13:00');
     }
 
     /**

@@ -171,6 +171,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasOne(Profile::class, 'user_id')->withDefault()->whereColumn('user_id', '<>', 'created_by')->where('created_by', auth()->user()->current_role=='Staff-Admin' ? auth()->user()->staff_member_profile->created_by : auth()->user()->id);
     }
 
+    public function cron_member_profile_created_by_auth()
+    {
+        return $this->hasOne(Profile::class, 'user_id')->withDefault()->whereColumn('user_id', '<>', 'created_by');
+    }
+
     public function member_profile_not_created_by_auth()
     {
         return $this->hasOne(Profile::class, 'user_id')->withDefault()->whereColumn('user_id', '<>', 'created_by');
