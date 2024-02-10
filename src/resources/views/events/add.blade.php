@@ -52,7 +52,7 @@
                             <input type="time" class="form-control" id="start_time" name="start_time">
                         </div>
                     </div>
-                    <div id="main_time_div" class="form-group row">
+                    <div class="form-group row">
                         <label class="control-label col-sm-2 align-self-center mb-0" for="end_date">End Date:</label>
                         <div class="col-sm-3">
                             <input type="date" class="form-control" id="end_date" name="end_date">
@@ -68,7 +68,7 @@
                             <input class="form-check-input" type="checkbox" value="1" id="is_recurring_event" name="is_recurring_event">
                         </div>
                     </div>
-                    <div id="recurring_block_div" class="form-group row d-none">
+                    <div id="recurring_block_div" class="form-group row noborder d-none">
                         <label class="control-label col-sm-2 align-self-center mb-0" for="">Recurring Type:</label>
                         <div class="col-sm-10">
                             <div id="recurring-error"></div>
@@ -76,15 +76,15 @@
                                 <div class="col-lg-2 col-md-3 col-sm-12">
                                     <input class="form-check-input" type="radio" value="Daily" id="recurring_type_daily" name="recurring_type">
                                     <label class="form-check-label" for="recurring_type_daily">
-                                        Daily :
+                                        Daily
                                     </label>
                                 </div>
-                                <div class="col-lg-10 col-md-9 col-sm-12">
+                                <div class="col-lg-10 col-md-9 col-sm-12 d-none" id="recurring_type_daily_options">
                                     <div class="d-flex align-items-center mb-2">
                                         <input class="form-check-input col-auto" type="radio" value="First" id="recurring_daily_type_days" name="recurring_daily_type">
                                         <label class="form-check-label mx-1 col-8" for="recurring_daily_type_days">
                                             <div class="d-flex align-items-center gap-2">
-                                                <span class="col-auto">Every</span> <input type="text" class="form-control col-auto" style="width: 70px;text-align:center" id="recurring_daily_days" name="recurring_daily_days"> <span class="col-auto">days</span>
+                                                <span class="col-auto">Every</span> <input type="text" class="form-control col-auto" style="width: 70px;text-align:center" id="recurring_daily_days" name="recurring_daily_days" value="1"> <span class="col-auto">days</span>
                                             </div>
                                         </label>
                                     </div>
@@ -100,14 +100,14 @@
                                 <div class="col-lg-2 col-md-3 col-sm-12">
                                     <input class="form-check-input" type="radio" value="Weekly" id="recurring_type_weekly" name="recurring_type">
                                     <label class="form-check-label" for="recurring_type_weekly">
-                                        Weekly :
+                                        Weekly
                                     </label>
                                 </div>
-                                <div class="col-lg-10 col-md-9 col-sm-12">
+                                <div class="col-lg-10 col-md-9 col-sm-12 d-none" id="recurring_type_weekly_options">
                                     <div class="d-flex align-items-center mb-2">
                                         <label class="form-check-label mx-1 col-8">
                                             <div class="d-flex align-items-center gap-2">
-                                                <span class="col-auto">Recur every</span> <input type="text" class="form-control col-auto" style="width: 70px;text-align:center" id="recurring_weekly_weeks" name="recurring_weekly_weeks"> <span class="col-auto">week(s) on:</span>
+                                                <span class="col-auto">Recur every</span> <input type="text" class="form-control col-auto" style="width: 70px;text-align:center" id="recurring_weekly_weeks" name="recurring_weekly_weeks" value="1"> <span class="col-auto">week(s) on:</span>
                                             </div>
                                         </label>
                                     </div>
@@ -161,15 +161,15 @@
                                 <div class="col-lg-2 col-md-3 col-sm-12">
                                     <input class="form-check-input" type="radio" value="Monthly" id="recurring_type_monthly" name="recurring_type">
                                     <label class="form-check-label" for="recurring_type_monthly">
-                                        Monthly :
+                                        Monthly
                                     </label>
                                 </div>
-                                <div class="col-lg-10 col-md-9 col-sm-12">
+                                <div class="col-lg-10 col-md-9 col-sm-12 d-none" id="recurring_type_monthly_options">
                                     <div class="d-flex align-items-center mb-2">
                                         <input class="form-check-input col-auto" type="radio" value="First" id="recurring_monthly_type_days" name="recurring_monthly_type">
                                         <label class="form-check-label mx-1 col-8" for="recurring_monthly_type_days">
                                             <div class="d-flex align-items-center gap-2">
-                                                <span class="col-auto">Day</span> <input type="text" class="form-control col-auto" style="width: 70px;text-align:center" id="recurring_monthly_first_days" name="recurring_monthly_first_days"> <span class="col-auto">of every</span> <input type="text" class="form-control col-auto" style="width: 70px;text-align:center" id="recurring_monthly_first_months" name="recurring_monthly_first_months"> <span class="col-auto">month(s)</span>
+                                                <span class="col-auto">Day</span> <input type="text" class="form-control col-auto" style="width: 70px;text-align:center" id="recurring_monthly_first_days" name="recurring_monthly_first_days" value="1"> <span class="col-auto">of every</span> <input type="text" class="form-control col-auto" style="width: 70px;text-align:center" id="recurring_monthly_first_months" name="recurring_monthly_first_months" value="1"> <span class="col-auto">month(s)</span>
                                             </div>
                                         </label>
                                     </div>
@@ -194,21 +194,21 @@
                                                     <option value="Saturday">Saturday</option>
                                                 </select>
                                                 <span class="col-auto">of every</span>
-                                                <input type="text" class="form-control col-auto" style="width: 70px;text-align:center" id="recurring_monthly_second_months" name="recurring_monthly_second_months">
+                                                <input type="text" class="form-control col-auto" style="width: 70px;text-align:center" id="recurring_monthly_second_months" name="recurring_monthly_second_months" value="1">
                                                 <span class="col-auto">month(s)</span>
                                             </div>
                                         </label>
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group row noborder mb-0 pb-0 align-items-center">
+                            <div class="form-group row mb-0 align-items-center">
                                 <div class="col-lg-2 col-md-3 col-sm-12">
                                     <input class="form-check-input" type="radio" value="Yearly" id="recurring_type_yearly" name="recurring_type">
                                     <label class="form-check-label" for="recurring_type_yearly">
-                                        Yearly :
+                                        Yearly
                                     </label>
                                 </div>
-                                <div class="col-lg-10 col-md-9 col-sm-12">
+                                <div class="col-lg-10 col-md-9 col-sm-12 d-none" id="recurring_type_yearly_options">
                                     <div class="d-flex align-items-center mb-2">
                                         <label class="form-check-label mx-1 col-8">
                                             <div class="d-flex align-items-center gap-2">
@@ -227,7 +227,7 @@
                                                     <option value="11">November</option>
                                                     <option value="12">December</option>
                                                 </select>
-                                                <input type="text" class="form-control col-auto" style="width: 70px;text-align:center" id="recurring_yearly_days" name="recurring_yearly_days">
+                                                <input type="text" class="form-control col-auto" style="width: 70px;text-align:center" id="recurring_yearly_days" name="recurring_yearly_days" value="1">
                                             </div>
                                         </label>
                                     </div>
@@ -238,11 +238,7 @@
                     <div id="recurring_block_time_div" class="form-group row d-none">
                         <label class="control-label col-sm-2 align-self-center mb-0" for="recurring_end_date">Recurring End Date:</label>
                         <div class="col-sm-3">
-                            <input type="date" class="form-control" id="recurring_end_date" name="end_date">
-                        </div>
-                        <label class="control-label col-sm-2 align-self-center mb-0" for="recurring_end_time">Recurring End Time:</label>
-                        <div class="col-sm-3">
-                            <input type="time" class="form-control" id="recurring_end_time" name="end_time">
+                            <input type="date" class="form-control" id="recurring_end_date" name="recurring_end_date">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -395,18 +391,18 @@ validation
       errorMessage: 'Start Time is required',
     },
   ])
-//   .addField('#end_date', [
-//     {
-//       rule: 'required',
-//       errorMessage: 'End Date is required',
-//     },
-//   ])
-//   .addField('#end_time', [
-//     {
-//       rule: 'required',
-//       errorMessage: 'End Time is required',
-//     },
-//   ])
+.addField('#end_date', [
+    {
+    rule: 'required',
+    errorMessage: 'End Date is required',
+    },
+])
+.addField('#end_time', [
+    {
+    rule: 'required',
+    errorMessage: 'End Time is required',
+    },
+])
   .addField('.writer-id-input', [
     {
         validator: (value, fields) => true
@@ -438,22 +434,7 @@ validation
         validator: (value, fields) => true
     },
   ])
-  .addField('#end_date', [
-    {
-        validator: (value, fields) => true
-    },
-  ])
-  .addField('#end_time', [
-    {
-        validator: (value, fields) => true
-    },
-  ])
   .addField('#recurring_end_date', [
-    {
-        validator: (value, fields) => true
-    },
-  ])
-  .addField('#recurring_end_time', [
     {
         validator: (value, fields) => true
     },
@@ -478,18 +459,14 @@ validation
         formData.append('invoice_rate',document.getElementById('invoice_rate').value)
         formData.append('start_date',document.getElementById('start_date').value)
         formData.append('start_time',document.getElementById('start_time').value)
-        if(document.getElementById('is_recurring_event').checked){
-            formData.append('end_date',document.getElementById('recurring_end_date').value)
-            formData.append('end_time',document.getElementById('recurring_end_time').value)
-        }else{
-            formData.append('end_date',document.getElementById('end_date').value)
-            formData.append('end_time',document.getElementById('end_time').value)
-        }
+        formData.append('end_date',document.getElementById('end_date').value)
+        formData.append('end_time',document.getElementById('end_time').value)
         formData.append('notes',document.getElementById('notes').value)
         formData.append('is_active',document.getElementById('is_active').value)
         formData.append('is_prep_ready',document.getElementById('is_prep_ready').value)
         formData.append('is_recurring_event',document.getElementById('is_recurring_event').checked ? 1 : 0)
         if(document.getElementById('is_recurring_event').checked){
+            formData.append('recurring_end_date',document.getElementById('recurring_end_date').value)
             if(document.querySelector('input[name="recurring_type"]:checked')){
                 formData.append('recurring_type',document.querySelector('input[name="recurring_type"]:checked').value)
                 if(document.querySelector('input[name="recurring_type"]:checked').value=="Daily"){
@@ -571,20 +548,14 @@ validation
         if(error?.response?.data?.errors?.start_time){
             validation.showErrors({'#start_time': error?.response?.data?.errors?.start_time[0]})
         }
-        if(document.getElementById('is_recurring_event').checked){
-            if(error?.response?.data?.errors?.end_date){
-                validation.showErrors({'#recurring_end_date': error?.response?.data?.errors?.end_date[0]})
-            }
-            if(error?.response?.data?.errors?.end_time){
-                validation.showErrors({'#recurring_end_time': error?.response?.data?.errors?.end_time[0]})
-            }
-        }else{
-            if(error?.response?.data?.errors?.end_date){
-                validation.showErrors({'#end_date': error?.response?.data?.errors?.end_date[0]})
-            }
-            if(error?.response?.data?.errors?.end_time){
-                validation.showErrors({'#end_time': error?.response?.data?.errors?.end_time[0]})
-            }
+        if(error?.response?.data?.errors?.recurring_end_date){
+            validation.showErrors({'#recurring_end_date': error?.response?.data?.errors?.recurring_end_date[0]})
+        }
+        if(error?.response?.data?.errors?.end_date){
+            validation.showErrors({'#end_date': error?.response?.data?.errors?.end_date[0]})
+        }
+        if(error?.response?.data?.errors?.end_time){
+            validation.showErrors({'#end_time': error?.response?.data?.errors?.end_time[0]})
         }
         if(error?.response?.data?.errors?.notes){
             validation.showErrors({'#notes': error?.response?.data?.errors?.notes[0]})
@@ -672,15 +643,63 @@ validation
         document.getElementById('recurring_block_div').classList.remove('d-none');
         document.getElementById('recurring_block_time_div').classList.add('d-flex');
         document.getElementById('recurring_block_time_div').classList.remove('d-none');
-        document.getElementById('main_time_div').classList.add('d-none');
-        document.getElementById('main_time_div').classList.remove('d-flex');
     }else{
         document.getElementById('recurring_block_div').classList.add('d-none');
         document.getElementById('recurring_block_div').classList.remove('d-flex');
         document.getElementById('recurring_block_time_div').classList.add('d-none');
         document.getElementById('recurring_block_time_div').classList.remove('d-flex');
-        document.getElementById('main_time_div').classList.add('d-flex');
-        document.getElementById('main_time_div').classList.remove('d-none');
+    }
+  });
+
+  document.getElementById('recurring_type_daily').addEventListener("change", function(){
+    if(document.getElementById('recurring_type_daily').checked){
+        document.getElementById('recurring_type_daily_options').classList.add('d-block');
+        document.getElementById('recurring_type_daily_options').classList.remove('d-none');
+        document.getElementById('recurring_type_yearly_options').classList.add('d-none');
+        document.getElementById('recurring_type_yearly_options').classList.remove('d-block');
+        document.getElementById('recurring_type_monthly_options').classList.add('d-none');
+        document.getElementById('recurring_type_monthly_options').classList.remove('d-block');
+        document.getElementById('recurring_type_weekly_options').classList.add('d-none');
+        document.getElementById('recurring_type_weekly_options').classList.remove('d-block');
+    }
+  });
+
+  document.getElementById('recurring_type_weekly').addEventListener("change", function(){
+    if(document.getElementById('recurring_type_weekly').checked){
+        document.getElementById('recurring_type_weekly_options').classList.add('d-block');
+        document.getElementById('recurring_type_weekly_options').classList.remove('d-none');
+        document.getElementById('recurring_type_yearly_options').classList.add('d-none');
+        document.getElementById('recurring_type_yearly_options').classList.remove('d-block');
+        document.getElementById('recurring_type_monthly_options').classList.add('d-none');
+        document.getElementById('recurring_type_monthly_options').classList.remove('d-block');
+        document.getElementById('recurring_type_daily_options').classList.add('d-none');
+        document.getElementById('recurring_type_daily_options').classList.remove('d-block');
+    }
+  });
+
+  document.getElementById('recurring_type_monthly').addEventListener("change", function(){
+    if(document.getElementById('recurring_type_monthly').checked){
+        document.getElementById('recurring_type_monthly_options').classList.add('d-block');
+        document.getElementById('recurring_type_monthly_options').classList.remove('d-none');
+        document.getElementById('recurring_type_yearly_options').classList.add('d-none');
+        document.getElementById('recurring_type_yearly_options').classList.remove('d-block');
+        document.getElementById('recurring_type_weekly_options').classList.add('d-none');
+        document.getElementById('recurring_type_weekly_options').classList.remove('d-block');
+        document.getElementById('recurring_type_daily_options').classList.add('d-none');
+        document.getElementById('recurring_type_daily_options').classList.remove('d-block');
+    }
+  });
+
+  document.getElementById('recurring_type_yearly').addEventListener("change", function(){
+    if(document.getElementById('recurring_type_yearly').checked){
+        document.getElementById('recurring_type_yearly_options').classList.add('d-block');
+        document.getElementById('recurring_type_yearly_options').classList.remove('d-none');
+        document.getElementById('recurring_type_monthly_options').classList.add('d-none');
+        document.getElementById('recurring_type_monthly_options').classList.remove('d-block');
+        document.getElementById('recurring_type_weekly_options').classList.add('d-none');
+        document.getElementById('recurring_type_weekly_options').classList.remove('d-block');
+        document.getElementById('recurring_type_daily_options').classList.add('d-none');
+        document.getElementById('recurring_type_daily_options').classList.remove('d-block');
     }
   });
 

@@ -38,6 +38,7 @@ class Event extends Model
         'is_active',
         'is_prep_ready',
         'is_recurring_event',
+        'recurring_end_date',
         'recurring_type',
         'recurring_daily_type',
         'recurring_daily_days',
@@ -69,6 +70,7 @@ class Event extends Model
         'end_date' => 'datetime',
         'start_time' => 'datetime',
         'end_time' => 'datetime',
+        'recurring_end_date' => 'datetime',
         'recurring_daily_days' => 'int',
         'recurring_weekly_weeks' => 'int',
         'recurring_weekly_sunday' => 'boolean',
@@ -188,7 +190,7 @@ class Event extends Model
         $data_arr = [];
         if($this->is_recurring_event){
             $start_date_event = $this->start_date;
-            $end_date_event = $this->end_date;
+            $end_date_event = $this->recurring_end_date;
             if($this->recurring_type==RecurringType::DAILY){
                 if($this->recurring_daily_type==RecurringInnerType::FIRST){
                     array_push($data_arr, $start_date_event->format('Y-m-d').'T05:30:00.000Z');

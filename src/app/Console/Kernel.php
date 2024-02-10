@@ -32,3 +32,5 @@ class Kernel extends ConsoleKernel
         require base_path('routes/console.php');
     }
 }
+
+// /home/537885.cloudwaysapps.com/ypenvpxdcc/public_html/src/

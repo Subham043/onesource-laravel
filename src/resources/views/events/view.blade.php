@@ -81,6 +81,8 @@
                                 @elseif($event->recurring_type->value=='Yearly')
                                     Reccurs every {{$event->recurring_yearly_months->name}}, {{$event->recurring_yearly_days}}
                                 @endif
+                                <br />
+                                Until {{$event->recurring_end_date ? $event->recurring_end_date->format('M d Y') : ''}}
                             @endif
                         </div>
                     </div>

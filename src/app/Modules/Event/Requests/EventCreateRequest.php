@@ -52,6 +52,8 @@ class EventCreateRequest extends FormRequest
             //recurring type
             'recurring_type' => ['nullable', 'required_if:is_recurring_event,1', new Enum(RecurringType::class)],
 
+            'recurring_end_date' => ['nullable', 'required_if:is_recurring_event,1', 'date', 'after:start_date'],
+
             //recurring daily type
             'recurring_daily_type' => ['nullable', Rule::requiredIf($this->is_recurring_event==1 && $this->recurring_type==RecurringType::DAILY->value), new Enum(RecurringInnerType::class)],
 
