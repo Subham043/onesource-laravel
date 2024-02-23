@@ -200,8 +200,43 @@ class Event extends Model
                     }
                 }
             }elseif($this->recurring_type==RecurringType::WEEKLY){
-                $day = 1;
                 $week_date_event = $start_date_event;
+                $weekDay = date('D', strtotime($week_date_event));
+                switch ($weekDay) {
+                    case 'Sun':
+                        # code...
+                        $day = 1;
+                        break;
+                    case 'Mon':
+                        # code...
+                        $day = 2;
+                        break;
+                    case 'Tue':
+                        # code...
+                        $day = 3;
+                        break;
+                    case 'Wed':
+                        # code...
+                        $day = 4;
+                        break;
+                    case 'Thu':
+                        # code...
+                        $day = 5;
+                        break;
+                    case 'Fri':
+                        # code...
+                        $day = 6;
+                        break;
+                    case 'Sat':
+                        # code...
+                        $day = 7;
+                        break;
+
+                    default:
+                        # code...
+                        $day = 1;
+                        break;
+                }
                 while($day<=7 && $week_date_event <= $end_date_event){
                     if($this->recurring_weekly_sunday && $this->isDayOfWeek($start_date_event, 'Sun')){
                         array_push($data_arr, $start_date_event->format('Y-m-d').'T05:30:00.000Z');
@@ -318,7 +353,9 @@ class Event extends Model
                     }
                 }elseif($this->recurring_type==RecurringType::WEEKLY){
                     $day = 1;
-                    $start_date_event = $start_date_event->addWeeks($this->recurring_weekly_weeks);
+                    if($this->recurring_weekly_weeks!=1){
+                        $start_date_event = $start_date_event->addWeeks($this->recurring_weekly_weeks);
+                    }
                     $week_date_event = $start_date_event;
                     while($day<=7 && $week_date_event <= $end_date_event){
                         if($this->recurring_weekly_sunday && $this->isDayOfWeek($start_date_event, 'Sun')){
