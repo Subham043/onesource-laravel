@@ -173,6 +173,15 @@
 @section('javascript')
 
 <script type="text/javascript" nonce="{{ csp_nonce() }}">
+
+document.addEventListener("keydown", (e) => {
+  if ((e.metaKey || e.ctrlKey) && e.key === "s") {
+    e.preventDefault();
+    document.getElementById('submitBtn').click();
+    return false;
+  }
+});
+
 // initialize the validation library
 const validation = new JustValidate('#loginForm', {
       errorFieldCssClass: 'is-invalid',
