@@ -27,6 +27,7 @@ class QuickbookViewController extends Controller
         $data = $this->eventService->paginateReport($request->total ?? 10);
         $clients = $this->clientService->all();
         $writers = $this->userService->allByWriterRole();
+        // return $data;
         return view('reports.quickbook', compact(['data', 'clients', 'writers']))->with([
             'page_name' => 'Quickbook',
             'notifications' => DocumentNotification::filterByRoles()->latest()->limit(4)->get()
