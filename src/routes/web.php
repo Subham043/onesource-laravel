@@ -153,6 +153,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/update/{id}', [EventUpdateController::class, 'get', 'as' => 'event.update.get'])->name('event.update.get');
         Route::post('/update/{id}', [EventUpdateController::class, 'post', 'as' => 'event.update.get'])->name('event.update.post');
         Route::get('/view/{id}', [EventViewController::class, 'get', 'as' => 'event.view.get'])->name('event.view.get');
+        Route::get('/notify/{id}', [EventViewController::class, 'notify', 'as' => 'event.notify.get'])->name('event.notify.get');
         Route::get('/delete/{id}', [EventDeleteController::class, 'get', 'as' => 'event.delete.get'])->name('event.delete.get');
         Route::get('/delete-writer/{id}', [EventWriterDeleteController::class, 'get', 'as' => 'event.delete_writer.get'])->name('event.delete_writer.get');
         Route::get('/status/{id}', [EventSingleCancelController::class, 'get', 'as' => 'event.status.get'])->name('event.status.get');
@@ -182,7 +183,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::prefix('/notification')->group(function () {
         Route::get('/', [NotificationSendController::class, 'get', 'as' => 'notification.send.get'])->name('notification.send.get');
-        Route::post('/', [NotificationSendController::class, 'post', 'as' => 'notification.send.post'])->name('notification.send.post');
+        Route::post('/', [NotificationSendController::class, 'posevent.update.gett', 'as' => 'notification.send.post'])->name('notification.send.post');
         Route::prefix('/template')->group(function () {
             Route::get('/', [NotificationTemplateController::class, 'get', 'as' => 'notification.template.get'])->name('notification.template.get');
             Route::post('/', [NotificationTemplateController::class, 'post', 'as' => 'notification.template.post'])->name('notification.template.post');
@@ -201,5 +202,3 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 
 });
-
-

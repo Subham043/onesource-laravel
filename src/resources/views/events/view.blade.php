@@ -11,6 +11,11 @@
                     </div>
                     <div >
                         @can('edit events')
+                        <a href="{{route('event.notify.get', $event->id)}}" class="btn btn-primary">
+                            Send Notification
+                        </a>
+                        @endcan
+                        @can('edit events')
                         <a href="{{route('event.update.get', $event->id)}}" class="btn btn-primary">
                             Edit This Event
                         </a>

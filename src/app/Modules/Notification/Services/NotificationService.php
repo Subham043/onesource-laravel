@@ -5,6 +5,8 @@ namespace App\Modules\Notification\Services;
 use App\Modules\Authentication\Models\User;
 use App\Modules\Event\Models\Event;
 use App\Modules\Notification\Jobs\ClientNotificationJob;
+use App\Modules\Notification\Jobs\MultipleClientNotificationJob;
+use App\Modules\Notification\Jobs\MultipleWriterNotificationJob;
 use App\Modules\Notification\Jobs\WriterNotificationJob;
 use App\Modules\Notification\Models\Notification;
 use App\Modules\Notification\Requests\NotificationRequest;
@@ -186,7 +188,33 @@ class NotificationService
             });
             dispatch(new ClientNotificationJob($clients, $new_data, (new TemplateService)->get()));
             return count($new_data->toArray());
-            return $new_data;
+        }
+
+        return null;
+    }
+
+    public function sendEventNotification(Int $id)
+    {
+        $data = Event::with([
+            'client',
+            'writers' => function($qry){
+                $qry->with(['writer']);
+            }
+        ])
+        ->where('id', $id)
+        ->where('is_active', true)
+        ->where('created_by', auth()->user()->current_role=='Staff-Admin' ? auth()->user()->member_profile_created_by_auth->created_by : auth()->user()->id)
+        ->first();
+
+        if($data){
+            $all_clients = (new UserService)->allByClientRole();
+            $clients = $all_clients->filter(function($item) use($data) {
+                return $item->member_profile_created_by_auth->client->id==$data->client->id;
+            });
+            dispatch(new MultipleClientNotificationJob($clients, $data, (new TemplateService)->get()));
+            dispatch(new MultipleWriterNotificationJob($data->writers->pluck('writer')->toArray(), $data, (new TemplateService)->get()));
+
+            return 1;
         }
 
         return null;

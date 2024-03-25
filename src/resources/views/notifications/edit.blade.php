@@ -12,6 +12,9 @@
                     </div>
                     <div>
                         @can('add notifications')
+                        <a href="{{route('notification.send.get')}}" class="btn btn-primary">Send Notification</a>
+                        @endcan
+                        @can('add notifications')
                         <a href="{{route('notification.template.get')}}" class="btn btn-primary">Template</a>
                         @endcan
                         @can('add notifications')
