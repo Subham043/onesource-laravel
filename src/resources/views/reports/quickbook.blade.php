@@ -78,9 +78,9 @@
                                             <th>Total</th>
                                         </tr>
                                     </thead>
-                                    @if($data->total() > 0)
+                                    @if($data->count() > 0)
                                         <tbody>
-                                            @foreach ($data->items() as $key=>$item)
+                                            @foreach ($data as $key=>$item)
                                                     @if($item->is_recurring_event)
                                                         @foreach ($item->event_repeated_date as $r_date)
                                                             <tr>
@@ -170,12 +170,12 @@
                                     </tbody>
                                     @endif
                                 </table>
-                                <div class="card-header">
+                                {{-- <div class="card-header">
                                     {{$data->onEachSide(5)->links()}}
-                                </div>
+                                </div> --}}
                             </div>
                             <div style="padding: 20px; text-align: right; ">
-                                <a href="{{route('report.export.excel.get', request()->query())}}" class="btn btn-primary">
+                                <a href="{{route('report.quickbook.excel.get', request()->query())}}" class="btn btn-primary">
                                     <svg class="icon-32" width="32" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path opacity="0.4"

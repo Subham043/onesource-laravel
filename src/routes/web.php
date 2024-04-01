@@ -179,6 +179,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/export', [ExportViewController::class, 'get', 'as' => 'report.export.view.get'])->name('report.export.view.get');
         Route::get('/export-excel', [ExportExcelController::class, 'get', 'as' => 'report.export.excel.get'])->name('report.export.excel.get');
         Route::get('/quickbook', [QuickbookViewController::class, 'get', 'as' => 'report.quickbook.view.get'])->name('report.quickbook.view.get');
+        Route::get('/quickbook-excel', [QuickbookViewController::class, 'excel', 'as' => 'report.quickbook.excel.get'])->name('report.quickbook.excel.get');
     });
 
     Route::prefix('/notification')->group(function () {
