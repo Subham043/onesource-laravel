@@ -241,7 +241,7 @@
                                                         <span style="font-size: 22px;">Hi {{ $user['name'] }},</span></p>
                                                     <p
                                                         style="font-size: 15px; line-height: 1.2; mso-line-height-alt: 26px; margin: 0;text-align:center">
-                                                        <span style="font-size: 15px;">You have 1 event/s scheduled today</span></p>
+                                                        <span style="font-size: 15px;">You have the following event/s scheduled:</span></p>
                                                 </div>
                                             </div>
                                             <!--[if mso]></td></tr></table><![endif]-->
@@ -251,10 +251,27 @@
                                                 <div
                                                     style="font-size: 12px; line-height: 1.5; font-family: 'Cabin', Arial, 'Helvetica Neue', Helvetica, sans-serif; color: #555555; mso-line-height-alt: 18px;">
                                                    <table width="100%" border="1" style="text-align:center">
-                                                        <tr>
-                                                            <th>Event name</th>
-                                                            <td>{{ $data->name }}</td>
-                                                        </tr>
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Event Name</th>
+                                                                <th>Event Date</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @if($data->is_recurring_event)
+                                                                @foreach ($data->event_repeated_date as $r_date)
+                                                                <tr>
+                                                                    <td>{{ $data->name }}</td>
+                                                                    <td>{{date("M d Y", strtotime(str_replace('T05:30:00.000Z','',$r_date)))}}</td>
+                                                                </tr>
+                                                                @endforeach
+                                                            @else
+                                                                <tr>
+                                                                    <td>{{ $data->name }}</td>
+                                                                    <td>{{$data->start_date->format('M d Y')}}</td>
+                                                                </tr>
+                                                            @endif
+                                                        </tbody>
                                                    </table>
                                                 </div>
                                             </div>
