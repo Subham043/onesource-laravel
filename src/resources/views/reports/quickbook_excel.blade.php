@@ -19,24 +19,24 @@
                     @if($item->is_recurring_event)
                         @foreach ($item->event_repeated_date as $r_date)
                             <tr>
-                                <td rowspan="{{$item->writers->count()+1}}">
+                                <td>
                                     <div class="d-flex align-items-center">
                                         <a href="{{ route('event.view.get', $item->id) }}">EVD{{$item->id}}</a>
                                     </div>
                                 </td>
-                                <td rowspan="{{$item->writers->count()+1}}">
+                                <td>
                                     <div class="iq-media-group iq-media-group-1">
                                         <a href="{{ route('event.view.get', $item->id) }}">{{$item->name}}</a>
                                     </div>
                                 </td>
                                 <td>{{$item->client->name}}</td>
                                 <td>&nbsp;</td>
-                                <td rowspan="{{$item->writers->count()+1}}">
+                                <td>
                                     {{date("M d Y", strtotime(str_replace('T05:30:00.000Z','',$r_date)))}}
                                 </td>
-                                <td rowspan="{{$item->writers->count()+1}}">{{$item->start_time->format('h:i a')}}</td>
-                                <td rowspan="{{$item->writers->count()+1}}">{{$item->end_time->format('h:i a')}}</td>
-                                <td rowspan="{{$item->writers->count()+1}}"> 1 Hour</td>
+                                <td>{{$item->start_time->format('h:i a')}}</td>
+                                <td>{{$item->end_time->format('h:i a')}}</td>
+                                <td> 1 Hour</td>
                                 <td> {{$item->invoice_rate}} $ / hr </td>
                                 <td>
                                     {{$item->invoice_rate}} $
@@ -44,10 +44,24 @@
                             </tr>
                             @foreach($item->writers as $k=>$v)
                                 <tr>
-                                    <td> </td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <a href="{{ route('event.view.get', $item->id) }}">EVD{{$item->id}}</a>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="iq-media-group iq-media-group-1">
+                                            <a href="{{ route('event.view.get', $item->id) }}">{{$item->name}}</a>
+                                        </div>
+                                    </td>
+                                    <td></td>
                                     <td>{{$v->writer->name}}</td>
-
-
+                                    <td>
+                                        {{date("M d Y", strtotime(str_replace('T05:30:00.000Z','',$r_date)))}}
+                                    </td>
+                                    <td>{{$item->start_time->format('h:i a')}}</td>
+                                    <td>{{$item->end_time->format('h:i a')}}</td>
+                                    <td> 1 Hour</td>
                                     <td> {{$v->billing_rate}} $ / hr </td>
                                     <td>
                                         {{$v->billing_rate}} $
@@ -57,24 +71,24 @@
                         @endforeach
                     @else
                         <tr>
-                            <td rowspan="{{$item->writers->count()+1}}">
+                            <td>
                                 <div class="d-flex align-items-center">
                                     <a href="{{ route('event.view.get', $item->id) }}">EVD{{$item->id}}</a>
                                 </div>
                             </td>
-                            <td rowspan="{{$item->writers->count()+1}}">
+                            <td>
                                 <div class="iq-media-group iq-media-group-1">
                                     <a href="{{ route('event.view.get', $item->id) }}">{{$item->name}}</a>
                                 </div>
                             </td>
                             <td>{{$item->client->name}}</td>
                             <td>&nbsp;</td>
-                            <td rowspan="{{$item->writers->count()+1}}">
+                            <td>
                                 {{$item->start_date->format('M d Y')}}
                             </td>
-                            <td rowspan="{{$item->writers->count()+1}}">{{$item->start_time->format('h:i a')}}</td>
-                            <td rowspan="{{$item->writers->count()+1}}">{{$item->end_time->format('h:i a')}}</td>
-                            <td rowspan="{{$item->writers->count()+1}}"> 1 Hour</td>
+                            <td>{{$item->start_time->format('h:i a')}}</td>
+                            <td>{{$item->end_time->format('h:i a')}}</td>
+                            <td> 1 Hour</td>
                             <td> {{$item->invoice_rate}} $ / hr </td>
                             <td>
                                 {{$item->invoice_rate}} $
@@ -82,10 +96,24 @@
                         </tr>
                         @foreach($item->writers as $k=>$v)
                             <tr>
-                                <td> </td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <a href="{{ route('event.view.get', $item->id) }}">EVD{{$item->id}}</a>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="iq-media-group iq-media-group-1">
+                                        <a href="{{ route('event.view.get', $item->id) }}">{{$item->name}}</a>
+                                    </div>
+                                </td>
+                                <td></td>
                                 <td>{{$v->writer->name}}</td>
-
-
+                                <td>
+                                    {{$item->start_date->format('M d Y')}}
+                                </td>
+                                <td>{{$item->start_time->format('h:i a')}}</td>
+                                <td>{{$item->end_time->format('h:i a')}}</td>
+                                <td> 1 Hour</td>
                                 <td> {{$v->billing_rate}} $ / hr </td>
                                 <td>
                                     {{$v->billing_rate}} $

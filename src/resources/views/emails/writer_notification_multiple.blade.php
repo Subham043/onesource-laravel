@@ -260,10 +260,12 @@
                                                         <tbody>
                                                             @if($data->is_recurring_event)
                                                                 @foreach ($data->event_repeated_date as $r_date)
-                                                                <tr>
-                                                                    <td>{{ $data->name }}</td>
-                                                                    <td>{{date("M d Y", strtotime(str_replace('T05:30:00.000Z','',$r_date)))}}</td>
-                                                                </tr>
+                                                                    @if(date("Y-m-d")<=date("Y-m-d", strtotime(str_replace('T05:30:00.000Z','',$r_date))))
+                                                                        <tr>
+                                                                            <td>{{ $data->name }}</td>
+                                                                            <td>{{date("M d Y", strtotime(str_replace('T05:30:00.000Z','',$r_date)))}}</td>
+                                                                        </tr>
+                                                                    @endif
                                                                 @endforeach
                                                             @else
                                                                 <tr>
