@@ -36,10 +36,17 @@
                                 </td>
                                 <td>{{$item->start_time->format('h:i a')}}</td>
                                 <td>{{$item->end_time->format('h:i a')}}</td>
-                                <td> 1 Hour</td>
+                                <td>
+                                    @php
+                                        $start = new Carbon\Carbon($item->start_date->format('Y-m-d').' '.$item->start_time->format('H:i:s'));
+                                        $end = new Carbon\Carbon($item->end_date->format('Y-m-d').' '.$item->end_time->format('H:i:s'));
+                                        $diff = $start->diffInHours($end);
+                                    @endphp
+                                    {{$diff}} Hour
+                                </td>
                                 <td> {{$item->invoice_rate}} $ / hr </td>
                                 <td>
-                                    {{$item->invoice_rate}} $
+                                    {{$item->invoice_rate * $diff}} $
                                 </td>
                             </tr>
                             @foreach($item->writers as $k=>$v)
@@ -61,10 +68,10 @@
                                     </td>
                                     <td>{{$item->start_time->format('h:i a')}}</td>
                                     <td>{{$item->end_time->format('h:i a')}}</td>
-                                    <td> 1 Hour</td>
+                                    <td> {{$diff}} Hour</td>
                                     <td> {{$v->billing_rate}} $ / hr </td>
                                     <td>
-                                        {{$v->billing_rate}} $
+                                        {{$v->billing_rate * $diff}} $
                                     </td>
                                 </tr>
                             @endforeach
@@ -88,10 +95,17 @@
                             </td>
                             <td>{{$item->start_time->format('h:i a')}}</td>
                             <td>{{$item->end_time->format('h:i a')}}</td>
-                            <td> 1 Hour</td>
+                            <td>
+                                @php
+                                    $start = new Carbon\Carbon($item->start_date->format('Y-m-d').' '.$item->start_time->format('H:i:s'));
+                                    $end = new Carbon\Carbon($item->end_date->format('Y-m-d').' '.$item->end_time->format('H:i:s'));
+                                    $diff = $start->diffInHours($end);
+                                @endphp
+                                {{$diff}} Hour
+                            </td>
                             <td> {{$item->invoice_rate}} $ / hr </td>
                             <td>
-                                {{$item->invoice_rate}} $
+                                {{$item->invoice_rate * $diff}} $
                             </td>
                         </tr>
                         @foreach($item->writers as $k=>$v)
@@ -113,10 +127,10 @@
                                 </td>
                                 <td>{{$item->start_time->format('h:i a')}}</td>
                                 <td>{{$item->end_time->format('h:i a')}}</td>
-                                <td> 1 Hour</td>
+                                <td> {{$diff}} Hour</td>
                                 <td> {{$v->billing_rate}} $ / hr </td>
                                 <td>
-                                    {{$v->billing_rate}} $
+                                    {{$v->billing_rate * $diff}} $
                                 </td>
                             </tr>
                         @endforeach
