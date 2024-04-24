@@ -17,7 +17,7 @@ class ClientService
 
     public function all(): Collection
     {
-        return Client::where('created_by', auth()->user()->current_role=='Staff-Admin' ? auth()->user()->member_profile_created_by_auth->created_by : auth()->user()->id)->get();
+        return Client::where('created_by', auth()->user()->current_role=='Staff-Admin' ? auth()->user()->member_profile_created_by_auth->created_by : auth()->user()->id)->orderBy('name', 'asc')->get();
     }
 
     public function paginate(Int $total = 10): LengthAwarePaginator
