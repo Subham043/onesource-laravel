@@ -777,7 +777,12 @@ validation
     }
   });
 
+  document.getElementById('start_date').addEventListener("change", function(){
+    document.getElementById('end_date').value = document.getElementById('start_date').value
+  });
+
 (function( $ ) {
+    $('#client').select2();
     $('.js-example-basic-single').select2();
     $('.writer-id-input').on('input', function () {
         const data = @json($writers);

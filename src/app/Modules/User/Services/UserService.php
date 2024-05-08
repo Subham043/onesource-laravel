@@ -26,7 +26,7 @@ class UserService
 
     public function allByWriterRole(): Collection
     {
-        return User::filterMemberByRoleCreatedByAuth('Writer')->latest()->get();
+        return User::filterMemberByRoleCreatedByAuth('Writer')->orderBy('name', 'asc')->get();
     }
 
     public function allByClientRole(): Collection
