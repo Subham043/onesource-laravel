@@ -1,12 +1,9 @@
-@extends("layouts.main")
+@extends("layouts.print")
 
 @section("content")
 				<div class="row">
 								<div class="col-md-12 col-lg-12">
 												<div class="row">
-																<div class="col-12 d-flex justify-content-end mb-3">
-																				<a href="{{ route("report.conflict.print.get") }}" target="_blank" class="btn btn-primary">Print</a>
-																</div>
 																<div class="col-md-12 col-lg-12">
 																				<div class="card overflow-hidden" data-aos="fade-up" data-aos-delay="600">
 																								<div class="d-flex justify-content-center flex-wrap py-2">
@@ -35,7 +32,6 @@
 																																																<th>Date</th>
 																																																<th>Start Time</th>
 																																																<th>End Time</th>
-																																																<th>&nbsp;</th>
 																																												</tr>
 																																								</thead>
 																																								<tbody>
@@ -103,13 +99,6 @@
 																																																				</td>
 																																																				<td>{{ $v->event->start_time->format("h:i a") }}</td>
 																																																				<td>{{ $v->event->end_time->format("h:i a") }}</td>
-																																																				<td>
-																																																								@can("edit events")
-																																																												<a href="{{ $v->event->created_by == (auth()->user()->current_role == "Staff-Admin" ? auth()->user()->member_profile_created_by_auth->created_by : auth()->user()->id) ? route("event.update.get", $v->event->id) . "?writer_conflict=" . $item->id : "#" }}"
-																																																																class="btn {{ $v->event->created_by == (auth()->user()->current_role == "Staff-Admin" ? auth()->user()->member_profile_created_by_auth->created_by : auth()->user()->id) ? "btn-primary" : "disabled" }}">Edit
-																																																																Event</a>
-																																																								@endcan
-																																																				</td>
 																																																</tr>
 																																												@endforeach
 																																								</tbody>

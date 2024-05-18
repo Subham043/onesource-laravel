@@ -59,6 +59,24 @@ class EventService
                 ->appends(request()->query());
     }
 
+    public function printAll(): Collection
+    {
+        $query = Event::filterByRoles();
+
+        return QueryBuilder::for($query)
+                ->defaultSort('name')
+                ->allowedSorts([
+                    'start_date',
+                    'start_time',
+                    AllowedSort::custom('id', new StringLengthSort(), 'id'),
+                    AllowedSort::custom('name', new StringLengthSort(), 'name'),
+                ])
+                ->allowedFilters([
+                    AllowedFilter::custom('search', new CommonFilter),
+                ])
+                ->get();
+    }
+
     public function excelReport(): Collection
     {
         $query = Event::filterByRoles();

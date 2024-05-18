@@ -20,6 +20,7 @@ use App\Modules\Customer\Controllers\CustomerStatusController;
 use App\Modules\Customer\Controllers\CustomerUpdateController;
 use App\Modules\Customer\Controllers\CustomerViewController;
 use App\Modules\Dashboard\Controllers\DashboardController;
+use App\Modules\Dashboard\Controllers\DashboardPrintController;
 use App\Modules\Document\Controllers\DocumentCreateController;
 use App\Modules\Document\Controllers\DocumentDeleteController;
 use App\Modules\Document\Controllers\DocumentDeleteMultipleController;
@@ -40,10 +41,13 @@ use App\Modules\Notification\Controllers\NotificationPaginateController;
 use App\Modules\Notification\Controllers\NotificationSendController;
 use App\Modules\Notification\Controllers\NotificationTemplateController;
 use App\Modules\Notification\Controllers\NotificationUpdateController;
+use App\Modules\Report\Conflict\Controllers\ConflictPrintController;
 use App\Modules\Report\Conflict\Controllers\ConflictViewController;
 use App\Modules\Report\Controllers\ReportViewController;
 use App\Modules\Report\Export\Controllers\ExportExcelController;
+use App\Modules\Report\Export\Controllers\ExportPrintController;
 use App\Modules\Report\Export\Controllers\ExportViewController;
+use App\Modules\Report\Quickbook\Controllers\QuickbookPrintController;
 use App\Modules\Report\Quickbook\Controllers\QuickbookViewController;
 use App\Modules\Seacrh\Controllers\SeacrhViewController;
 use App\Modules\Search\Controllers\SearchViewController;
@@ -94,6 +98,7 @@ Route::prefix('/email/verify')->middleware(['auth'])->group(function () {
 Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/', [DashboardController::class, 'get', 'as' => 'dashboard.get'])->name('dashboard.get');
+    Route::get('/dashboard-print', [DashboardPrintController::class, 'get', 'as' => 'dashboard_print.get'])->name('dashboard_print.get');
 
     Route::prefix('/profile')->group(function () {
         Route::get('/view', [ProfileViewController::class, 'get', 'as' => 'profile.view.get'])->name('profile.view.get');
@@ -176,10 +181,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::prefix('/report')->group(function () {
         Route::get('/', [ReportViewController::class, 'get', 'as' => 'report.view.get'])->name('report.view.get');
         Route::get('/conflict', [ConflictViewController::class, 'get', 'as' => 'report.conflict.view.get'])->name('report.conflict.view.get');
+        Route::get('/conflict-print', [ConflictPrintController::class, 'get', 'as' => 'report.conflict.print.get'])->name('report.conflict.print.get');
         Route::get('/export', [ExportViewController::class, 'get', 'as' => 'report.export.view.get'])->name('report.export.view.get');
         Route::get('/export-excel', [ExportExcelController::class, 'get', 'as' => 'report.export.excel.get'])->name('report.export.excel.get');
+        Route::get('/export-print', [ExportPrintController::class, 'get', 'as' => 'report.export.print.get'])->name('report.export.print.get');
         Route::get('/quickbook', [QuickbookViewController::class, 'get', 'as' => 'report.quickbook.view.get'])->name('report.quickbook.view.get');
         Route::get('/quickbook-excel', [QuickbookViewController::class, 'excel', 'as' => 'report.quickbook.excel.get'])->name('report.quickbook.excel.get');
+        Route::get('/quickbook-print', [QuickbookPrintController::class, 'get', 'as' => 'report.quickbook.print.get'])->name('report.quickbook.print.get');
     });
 
     Route::prefix('/notification')->group(function () {
