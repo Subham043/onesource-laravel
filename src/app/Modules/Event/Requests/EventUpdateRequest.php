@@ -4,6 +4,7 @@ namespace App\Modules\Event\Requests;
 
 use App\Enums\DayType;
 use App\Enums\MonthType;
+use App\Enums\RateType;
 use App\Enums\RecurringInnerType;
 use App\Enums\RecurringMonthInnerType;
 use App\Enums\RecurringType;
@@ -99,6 +100,7 @@ class EventUpdateRequest extends FormRequest
                 'numeric',
                 'exists:clients,id',
             ],
+            'rate_type' => ['required', new Enum(RateType::class)],
             'notes' => 'nullable|string',
             'writer_ids' => ['nullable', 'array', 'min:1'],
             'writer_ids.*' => [

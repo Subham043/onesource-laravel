@@ -97,7 +97,8 @@
 																																																				<td>
 																																																								{{ $v->event->start_date->format("M d Y") }}
 																																																				</td>
-																																																				<td>{{ $v->event->start_time->format("h:i a") }}</td>
+																																																				<td>{{ $v->event->start_time->addMinute($v->event->client->setup_time)->format("h:i a") }}
+																																																				</td>
 																																																				<td>{{ $v->event->end_time->format("h:i a") }}</td>
 																																																</tr>
 																																												@endforeach

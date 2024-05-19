@@ -4,6 +4,7 @@ namespace App\Modules\Event\Models;
 
 use App\Enums\DayType;
 use App\Enums\MonthType;
+use App\Enums\RateType;
 use App\Enums\RecurringInnerType;
 use App\Enums\RecurringMonthInnerType;
 use App\Enums\RecurringType;
@@ -59,6 +60,7 @@ class Event extends Model
         'recurring_yearly_months',
         'recurring_yearly_days',
         'notes',
+        'rate_type',
         'client_id',
         'created_by',
     ];
@@ -93,6 +95,7 @@ class Event extends Model
         'recurring_monthly_second_days' => DayType::class,
         'recurring_monthly_second_type' => RecurringMonthInnerType::class,
         'recurring_yearly_months' => MonthType::class,
+        'rate_type' => RateType::class,
     ];
 
     protected $appends = ['event_title', 'event_link', 'event_start_date', 'event_end_date', 'event_repeated_date', 'event_rgb'];

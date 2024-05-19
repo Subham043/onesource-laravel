@@ -30,6 +30,9 @@ class ClientRequest extends FormRequest
             'name' => 'required|string|max:500',
             'email' => ['required','email:rfc,dns'],
             'phone' => ['required','regex:/(^[0-9 \+\-\(\)]+$)+/'],
+            'onsite_billing_rate' => ['required', 'numeric', 'gte:0'],
+            'remote_billing_rate' => ['required', 'numeric', 'gte:0'],
+            'setup_time' => ['required', 'numeric', 'gte:0'],
             'address' => 'required|string',
         ];
     }

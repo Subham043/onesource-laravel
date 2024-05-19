@@ -34,6 +34,7 @@ use App\Modules\Event\Controllers\EventUpdateController;
 use App\Modules\Event\Controllers\EventViewController;
 use App\Modules\Event\Controllers\EventWriterDeleteController;
 use App\Modules\Event\Controllers\EventDeleteController;
+use App\Modules\Event\Controllers\EventPrintController;
 use App\Modules\Notification\Controllers\NotificationCreateController;
 use App\Modules\Notification\Controllers\NotificationDeleteController;
 use App\Modules\Notification\Controllers\NotificationLogController;
@@ -164,6 +165,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/status/{id}', [EventSingleCancelController::class, 'get', 'as' => 'event.status.get'])->name('event.status.get');
         Route::get('/prep/{id}', [EventSinglePrepController::class, 'get', 'as' => 'event.prep.get'])->name('event.prep.get');
         Route::post('/status-update', [EventCancelUpdateController::class, 'post', 'as' => 'event.status.post'])->name('event.status.post');
+        Route::get('/print', [EventPrintController::class, 'get', 'as' => 'event.print.get'])->name('event.print.get');
     });
 
     Route::prefix('/document')->group(function () {

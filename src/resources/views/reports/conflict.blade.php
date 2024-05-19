@@ -4,8 +4,9 @@
 				<div class="row">
 								<div class="col-md-12 col-lg-12">
 												<div class="row">
-																<div class="col-12 d-flex justify-content-end mb-3">
+																<div class="col-12 d-flex justify-content-end mb-3 gap-2">
 																				<a href="{{ route("report.conflict.print.get") }}" target="_blank" class="btn btn-primary">Print</a>
+																				<a href="{{ route("dashboard.get") }}" class="btn btn-primary">Dashboard</a>
 																</div>
 																<div class="col-md-12 col-lg-12">
 																				<div class="card overflow-hidden" data-aos="fade-up" data-aos-delay="600">
@@ -101,7 +102,8 @@
 																																																				<td>
 																																																								{{ $v->event->start_date->format("M d Y") }}
 																																																				</td>
-																																																				<td>{{ $v->event->start_time->format("h:i a") }}</td>
+																																																				<td>{{ $v->event->start_time->addMinute($v->event->client->setup_time)->format("h:i a") }}
+																																																				</td>
 																																																				<td>{{ $v->event->end_time->format("h:i a") }}</td>
 																																																				<td>
 																																																								@can("edit events")

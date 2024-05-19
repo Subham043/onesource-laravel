@@ -21,6 +21,9 @@ class Client extends Model
         'name',
         'email',
         'phone',
+        'onsite_billing_rate',
+        'remote_billing_rate',
+        'setup_time',
         'address',
         'created_by',
     ];
@@ -28,6 +31,7 @@ class Client extends Model
     protected $casts = [
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
+        'setup_time' => 'int',
     ];
 
     public function user()

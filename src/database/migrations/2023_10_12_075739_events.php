@@ -41,6 +41,7 @@ return new class extends Migration
             $table->string('recurring_yearly_months', 500)->nullable();
             $table->string('recurring_yearly_days', 500)->nullable();
             $table->text('notes')->nullable();
+            $table->string('rate_type', 500)->nullable();
             $table->boolean('is_active')->default(1);
             $table->boolean('is_prep_ready')->default(0);
             $table->string('fuzion_id', 500)->nullable();
@@ -64,3 +65,5 @@ return new class extends Migration
 
 
 // ALTER TABLE `events` ADD `recurring_end_date` TIMESTAMP NULL DEFAULT NULL AFTER `is_recurring_event`;
+
+// ALTER TABLE `events` ADD `rate_type` VARCHAR(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL AFTER `notes`;

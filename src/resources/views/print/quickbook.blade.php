@@ -52,7 +52,8 @@
 																																																																{{ date("M d Y", strtotime(str_replace("T05:30:00.000Z", "", $r_date))) }}
 																																																												</td>
 																																																												<td rowspan="{{ $item->writers->count() + 1 }}">
-																																																																{{ $item->start_time->format("h:i a") }}</td>
+																																																																{{ $item->start_time->addMinute($item->client->setup_time)->format("h:i a") }}
+																																																												</td>
 																																																												<td rowspan="{{ $item->writers->count() + 1 }}">
 																																																																{{ $item->end_time->format("h:i a") }}</td>
 																																																												<td rowspan="{{ $item->writers->count() + 1 }}">
@@ -60,7 +61,9 @@
 																																																																				$start = new Carbon\Carbon(
 																																																																				    $item->start_date->format("Y-m-d") .
 																																																																				        " " .
-																																																																				        $item->start_time->format("H:i:s"),
+																																																																				        $item->start_time
+																																																																				            ->addMinute($item->client->setup_time)
+																																																																				            ->format("H:i:s"),
 																																																																				);
 																																																																				$end = new Carbon\Carbon(
 																																																																				    $item->end_date->format("Y-m-d") .
@@ -108,7 +111,8 @@
 																																																												{{ $item->start_date->format("M d Y") }}
 																																																								</td>
 																																																								<td rowspan="{{ $item->writers->count() + 1 }}">
-																																																												{{ $item->start_time->format("h:i a") }}</td>
+																																																												{{ $item->start_time->addMinute($item->client->setup_time)->format("h:i a") }}
+																																																								</td>
 																																																								<td rowspan="{{ $item->writers->count() + 1 }}">
 																																																												{{ $item->end_time->format("h:i a") }}</td>
 																																																								<td rowspan="{{ $item->writers->count() + 1 }}">
@@ -116,7 +120,9 @@
 																																																																$start = new Carbon\Carbon(
 																																																																    $item->start_date->format("Y-m-d") .
 																																																																        " " .
-																																																																        $item->start_time->format("H:i:s"),
+																																																																        $item->start_time
+																																																																            ->addMinute($item->client->setup_time)
+																																																																            ->format("H:i:s"),
 																																																																);
 																																																																$end = new Carbon\Carbon(
 																																																																    $item->end_date->format("Y-m-d") .
