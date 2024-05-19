@@ -8,6 +8,7 @@ use App\Modules\Authentication\Controllers\ProfileViewController;
 use App\Modules\Authentication\Controllers\RegisterController;
 use App\Modules\Authentication\Controllers\ResetPasswordController;
 use App\Modules\Authentication\Controllers\VerifyRegisteredUserController;
+use App\Modules\Calendar\Controllers\CalendarPrintController;
 use App\Modules\Calendar\Controllers\CalendarViewController;
 use App\Modules\Client\Controllers\ClientCreateController;
 use App\Modules\Client\Controllers\ClientDeleteController;
@@ -178,6 +179,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::prefix('/calendar')->group(function () {
         Route::get('/', [CalendarViewController::class, 'get', 'as' => 'calendar.view.get'])->name('calendar.view.get');
+        Route::get('/print', [CalendarPrintController::class, 'get', 'as' => 'calendar.print.get'])->name('calendar.print.get');
     });
 
     Route::prefix('/report')->group(function () {
