@@ -36,6 +36,7 @@ use App\Modules\Event\Controllers\EventViewController;
 use App\Modules\Event\Controllers\EventWriterDeleteController;
 use App\Modules\Event\Controllers\EventDeleteController;
 use App\Modules\Event\Controllers\EventPrintController;
+use App\Modules\Event\Controllers\EventTogglePrepController;
 use App\Modules\Notification\Controllers\NotificationCreateController;
 use App\Modules\Notification\Controllers\NotificationDeleteController;
 use App\Modules\Notification\Controllers\NotificationLogController;
@@ -166,6 +167,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/status/{id}', [EventSingleCancelController::class, 'get', 'as' => 'event.status.get'])->name('event.status.get');
         Route::get('/prep/{id}', [EventSinglePrepController::class, 'get', 'as' => 'event.prep.get'])->name('event.prep.get');
         Route::post('/status-update', [EventCancelUpdateController::class, 'post', 'as' => 'event.status.post'])->name('event.status.post');
+        Route::post('/toggle-prep', [EventTogglePrepController::class, 'post', 'as' => 'event.prep.post'])->name('event.prep.post');
         Route::get('/print', [EventPrintController::class, 'get', 'as' => 'event.print.get'])->name('event.print.get');
     });
 
@@ -196,7 +198,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::prefix('/notification')->group(function () {
         Route::get('/', [NotificationSendController::class, 'get', 'as' => 'notification.send.get'])->name('notification.send.get');
-        Route::post('/', [NotificationSendController::class, 'posevent.update.gett', 'as' => 'notification.send.post'])->name('notification.send.post');
+        Route::post('/', [NotificationSendController::class, 'post', 'as' => 'notification.send.post'])->name('notification.send.post');
         Route::prefix('/template')->group(function () {
             Route::get('/', [NotificationTemplateController::class, 'get', 'as' => 'notification.template.get'])->name('notification.template.get');
             Route::post('/', [NotificationTemplateController::class, 'post', 'as' => 'notification.template.post'])->name('notification.template.post');

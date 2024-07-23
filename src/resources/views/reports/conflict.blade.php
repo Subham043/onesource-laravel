@@ -102,9 +102,10 @@
 																																																				<td>
 																																																								{{ $v->event->start_date->format("M d Y") }}
 																																																				</td>
-																																																				<td>{{ $v->event->start_time->addMinute($v->event->client->setup_time)->format("h:i a") }}
+																																																				<td>{{ $v->event->start_time->addMinute($v->event->client->setup_time)->timezone(auth()->user()->timezone ? strtok(auth()->user()->timezone->value, " GMT") : "UTC")->format("h:i a") }}
 																																																				</td>
-																																																				<td>{{ $v->event->end_time->format("h:i a") }}</td>
+																																																				<td>{{ $v->event->end_time->timezone(auth()->user()->timezone ? strtok(auth()->user()->timezone->value, " GMT") : "UTC")->format("h:i a") }}
+																																																				</td>
 																																																				<td>
 																																																								@can("edit events")
 																																																												<a href="{{ $v->event->created_by == (auth()->user()->current_role == "Staff-Admin" ? auth()->user()->member_profile_created_by_auth->created_by : auth()->user()->id) ? route("event.update.get", $v->event->id) . "?writer_conflict=" . $item->id : "#" }}"

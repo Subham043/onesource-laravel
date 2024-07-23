@@ -57,7 +57,7 @@
 																												</div>
 																												<label class="control-label col-sm-2 align-self-center mb-0" for="startTime">Start Time:</label>
 																												<div class="col-sm-3">
-																																{{ $event->start_time ? $event->start_time->format("h:i a") : "" }}
+																																{{ $event->start_time ? $event->start_time->timezone(auth()->user()->timezone ? strtok(auth()->user()->timezone->value, " GMT") : "UTC")->format("h:i a") : "" }}
 																												</div>
 																								</div>
 																								<div class="form-group row">
@@ -67,7 +67,7 @@
 																												</div>
 																												<label class="control-label col-sm-2 align-self-center mb-0" for="endTime">End Time:</label>
 																												<div class="col-sm-3">
-																																{{ $event->end_time ? $event->end_time->format("h:i a") : "" }}
+																																{{ $event->end_time ? $event->end_time->timezone(auth()->user()->timezone ? strtok(auth()->user()->timezone->value, " GMT") : "UTC")->format("h:i a") : "" }}
 																												</div>
 																								</div>
 																								<div class="form-group row">

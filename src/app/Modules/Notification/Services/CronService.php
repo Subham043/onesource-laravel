@@ -59,14 +59,13 @@ class CronService
 
     public function sendWriterNotification($user, $template)
     {
-        $date =  Carbon::today();
         $data = Event::with([
             'writers'=> function($qry) use($user){
                 $qry->with('writer')->where('writer_id', $user->id);
             },
         ])->where('is_active', true)
-        ->whereDate('end_date', '>=', $date->format('Y-m-d'))
-        ->whereDate('start_date', '<=', $date->format('Y-m-d'))
+        ->whereDate('end_date', '>=', Carbon::today()->startOfMonth())
+        ->whereDate('start_date', '<=', Carbon::today()->endOfMonth())
         ->whereHas('writers', function($qry) use($user){
             $qry->where('writer_id', $user->id);
         })->get();
@@ -86,14 +85,13 @@ class CronService
 
     public function sendClientNotification($user, $template)
     {
-        $date =  Carbon::today();
         $data = Event::with([
             'client'=> function($qry) use($user){
                 $qry->where('id',$user->cron_member_profile_created_by_auth->client->id);
             },
         ])->where('is_active', true)
-        ->whereDate('end_date', '>=', $date->format('Y-m-d'))
-        ->whereDate('start_date', '<=', $date->format('Y-m-d'))
+        ->whereDate('end_date', '>=', Carbon::today()->startOfMonth())
+        ->whereDate('start_date', '<=', Carbon::today()->endOfMonth())
         ->whereHas('client', function($qry) use($user){
             $qry->where('id', $user->cron_member_profile_created_by_auth->client->id);
         })->get();

@@ -118,10 +118,11 @@
 																																																																{{ date("M d Y", strtotime(str_replace("T05:30:00.000Z", "", $r_date))) }}
 																																																												</td>
 																																																												<td rowspan="{{ $item->writers->count() + 1 }}">
-																																																																{{ $item->start_time->addMinute($item->client->setup_time)->format("h:i a") }}
+																																																																{{ $item->start_time->addMinute($item->client->setup_time)->timezone(auth()->user()->timezone ? strtok(auth()->user()->timezone->value, " GMT") : "UTC")->format("h:i a") }}
 																																																												</td>
 																																																												<td rowspan="{{ $item->writers->count() + 1 }}">
-																																																																{{ $item->end_time->format("h:i a") }}</td>
+																																																																{{ $item->end_time->timezone(auth()->user()->timezone ? strtok(auth()->user()->timezone->value, " GMT") : "UTC")->format("h:i a") }}
+																																																												</td>
 																																																												<td rowspan="{{ $item->writers->count() + 1 }}">
 																																																																@php
 																																																																				$start = new Carbon\Carbon(
@@ -179,10 +180,11 @@
 																																																												{{ $item->start_date->format("M d Y") }}
 																																																								</td>
 																																																								<td rowspan="{{ $item->writers->count() + 1 }}">
-																																																												{{ $item->start_time->addMinute($item->client->setup_time)->format("h:i a") }}
+																																																												{{ $item->start_time->addMinute($item->client->setup_time)->timezone(auth()->user()->timezone ? strtok(auth()->user()->timezone->value, " GMT") : "UTC")->format("h:i a") }}
 																																																								</td>
 																																																								<td rowspan="{{ $item->writers->count() + 1 }}">
-																																																												{{ $item->end_time->format("h:i a") }}</td>
+																																																												{{ $item->end_time->timezone(auth()->user()->timezone ? strtok(auth()->user()->timezone->value, " GMT") : "UTC")->format("h:i a") }}
+																																																								</td>
 																																																								<td rowspan="{{ $item->writers->count() + 1 }}">
 																																																												@php
 																																																																$start = new Carbon\Carbon(

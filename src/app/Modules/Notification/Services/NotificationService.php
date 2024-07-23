@@ -4,6 +4,7 @@ namespace App\Modules\Notification\Services;
 
 use App\Modules\Authentication\Models\User;
 use App\Modules\Event\Models\Event;
+use App\Modules\Event\Services\RecurringService;
 use App\Modules\Notification\Jobs\ClientNotificationJob;
 use App\Modules\Notification\Jobs\MultipleClientNotificationJob;
 use App\Modules\Notification\Jobs\MultipleWriterNotificationJob;
@@ -125,26 +126,23 @@ class NotificationService
         $data = User::with([
             'writerEvents' => function($qry){
                 $qry->with(['event'])->whereHas('event', function($qr){
-                    $date =  Carbon::today();
                     $qr->where('is_active', true)
-                    ->whereDate('end_date', '>=', $date->format('Y-m-d'))
-                    ->whereDate('start_date', '<=', $date->format('Y-m-d'))
+                    ->whereDate('end_date', '>=', Carbon::today()->startOfMonth())
+                    ->whereDate('start_date', '<=', Carbon::today()->endOfMonth())
                     ->where('created_by', auth()->user()->current_role=='Staff-Admin' ? auth()->user()->member_profile_created_by_auth->created_by : auth()->user()->id);
                 });
             }
         ])
         ->whereHas('writerEvents', function($qry){
             $qry->whereHas('event', function($qr){
-                $date =  Carbon::today();
                 $qr->where('is_active', true)
-                ->whereDate('end_date', '>=', $date->format('Y-m-d'))
-                ->whereDate('start_date', '<=', $date->format('Y-m-d'))
+                ->whereDate('end_date', '>=', Carbon::today()->startOfMonth())
+                ->whereDate('start_date', '<=', Carbon::today()->endOfMonth())
                 ->where('created_by', auth()->user()->current_role=='Staff-Admin' ? auth()->user()->member_profile_created_by_auth->created_by : auth()->user()->id);
             });
         })
         ->where('id', $id)
         ->first();
-
         if($data){
             $new_data = $data->writerEvents->filter(function($item) {
                 if(!$item->event->is_recurring_event){
@@ -162,14 +160,13 @@ class NotificationService
 
     public function sendClientNotification(Int $id)
     {
-        $date =  Carbon::today();
         $data = Event::with([
             'client' => function($qr) use($id){
                 $qr->where('id', $id);
             }
         ])->where('is_active', true)
-        ->whereDate('end_date', '>=', $date->format('Y-m-d'))
-        ->whereDate('start_date', '<=', $date->format('Y-m-d'))
+        ->whereDate('end_date', '>=', Carbon::today()->startOfMonth())
+        ->whereDate('start_date', '<=', Carbon::today()->endOfMonth())
         ->where('created_by', auth()->user()->current_role=='Staff-Admin' ? auth()->user()->member_profile_created_by_auth->created_by : auth()->user()->id)
         ->whereHas('client', function($qry) use($id){
             $qry->where('id', $id);

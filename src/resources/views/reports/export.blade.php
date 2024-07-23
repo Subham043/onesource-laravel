@@ -96,8 +96,10 @@
 																																																				<td>
 																																																								{{ $item->start_date->format("M d Y") }}
 																																																				</td>
-																																																				<td>{{ $item->start_time->format("h:i a") }}</td>
-																																																				<td>{{ $item->end_time->format("h:i a") }}</td>
+																																																				<td>{{ $item->start_time->timezone(auth()->user()->timezone ? strtok(auth()->user()->timezone->value, " GMT") : "UTC")->format("h:i a") }}
+																																																				</td>
+																																																				<td>{{ $item->end_time->timezone(auth()->user()->timezone ? strtok(auth()->user()->timezone->value, " GMT") : "UTC")->format("h:i a") }}
+																																																				</td>
 																																																				<td>
 																																																								@can("view events")
 																																																												<a href="{{ route("event.view.get", $item->id) }}"

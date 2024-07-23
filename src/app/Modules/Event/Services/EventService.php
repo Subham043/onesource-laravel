@@ -9,6 +9,7 @@ use App\Modules\Event\Models\EventDocument;
 use App\Modules\Event\Models\EventWriter;
 use App\Modules\Event\Requests\EventCreateRequest;
 use App\Modules\Event\Requests\EventCancelUpdateRequest;
+use App\Modules\Event\Requests\EventTogglePrepRequest;
 use App\Modules\Event\Requests\EventUpdateRequest;
 use App\Modules\User\Services\UserService;
 use Carbon\Carbon;
@@ -45,7 +46,7 @@ class EventService
             $query->whereDate('start_date', today());
         }
         return QueryBuilder::for($query)
-                ->defaultSort('name')
+                ->defaultSort('-id')
                 ->allowedSorts([
                     'start_date',
                     'start_time',
@@ -259,6 +260,15 @@ class EventService
         Event::filterByRoles()->whereIn('id', $request->event)->update(['is_active' => false]);
     }
 
+    public function togglePrep(EventTogglePrepRequest $request): void
+    {
+        foreach ($request->event as $value) {
+            $event = $this->getById($value);
+            $event->is_prep_ready = !$event->is_prep_ready;
+            $event->save();
+        }
+    }
+
     public function update(EventUpdateRequest $request, Event $event): Event
     {
         $event->update(
@@ -346,7 +356,7 @@ class EventService
     public function sendNotification(int $event_id, string $type): void
     {
         $event = Event::filterByRoles()->find($event_id);
-        dispatch(new EventSingleNotificationJob($event->creator, $event, $type));
+        // dispatch(new EventSingleNotificationJob($event->creator, $event, $type));
         foreach ($event->writers as $key => $value) {
             # code...
             dispatch(new EventSingleNotificationJob($value->writer, $event, $type));

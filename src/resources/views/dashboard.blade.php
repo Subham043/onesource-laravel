@@ -19,6 +19,7 @@
 																												<div>
 																																@can("edit events")
 																																				<button id="cancel_event" class="btn btn-primary d-none">Cancel Event</button>
+																																				<button id="toggle_event" class="btn btn-primary d-none">Toggle Prep</button>
 																																@endcan
 																																<a href="{{ route("dashboard_print.get") }}" target="_blank"
 																																				class="btn btn-primary">Print</a>
@@ -97,11 +98,13 @@
 																																																												<td>
 																																																																{{ $item->start_date->format("M d Y") }}
 																																																												</td>
-																																																												<td>{{ $item->start_time->format("h:i a") }}</td>
+																																																												<td>{{ $item->start_time->timezone(auth()->user()->timezone ? strtok(auth()->user()->timezone->value, " GMT") : "UTC")->format("h:i a") }}
+																																																												</td>
 																																																												<td>
 																																																																{{ $item->end_date->format("M d Y") }}
 																																																												</td>
-																																																												<td>{{ $item->end_time->format("h:i a") }}</td>
+																																																												<td>{{ $item->end_time->timezone(auth()->user()->timezone ? strtok(auth()->user()->timezone->value, " GMT") : "UTC")->format("h:i a") }}
+																																																												</td>
 																																																												<td>
 																																																																@if ($item->is_prep_ready)
 																																																																				<a href="#" class="remove-item-btn"
@@ -242,11 +245,13 @@
 																																																								<td>
 																																																												{{ $item->start_date->format("M d Y") }}
 																																																								</td>
-																																																								<td>{{ $item->start_time->format("h:i a") }}</td>
+																																																								<td>{{ $item->start_time->timezone(auth()->user()->timezone ? strtok(auth()->user()->timezone->value, " GMT") : "UTC")->format("h:i a") }}
+																																																								</td>
 																																																								<td>
 																																																												{{ $item->end_date->format("M d Y") }}
 																																																								</td>
-																																																								<td>{{ $item->end_time->format("h:i a") }}</td>
+																																																								<td>{{ $item->end_time->timezone(auth()->user()->timezone ? strtok(auth()->user()->timezone->value, " GMT") : "UTC")->format("h:i a") }}
+																																																								</td>
 																																																								<td>
 																																																												@if ($item->is_prep_ready)
 																																																																<a href="#" class="remove-item-btn"
@@ -383,11 +388,13 @@
 																																																								<td>
 																																																												{{ $item->start_date->format("M d Y") }}
 																																																								</td>
-																																																								<td>{{ $item->start_time->format("h:i a") }}</td>
+																																																								<td>{{ $item->start_time->timezone(auth()->user()->timezone ? strtok(auth()->user()->timezone->value, " GMT") : "UTC")->format("h:i a") }}
+																																																								</td>
 																																																								<td>
 																																																												{{ $item->end_date->format("M d Y") }}
 																																																								</td>
-																																																								<td>{{ $item->end_time->format("h:i a") }}</td>
+																																																								<td>{{ $item->end_time->timezone(auth()->user()->timezone ? strtok(auth()->user()->timezone->value, " GMT") : "UTC")->format("h:i a") }}
+																																																								</td>
 																																																								<td>
 																																																												@if ($item->is_prep_ready)
 																																																																<a href="#" class="remove-item-btn"
@@ -699,9 +706,13 @@
 																				if (el.checked && event_arr.length > 0) {
 																								document.getElementById('cancel_event').classList.add('d-inline-block')
 																								document.getElementById('cancel_event').classList.remove('d-none')
+																								document.getElementById('toggle_event').classList.add('d-inline-block')
+																								document.getElementById('toggle_event').classList.remove('d-none')
 																				} else {
 																								document.getElementById('cancel_event').classList.add('d-none')
 																								document.getElementById('cancel_event').classList.remove('d-inline-block')
+																								document.getElementById('toggle_event').classList.add('d-none')
+																								document.getElementById('toggle_event').classList.remove('d-inline-block')
 																				}
 																})
 												}
@@ -719,15 +730,22 @@
 																if (!event.target.checked && event_arr.length < 1) {
 																				document.getElementById('cancel_event').classList.add('d-none')
 																				document.getElementById('cancel_event').classList.remove('d-inline-block')
+																				document.getElementById('toggle_event').classList.add('d-none')
+																				document.getElementById('toggle_event').classList.remove('d-inline-block')
 																} else {
 																				document.getElementById('cancel_event').classList.add('d-inline-block')
 																				document.getElementById('cancel_event').classList.remove('d-none')
+																				document.getElementById('toggle_event').classList.add('d-inline-block')
+																				document.getElementById('toggle_event').classList.remove('d-none')
 																}
 												}
 
 
 												document.getElementById('cancel_event').addEventListener('click', function() {
 																cancel_event_handler()
+												})
+												document.getElementById('toggle_event').addEventListener('click', function() {
+																toggle_event_handler()
 												})
 
 												const cancel_event_handler = () => {
@@ -765,6 +783,62 @@
 																												} finally {
 																																submitBtn.innerHTML = `
                             Cancel Event
+                            `
+																																submitBtn.disabled = false;
+																												}
+
+																								}, true],
+																								['<button>NO</button>', function(instance, toast) {
+
+																												instance.hide({
+																																transitionOut: 'fadeOut'
+																												}, toast, 'button');
+
+																								}],
+																				],
+																				onClosing: function(instance, toast, closedBy) {
+																								console.info('Closing | closedBy: ' + closedBy);
+																				},
+																				onClosed: function(instance, toast, closedBy) {
+																								console.info('Closed | closedBy: ' + closedBy);
+																				}
+																});
+												}
+												const toggle_event_handler = () => {
+																iziToast.question({
+																				timeout: 20000,
+																				close: false,
+																				overlay: true,
+																				displayMode: 'once',
+																				id: 'question',
+																				zindex: 999,
+																				title: 'Hey',
+																				message: 'Are you sure about that?',
+																				position: 'center',
+																				buttons: [
+																								['<button><b>YES</b></button>', async function(instance, toast) {
+
+																												instance.hide({
+																																transitionOut: 'fadeOut'
+																												}, toast, 'button');
+																												var submitBtn = document.getElementById('toggle_event');
+																												submitBtn.innerHTML = spinner
+																												submitBtn.disabled = true;
+																												try {
+
+																																const response = await axios.post('{{ route("event.prep.post") }}', {
+																																				event: event_arr
+																																})
+																																successToast(response.data.message)
+																																setInterval(window.location.replace("{{ route("dashboard.get") }}"),
+																																				1500);
+																												} catch (error) {
+																																if (error?.response?.data?.message) {
+																																				errorToast(error?.response?.data?.message)
+																																}
+																												} finally {
+																																submitBtn.innerHTML = `
+                            Toggle Prep
                             `
 																																submitBtn.disabled = false;
 																												}

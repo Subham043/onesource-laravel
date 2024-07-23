@@ -41,7 +41,7 @@ class EventUpdateRequest extends FormRequest
             'end_date' => ['required', 'date', 'after_or_equal:start_date'],
             'start_time' => ['required', 'string'],
             'end_time' => ['required', 'string', function ($attribute, $value, $fail) {
-                if($this->start_date==$this->end_date && $value == $this->start_time){
+                if($this->start_date==$this->end_date && $value == $this->start_time && $this->is_recurring_event==0){
                     $fail('The '.$attribute.' cannot be same as start time.');
                 }
             }],

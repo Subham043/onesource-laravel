@@ -34,8 +34,10 @@
 																												<td>
 																																{{ date("M d Y", strtotime(str_replace("T05:30:00.000Z", "", $r_date))) }}
 																												</td>
-																												<td>{{ $item->start_time->addMinute($item->client->setup_time)->format("h:i a") }}</td>
-																												<td>{{ $item->end_time->format("h:i a") }}</td>
+																												<td>{{ $item->start_time->addMinute($item->client->setup_time)->timezone(auth()->user()->timezone ? strtok(auth()->user()->timezone->value, " GMT") : "UTC")->format("h:i a") }}
+																												</td>
+																												<td>{{ $item->end_time->timezone(auth()->user()->timezone ? strtok(auth()->user()->timezone->value, " GMT") : "UTC")->format("h:i a") }}
+																												</td>
 																												<td>
 																																@php
 																																				$start = new Carbon\Carbon(
@@ -74,8 +76,10 @@
 																																<td>
 																																				{{ date("M d Y", strtotime(str_replace("T05:30:00.000Z", "", $r_date))) }}
 																																</td>
-																																<td>{{ $item->start_time->addMinute($item->client->setup_time)->format("h:i a") }}</td>
-																																<td>{{ $item->end_time->format("h:i a") }}</td>
+																																<td>{{ $item->start_time->addMinute($item->client->setup_time)->timezone(auth()->user()->timezone ? strtok(auth()->user()->timezone->value, " GMT") : "UTC")->format("h:i a") }}
+																																</td>
+																																<td>{{ $item->end_time->timezone(auth()->user()->timezone ? strtok(auth()->user()->timezone->value, " GMT") : "UTC")->format("h:i a") }}
+																																</td>
 																																<td> {{ $diff }} Hour</td>
 																																<td> {{ $v->billing_rate }} $ / hr </td>
 																																<td>
@@ -101,8 +105,10 @@
 																								<td>
 																												{{ $item->start_date->format("M d Y") }}
 																								</td>
-																								<td>{{ $item->start_time->addMinute($item->client->setup_time)->format("h:i a") }}</td>
-																								<td>{{ $item->end_time->format("h:i a") }}</td>
+																								<td>{{ $item->start_time->addMinute($item->client->setup_time)->timezone(auth()->user()->timezone ? strtok(auth()->user()->timezone->value, " GMT") : "UTC")->format("h:i a") }}
+																								</td>
+																								<td>{{ $item->end_time->timezone(auth()->user()->timezone ? strtok(auth()->user()->timezone->value, " GMT") : "UTC")->format("h:i a") }}
+																								</td>
 																								<td>
 																												@php
 																																$start = new Carbon\Carbon(
@@ -141,8 +147,10 @@
 																												<td>
 																																{{ $item->start_date->format("M d Y") }}
 																												</td>
-																												<td>{{ $item->start_time->addMinute($item->client->setup_time)->format("h:i a") }}</td>
-																												<td>{{ $item->end_time->format("h:i a") }}</td>
+																												<td>{{ $item->start_time->addMinute($item->client->setup_time)->timezone(auth()->user()->timezone ? strtok(auth()->user()->timezone->value, " GMT") : "UTC")->format("h:i a") }}
+																												</td>
+																												<td>{{ $item->end_time->timezone(auth()->user()->timezone ? strtok(auth()->user()->timezone->value, " GMT") : "UTC")->format("h:i a") }}
+																												</td>
 																												<td> {{ $diff }} Hour</td>
 																												<td> {{ $v->billing_rate }} $ / hr </td>
 																												<td>
