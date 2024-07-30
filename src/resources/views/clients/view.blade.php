@@ -35,7 +35,7 @@
 																																{{ $data->phone }}
 																												</div>
 																								</div>
-																								<div class="form-group row">
+																								{{-- <div class="form-group row">
 																												<label class="control-label col-sm-2 align-self-center mb-0" for="eventName">Onsite Billing
 																																Rate:</label>
 																												<div class="col-sm-10">
@@ -55,7 +55,7 @@
 																												<div class="col-sm-10">
 																																{{ $data->setup_time }}
 																												</div>
-																								</div>
+																								</div> --}}
 																								<div class="form-group row">
 																												<label class="control-label col-sm-2 align-self-center mb-0" for="eventName">Address:</label>
 																												<div class="col-sm-10">

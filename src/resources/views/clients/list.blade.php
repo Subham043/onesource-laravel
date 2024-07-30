@@ -24,9 +24,9 @@
 																																																<th> Name</th>
 																																																<th> Email</th>
 																																																<th> Phone</th>
-																																																<th> Onsite Billing Rate</th>
+																																																{{-- <th> Onsite Billing Rate</th>
 																																																<th> Remote Billing Rate</th>
-																																																<th> Setup Time (minutes)</th>
+																																																<th> Setup Time (minutes)</th> --}}
 
 																																																<th>&nbsp;</th>
 																																												</tr>
@@ -50,7 +50,7 @@
 																																																												{{ $item->phone }}
 																																																								</div>
 																																																				</td>
-																																																				<td>
+																																																				{{-- <td>
 																																																								<div class="d-flex align-items-center">
 																																																												${{ $item->onsite_billing_rate }}
 																																																								</div>
@@ -62,9 +62,9 @@
 																																																				</td>
 																																																				<td>
 																																																								<div class="d-flex align-items-center">
-																																																												${{ $item->setup_time }}
+																																																												{{ $item->setup_time }}
 																																																								</div>
-																																																				</td>
+																																																				</td> --}}
 
 																																																				<td>
 																																																								@can("view clients")
@@ -83,9 +83,8 @@
 																																																								@endcan
 
 																																																								@can("edit clients")
-																																																												<a href="{{ route("client.update.get", $item->id) }}"
-																																																																class="" data-bs-toggle="tooltip"
-																																																																data-bs-original-title="Edit Client">
+																																																												<a href="{{ route("client.update.get", $item->id) }}" class=""
+																																																																data-bs-toggle="tooltip" data-bs-original-title="Edit Client">
 																																																																<svg width="32" viewBox="0 0 24 24" fill="none"
 																																																																				xmlns="http://www.w3.org/2000/svg">
 																																																																				<path opacity="0.4"

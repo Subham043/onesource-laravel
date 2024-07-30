@@ -40,7 +40,7 @@
 																																								</option>
 																																				</select>
 																																</form>
-																																<form method="GET" action="{{ route("event.paginate.get") }}" id='total-form'
+																																{{-- <form method="GET" action="{{ route("event.paginate.get") }}" id='total-form'
 																																				class="col-auto">
 																																				<select class="form-select shadow-none" id="total" name="total">
 																																								<option value="" {{ empty(request()->query("total")) ? "selected" : "" }}>
@@ -56,15 +56,15 @@
 																																								<option value="100" {{ request()->query("total") == "100" ? "selected" : "" }}>
 																																												100</option>
 																																				</select>
-																																</form>
+																																</form> --}}
 																												</div>
 																												<div>
 																																@can("edit events")
 																																				<button id="cancel_event" class="btn btn-primary d-none">Cancel Event</button>
 																																				<button id="toggle_event" class="btn btn-primary d-none">Toggle Prep</button>
 																																@endcan
-																																<a href="{{ route("event.print.get") }}?{{ http_build_query(request()->query()) }}"
-																																				target="_blank" class="btn btn-primary">Print</a>
+																																{{-- <a href="{{ route("event.print.get") }}?{{ http_build_query(request()->query()) }}"
+																																				target="_blank" class="btn btn-primary">Print</a> --}}
 																																@can("add events")
 																																				<a href="{{ route("event.create.get") }}" class="btn btn-primary">Add Event</a>
 																																@endcan
@@ -264,9 +264,9 @@
 								document.getElementById('sort').addEventListener('change', function() {
 												document.getElementById('sort-form').submit();
 								});
-								document.getElementById('total').addEventListener('change', function() {
-												document.getElementById('total-form').submit();
-								});
+								// document.getElementById('total').addEventListener('change', function() {
+								// 																document.getElementById('total-form').submit();
+								// });
 				</script>
 				@can("edit events")
 								<script type="text/javascript" nonce="{{ csp_nonce() }}">

@@ -52,12 +52,18 @@
 																																@endphp
 																																{{ $diff }} Hour
 																												</td>
-																												<td> {{ $item->rate_type && $item->rate_type->value == "Onsite" ? $item->client->onsite_billing_rate : $item->client->remote_billing_rate }}
+																												<td> {{ $item->invoice_rate }}
+																																$ / hr </td>
+																												<td>
+																																{{ $item->invoice_rate * $diff }}
+																																$
+																												</td>
+																												{{-- <td> {{ $item->rate_type && $item->rate_type->value == "Onsite" ? $item->client->onsite_billing_rate : $item->client->remote_billing_rate }}
 																																$ / hr </td>
 																												<td>
 																																{{ $item->rate_type && $item->rate_type->value == "Onsite" ? $item->client->onsite_billing_rate : $item->client->remote_billing_rate * $diff }}
 																																$
-																												</td>
+																												</td> --}}
 																								</tr>
 																								@foreach ($item->writers as $k => $v)
 																												<tr>
@@ -123,12 +129,18 @@
 																												@endphp
 																												{{ $diff }} Hour
 																								</td>
-																								<td> {{ $item->rate_type && $item->rate_type->value == "Onsite" ? $item->client->onsite_billing_rate : $item->client->remote_billing_rate }}
+																								<td> {{ $item->invoice_rate }}
+																												$ / hr </td>
+																								<td>
+																												{{ $item->invoice_rate * $diff }}
+																												$
+																								</td>
+																								{{-- <td> {{ $item->rate_type && $item->rate_type->value == "Onsite" ? $item->client->onsite_billing_rate : $item->client->remote_billing_rate }}
 																												$ / hr </td>
 																								<td>
 																												{{ $item->rate_type && $item->rate_type->value == "Onsite" ? $item->client->onsite_billing_rate : $item->client->remote_billing_rate * $diff }}
 																												$
-																								</td>
+																								</td> --}}
 																				</tr>
 																				@foreach ($item->writers as $k => $v)
 																								<tr>

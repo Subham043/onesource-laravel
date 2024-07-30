@@ -33,13 +33,13 @@
 																								<div class="form-group row">
 																												<label class="control-label col-sm-2 align-self-center mb-0" for="client">Client:</label>
 																												<div class="col-sm-3">{{ $event->client->name }} </div>
-																												<label class="control-label col-sm-2 align-self-center mb-0" for="client">Rate Type:</label>
+																												{{-- <label class="control-label col-sm-2 align-self-center mb-0" for="client">Rate Type:</label>
 																												<div class="col-sm-1">{{ $event->rate_type }} </div>
 																												<label class="control-label col-sm-2 align-self-center mb-0" for="client">Billing
 																																Rate:</label>
 																												<div class="col-sm-2">
 																																${{ $event->rate_type && $event->rate_type->value == "Onsite" ? $event->client->onsite_billing_rate : $event->client->remote_billing_rate }}
-																												</div>
+																												</div> --}}
 																								</div>
 																								@can("edit events")
 																												<div class="form-group row">

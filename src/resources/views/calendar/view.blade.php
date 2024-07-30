@@ -4,7 +4,7 @@
 				<div>
 								<div class="row">
 												<div class="col-12 d-flex justify-content-end mb-3 gap-2">
-																<a href="{{ route("calendar.print.get") }}" target="_blank" class="btn btn-primary">Print</a>
+																{{-- <a href="{{ route("calendar.print.get") }}" target="_blank" class="btn btn-primary">Print</a> --}}
 																<a href="{{ route("dashboard.get") }}" class="btn btn-primary">Dashboard</a>
 												</div>
 												<div class="col-lg-12">
@@ -45,7 +45,8 @@
 																				dayMaxEvents: 4,
 																				displayEventTime: false,
 																				header: {
-																								right: "dayGridMonth,listWeek,prev,next today",
+																								// right: "dayGridMonth,listWeek,prev,next today",
+																								right: "prev,next today",
 																								left: "title",
 																								// right: "dayGridMonth,timeGridWeek,timeGridDay,listWeek"
 																				},

@@ -35,7 +35,7 @@
 																																</select>
 																												</div>
 																								</div>
-																								<div class="form-group row">
+																								{{-- <div class="form-group row">
 																												<label class="control-label col-sm-2 align-self-center mb-0" for="rate_type">Rate Type:</label>
 																												<div class="col-sm-10">
 																																<select class="form-select shadow-none" id="rate_type" name="rate_type">
@@ -44,7 +44,7 @@
 																																				<option value="Remote">Remote</option>
 																																</select>
 																												</div>
-																								</div>
+																								</div> --}}
 																								<div class="form-group row">
 																												<label class="control-label col-sm-2 align-self-center mb-0" for="invRate">Invoice Rate: <span
 																																				data-bs-toggle="tooltip"
@@ -85,8 +85,8 @@
 																												</div>
 																								</div>
 																								<div class="form-group row">
-																												<label class="control-label col-sm-2 align-self-center mb-0"
-																																for="is_recurring_event">Recurring Event:</label>
+																												<label class="control-label col-sm-2 align-self-center mb-0" for="is_recurring_event">Recurring
+																																Event:</label>
 																												<div class="col-sm-10">
 																																<input class="form-check-input" type="checkbox" value="1" id="is_recurring_event"
 																																				name="is_recurring_event">
@@ -460,10 +460,10 @@
 																rule: 'required',
 																errorMessage: 'Client is required',
 												}, ])
-												.addField('#rate_type', [{
-																rule: 'required',
-																errorMessage: 'Rate Type is required',
-												}, ])
+												// .addField('#rate_type', [{
+												// 																																																																rule: 'required',
+												// 																																																																errorMessage: 'Rate Type is required',
+												// }, ])
 												.addField('#invoice_rate', [{
 																rule: 'required',
 																errorMessage: 'Invoice Rate is required',
@@ -523,7 +523,7 @@
 																				formData.append('name', document.getElementById('name').value)
 																				formData.append('fuzion_id', document.getElementById('fuzion_id').value)
 																				formData.append('client', document.getElementById('client').value)
-																				formData.append('rate_type', document.getElementById('rate_type').value)
+																				// formData.append('rate_type', document.getElementById('rate_type').value)
 																				formData.append('invoice_rate', document.getElementById('invoice_rate').value)
 																				formData.append('start_date', document.getElementById('start_date').value)
 																				formData.append('start_time', document.getElementById('start_time').value)
@@ -638,11 +638,11 @@
 																												'#client': error?.response?.data?.errors?.client[0]
 																								})
 																				}
-																				if (error?.response?.data?.errors?.rate_type) {
-																								validation.showErrors({
-																												'#rate_type': error?.response?.data?.errors?.rate_type[0]
-																								})
-																				}
+																				// if (error?.response?.data?.errors?.rate_type) {
+																				// 																																																																validation.showErrors({
+																				// 																																																																																																																																'#rate_type': error?.response?.data?.errors?.rate_type[0]
+																				// 																																																																})
+																				// }
 																				if (error?.response?.data?.errors?.invoice_rate) {
 																								validation.showErrors({
 																												'#invoice_rate': error?.response?.data?.errors?.invoice_rate[0]
@@ -873,33 +873,13 @@
 												}
 								});
 
-								document.getElementById('start_date').addEventListener("change", function() {
-												document.getElementById('end_date').value = document.getElementById('start_date').value
-								});
+								// document.getElementById('start_date').addEventListener("change", function() {
+								// 																document.getElementById('end_date').value = document.getElementById('start_date').value
+								// });
 
 
 								(function($) {
 												$('#client').select2();
-												// $('.js-example-basic-single').select2();
-
-												// $('.writer-id-input').on('input', function () {
-												//     const data = @json($writers);
-												//     const event = data.filter((item)=>item.id==$(this).val());
-												//     if(event.length>0){
-												//         $(this).parent().parent().find('.billing-rate-div .billing-rate-input').val(event[0].member_profile_created_by_auth.billing_rate);
-												//     }else{
-												//         $(this).parent().parent().find('.billing-rate-div .billing-rate-input').val('');
-												//     }
-												// });
-												// $('#client').on('input', function () {
-												//     const data = @json($clients);
-												//     const event = data.filter((item)=>item.id==$(this).val());
-												//     if(event.length>0){
-												//         $('#invoice_rate').val(event[0].member_profile_created_by_auth.billing_rate);
-												//     }else{
-												//         $('#invoice_rate').val('');
-												//     }
-												// });
 												$(document).ready(function() {
 																$('.repeater-writer').repeater({
 																				initEmpty: true,

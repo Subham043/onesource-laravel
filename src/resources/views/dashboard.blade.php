@@ -21,8 +21,8 @@
 																																				<button id="cancel_event" class="btn btn-primary d-none">Cancel Event</button>
 																																				<button id="toggle_event" class="btn btn-primary d-none">Toggle Prep</button>
 																																@endcan
-																																<a href="{{ route("dashboard_print.get") }}" target="_blank"
-																																				class="btn btn-primary">Print</a>
+																																{{-- <a href="{{ route("dashboard_print.get") }}" target="_blank"
+																																				class="btn btn-primary">Print</a> --}}
 																																@can("list events")
 																																				<a href="{{ route("event.paginate.get") }}" class="btn btn-primary">View All Events</a>
 																																@endcan

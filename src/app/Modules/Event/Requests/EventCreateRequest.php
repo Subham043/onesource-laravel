@@ -100,7 +100,7 @@ class EventCreateRequest extends FormRequest
                 'numeric',
                 'exists:clients,id',
             ],
-            'rate_type' => ['required', new Enum(RateType::class)],
+            // 'rate_type' => ['required', new Enum(RateType::class)],
             'notes' => 'nullable|string',
             'writer_ids' => ['nullable', 'array', 'min:1'],
             'writer_ids.*' => [

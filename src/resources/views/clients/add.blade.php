@@ -42,7 +42,7 @@
 																																@enderror
 																												</div>
 																								</div>
-																								<div class="form-group row d-flex">
+																								{{-- <div class="form-group row d-flex">
 																												<label class="control-label col-sm-2 align-self-center mb-0" for="onsite_billing_rate">Onsite
 																																Billing Rate : <span data-bs-toggle="tooltip"
 																																				data-bs-original-title="Onsite Billing rate should look like 000.00 (no dollar sign)"><i
@@ -103,7 +103,7 @@
 																																				<div class="invalid-message">{{ $message }}</div>
 																																@enderror
 																												</div>
-																								</div>
+																								</div> --}}
 																								<div class="form-group row">
 																												<label class="control-label col-sm-2 align-self-center mb-0" for="address">Address:</label>
 																												<div class="col-sm-10">
@@ -152,18 +152,18 @@
 																rule: 'required',
 																errorMessage: 'Phone is required',
 												}, ])
-												.addField('#onsite_billing_rate', [{
-																rule: 'required',
-																errorMessage: 'Onsite billing rate is required',
-												}, ])
-												.addField('#remote_billing_rate', [{
-																rule: 'required',
-																errorMessage: 'Remote billing rate is required',
-												}, ])
-												.addField('#setup_time', [{
-																rule: 'required',
-																errorMessage: 'Setup time is required',
-												}, ])
+												// .addField('#onsite_billing_rate', [{
+												// 																rule: 'required',
+												// 																errorMessage: 'Onsite billing rate is required',
+												// }, ])
+												// .addField('#remote_billing_rate', [{
+												// 																rule: 'required',
+												// 																errorMessage: 'Remote billing rate is required',
+												// }, ])
+												// .addField('#setup_time', [{
+												// 																rule: 'required',
+												// 																errorMessage: 'Setup time is required',
+												// }, ])
 												.addField('#address', [{
 																rule: 'required',
 																errorMessage: 'Address is required',

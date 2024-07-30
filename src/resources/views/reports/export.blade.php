@@ -5,8 +5,8 @@
 								<div class="col-md-12 col-lg-12">
 												<div class="row">
 																<div class="col-12 d-flex justify-content-end mb-3 gap-2">
-																				<a href="{{ route("report.export.print.get") }}?{{ http_build_query(request()->query()) }}"
-																								target="_blank" class="btn btn-primary">Print</a>
+																				{{-- <a href="{{ route("report.export.print.get") }}?{{ http_build_query(request()->query()) }}"
+																								target="_blank" class="btn btn-primary">Print</a> --}}
 																				<a href="{{ route("dashboard.get") }}" class="btn btn-primary">Dashboard</a>
 																</div>
 																<div class="col-md-12 col-lg-12">

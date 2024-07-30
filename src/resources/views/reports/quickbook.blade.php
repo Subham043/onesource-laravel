@@ -18,8 +18,8 @@
 								<div class="col-md-12 col-lg-12">
 												<div class="row">
 																<div class="col-12 d-flex justify-content-end mb-3 gap-2">
-																				<a href="{{ route("report.quickbook.print.get") }}?{{ http_build_query(request()->query()) }}"
-																								target="_blank" class="btn btn-primary">Print</a>
+																				{{-- <a href="{{ route("report.quickbook.print.get") }}?{{ http_build_query(request()->query()) }}"
+																								target="_blank" class="btn btn-primary">Print</a> --}}
 																				<a href="{{ route("dashboard.get") }}" class="btn btn-primary">Dashboard</a>
 																</div>
 																<div class="col-md-12 col-lg-12">
@@ -118,7 +118,8 @@
 																																																																{{ date("M d Y", strtotime(str_replace("T05:30:00.000Z", "", $r_date))) }}
 																																																												</td>
 																																																												<td rowspan="{{ $item->writers->count() + 1 }}">
-																																																																{{ $item->start_time->addMinute($item->client->setup_time)->timezone(auth()->user()->timezone ? strtok(auth()->user()->timezone->value, " GMT") : "UTC")->format("h:i a") }}
+																																																																{{-- {{ $item->start_time->addMinute($item->client->setup_time)->timezone(auth()->user()->timezone ? strtok(auth()->user()->timezone->value, " GMT") : "UTC")->format("h:i a") }} --}}
+																																																																{{ $item->start_time->timezone(auth()->user()->timezone ? strtok(auth()->user()->timezone->value, " GMT") : "UTC")->format("h:i a") }}
 																																																												</td>
 																																																												<td rowspan="{{ $item->writers->count() + 1 }}">
 																																																																{{ $item->end_time->timezone(auth()->user()->timezone ? strtok(auth()->user()->timezone->value, " GMT") : "UTC")->format("h:i a") }}
@@ -129,7 +130,7 @@
 																																																																				    $item->start_date->format("Y-m-d") .
 																																																																				        " " .
 																																																																				        $item->start_time
-																																																																				            ->addMinute($item->client->setup_time)
+																																																																				            // ->addMinute($item->client->setup_time)
 																																																																				            ->format("H:i:s"),
 																																																																				);
 																																																																				$end = new Carbon\Carbon(
@@ -141,12 +142,18 @@
 																																																																@endphp
 																																																																{{ $diff }} Hour
 																																																												</td>
-																																																												<td> {{ $item->rate_type && $item->rate_type->value == "Onsite" ? $item->client->onsite_billing_rate : $item->client->remote_billing_rate }}
+																																																												<td> {{ $item->invoice_rate }}
+																																																																$ / hr </td>
+																																																												<td>
+																																																																{{ $item->invoice_rate * $diff }}
+																																																																$
+																																																												</td>
+																																																												{{-- <td> {{ $item->rate_type && $item->rate_type->value == "Onsite" ? $item->client->onsite_billing_rate : $item->client->remote_billing_rate }}
 																																																																$ / hr </td>
 																																																												<td>
 																																																																{{ $item->rate_type && $item->rate_type->value == "Onsite" ? $item->client->onsite_billing_rate : $item->client->remote_billing_rate * $diff }}
 																																																																$
-																																																												</td>
+																																																												</td> --}}
 																																																								</tr>
 																																																								@foreach ($item->writers as $k => $v)
 																																																												<tr>
@@ -180,7 +187,8 @@
 																																																												{{ $item->start_date->format("M d Y") }}
 																																																								</td>
 																																																								<td rowspan="{{ $item->writers->count() + 1 }}">
-																																																												{{ $item->start_time->addMinute($item->client->setup_time)->timezone(auth()->user()->timezone ? strtok(auth()->user()->timezone->value, " GMT") : "UTC")->format("h:i a") }}
+																																																												{{-- {{ $item->start_time->addMinute($item->client->setup_time)->timezone(auth()->user()->timezone ? strtok(auth()->user()->timezone->value, " GMT") : "UTC")->format("h:i a") }} --}}
+																																																												{{ $item->start_time->timezone(auth()->user()->timezone ? strtok(auth()->user()->timezone->value, " GMT") : "UTC")->format("h:i a") }}
 																																																								</td>
 																																																								<td rowspan="{{ $item->writers->count() + 1 }}">
 																																																												{{ $item->end_time->timezone(auth()->user()->timezone ? strtok(auth()->user()->timezone->value, " GMT") : "UTC")->format("h:i a") }}
@@ -191,7 +199,7 @@
 																																																																    $item->start_date->format("Y-m-d") .
 																																																																        " " .
 																																																																        $item->start_time
-																																																																            ->addMinute($item->client->setup_time)
+																																																																            // ->addMinute($item->client->setup_time)
 																																																																            ->format("H:i:s"),
 																																																																);
 																																																																$end = new Carbon\Carbon(
@@ -203,12 +211,18 @@
 																																																												@endphp
 																																																												{{ $diff }} Hour
 																																																								</td>
-																																																								<td> {{ $item->rate_type && $item->rate_type->value == "Onsite" ? $item->client->onsite_billing_rate : $item->client->remote_billing_rate }}
+																																																								<td> {{ $item->invoice_rate }}
+																																																												$ / hr </td>
+																																																								<td>
+																																																												{{ $item->invoice_rate * $diff }}
+																																																												$
+																																																								</td>
+																																																								{{-- <td> {{ $item->rate_type && $item->rate_type->value == "Onsite" ? $item->client->onsite_billing_rate : $item->client->remote_billing_rate }}
 																																																												$ / hr </td>
 																																																								<td>
 																																																												{{ $item->rate_type && $item->rate_type->value == "Onsite" ? $item->client->onsite_billing_rate : $item->client->remote_billing_rate * $diff }}
 																																																												$
-																																																								</td>
+																																																								</td> --}}
 																																																				</tr>
 																																																				@foreach ($item->writers as $k => $v)
 																																																								<tr>

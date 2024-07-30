@@ -255,7 +255,7 @@
 																												</div>
 																								</div>
 																								<div id="billing_rate_div"
-																												class="form-group row {{ old("role") === "Writer" ? "d-flex" : "d-none" }}">
+																												class="form-group row {{ old("role") === "Client" || old("role") === "Writer" ? "d-flex" : "d-none" }}">
 																												<label class="control-label col-sm-2 align-self-center mb-0" for="billing_rate">Billing Rate :
 																																<span data-bs-toggle="tooltip"
 																																				data-bs-original-title="Billing rate should look like 000.00 (no dollar sign)"><i
@@ -464,7 +464,7 @@
 																				if (fields['#role'] && fields['#role'].elem) {
 																								const roleValue = fields['#role'].elem.value;
 
-																								if ((roleValue === 'Writer') && value.length == 0) {
+																								if ((roleValue === 'Client' || roleValue === 'Writer') && value.length == 0) {
 																												return false;
 																								}
 																								return true;
@@ -496,6 +496,7 @@
 																				formData.append('timezone', document.getElementById('timezone').value)
 																				if (document.getElementById('role').value == 'Client') {
 																								formData.append('client', document.getElementById('client').value)
+																								formData.append('billing_rate', document.getElementById('billing_rate').value)
 																				}
 																				if (document.getElementById('role').value == 'Writer') {
 																								formData.append('billing_rate', document.getElementById('billing_rate').value)
@@ -613,6 +614,8 @@
 																												var formData = new FormData();
 																												if (document.getElementById('role').value == 'Client') {
 																																formData.append('client', document.getElementById('client').value)
+																																formData.append('billing_rate', document.getElementById('billing_rate')
+																																				.value)
 																												}
 																												if (document.getElementById('role').value == 'Writer') {
 																																formData.append('billing_rate', document.getElementById('billing_rate')
@@ -693,7 +696,8 @@
 																document.getElementById('tool_div').classList.add('d-none');
 																document.getElementById('tool_div').classList.remove('d-flex');
 												}
-												if (document.getElementById('role').value === 'Writer') {
+												if (document.getElementById('role').value === 'Writer' || document.getElementById('role').value ===
+																'Client') {
 																document.getElementById('billing_rate_div').classList.add('d-flex');
 																document.getElementById('billing_rate_div').classList.remove('d-none');
 												} else {
