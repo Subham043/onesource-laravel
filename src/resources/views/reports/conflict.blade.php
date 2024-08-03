@@ -20,7 +20,7 @@
 																				<div class="card overflow-hidden" data-aos="fade-up" data-aos-delay="600">
 																								<div class="d-flex justify-content-center flex-wrap py-2">
 																												<div class="header-title">
-																																<h4 class="card-title mb-0">{{ count($data) * 2 }} writers have conflicts</h4>
+																																<h4 class="card-title mb-0">{{ count($data) }} writers have conflicts</h4>
 																												</div>
 																								</div>
 																				</div>
@@ -28,7 +28,6 @@
 												</div>
 
 												@foreach ($data as $item)
-																@foreach ($item["events"] as $vl)
 																				<div class="row">
 																								<div class="col-md-12 col-lg-12">
 																												<div class="card overflow-hidden" data-aos="fade-up" data-aos-delay="600">
@@ -50,13 +49,13 @@
 																																												</thead>
 																																												<tbody>
 																																																<tr>
-																																																				<td rowspan="{{ count($vl) + 1 }}">{{ $item["writer_name"] }}
+																																																				<td rowspan="{{ count($item["events"]) + 1 }}">{{ $item["writer_name"] }}
 																																																				</td>
-																																																				<td rowspan="{{ count($vl) + 1 }}" class="text-left">
-																																																								{{ $item["conflict_type"] }}
+																																																				<td rowspan="{{ count($item["events"]) + 1 }}" class="text-left">
+																																																								INTERNAL
 																																																				</td>
 																																																</tr>
-																																																@foreach ($vl as $val)
+																																																@foreach ($item["events"] as $val)
 																																																				<tr>
 																																																								<td class="padfix">
 																																																												<div class="d-flex align-items-center">
@@ -70,44 +69,16 @@
 																																																																				{{ $val["event_name"] }}</a>
 																																																												</div>
 																																																								</td>
-																																																								{{-- <td class="padfix">
-                                                                                                                                                                                                                                    <div class="d-flex align-items-center">
-                                                                                                                                                                                                                                                    EVDxx <span data-bs-toggle="tooltip"
-                                                                                                                                                                                                                                                                    data-bs-original-title="You cannot view/edit an external event"><i
-                                                                                                                                                                                                                                                                                    class="icon">
-                                                                                                                                                                                                                                                                                    <svg xmlns='http://www.w3.org/2000/svg'
-                                                                                                                                                                                                                                                                                                    viewBox='0 0 12 12' width='12'
-                                                                                                                                                                                                                                                                                                    height='12' fill='none'
-                                                                                                                                                                                                                                                                                                    stroke='currentColor'>
-                                                                                                                                                                                                                                                                                                    <circle cx='6' cy='6'
-                                                                                                                                                                                                                                                                                                                    r='4.5' />
-                                                                                                                                                                                                                                                                                                    <path stroke-linejoin='round'
-                                                                                                                                                                                                                                                                                                                    d='M5.8 3.6h.4L6 6.5z' />
-                                                                                                                                                                                                                                                                                                    <circle cx='6' cy='8.2' r='.6'
-                                                                                                                                                                                                                                                                                                                    fill='currentColor' stroke='none' />
-                                                                                                                                                                                                                                                                                    </svg>
-                                                                                                                                                                                                                                                                    </i></span>
-                                                                                                                                                                                                                                    </div>
-                                                                                                                                                                                                                    </td>
-                                                                                                                                                                                                                    <td>
-                                                                                                                                                                                                                                    <div class="iq-media-group iq-media-group-1">
-                                                                                                                                                                                                                                                    {{ str()->limit($v->event->name, 5) }}xxx
-                                                                                                                                                                                                                                    </div>
-                                                                                                                                                                                                                    </td> --}}
 																																																								<td>
-																																																												@foreach ($val["event_conflict_writer"] as $ke => $eve_writer)
-																																																																{!! $ke + 1 == count($val["event_conflict_writer"])
-																																																																    ? '<span style="max-width: 170px; width: 170px;text-wrap:balance;">' . $eve_writer . "</span>"
-																																																																    : '<span style="max-width: 170px; width: 170px;text-wrap:balance;">' . $eve_writer . "</span><br/> " !!}
-																																																												@endforeach
+                                                                                                                                                                                                                                    <span style="max-width: 170px; width: 170px;text-wrap:balance;">
+                                                                                                                                                                                                                                        {{ $val["writer_name"] }}
+                                                                                                                                                                                                                                    </span>
 																																																								</td>
 																																																								<td>
-																																																												{{ $val["event_date"] }}
+																																																									{{ $val["event_date"] }}
 																																																								</td>
 																																																								<td>{{ $val["event_start_time"] }}
 																																																								</td>
-																																																								{{-- <td>{{ $v->event->start_time->addMinute($v->event->client->setup_time)->timezone(auth()->user()->timezone ? strtok(auth()->user()->timezone->value, " GMT") : "UTC")->format("h:i a") }}
-                                                                                                                                                                </td> --}}
 																																																								<td>{{ $val["event_end_time"] }}
 																																																								</td>
 																																																								<td>
@@ -126,7 +97,6 @@
 																												</div>
 																								</div>
 																				</div>
-																@endforeach
 												@endforeach
 
 								</div>

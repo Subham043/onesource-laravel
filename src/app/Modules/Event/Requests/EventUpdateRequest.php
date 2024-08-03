@@ -106,6 +106,7 @@ class EventUpdateRequest extends FormRequest
             'writer_ids.*' => [
                 'required',
                 'numeric',
+                'distinct',
                 'exists:users,id',
             ],
             'billing_rates' => ['nullable', 'array', 'min:1'],

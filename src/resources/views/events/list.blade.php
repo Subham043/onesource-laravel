@@ -265,7 +265,7 @@
 												document.getElementById('sort-form').submit();
 								});
 								// document.getElementById('total').addEventListener('change', function() {
-								// 																document.getElementById('total-form').submit();
+								// 																																																																document.getElementById('total-form').submit();
 								// });
 				</script>
 				@can("edit events")

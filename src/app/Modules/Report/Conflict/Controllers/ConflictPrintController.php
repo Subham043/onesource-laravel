@@ -3,26 +3,21 @@
 namespace App\Modules\Report\Conflict\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Modules\Event\Services\EventService;
+use App\Modules\Report\Conflict\Services\ConflictService;
 
 class ConflictPrintController extends Controller
 {
-    private $eventService;
 
-    public function __construct(EventService $eventService)
+    public function __construct()
     {
         $this->middleware('permission:view conflicts', ['only' => ['get','post']]);
-        $this->eventService = $eventService;
     }
 
     public function get(){
-        $data = $this->eventService->allConflict();
-        $filtered = $data->filter(function($item){
-            return $item->writerEvents->count()>=2;
-        });
+        $clashingEvents = (new ConflictService)->getConflicts();
         return view('print.print')->with([
             'print' => view('print.conflict')->with([
-                'data' => $filtered,
+                'data' => $clashingEvents,
             ]),
         ]);
     }

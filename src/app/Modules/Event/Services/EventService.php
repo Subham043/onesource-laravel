@@ -200,6 +200,18 @@ class EventService
 
     public function create(EventCreateRequest $request): Event
     {
+        if(auth()->user()->timezone){
+            $tz = auth()->user()->timezone->getTimezoneName();
+            $start_time = Carbon::createFromFormat('H:i', $request->start_time, $tz)->setTimezone('UTC')->format('Y-m-d H:i:s');
+        }else{
+            $start_time = $request->start_time;
+        }
+        if(auth()->user()->timezone){
+            $tz = auth()->user()->timezone->getTimezoneName();
+            $end_time = Carbon::createFromFormat('H:i', $request->end_time, $tz)->setTimezone('UTC')->format('Y-m-d H:i:s');
+        }else{
+            $end_time = $request->end_time;
+        }
         $event = Event::create(
             [
                 ...$request->safe()->only([
@@ -207,8 +219,8 @@ class EventService
                     'invoice_rate',
                     'start_date',
                     'end_date',
-                    'start_time',
-                    'end_time',
+                    // 'start_time',
+                    // 'end_time',
                     'is_recurring_event',
                     'recurring_end_date',
                     'recurring_type',
@@ -237,6 +249,8 @@ class EventService
                     'is_active',
                 ]),
                 'client_id' => $request->client,
+                'start_time' => $start_time,
+                'end_time' => $end_time,
                 'created_by' => auth()->user()->current_role=='Staff-Admin' ? auth()->user()->member_profile_created_by_auth->created_by : auth()->user()->id,
             ]
         );
@@ -271,6 +285,18 @@ class EventService
 
     public function update(EventUpdateRequest $request, Event $event): Event
     {
+        if(auth()->user()->timezone){
+            $tz = auth()->user()->timezone->getTimezoneName();
+            $start_time = Carbon::createFromFormat('H:i', $request->start_time, $tz)->setTimezone('UTC')->format('Y-m-d H:i:s');
+        }else{
+            $start_time = $request->start_time;
+        }
+        if(auth()->user()->timezone){
+            $tz = auth()->user()->timezone->getTimezoneName();
+            $end_time = Carbon::createFromFormat('H:i', $request->end_time, $tz)->setTimezone('UTC')->format('Y-m-d H:i:s');
+        }else{
+            $end_time = $request->end_time;
+        }
         $event->update(
             [
                 ...$request->safe()->only([
@@ -278,8 +304,8 @@ class EventService
                     'invoice_rate',
                     'start_date',
                     'end_date',
-                    'start_time',
-                    'end_time',
+                    // 'start_time',
+                    // 'end_time',
                     'is_recurring_event',
                     'recurring_end_date',
                     'recurring_type',
@@ -307,6 +333,8 @@ class EventService
                     'is_prep_ready',
                     'is_active',
                 ]),
+                'start_time' => $start_time,
+                'end_time' => $end_time,
                 'client_id' => $request->client,
             ]
         );

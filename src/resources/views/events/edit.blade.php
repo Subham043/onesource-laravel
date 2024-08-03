@@ -84,7 +84,7 @@
 																																Time:</label>
 																												<div class="col-sm-3">
 																																<input type="time" class="form-control" id="start_time" name="start_time"
-																																				value="{{ $event->start_time ? $event->start_time->timezone(auth()->user()->timezone ? strtok(auth()->user()->timezone->value, " GMT") : "UTC")->format("H:i:s") : "" }}">
+																																				value="{{ $event->start_time ? $event->start_time->timezone(auth()->user()->timezone ? strtok(auth()->user()->timezone->value, " GMT") : "UTC")->format("H:i") : "" }}">
 																												</div>
 																								</div>
 																								<div class="form-group row {{ $event->is_recurring_event ? "d-none" : "d-flex" }}">
@@ -96,7 +96,7 @@
 																												<label class="control-label col-sm-2 align-self-center mb-0" for="end_time">End Time:</label>
 																												<div class="col-sm-3">
 																																<input type="time" class="form-control" id="end_time" name="end_time"
-																																				value="{{ $event->end_time ? $event->end_time->timezone(auth()->user()->timezone ? strtok(auth()->user()->timezone->value, " GMT") : "UTC")->format("H:i:s") : "" }}">
+																																				value="{{ $event->end_time ? $event->end_time->timezone(auth()->user()->timezone ? strtok(auth()->user()->timezone->value, " GMT") : "UTC")->format("H:i") : "" }}">
 																												</div>
 																								</div>
 																								<div class="form-group row">

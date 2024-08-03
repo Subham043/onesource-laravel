@@ -34,7 +34,6 @@ class EventUpdateController extends Controller
     }
 
     public function post(EventUpdateRequest $request, $id){
-
         $event = $this->eventService->getById($id);
 
         try {
@@ -44,7 +43,7 @@ class EventUpdateController extends Controller
             );
             return response()->json(["message" => "Event updated successfully."], 200);
         } catch (\Throwable $th) {
-            // throw $th;
+            throw $th;
             return response()->json(["message" => "Something went wrong. Please try again."], 400);
         }
 
