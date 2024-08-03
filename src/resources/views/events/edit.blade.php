@@ -644,8 +644,8 @@
 																errorMessage: 'Client is required',
 												}, ])
 												// .addField('#rate_type', [{
-												// 																																																																rule: 'required',
-												// 																																																																errorMessage: 'Rate Type is required',
+												// 																																																																																																																																																																																																																																																																rule: 'required',
+												// 																																																																																																																																																																																																																																																																errorMessage: 'Rate Type is required',
 												// }, ])
 												.addField('#invoice_rate', [{
 																rule: 'required',
@@ -824,9 +824,9 @@
 																								})
 																				}
 																				// if (error?.response?.data?.errors?.rate_type) {
-																				// 																																																																validation.showErrors({
-																				// 																																																																																																																																'#rate_type': error?.response?.data?.errors?.rate_type[0]
-																				// 																																																																})
+																				// 																																																																																																																																																																																																																																																																validation.showErrors({
+																				// 																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																'#rate_type': error?.response?.data?.errors?.rate_type[0]
+																				// 																																																																																																																																																																																																																																																																})
 																				// }
 																				if (error?.response?.data?.errors?.invoice_rate) {
 																								validation.showErrors({
@@ -1059,9 +1059,9 @@
 												}
 								});
 
-								// document.getElementById('start_date').addEventListener("change", function() {
-								// 																document.getElementById('end_date').value = document.getElementById('start_date').value
-								// });
+								document.getElementById('start_date').addEventListener("change", function() {
+												document.getElementById('end_date').value = document.getElementById('start_date').value
+								});
 
 								(function($) {
 												$('#client').select2();

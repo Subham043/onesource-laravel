@@ -115,7 +115,7 @@ class EventUpdateRequest extends FormRequest
                 'gte:0',
             ],
             'documents' => ['nullable', 'array', 'min:1'],
-            'documents.*' => 'required|mimes:pdf,doc,docx,dot,xls,xlsx,ppt,pptx,pps,jpg,jpeg,png,webp|max:5000',
+            'documents.*' => 'required|mimes:pdf,doc,docx,dot,xls,xlsx,ppt,pptx,pps,jpg,jpeg,png,webp,text|max:5000',
         ];
     }
 

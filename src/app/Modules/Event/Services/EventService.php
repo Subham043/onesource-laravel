@@ -46,7 +46,7 @@ class EventService
             $query->whereDate('start_date', today());
         }
         return QueryBuilder::for($query)
-                ->defaultSort('-id')
+                ->defaultSort('start_date', 'start_time')
                 ->allowedSorts([
                     'start_date',
                     'start_time',
@@ -65,7 +65,7 @@ class EventService
         $query = Event::filterByRoles();
 
         return QueryBuilder::for($query)
-                ->defaultSort('name')
+                ->defaultSort('start_date', 'start_time')
                 ->allowedSorts([
                     'start_date',
                     'start_time',
