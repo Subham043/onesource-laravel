@@ -2,6 +2,7 @@
 
 namespace App\Modules\Authentication\Controllers;
 
+use App\Enums\Timezone;
 use App\Http\Controllers\Controller;
 use App\Http\Services\RateLimitService;
 use App\Modules\Authentication\Models\User;
@@ -10,6 +11,7 @@ use App\Modules\Authentication\Services\AuthService;
 use App\Modules\Document\Models\DocumentNotification;
 use App\Modules\User\Services\UserService;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Arr;
 
 class ProfileEditController extends Controller
 {
@@ -26,6 +28,7 @@ class ProfileEditController extends Controller
         $data = $this->authService->authenticated_user();
         return view('profile.edit', compact('data'))->with([
             'page_name' => 'Profile',
+            'timezones' => Arr::map(Timezone::cases(), fn($enum) => $enum->value),
             'notifications' => DocumentNotification::filterByRoles()->latest()->limit(4)->get()
         ]);
     }

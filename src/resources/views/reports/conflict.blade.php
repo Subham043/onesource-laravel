@@ -52,7 +52,7 @@
 																																																				<td rowspan="{{ count($item["events"]) + 1 }}">{{ $item["writer_name"] }}
 																																																				</td>
 																																																				<td rowspan="{{ count($item["events"]) + 1 }}" class="text-left">
-																																																								INTERNAL
+																																																								INTERNAL <br/>(Date & Time Conflict)
 																																																				</td>
 																																																</tr>
 																																																@foreach ($item["events"] as $val)

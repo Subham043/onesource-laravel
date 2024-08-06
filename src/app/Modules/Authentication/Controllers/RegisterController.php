@@ -2,10 +2,12 @@
 
 namespace App\Modules\Authentication\Controllers;
 
+use App\Enums\Timezone;
 use App\Http\Controllers\Controller;
 use App\Http\Services\RateLimitService;
 use App\Modules\Authentication\Requests\RegisterPostRequest;
 use App\Modules\Authentication\Services\AuthService;
+use Illuminate\Support\Arr;
 
 class RegisterController extends Controller
 {
@@ -17,7 +19,9 @@ class RegisterController extends Controller
     }
 
     public function get(){
-        return view('auth.register');
+        return view('auth.register')->with([
+            'timezones' => Arr::map(Timezone::cases(), fn($enum) => $enum->value),
+        ]);
     }
 
     public function post(RegisterPostRequest $request){

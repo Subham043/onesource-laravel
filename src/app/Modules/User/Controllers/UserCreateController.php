@@ -2,6 +2,7 @@
 
 namespace App\Modules\User\Controllers;
 
+use App\Enums\Timezone;
 use App\Http\Controllers\Controller;
 use App\Modules\Authentication\Models\User;
 use App\Modules\Client\Services\ClientService;
@@ -9,6 +10,7 @@ use App\Modules\Document\Models\DocumentNotification;
 use App\Modules\Tool\Services\ToolService;
 use App\Modules\User\Requests\UserCreatePostRequest;
 use App\Modules\User\Services\UserService;
+use Illuminate\Support\Arr;
 
 class UserCreateController extends Controller
 {
@@ -29,6 +31,7 @@ class UserCreateController extends Controller
         $tool = $this->toolService->all();
         return view('users.add', compact(['client', 'tool']))->with([
             'page_name' => 'User',
+            'timezones' => Arr::map(Timezone::cases(), fn($enum) => $enum->value),
             'notifications' => DocumentNotification::filterByRoles()->latest()->limit(4)->get()
         ]);
     }

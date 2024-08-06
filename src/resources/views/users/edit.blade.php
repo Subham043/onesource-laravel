@@ -100,33 +100,9 @@
 																												<div class="col-sm-10">
 																																<select id="timezone" name="timezone" class="form-select shadow-none">
 																																				<option value="" {{ empty($data->timezone) ? "selected" : "" }}>Select</option>
-																																				<option value="Pacific/Honolulu GMT-10:00"
-																																								{{ !empty($data->timezone) && $data->timezone->value == "Pacific/Honolulu GMT-10:00" ? "selected" : "" }}>
-																																								Pacific/Honolulu GMT-10:00</option>
-																																				<option value="America/Anchorage GMT-9:00"
-																																								{{ !empty($data->timezone) && $data->timezone->value == "America/Anchorage GMT-9:00" ? "selected" : "" }}>
-																																								America/Anchorage GMT-9:00</option>
-																																				<option value="America/Los_Angeles GMT-8:00"
-																																								{{ !empty($data->timezone) && $data->timezone->value == "America/Los_Angeles GMT-8:00" ? "selected" : "" }}>
-																																								America/Los_Angeles GMT-8:00</option>
-																																				<option value="America/Boise GMT-7:00"
-																																								{{ !empty($data->timezone) && $data->timezone->value == "America/Boise GMT-7:00" ? "selected" : "" }}>
-																																								America/Boise GMT-7:00</option>
-																																				<option value="America/Denver GMT-7:00"
-																																								{{ !empty($data->timezone) && $data->timezone->value == "America/Denver GMT-7:00" ? "selected" : "" }}>
-																																								America/Denver GMT-7:00</option>
-																																				<option value="America/Phoenix GMT-7:00"
-																																								{{ !empty($data->timezone) && $data->timezone->value == "America/Phoenix GMT-7:00" ? "selected" : "" }}>
-																																								America/Phoenix GMT-7:00</option>
-																																				<option value="America/Chicago GMT-6:00"
-																																								{{ !empty($data->timezone) && $data->timezone->value == "America/Chicago GMT-6:00" ? "selected" : "" }}>
-																																								America/Chicago GMT-6:00</option>
-																																				<option value="America/Detroit GMT-5:00"
-																																								{{ !empty($data->timezone) && $data->timezone->value == "America/Detroit GMT-5:00" ? "selected" : "" }}>
-																																								America/Detroit GMT-5:00</option>
-																																				<option value="America/New_York GMT-5:00"
-																																								{{ !empty($data->timezone) && $data->timezone->value == "America/New_York GMT-5:00" ? "selected" : "" }}>
-																																								America/New_York GMT-5:00</option>
+                                                                                                                                                @foreach($timezones as $key => $value)
+                                                                                                                                                    <option value="{{$value}}" {{!empty($data->timezone) && $data->timezone->value == $value ? 'selected' : ''}}>{{$value}}</option>
+                                                                                                                                                @endforeach
 																																</select>
 																																@error("timezone")
 																																				<div class="invalid-message">{{ $message }}</div>
