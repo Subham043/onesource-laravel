@@ -29,7 +29,7 @@ class DocumentCreateRequest extends FormRequest
         return [
             'event' => 'required|numeric|exists:events,id',
             'documents' => ['required', 'array', 'min:1'],
-            'documents.*' => 'required|mimes:pdf,doc,docx,dot,xls,xlsx,ppt,pptx,pps,jpg,jpeg,png,webp,text|max:5000',
+            'documents.*' => 'required|mimes:pdf,doc,docx,dot,xls,xlsx,ppt,pptx,pps,jpg,jpeg,png,webp,rtf,text|max:5000',
         ];
     }
 
