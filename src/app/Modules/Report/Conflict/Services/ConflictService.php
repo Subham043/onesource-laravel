@@ -10,9 +10,34 @@ class ConflictService{
         return Carbon::createFromFormat('M d Y h:i a', $date . ' ' . $time);
     }
 
+    protected function removeDuplicateEvents($data) {
+        $seenEvents = [];
+        $uniqueData = [];
+
+        foreach ($data as $writer) {
+            $events = $writer['events'];
+            $uniqueEvents = [];
+
+            foreach ($events as $event) {
+                $eventKey = serialize($event);
+                if (!in_array($eventKey, $seenEvents)) {
+                    $uniqueEvents[] = $event;
+                    $seenEvents[] = $eventKey;
+                }
+            }
+
+            if (!empty($uniqueEvents)) {
+                $writer['events'] = $uniqueEvents;
+                $uniqueData[] = $writer;
+            }
+        }
+
+        return $uniqueData;
+    }
+
     protected function detectClashingEvents($events) {
         $clashes = [];
-        
+
         foreach ($events as $i => $event1) {
             foreach ($events as $j => $event2) {
                 if ($i !== $j && $event1['writer_id'] === $event2['writer_id']) {
@@ -27,7 +52,7 @@ class ConflictService{
                 }
             }
         }
-        
+
         return $clashes;
     }
 
@@ -70,6 +95,6 @@ class ConflictService{
         }
 
         $clashingEvents = $this->detectClashingEvents($events);
-        return $clashingEvents;
+        return $this->removeDuplicateEvents($clashingEvents);
     }
 }
