@@ -50,6 +50,7 @@ class ContentSecurityPolicy extends Basic
         ->addDirective(Directive::FRAME, 'www.google.com')
         ->addDirective(Directive::FRAME, 'www.youtube.com')
         ->addDirective(Directive::STYLE, 'cdn.jsdelivr.net')
+        ->addDirective(Directive::IMG, 'cdn.jsdelivr.net')
         ->addDirective(Directive::SCRIPT, 'cdn.jsdelivr.net');
     }
 
