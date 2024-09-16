@@ -1,5 +1,9 @@
 @extends("layouts.main")
 
+@section("css")
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@24.5.0/build/css/intlTelInput.css" type="text/css" />
+@stop
+
 @section("content")
 				<div>
 								<div class="col-sm-12 col-lg-12">
@@ -123,6 +127,8 @@
 @stop
 
 @section("javascript")
+                <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@24.5.0/build/js/intlTelInput.min.js"></script>
+
 				<script type="text/javascript" nonce="{{ csp_nonce() }}">
 								document.addEventListener("keydown", (e) => {
 												if ((e.metaKey || e.ctrlKey) && e.key === "s") {
@@ -130,6 +136,19 @@
 																document.getElementById('submitBtn').click();
 																return false;
 												}
+								});
+
+                                const countryData = window.intlTelInput(document.querySelector("#phone"), {
+												utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@24.5.0/build/js/utils.js",
+												autoInsertDialCode: true,
+												initialCountry: "us",
+												nationalMode: false,
+												geoIpLookup: callback => {
+																fetch("https://ipapi.co/json")
+																				.then(res => res.json())
+																				.then(data => callback(data.country_code))
+																				.catch(() => callback("us"));
+												},
 								});
 
 								// initialize the validation library

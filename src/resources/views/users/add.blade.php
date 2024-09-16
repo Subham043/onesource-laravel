@@ -2,7 +2,7 @@
 
 @section("css")
 				<link rel="stylesheet" href="{{ asset("assets/css/select2.min.css") }}" type="text/css" />
-				<link rel="stylesheet" href="{{ asset("assets/css/intlTelInput.css") }}" type="text/css" />
+				<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@24.5.0/build/css/intlTelInput.css" type="text/css" />
 				<style nonce="{{ csp_nonce() }}">
 								.select2-container {
 												width: 100% !important;
@@ -284,7 +284,7 @@
 @section("javascript")
 				<script src="{{ asset("assets/js/plugins/jquery.js") }}"></script>
 				<script src="{{ asset("assets/js/plugins/select2.min.js") }}"></script>
-				<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/intlTelInput.min.js"></script>
+				<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@24.5.0/build/js/intlTelInput.min.js"></script>
 
 				<script type="text/javascript" nonce="{{ csp_nonce() }}">
 								document.addEventListener("keydown", (e) => {
@@ -346,7 +346,7 @@
 								})
 
 								const countryData = window.intlTelInput(document.querySelector("#phone"), {
-												utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/utils.js",
+												utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@24.5.0/build/js/utils.js",
 												autoInsertDialCode: true,
 												initialCountry: "us",
 												nationalMode: false,

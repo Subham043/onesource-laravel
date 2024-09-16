@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('assets/css/intlTelInput.css')}}" type="text/css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@24.5.0/build/css/intlTelInput.css" type="text/css" />
 @stop
 
 @section('content')
@@ -240,12 +240,12 @@
 
 
 @section('javascript')
-<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/intlTelInput.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@24.5.0/build/js/intlTelInput.min.js"></script>
 
 <script type="text/javascript" nonce="{{ csp_nonce() }}">
 
 const countryData = window.intlTelInput(document.querySelector("#phone"), {
-    utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/utils.js",
+    utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@24.5.0/build/js/utils.js",
     autoInsertDialCode: true,
     initialCountry: "us",
     nationalMode: false,

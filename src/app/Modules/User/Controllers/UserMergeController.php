@@ -38,7 +38,7 @@ class UserMergeController extends Controller
                         $request,
                         $user
                     );
-                    return response()->json(["message" => "User merged successfully.", "merge_available" => false], 201);
+                    return response()->json(["message" => "User synced successfully.", "merge_available" => false], 201);
                 } catch (\Throwable $th) {
                     return response()->json(["message" => "Something went wrong. Please try again."], 400);
                 }

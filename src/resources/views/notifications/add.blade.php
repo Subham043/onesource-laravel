@@ -40,7 +40,7 @@
                                         Daily :
                                     </label>
                                 </div>
-                                <div class="col-lg-10 col-md-9 col-sm-12">
+                                <div class="col-lg-10 col-md-9 col-sm-12 d-none" id="recurring_type_daily_options">
                                     <div class="d-flex align-items-center mb-2">
                                         <input class="form-check-input col-auto" type="radio" value="First" id="recurring_daily_type_days" name="recurring_daily_type">
                                         <label class="form-check-label mx-1 col-8" for="recurring_daily_type_days">
@@ -64,7 +64,7 @@
                                         Weekly :
                                     </label>
                                 </div>
-                                <div class="col-lg-10 col-md-9 col-sm-12">
+                                <div class="col-lg-10 col-md-9 col-sm-12 d-none" id="recurring_type_weekly_options">
                                     <div class="d-flex align-items-center mb-2">
                                         <label class="form-check-label mx-1 col-8">
                                             <div class="d-flex align-items-center gap-2">
@@ -125,7 +125,7 @@
                                         Monthly :
                                     </label>
                                 </div>
-                                <div class="col-lg-10 col-md-9 col-sm-12">
+                                <div class="col-lg-10 col-md-9 col-sm-12 d-none" id="recurring_type_monthly_options">
                                     <div class="d-flex align-items-center mb-2">
                                         <input class="form-check-input col-auto" type="radio" value="First" id="recurring_monthly_type_days" name="recurring_monthly_type">
                                         <label class="form-check-label mx-1 col-8" for="recurring_monthly_type_days">
@@ -326,6 +326,39 @@ validation
         submitBtn.disabled = false;
     }
   });
+
+    document.getElementById('recurring_type_daily').addEventListener("change", function() {
+                    if (document.getElementById('recurring_type_daily').checked) {
+                                    document.getElementById('recurring_type_daily_options').classList.add('d-block');
+                                    document.getElementById('recurring_type_daily_options').classList.remove('d-none');
+                                    document.getElementById('recurring_type_monthly_options').classList.add('d-none');
+                                    document.getElementById('recurring_type_monthly_options').classList.remove('d-block');
+                                    document.getElementById('recurring_type_weekly_options').classList.add('d-none');
+                                    document.getElementById('recurring_type_weekly_options').classList.remove('d-block');
+                    }
+    });
+
+    document.getElementById('recurring_type_weekly').addEventListener("change", function() {
+                    if (document.getElementById('recurring_type_weekly').checked) {
+                                    document.getElementById('recurring_type_weekly_options').classList.add('d-block');
+                                    document.getElementById('recurring_type_weekly_options').classList.remove('d-none');
+                                    document.getElementById('recurring_type_monthly_options').classList.add('d-none');
+                                    document.getElementById('recurring_type_monthly_options').classList.remove('d-block');
+                                    document.getElementById('recurring_type_daily_options').classList.add('d-none');
+                                    document.getElementById('recurring_type_daily_options').classList.remove('d-block');
+                    }
+    });
+
+    document.getElementById('recurring_type_monthly').addEventListener("change", function() {
+                    if (document.getElementById('recurring_type_monthly').checked) {
+                                    document.getElementById('recurring_type_monthly_options').classList.add('d-block');
+                                    document.getElementById('recurring_type_monthly_options').classList.remove('d-none');
+                                    document.getElementById('recurring_type_weekly_options').classList.add('d-none');
+                                    document.getElementById('recurring_type_weekly_options').classList.remove('d-block');
+                                    document.getElementById('recurring_type_daily_options').classList.add('d-none');
+                                    document.getElementById('recurring_type_daily_options').classList.remove('d-block');
+                    }
+    });
 
 </script>
 

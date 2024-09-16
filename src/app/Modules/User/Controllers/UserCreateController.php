@@ -71,7 +71,7 @@ class UserCreateController extends Controller
                 });
             })->first();
             if(empty($user_check_count)){
-                return response()->json(["message" => "A user with the given credential already exists. Do you want to merge the existing user?", 'merge_available' => true, 'url' => route('user.merge.post', $user->id)], 200);
+                return response()->json(["message" => "A user with the given credential already exists. Do you want to sync the existing user?", 'merge_available' => true, 'url' => route('user.merge.post', $user->id)], 200);
             }
             return response()->json(["message" => "A user already exists", 'merge_available' => false], 400);
         }
