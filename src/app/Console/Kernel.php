@@ -18,8 +18,8 @@ class Kernel extends ConsoleKernel
         $schedule->call(function(){
             Log::alert('yes');
             (new CronService)->__invoke();
-        // })->everyTwoMinutes();
-        })->dailyAt('13:00');
+        })->everyMinute();
+        // })->dailyAt('13:00');
     }
 
     /**

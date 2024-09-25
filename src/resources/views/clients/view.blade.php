@@ -35,6 +35,30 @@
 																																{{ $data->phone }}
 																												</div>
 																								</div>
+																								<div class="form-group row">
+																												<label class="control-label col-sm-2 align-self-center mb-0" for="eventName">Invoice Rate:</label>
+																												<div class="col-sm-10">
+																																${{ $data->invoice_rate }}
+																												</div>
+																								</div>
+                                                                                                <div class="form-group row">
+																												<label class="control-label col-sm-2 align-self-center mb-0" for="eventName">Audio Phone Number:</label>
+																												<div class="col-sm-10">
+																																{{ $data->audio_phone }}
+																												</div>
+																								</div>
+                                                                                                <div class="form-group row">
+																												<label class="control-label col-sm-2 align-self-center mb-0" for="eventName">Encoder Phone Number:</label>
+																												<div class="col-sm-10">
+																																{{ $data->encoder_phone }}
+																												</div>
+																								</div>
+                                                                                                <div class="form-group row">
+																												<label class="control-label col-sm-2 align-self-center mb-0" for="eventName">MC Phone Number:</label>
+																												<div class="col-sm-10">
+																																{{ $data->mic_phone }}
+																												</div>
+																								</div>
 																								{{-- <div class="form-group row">
 																												<label class="control-label col-sm-2 align-self-center mb-0" for="eventName">Onsite Billing
 																																Rate:</label>
@@ -60,6 +84,24 @@
 																												<label class="control-label col-sm-2 align-self-center mb-0" for="eventName">Address:</label>
 																												<div class="col-sm-10">
 																																{{ $data->address }}
+																												</div>
+																								</div>
+																								<div class="form-group row">
+																												<label class="control-label col-sm-2 align-self-center mb-0" for="eventName">Line Placements:</label>
+																												<div class="col-sm-10">
+																																{{ $data->line_placements }}
+																												</div>
+																								</div>
+																								<div class="form-group row">
+																												<label class="control-label col-sm-2 align-self-center mb-0" for="eventName">Notes:</label>
+																												<div class="col-sm-10">
+																																{{ $data->notes }}
+																												</div>
+																								</div>
+																								<div class="form-group row">
+																												<label class="control-label col-sm-2 align-self-center mb-0" for="eventName">Words/Specifics:</label>
+																												<div class="col-sm-10">
+																																{{ $data->word }}
 																												</div>
 																								</div>
 																				</div>

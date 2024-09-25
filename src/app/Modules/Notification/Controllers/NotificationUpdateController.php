@@ -5,7 +5,6 @@ namespace App\Modules\Notification\Controllers;
 use App\Http\Controllers\Controller;
 use App\Modules\Document\Models\DocumentNotification;
 use App\Modules\Notification\Requests\NotificationRequest;
-use App\Modules\Notification\Services\CronService;
 use App\Modules\Notification\Services\NotificationService;
 
 class NotificationUpdateController extends Controller

@@ -160,7 +160,7 @@
                                                 <select class="form-select shadow-none" id="timezone" name="timezone">
                                                     <option value="" {{empty(old('timezone')) ? 'selected' : ''}}>Select</option>
                                                     @foreach($timezones as $key => $value)
-                                                        <option value="{{$value}}" {{!empty(old("timezone")) && old("timezone") == $value ? 'selected' : ''}}>{{$value}}</option>
+                                                        <option value="{{$value}}" {{!empty(old("timezone")) && old("timezone") == $value ? 'selected' : ''}}>{{str_replace('_', ' ', strtok($value, ' '))}}</option>
                                                     @endforeach
                                                 </select>
                                                 @error('timezone')

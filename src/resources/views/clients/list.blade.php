@@ -24,6 +24,7 @@
 																																																<th> Name</th>
 																																																<th> Email</th>
 																																																<th> Phone</th>
+																																																<th> Invoice Rate</th>
 																																																{{-- <th> Onsite Billing Rate</th>
 																																																<th> Remote Billing Rate</th>
 																																																<th> Setup Time (minutes)</th> --}}
@@ -48,6 +49,11 @@
 																																																				<td>
 																																																								<div class="d-flex align-items-center">
 																																																												{{ $item->phone }}
+																																																								</div>
+																																																				</td>
+                                                                                                                                                                                                                <td>
+																																																								<div class="d-flex align-items-center">
+																																																												${{ $item->invoice_rate }}
 																																																								</div>
 																																																				</td>
 																																																				{{-- <td>

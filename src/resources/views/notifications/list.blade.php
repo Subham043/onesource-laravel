@@ -34,6 +34,7 @@
                                     <tr>
                                         <th>Label</th>
                                         <th>Schedule</th>
+                                        <th>Time</th>
                                         <th>&nbsp;</th>
                                     </tr>
                                 </thead>
@@ -63,6 +64,11 @@
                                             @elseif($item->recurring_type->value=='Yearly')
                                                 Scheduled every {{$item->recurring_yearly_months->name}}, {{$item->recurring_yearly_days}}
                                             @endif
+                                        </td>
+                                        <td>
+                                            <div class="iq-media-group iq-media-group-1">
+                                                {{$item->recurring_time ? $item->recurring_time->timezone(auth()->user()->timezone ? strtok(auth()->user()->timezone->value, " GMT") : "UTC")->format("h:i a") : ""}}
+                                            </div>
                                         </td>
                                         <td>
 

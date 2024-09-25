@@ -245,6 +245,7 @@
 																																																								</p>
 																																																								<p
 																																																												style="font-size: 15px; line-height: 1.2; mso-line-height-alt: 26px; margin: 0;text-align:left">
+                                                                                                                                                                                                                                                @if(count($data) > 0)
 																																																												<span style="font-size: 15px;">This email is a reminder
 																																																																that you are scheduled for the upcoming assignment(s)
 																																																																below.<br /> If you have questions or need additional
@@ -255,6 +256,9 @@
 																																																																{{ auth()->user()->current_role == "Staff-Admin" ? auth()->user()->member_profile_created_by_auth->phone : auth()->user()->phone }}.
 																																																																<br />Please DO NOT
 																																																																contact the client or customer directly.</span>
+                                                                                                                                                                                                                                                @else
+																																																												<span style="font-size: 15px;">You have no events scheduled today.</span>
+                                                                                                                                                                                                                                                @endif
 																																																								</p>
 																																																				</div>
 																																																</div>
@@ -279,16 +283,28 @@
 																																																																				@foreach ($v->event->event_repeated_date as $r_date)
 																																																																								@if (date("Y-m-d") == date("Y-m-d", strtotime(str_replace("T05:30:00.000Z", "", $r_date))))
 																																																																												<tr style="width: 100%">
-																																																																																<td style="width: 25%">Event date:</td>
+																																																																																<td style="width: 25%">Event start date:</td>
 																																																																																<td>{{ date("M d Y", strtotime(str_replace("T05:30:00.000Z", "", $r_date))) }}
 																																																																																</td>
 																																																																												</tr>
 																																																																								@endif
 																																																																				@endforeach
+                                                                                                                                                                                                                                                                                @if(count($v->event->event_repeated_date)>0)
+                                                                                                                                                                                                                                                                                <tr style="width: 100%">
+																																																																								<td style="width: 25%">Event end date:</td>
+																																																																								<td>{{ $v->event->recurring_end_date->format("M d Y") }}
+																																																																								</td>
+																																																																				</tr>
+                                                                                                                                                                                                                                                                                @endif
 																																																																@else
 																																																																				<tr style="width: 100%">
-																																																																								<td style="width: 25%">Event date:</td>
+																																																																								<td style="width: 25%">Event start date:</td>
 																																																																								<td>{{ $v->event->start_date->format("M d Y") }}
+																																																																								</td>
+																																																																				</tr>
+																																																																				<tr style="width: 100%">
+																																																																								<td style="width: 25%">Event end date:</td>
+																																																																								<td>{{ $v->event->end_date->format("M d Y") }}
 																																																																								</td>
 																																																																				</tr>
 																																																																@endif
@@ -306,6 +322,14 @@
 																																																																<tr style="width: 100%">
 																																																																				<td style="width: 25%">1FUZION:</td>
 																																																																				<td>{{ $v->event->fuzion_id }}</td>
+																																																																</tr>
+                                                                                                                                                                                                                                                                <tr style="width: 100%">
+																																																																				<td style="width: 25%">Is Prep Ready:</td>
+																																																																				<td>{{ $v->is_prep_ready ? "Yes" : "No" }}</td>
+																																																																</tr>
+																																																																<tr style="width: 100%">
+																																																																				<td style="width: 25%">Notes:</td>
+																																																																				<td>{{ $v->notes }}</td>
 																																																																</tr>
 																																																												</table>
 																																																												<hr />

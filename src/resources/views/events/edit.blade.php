@@ -1065,6 +1065,15 @@
 
 								(function($) {
 												$('#client').select2();
+												$('#client').on('input', function() {
+																const data = @json($clients);
+																const event = data.filter((item) => item.id == $(this).val());
+																if (event.length > 0) {
+																				$('#invoice_rate').val(event[0].invoice_rate);
+																} else {
+																	$('#invoice_rate').val('');
+																}
+												});
 												$('.js-example-basic-single').select2();
 												$('.writer-id-input').on('input', function() {
 																const data = @json($writers);

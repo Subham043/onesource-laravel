@@ -26,6 +26,7 @@ class Notification extends Model
      */
     protected $fillable = [
         'label',
+        'recurring_time',
         'recurring_type',
         'recurring_daily_type',
         'recurring_daily_days',
@@ -49,6 +50,7 @@ class Notification extends Model
     protected $casts = [
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
+        'recurring_time' => 'datetime',
         'recurring_daily_days' => 'int',
         'recurring_weekly_weeks' => 'int',
         'recurring_weekly_sunday' => 'boolean',
@@ -68,26 +70,11 @@ class Notification extends Model
         'recurring_monthly_second_type' => RecurringMonthInnerType::class,
     ];
 
-    protected $appends = ['notification_cron_date', 'event_rgb'];
+    protected $appends = ['notification_cron_date'];
 
     public function creator()
     {
         return $this->belongsTo(User::class, 'created_by')->withDefault();
-    }
-
-    protected function getColor() {
-        $hash = md5('color' . $this->id+135); // modify 'color' to get a different palette
-        return
-            hexdec(substr($hash, 0, 2)).','. // r
-            hexdec(substr($hash, 2, 2)).','. // g
-            hexdec(substr($hash, 4, 2)); //b
-    }
-
-    protected function eventRgb(): Attribute
-    {
-        return new Attribute(
-            get: fn () => $this->getColor(),
-        );
     }
 
     protected function isWeekend($date) {

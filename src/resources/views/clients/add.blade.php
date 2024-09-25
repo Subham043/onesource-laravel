@@ -46,6 +46,56 @@
 																																@enderror
 																												</div>
 																								</div>
+                                                                                                <div class="form-group row d-flex">
+																												<label class="control-label col-sm-2 align-self-center mb-0" for="onsite_billing_rate">Invoice Rate : <span data-bs-toggle="tooltip"
+																																				data-bs-original-title="Invocie rate should look like 000.00 (no dollar sign)"><i
+																																								class="icon">
+																																								<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12'
+																																												height='12' fill='none' stroke='currentColor'>
+																																												<circle cx='6' cy='6' r='4.5' />
+																																												<path stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z' />
+																																												<circle cx='6' cy='8.2' r='.6' fill='currentColor'
+																																																stroke='none' />
+																																								</svg>
+																																				</i></span></label>
+																												<div class="col-sm-10">
+																																<input type="text" class="form-control" id="invoice_rate"
+																																				name="invoice_rate" value="{{ old("invoice_rate") }}">
+																																@error("invoice_rate")
+																																				<div class="invalid-message">{{ $message }}</div>
+																																@enderror
+																												</div>
+																								</div>
+																								<div class="form-group row">
+																												<label class="control-label col-sm-2 align-self-center mb-0" for="audio_phone">Audio Phone Number:</label>
+																												<div class="col-sm-10">
+																																<input type="text" class="form-control" id="audio_phone" name="audio_phone"
+																																				value="{{ old("audio_phone") }}">
+																																@error("audio_phone")
+																																				<div class="invalid-message">{{ $message }}</div>
+																																@enderror
+																												</div>
+																								</div>
+																								<div class="form-group row">
+																												<label class="control-label col-sm-2 align-self-center mb-0" for="encoder_phone">Encoder Phone Number:</label>
+																												<div class="col-sm-10">
+																																<input type="text" class="form-control" id="encoder_phone" name="encoder_phone"
+																																				value="{{ old("encoder_phone") }}">
+																																@error("encoder_phone")
+																																				<div class="invalid-message">{{ $message }}</div>
+																																@enderror
+																												</div>
+																								</div>
+																								<div class="form-group row">
+																												<label class="control-label col-sm-2 align-self-center mb-0" for="mic_phone">MC Phone Number:</label>
+																												<div class="col-sm-10">
+																																<input type="text" class="form-control" id="mic_phone" name="mic_phone"
+																																				value="{{ old("mic_phone") }}">
+																																@error("mic_phone")
+																																				<div class="invalid-message">{{ $message }}</div>
+																																@enderror
+																												</div>
+																								</div>
 																								{{-- <div class="form-group row d-flex">
 																												<label class="control-label col-sm-2 align-self-center mb-0" for="onsite_billing_rate">Onsite
 																																Billing Rate : <span data-bs-toggle="tooltip"
@@ -117,6 +167,33 @@
 																																@enderror
 																												</div>
 																								</div>
+																								<div class="form-group row">
+																												<label class="control-label col-sm-2 align-self-center mb-0" for="line_placements">Line Placements:</label>
+																												<div class="col-sm-10">
+																																<textarea class="form-control" name="line_placements" id="line_placements" rows="5">{{ old("line_placements") }}</textarea>
+																																@error("line_placements")
+																																				<div class="invalid-message">{{ $message }}</div>
+																																@enderror
+																												</div>
+																								</div>
+																								<div class="form-group row">
+																												<label class="control-label col-sm-2 align-self-center mb-0" for="notes">Notes:</label>
+																												<div class="col-sm-10">
+																																<textarea class="form-control" name="notes" id="notes" rows="5">{{ old("notes") }}</textarea>
+																																@error("notes")
+																																				<div class="invalid-message">{{ $message }}</div>
+																																@enderror
+																												</div>
+																								</div>
+																								<div class="form-group row">
+																												<label class="control-label col-sm-2 align-self-center mb-0" for="word">Words/Specifics:</label>
+																												<div class="col-sm-10">
+																																<textarea class="form-control" name="word" id="word" rows="5">{{ old("word") }}</textarea>
+																																@error("word")
+																																				<div class="invalid-message">{{ $message }}</div>
+																																@enderror
+																												</div>
+																								</div>
 																								<button type="submit" id="submitBtn" class="btn btn-primary">Create Client</button>
 																								<a href="{{ route("client.paginate.get") }}" class="btn btn-warning" id="submitBtn">Cancel</a>
 																				</div>
@@ -171,10 +248,10 @@
 																rule: 'required',
 																errorMessage: 'Phone is required',
 												}, ])
-												// .addField('#onsite_billing_rate', [{
-												// 																rule: 'required',
-												// 																errorMessage: 'Onsite billing rate is required',
-												// }, ])
+												.addField('#invoice_rate', [{
+                                                    rule: 'required',
+                                                    errorMessage: 'Invoice rate is required',
+												}])
 												// .addField('#remote_billing_rate', [{
 												// 																rule: 'required',
 												// 																errorMessage: 'Remote billing rate is required',
@@ -184,8 +261,8 @@
 												// 																errorMessage: 'Setup time is required',
 												// }, ])
 												.addField('#address', [{
-																rule: 'required',
-																errorMessage: 'Address is required',
+                                                        rule: 'required',
+                                                        errorMessage: 'Address is required',
 												}, ])
 												.onSuccess((event) => {
 																event.target.submit();

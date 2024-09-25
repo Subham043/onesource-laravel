@@ -198,7 +198,14 @@
 																																																				style="padding-right: 25px;padding-left: 25px;">
 																																																				<!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr style="line-height:0px"><td style="padding-right: 25px;padding-left: 25px;" align="left"><![endif]-->
 																																																				<div style="font-size:1px;line-height:25px"> </div>
-																																																				<h3>{{ config("app.name") }}</h3>
+																																																				@if (!empty($template) && $template->logo)
+																																																								<img alt="Image" border="0" class="left fixedwidth"
+																																																												src="{{ $template->logo_link }}"
+																																																												style="text-decoration: none; -ms-interpolation-mode: bicubic; border: 0; height: auto; width: 100%; max-width: 290px; display: block;"
+																																																												title="Image" width="290" />
+																																																				@else
+																																																								<h3>{{ config("app.name") }}</h3>
+																																																				@endif
 																																																				<div style="font-size:1px;line-height:25px"> </div>
 																																																				<!--[if mso]></td></tr></table><![endif]-->
 																																																</div>
@@ -232,98 +239,97 @@
 																																																				<div
 																																																								style="font-size: 12px; line-height: 1.2; font-family: 'Cabin', Arial, 'Helvetica Neue', Helvetica, sans-serif; color: #132F40; mso-line-height-alt: 14px;">
 																																																								<p
-																																																												style="font-size: 22px; line-height: 1.2; mso-line-height-alt: 26px; margin: 0;text-align:center;margin-bottom:10px;">
+																																																												style="font-size: 22px; line-height: 1.2; mso-line-height-alt: 26px; margin: 0;text-align:left;margin-bottom:10px;">
 																																																												<span style="font-size: 22px;">Hi
-																																																																{{ $user->name }},</span>
+																																																																{{ $user["name"] }},</span>
 																																																								</p>
 																																																								<p
-																																																												style="font-size: 15px; line-height: 1.2; mso-line-height-alt: 26px; margin: 0;text-align:center">
+																																																												style="font-size: 15px; line-height: 1.2; mso-line-height-alt: 26px; margin: 0;text-align:left">
+                                                                                                                                                                                                                                                @if(count($data)>0)
 																																																												<span style="font-size: 15px;">This email is a reminder
 																																																																that you are scheduled for the upcoming assignment(s)
-																																																																below that was {{ $type }}.<br /> If you have
-																																																																questions or need additional
-																																																																information PRIOR to the date below, please contact the
-																																																																office at
-																																																																{{ auth()->user()->current_role == "Staff-Admin" ? auth()->user()->member_profile_created_by_auth->email : auth()->user()->email }}
-																																																																or
-																																																																{{ auth()->user()->current_role == "Staff-Admin" ? auth()->user()->member_profile_created_by_auth->phone : auth()->user()->phone }}.
-																																																																<br />Please DO NOT
-																																																																contact the client or customer directly.</span>
+																																																																below.</span>
+                                                                                                                                                                                                                                                @else
+																																																												<span style="font-size: 15px;">You have no events scheduled today.</span>
+                                                                                                                                                                                                                                                @endif
 																																																								</p>
-																																																				</div>
-																																																</div>
-																																																<div
-																																																				style="color:#555555;font-family:'Cabin', Arial, 'Helvetica Neue', Helvetica, sans-serif;line-height:1.5;padding-top:5px;padding-right:10px;padding-bottom:5px;padding-left:10px;">
-																																																				<div
-																																																								style="font-size: 15px; line-height: 1.5; font-family: 'Cabin', Arial, 'Helvetica Neue', Helvetica, sans-serif; color: #555555; mso-line-height-alt: 18px;">
-																																																								<table width="100%" border="0" style="text-align:left">
-																																																												<tr style="width: 100%">
-																																																																<th style="width: 25%">Event ID:</th>
-																																																																<th>{{ $data->id }}</th>
-																																																												</tr>
-																																																												<tr style="width: 100%">
-																																																																<td style="width: 25%">Event name:</td>
-																																																																<td>{{ $data->name }}</td>
-																																																												</tr>
-																																																												@if ($data->is_recurring_event)
-																																																																@foreach ($data->event_repeated_date as $r_date)
-																																																																				@if (date("Y-m-d") == date("Y-m-d", strtotime(str_replace("T05:30:00.000Z", "", $r_date))))
-																																																																								<tr style="width: 100%">
-																																																																												<td style="width: 25%">Event start date:</td>
-																																																																												<td>{{ date("M d Y", strtotime(str_replace("T05:30:00.000Z", "", $r_date))) }}
-																																																																												</td>
-																																																																								</tr>
-																																																																				@endif
-																																																																@endforeach
-                                                                                                                                                                                                                                                                @if (count($data->event_repeated_date)>0)
-                                                                                                                                                                                                                                                                <tr style="width: 100%">
-																																																																				<td style="width: 25%">Event end date:</td>
-																																																																				<td>{{ $data->recurring_end_date->format("M d Y") }}
-																																																																				</td>
-																																																																</tr>
-                                                                                                                                                                                                                                                                @endif
-																																																												@else
-																																																																<tr style="width: 100%">
-																																																																				<td style="width: 25%">Event start date:</td>
-																																																																				<td>{{ $data->start_date->format("M d Y") }}
-																																																																				</td>
-																																																																</tr>
-																																																																<tr style="width: 100%">
-																																																																				<td style="width: 25%">Event end date:</td>
-																																																																				<td>{{ $data->end_date->format("M d Y") }}
-																																																																				</td>
-																																																																</tr>
-																																																												@endif
-
-																																																												<tr style="width: 100%">
-																																																																<td style="width: 25%">Event Start Time:</td>
-																																																																<td>{{ $data->start_time->timezone(auth()->user()->timezone ? strtok(auth()->user()->timezone->value, " GMT") : "UTC")->format("h:i a") }}
-																																																																</td>
-																																																												</tr>
-																																																												<tr style="width: 100%">
-																																																																<td style="width: 25%">Event End Time:</td>
-																																																																<td>{{ $data->end_time->timezone(auth()->user()->timezone ? strtok(auth()->user()->timezone->value, " GMT") : "UTC")->format("h:i a") }}
-																																																																</td>
-																																																												</tr>
-																																																												<tr style="width: 100%">
-																																																																<td style="width: 25%">1FUZION:</td>
-																																																																<td>{{ $data->fuzion_id }}</td>
-																																																												</tr>
-                                                                                                                                                                                                                                                <tr style="width: 100%">
-                                                                                                                                                                                                                                                                <td style="width: 25%">Is Prep Ready:</td>
-                                                                                                                                                                                                                                                                <td>{{ $data->is_prep_ready ? "Yes" : "No" }}</td>
-                                                                                                                                                                                                                                                </tr>
-                                                                                                                                                                                                                                                <tr style="width: 100%">
-                                                                                                                                                                                                                                                                <td style="width: 25%">Notes:</td>
-                                                                                                                                                                                                                                                                <td>{{ $data->notes }}</td>
-                                                                                                                                                                                                                                                </tr>
-																																																								</table>
-																																																								<hr />
-																																																								<br />
 																																																				</div>
 																																																</div>
 																																																<!--[if mso]></td></tr></table><![endif]-->
 																																																<!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top: 5px; padding-bottom: 30px; font-family: Arial, sans-serif"><![endif]-->
+																																																<div
+																																																				style="color:#555555;font-family:'Cabin', Arial, 'Helvetica Neue', Helvetica, sans-serif;line-height:1.5;padding-top:5px;padding-right:10px;padding-bottom:5px;padding-left:10px;">
+																																																				<div
+																																																								style="font-size: 15px; line-height: 1.5; font-family: 'Cabin', Arial, 'Helvetica Neue', Helvetica, sans-serif; color: #555555; mso-line-height-alt: 18px;">
+																																																								@foreach ($data as $k => $v)
+																																																												<table width="100%" border="0"
+																																																																style="text-align:left">
+																																																																<tr style="width: 100%">
+																																																																				<th style="width: 25%">Event Id</th>
+																																																																				<th>{{ $v->id }}</th>
+																																																																</tr>
+																																																																<tr style="width: 100%">
+																																																																				<td style="width: 25%">Event name</td>
+																																																																				<td>{{ $v->name }}</td>
+																																																																</tr>
+																																																																@if ($v->is_recurring_event)
+																																																																				@foreach ($v->event_repeated_date as $r_date)
+																																																																								@if (date("Y-m-d") == date("Y-m-d", strtotime(str_replace("T05:30:00.000Z", "", $r_date))))
+																																																																												<tr style="width: 100%">
+																																																																																<td style="width: 25%">Event start date:</td>
+																																																																																<td>{{ date("M d Y", strtotime(str_replace("T05:30:00.000Z", "", $r_date))) }}
+																																																																																</td>
+																																																																												</tr>
+																																																																								@endif
+																																																																				@endforeach
+                                                                                                                                                                                                                                                                                @if(count($v->event_repeated_date)>0)
+                                                                                                                                                                                                                                                                                <tr style="width: 100%">
+																																																																								<td style="width: 25%">Event end date:</td>
+																																																																								<td>{{ $v->recurring_end_date->format("M d Y") }}
+																																																																								</td>
+																																																																				</tr>
+                                                                                                                                                                                                                                                                                @endif
+																																																																@else
+																																																																				<tr style="width: 100%">
+																																																																								<td style="width: 25%">Event start date:</td>
+																																																																								<td>{{ $v->start_date->format("M d Y") }}
+																																																																								</td>
+																																																																				</tr>
+																																																																				<tr style="width: 100%">
+																																																																								<td style="width: 25%">Event end date:</td>
+																																																																								<td>{{ $v->end_date->format("M d Y") }}
+																																																																								</td>
+																																																																				</tr>
+																																																																@endif
+
+																																																																<tr style="width: 100%">
+																																																																				<td style="width: 25%">Event Start Time:</td>
+																																																																				<td>{{ $v->start_time->timezone($user->timezone ? strtok($user->timezone->value, " GMT") : "UTC")->format("h:i a") }}
+																																																																				</td>
+																																																																</tr>
+																																																																<tr style="width: 100%">
+																																																																				<td style="width: 25%">Event End Time:</td>
+																																																																				<td>{{ $v->end_time->timezone($user->timezone ? strtok($user->timezone->value, " GMT") : "UTC")->format("h:i a") }}
+																																																																				</td>
+																																																																</tr>
+																																																																<tr style="width: 100%">
+																																																																				<td style="width: 25%">1FUZION:</td>
+																																																																				<td>{{ $v->fuzion_id }}</td>
+																																																																</tr>
+																																																																<tr style="width: 100%">
+																																																																				<td style="width: 25%">Is Prep Ready:</td>
+																																																																				<td>{{ $v->is_prep_ready ? "Yes" : "No" }}</td>
+																																																																</tr>
+																																																																<tr style="width: 100%">
+																																																																				<td style="width: 25%">Notes:</td>
+																																																																				<td>{{ $v->notes }}</td>
+																																																																</tr>
+																																																												</table>
+																																																												<hr />
+																																																												<br />
+																																																								@endforeach
+																																																				</div>
+																																																</div>
 																																																<!--[if mso]></td></tr></table><![endif]-->
 																																																<div align="center" class="img-container center fixedwidth"
 																																																				style="padding-right: 0px;padding-left: 0px;">
@@ -360,13 +366,17 @@
 																																																				style="color:#F8F8F8;font-family:'Cabin', Arial, 'Helvetica Neue', Helvetica, sans-serif;line-height:1.2;padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:10px;">
 																																																				<div
 																																																								style="font-size: 12px; line-height: 1.2; font-family: 'Cabin', Arial, 'Helvetica Neue', Helvetica, sans-serif; color: #F8F8F8; mso-line-height-alt: 14px;text-align:center">
-																																																								<p
-																																																												style="font-size: 14px; line-height: 1.2; mso-line-height-alt: 17px; margin: 0; font-weight:700; letter-spacing:1px;">
-																																																												© {{ date("Y") }} <a
-																																																																href="{{ config("app.frontend_url") }}"
-																																																																style="color: white;"> {{ config("app.name") }}
-																																																												</a>&nbsp; All rights
-																																																												reserved.</p>
+																																																								@if (!empty($template) && $template->footer)
+																																																												{!! $template->footer !!}
+																																																								@else
+																																																												<p
+																																																																style="font-size: 14px; line-height: 1.2; mso-line-height-alt: 17px; margin: 0; font-weight:700; letter-spacing:1px;">
+																																																																© {{ date("Y") }} <a
+																																																																				href="{{ config("app.frontend_url") }}"
+																																																																				style="color: white;"> {{ config("app.name") }}
+																																																																</a>&nbsp; All rights
+																																																																reserved.</p>
+																																																								@endif
 																																																				</div>
 																																																</div>
 																																																<!--[if mso]></td></tr></table><![endif]-->

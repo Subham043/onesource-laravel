@@ -21,17 +21,20 @@ class Client extends Model
         'name',
         'email',
         'phone',
-        'onsite_billing_rate',
-        'remote_billing_rate',
-        'setup_time',
+        'audio_phone',
+        'encoder_phone',
+        'mic_phone',
         'address',
+        'notes',
+        'line_placements',
+        'word',
+        'invoice_rate',
         'created_by',
     ];
 
     protected $casts = [
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
-        'setup_time' => 'int',
     ];
 
     public function user()

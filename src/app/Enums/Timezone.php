@@ -429,6 +429,47 @@ enum Timezone: string
     case Tongatapu = 'Pacific/Tongatapu GMT+13:00';
     case Kiritimati = 'Pacific/Kiritimati GMT+14:00';
 
+
+
+    // case Scoresbysund = 'America/Scoresbysund GMT-1:00';
+    // case Asia_Almaty = 'Asia/Almaty GMT+6:00';
+    // case Asia_Baghdad = 'Asia/Baghdad GMT+3:00';
+    // case Asia_Bangkok = 'Asia/Bangkok GMT+7:00';
+    // case Asia_Calcutta = 'Asia/Calcutta GMT+5:30';
+    // case Asia_Kabul = 'Asia/Kabul GMT+4:30';
+    // case Asia_Karachi = 'Asia/Karachi GMT+5:00';
+    // case Asia_Kathmandu = 'Asia/Kathmandu GMT+5:45';
+    // case Asia_Magadan = 'Asia/Magadan GMT+11:00';
+    // case Asia_Muscat = 'Asia/Muscat GMT+4:00';
+    // case Asia_Singapore = 'Asia/Singapore GMT+8:00';
+    // case Asia_Tehran = 'Asia/Tehran GMT+3:30';
+    // case Asia_Tokyo = 'Asia/Tokyo GMT+9:00';
+    // case Atlantic_Cape_Verde = 'Atlantic/Cape_Verde GMT-1:00';
+    // case Australia_Adelaide = 'Australia/Adelaide GMT+9:30';
+    // case Australia_Brisbane = 'Australia/Brisbane GMT+10:00';
+    // case Australia_Canberra = 'Australia/Canberra GMT+10:00';
+    // case Australia_Darwin = 'Australia/Darwin GMT+9:30';
+    // case Australia_Melbourne = 'Australia/Melbourne GMT+10:00';
+    // case Australia_Perth = 'Australia/Perth GMT+8:00';
+    // case Australia_Sydney = 'Australia/Sydney GMT+10:00';
+    // case Brazil_West = 'Brazil/West GMT-3:00';
+    // case Canada_Atlantic = 'Canada/Atlantic GMT-3:00';
+    // case Canada_Newfoundland = 'Canada/Newfoundland GMT-3:30';
+    // case Europe_Brussels = 'Europe/Brussels GMT+1:00';
+    // case Europe_Kaliningrad = 'Europe/Kaliningrad GMT+2:00';
+    // case Europe_London = 'Europe/London GMT+0:00';
+    // case Auckland = 'Pacific/Auckland GMT+12:00';
+    // case Guam = 'Pacific/Guam GMT+10:00';
+    // case Kwajalein = 'Pacific/Kwajalein GMT+12:00';
+    // case Samoa = 'Pacific/Samoa GMT+11:00';
+    // case US_Alaska = 'US/Alaska GMT-9:00';
+    // case US_Arizona = 'US/Arizona GMT-7:00';
+    // case US_Central = 'US/Central GMT-6:00';
+    // case US_Eastern = 'US/Eastern GMT-5:00';
+    // case US_Hawaii = 'US/Hawaii GMT-10:00';
+    // case US_Mountain = 'US/Mountain GMT-7:00';
+    // case US_Pacific = 'US/Pacific GMT-8:00';
+
     public function getTimezoneName(): string
     {
         return substr($this->value, 0, strpos($this->value, " "));

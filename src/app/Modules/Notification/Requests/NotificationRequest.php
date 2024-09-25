@@ -35,6 +35,8 @@ class NotificationRequest extends FormRequest
         return [
             'label' => 'required|string|max:500',
 
+            'recurring_time' => ['required', 'string'],
+
             //recurring type
             'recurring_type' => ['required', new Enum(RecurringType::class)],
 

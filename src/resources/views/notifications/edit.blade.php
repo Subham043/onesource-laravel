@@ -30,6 +30,12 @@
                         </div>
                     </div>
                     <div class="form-group row">
+                        <label class="control-label col-sm-2 align-self-center mb-0" for="recurring_time">Reccuring Time:</label>
+                        <div class="col-sm-10">
+                            <input type="time" class="form-control" id="recurring_time" name="recurring_time" value="{{$notification->recurring_time ? $notification->recurring_time->timezone(auth()->user()->timezone ? strtok(auth()->user()->timezone->value, " GMT") : "UTC")->format("H:i") : ""}}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <label class="control-label col-sm-2 align-self-center mb-0" for="">Recurring Type:</label>
                         <div class="col-sm-10">
                             <div id="recurring-error"></div>
@@ -202,6 +208,12 @@ validation
       errorMessage: 'Label is required',
     },
   ])
+  .addField('#recurring_time', [
+    {
+      rule: 'required',
+      errorMessage: 'Recurring Time is required',
+    },
+  ])
   .addField('#recurring_type_weekly', [
     {
         validator: (value, fields) => true
@@ -217,6 +229,7 @@ validation
     try {
         var formData = new FormData();
         formData.append('label',document.getElementById('label').value)
+        formData.append('recurring_time',document.getElementById('recurring_time').value)
         if(document.querySelector('input[name="recurring_type"]:checked')){
             formData.append('recurring_type',document.querySelector('input[name="recurring_type"]:checked').value)
             if(document.querySelector('input[name="recurring_type"]:checked').value=="Daily"){
@@ -258,6 +271,9 @@ validation
     }catch (error){
         if(error?.response?.data?.errors?.label){
             validation.showErrors({'#label': error?.response?.data?.errors?.label[0]})
+        }
+        if(error?.response?.data?.errors?.recurring_time){
+            validation.showErrors({'#recurring_time': error?.response?.data?.errors?.recurring_time[0]})
         }
         if(error?.response?.data?.errors?.recurring_daily_type){
             validation.showErrors({'#recurring_type_weekly': error?.response?.data?.errors?.recurring_daily_type[0]})

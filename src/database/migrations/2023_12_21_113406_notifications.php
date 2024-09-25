@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('notifications', function (Blueprint $table) {
             $table->id();
             $table->string('label', 500)->nullable();
+            $table->string('recurring_time', 500)->nullable();
             $table->string('recurring_type', 500)->nullable();
             $table->string('recurring_daily_type', 500)->nullable();
             $table->string('recurring_daily_days', 500)->nullable();
@@ -44,3 +45,5 @@ return new class extends Migration
         Schema::dropIfExists('notifications');
     }
 };
+
+//ALTER TABLE `notifications` ADD `recurring_time` VARCHAR(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL AFTER `label`;

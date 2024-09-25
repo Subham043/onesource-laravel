@@ -70,10 +70,14 @@ class CommonFilter implements Filter
             $qr->where('name', 'LIKE', '%' . $value . '%')
             ->orWhere('email', 'LIKE', '%' . $value . '%')
             ->orWhere('phone', 'LIKE', '%' . $value . '%')
-            ->orWhere('onsite_billing_rate', 'LIKE', '%' . $value . '%')
-            ->orWhere('remote_billing_rate', 'LIKE', '%' . $value . '%')
-            ->orWhere('setup_time', 'LIKE', '%' . $value . '%')
-            ->orWhere('address', 'LIKE', '%' . $value . '%');
+            ->orWhere('audio_phone', 'LIKE', '%' . $value . '%')
+            ->orWhere('encoder_phone', 'LIKE', '%' . $value . '%')
+            ->orWhere('mic_phone', 'LIKE', '%' . $value . '%')
+            ->orWhere('invoice_rate', 'LIKE', '%' . $value . '%')
+            ->orWhere('address', 'LIKE', '%' . $value . '%')
+            ->orWhere('line_placements', 'LIKE', '%' . $value . '%')
+            ->orWhere('word', 'LIKE', '%' . $value . '%')
+            ->orWhere('notes', 'LIKE', '%' . $value . '%');
         })->where('name', 'LIKE', '%' . $value . '%');
     }
 }

@@ -7,11 +7,14 @@ use App\Modules\Event\Models\Event;
 use App\Modules\Notification\Jobs\SingleClientNotificationJob;
 use App\Modules\Notification\Models\Notification;
 use App\Modules\Notification\Models\NotificationLog;
-use App\Modules\Notification\Models\Template;
 use Carbon\Carbon;
 
 class CronService
 {
+
+    protected function convertToDateTime($date, $time) {
+        return Carbon::createFromFormat('M d Y h:i a', $date . ' ' . $time);
+    }
 
     public function __invoke()
     {
@@ -23,41 +26,41 @@ class CronService
             $qry->where('name', 'Admin');
         })->get();
         foreach ($admins as $key => $value) {
-            $template = Template::where('created_by', $value->id)->first();
-            $users = User::with([
-                'roles' => function($qry){
-                    $qry->whereIn('name', ['Writer', 'Client']);
-                },
-                'cron_member_profile_created_by_auth' => function($query) use($value){
-                    $query->with(['tools', 'client'])->where('created_by', $value->id);
-                },
-            ])->whereHas('roles', function($qry){
-                $qry->whereIn('name', ['Writer', 'Client']);
-            })->whereHas('cron_member_profile_created_by_auth', function($qry) use($value){
-                $qry->with(['tools', 'client'])->where('created_by', $value->id);
-            })->get();
             $notifications = Notification::where('created_by', $value->id)->latest()->get();
-            if($notifications->count()>0){
-                foreach ($users as $user) {
-                    if($user->current_role=='Writer'){
-                        $this->sendWriterNotification($user, $template);
+            foreach ($notifications as $notification) {
+                $assigned_time = $this->convertToDateTime(now()->format("M d Y"), $notification->recurring_time->timezone($value->timezone ? strtok($value->timezone->value, " GMT") : "UTC")->format("h:i a"));
+                $now_time = $this->convertToDateTime(now()->format("M d Y"), now()->timezone($value->timezone ? strtok($value->timezone->value, " GMT") : "UTC")->format("h:i a"));
+                if(count($notification->notification_cron_date)>0 && $assigned_time==$now_time){
+                    $users = User::with([
+                        'roles' => function($qry){
+                            $qry->whereIn('name', ['Writer', 'Client']);
+                        },
+                        'cron_member_profile_created_by_auth' => function($query) use($value){
+                            $query->with(['tools', 'client'])->where('created_by', $value->id);
+                        },
+                    ])->whereHas('roles', function($qry){
+                        $qry->whereIn('name', ['Writer', 'Client']);
+                    })->whereHas('cron_member_profile_created_by_auth', function($qry) use($value){
+                        $qry->with(['tools', 'client'])->where('created_by', $value->id);
+                    })->get();
+                    foreach ($users as $user) {
+                        if($user->current_role=='Writer'){
+                            $this->sendWriterNotification($user);
+                        }
+                        else{
+                            $this->sendClientNotification($user);
+                        }
                     }
-                    else{
-                        $this->sendClientNotification($user, $template);
-                    }
-                }
-                foreach ($notifications as $notification) {
                     NotificationLog::create([
                         'log' => $notification->label,
                         'created_by' => $notification->created_by
                     ]);
                 }
             }
-
         }
     }
 
-    public function sendWriterNotification($user, $template)
+    public function sendWriterNotification($user)
     {
         $data = Event::with([
             'writers'=> function($qry) use($user){
@@ -77,13 +80,13 @@ class CronService
             return (in_array(Carbon::today()->format('Y-m-d')."T05:30:00.000Z", $item->event_repeated_date));
          });
 
-        if($new_data->count()>0 && $template){
-            dispatch(new SingleClientNotificationJob($user, $new_data, $template));
+        if($new_data->count()>0){
+            dispatch(new SingleClientNotificationJob($user, $new_data));
         }
 
     }
 
-    public function sendClientNotification($user, $template)
+    public function sendClientNotification($user)
     {
         $data = Event::with([
             'client'=> function($qry) use($user){
@@ -103,8 +106,8 @@ class CronService
             return (in_array(Carbon::today()->format('Y-m-d')."T05:30:00.000Z", $item->event_repeated_date));
          });
 
-        if($new_data->count()>0 && $template){
-            dispatch(new SingleClientNotificationJob($user, $new_data, $template));
+        if($new_data->count()>0){
+            dispatch(new SingleClientNotificationJob($user, $new_data));
         }
 
     }

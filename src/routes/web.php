@@ -44,6 +44,8 @@ use App\Modules\Notification\Controllers\NotificationPaginateController;
 use App\Modules\Notification\Controllers\NotificationSendController;
 use App\Modules\Notification\Controllers\NotificationTemplateController;
 use App\Modules\Notification\Controllers\NotificationUpdateController;
+use App\Modules\Policy\PrivacyController;
+use App\Modules\Policy\TermsController;
 use App\Modules\Report\Conflict\Controllers\ConflictPrintController;
 use App\Modules\Report\Conflict\Controllers\ConflictViewController;
 use App\Modules\Report\Controllers\ReportViewController;
@@ -91,6 +93,9 @@ Route::middleware(['guest'])->group(function () {
 });
 
 Route::get('/logout', [LogoutController::class, 'get', 'as' => 'logout.get'])->middleware(['auth'])->name('logout.get');
+
+Route::get('/privacy-policy', [PrivacyController::class, 'get', 'as' => 'privacy.get'])->name('privacy.get');
+Route::get('/terms-and-conditions', [TermsController::class, 'get', 'as' => 'terms.get'])->name('terms.get');
 
 Route::prefix('/email/verify')->middleware(['auth'])->group(function () {
     Route::get('/', [VerifyRegisteredUserController::class, 'index', 'as' => 'index'])->name('verification.notice');

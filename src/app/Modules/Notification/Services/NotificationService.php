@@ -63,6 +63,7 @@ class NotificationService
             [
                 ...$request->safe()->only([
                     'label',
+                    'recurring_time',
                     'recurring_type',
                     'recurring_daily_type',
                     'recurring_daily_days',
@@ -93,6 +94,7 @@ class NotificationService
             [
                 ...$request->safe()->only([
                     'label',
+                    'recurring_time',
                     'recurring_type',
                     'recurring_daily_type',
                     'recurring_daily_days',

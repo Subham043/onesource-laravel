@@ -30,10 +30,17 @@ class ClientRequest extends FormRequest
             'name' => 'required|string|max:500',
             'email' => ['required','email:rfc,dns'],
             'phone' => ['required','regex:/(^[0-9 \+\-\(\)]+$)+/'],
+            'audio_phone' => ['nullable','regex:/(^[0-9 \+\-\(\)]+$)+/'],
+            'encoder_phone' => ['nullable','regex:/(^[0-9 \+\-\(\)]+$)+/'],
+            'mic_phone' => ['nullable','regex:/(^[0-9 \+\-\(\)]+$)+/'],
+            'invoice_rate' => ['required', 'numeric', 'gte:0'],
             // 'onsite_billing_rate' => ['required', 'numeric', 'gte:0'],
             // 'remote_billing_rate' => ['required', 'numeric', 'gte:0'],
             // 'setup_time' => ['required', 'numeric', 'gte:0'],
             'address' => 'required|string',
+            'notes' => 'nullable|string',
+            'line_placements' => 'nullable|string',
+            'word' => 'nullable|string',
         ];
     }
 
