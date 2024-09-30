@@ -3,6 +3,8 @@
 namespace App\Modules\Client\Services;
 
 use App\Modules\Client\Models\Client;
+use App\Modules\Client\Models\ClientDocument;
+use App\Modules\Client\Requests\ClientRequest;
 use Illuminate\Database\Eloquent\Collection;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\Filters\Filter;
@@ -38,7 +40,7 @@ class ClientService
 
     public function getById(Int $id): Client|null
     {
-        return Client::where('created_by', auth()->user()->current_role=='Staff-Admin' ? auth()->user()->member_profile_created_by_auth->created_by : auth()->user()->id)->findOrFail($id);
+        return Client::with('documents')->where('created_by', auth()->user()->current_role=='Staff-Admin' ? auth()->user()->member_profile_created_by_auth->created_by : auth()->user()->id)->findOrFail($id);
     }
 
     public function create(array $data): Client
@@ -53,6 +55,23 @@ class ClientService
     {
         $client->update($data);
         return $client;
+    }
+
+    public function saveDocument(ClientRequest $request, Int $client_id)
+    {
+        if($request->file('documents')){
+            foreach ($request->file('documents') as $documentfile) {
+                if($documentfile->isValid()){
+                    $file = $documentfile->hashName();
+                    $documentfile->storeAs((new ClientDocument)->document_path,$file);
+                    ClientDocument::create([
+                        'document' => $file,
+                        'client_id' => $client_id,
+                        'created_by' => auth()->user()->current_role=='Staff-Admin' ? auth()->user()->member_profile_created_by_auth->created_by : auth()->user()->id,
+                    ]);
+                }
+            }
+        }
     }
 
     public function delete(Client $client): bool|null

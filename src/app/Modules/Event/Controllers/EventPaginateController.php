@@ -21,7 +21,8 @@ class EventPaginateController extends Controller
         $data = $this->eventService->paginate($request->total ?? 10);
         return view('events.list', compact(['data']))->with([
             'page_name' => 'Event',
-            'notifications' => DocumentNotification::filterByRoles()->latest()->limit(4)->get()
+            'notifications' => DocumentNotification::filterByRoles()->latest()->limit(4)->get(),
+            'status' => $request->query('filter')['status'] ?? ''
         ])
         ->with('search', $request->query('filter')['search'] ?? '');
     }

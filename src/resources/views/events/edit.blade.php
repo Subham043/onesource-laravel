@@ -87,7 +87,7 @@
 																																				value="{{ $event->start_time ? $event->start_time->timezone(auth()->user()->timezone ? strtok(auth()->user()->timezone->value, " GMT") : "UTC")->format("H:i") : "" }}">
 																												</div>
 																								</div>
-																								<div class="form-group row {{ $event->is_recurring_event ? "d-none" : "d-flex" }}">
+																								<div class="form-group row">
 																												<label class="control-label col-sm-2 align-self-center mb-0" for="end_date">End Date:</label>
 																												<div class="col-sm-3">
 																																<input type="date" class="form-control" id="end_date" name="end_date"

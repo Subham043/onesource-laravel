@@ -31,12 +31,13 @@ class ClientUpdateController extends Controller
         try {
             //code...
             $this->clientService->update(
-                $request->validated(),
+                $request->except('documents'),
                 $client
             );
-            return redirect()->intended(route('client.paginate.get'))->with('success_status', 'Client updated successfully.');
+            $this->clientService->saveDocument($request, $client->id);
+            return response()->json(["message" => "Client updated successfully."], 200);
         } catch (\Throwable $th) {
-            return redirect()->intended(route('client.update.get', $client->id))->with('error_status', 'Something went wrong. Please try again');
+            return response()->json(["message" => "Something went wrong. Please try again."], 400);
         }
     }
 }

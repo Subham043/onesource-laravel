@@ -46,7 +46,7 @@ class EventService
             $query->whereDate('start_date', today());
         }
         return QueryBuilder::for($query)
-                ->defaultSort('start_date', 'start_time')
+                ->defaultSort('-start_date', '-start_time')
                 ->allowedSorts([
                     'start_date',
                     'start_time',
@@ -55,6 +55,28 @@ class EventService
                 ])
                 ->allowedFilters([
                     AllowedFilter::custom('search', new CommonFilter),
+                    AllowedFilter::callback('status', function (Builder $qr, $value) {
+                        if($value == 'upcoming'){
+                            $qr->where(function($q){
+                                $q->where(function($q){
+                                    $q->where('start_date', '<=', today())->where('end_date', '>=', today());
+                                })->orWhere(function($q){
+                                    $q->where('start_date', '<=', today())->where('recurring_end_date', '>=', today());
+                                });
+                            });
+
+                        }
+                        if($value == 'archived'){
+                            $qr->where(function($q){
+                                $q->where(function($q){
+                                    $q->where('end_date', '<', today());
+                                })->orWhere(function($q){
+                                    $q->where('recurring_end_date', '<', today());
+                                });
+                            });
+
+                        }
+                    }),
                 ])
                 ->paginate($total)
                 ->appends(request()->query());

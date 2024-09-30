@@ -12,6 +12,7 @@ use App\Modules\Calendar\Controllers\CalendarPrintController;
 use App\Modules\Calendar\Controllers\CalendarViewController;
 use App\Modules\Client\Controllers\ClientCreateController;
 use App\Modules\Client\Controllers\ClientDeleteController;
+use App\Modules\Client\Controllers\ClientDocumentDeleteController;
 use App\Modules\Client\Controllers\ClientPaginateController;
 use App\Modules\Client\Controllers\ClientUpdateController;
 use App\Modules\Client\Controllers\ClientViewController;
@@ -153,6 +154,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/update/{id}', [ClientUpdateController::class, 'post', 'as' => 'client.update.get'])->name('client.update.post');
         Route::get('/view/{id}', [ClientViewController::class, 'get', 'as' => 'client.view.get'])->name('client.view.get');
         Route::get('/delete/{id}', [ClientDeleteController::class, 'get', 'as' => 'client.delete.get'])->name('client.delete.get');
+        Route::get('/delete-document/{id}', [ClientDocumentDeleteController::class, 'get', 'as' => 'client.document.delete'])->name('client.document.delete');
     });
 
     Route::prefix('/search')->group(function () {

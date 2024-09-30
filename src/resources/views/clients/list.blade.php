@@ -38,7 +38,7 @@
 																																																				<td>
 																																																								<div class="d-flex align-items-center">
 																																																												<a
-																																																																href="{{ route("user.view.get", 1) }}">{{ $item->name }}</a>
+																																																																href="{{ route("client.view.get", $item->id) }}">{{ $item->name }}</a>
 																																																								</div>
 																																																				</td>
 																																																				<td>

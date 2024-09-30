@@ -27,12 +27,13 @@ class ClientCreateController extends Controller
     public function post(ClientRequest $request){
         try {
             //code...
-            $this->clientService->create(
-                $request->validated(),
+            $client = $this->clientService->create(
+                $request->except('documents'),
             );
-            return redirect()->intended(route('client.paginate.get'))->with('success_status', 'Client created successfully.');
+            $this->clientService->saveDocument($request, $client->id);
+            return response()->json(["message" => "Client created successfully."], 201);
         } catch (\Throwable $th) {
-            return redirect()->intended(route('client.create.get'))->with('error_status', 'Something went wrong. Please try again');
+            return response()->json(["message" => "Something went wrong. Please try again."], 400);
         }
     }
 }

@@ -285,7 +285,7 @@
                                                                                                                                                                                                                                                                                 @if(count($v->event_repeated_date)>0)
                                                                                                                                                                                                                                                                                 <tr style="width: 100%">
 																																																																								<td style="width: 25%">Event end date:</td>
-																																																																								<td>{{ $v->recurring_end_date->format("M d Y") }}
+																																																																								<td>{{ $v->end_date->format("M d Y") }}
 																																																																								</td>
 																																																																				</tr>
                                                                                                                                                                                                                                                                                 @endif

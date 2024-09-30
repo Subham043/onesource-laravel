@@ -10,7 +10,7 @@
 																												<div class="header-title d-flex align-items-center gap-2">
 																																<h4 class="card-title mb-0">Events</h4>
 																																<form method="GET" action="{{ route("event.paginate.get") }}" id='sort-form'
-																																				class="col-auto">
+																																				class="col-auto d-flex gap-2">
 																																				<select class="form-select shadow-none" id="sort" name="sort">
 																																								<option value="" {{ empty(request()->query("sort")) ? "selected" : "" }}>Sort
 																																												By</option>
@@ -38,6 +38,13 @@
 																																												{{ request()->query("sort") == "start_time" ? "selected" : "" }}>Event
 																																												Time:Oldest
 																																								</option>
+																																				</select>
+																																				<select class="form-select shadow-none" id="status" name="filter[status]">
+																																								<option value="" {{ empty($status) || $status == "all" ? "selected" : "" }}>All</option>
+																																								<option value="upcoming" {{ $status == "upcoming" ? "selected" : "" }}>
+																																												Upcoming</option>
+																																								<option value="archived" {{ $status == "archived" ? "selected" : "" }}>
+																																												Archived</option>
 																																				</select>
 																																</form>
 																																{{-- <form method="GET" action="{{ route("event.paginate.get") }}" id='total-form'
@@ -262,6 +269,9 @@
 @section("javascript")
 				<script type="text/javascript" nonce="{{ csp_nonce() }}">
 								document.getElementById('sort').addEventListener('change', function() {
+												document.getElementById('sort-form').submit();
+								});
+								document.getElementById('status').addEventListener('change', function() {
 												document.getElementById('sort-form').submit();
 								});
 								// document.getElementById('total').addEventListener('change', function() {

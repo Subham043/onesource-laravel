@@ -41,4 +41,9 @@ class Client extends Model
     {
         return $this->belongsTo(User::class, 'created_by')->withDefault();
     }
+
+    public function documents()
+    {
+        return $this->hasMany(ClientDocument::class, 'client_id');
+    }
 }

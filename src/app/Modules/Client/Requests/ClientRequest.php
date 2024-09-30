@@ -41,6 +41,8 @@ class ClientRequest extends FormRequest
             'notes' => 'nullable|string',
             'line_placements' => 'nullable|string',
             'word' => 'nullable|string',
+            'documents' => ['nullable', 'array', 'min:1'],
+            'documents.*' => 'required|mimes:pdf,doc,docx,dot,xls,xlsx,ppt,pptx,pps,jpg,jpeg,png,webp,rtf,text|max:5000',
         ];
     }
 

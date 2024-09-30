@@ -2,6 +2,8 @@
 
 @section("css")
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@24.5.0/build/css/intlTelInput.css" type="text/css" />
+				<link rel="stylesheet" href="{{ asset("assets/css/filepond.min.css") }}" type="text/css" />
+				<link rel="stylesheet" href="{{ asset("assets/css/filepond-plugin-image-preview.min.css") }}" type="text/css" />
 @stop
 
 @section("content")
@@ -21,9 +23,6 @@
 																												<div class="col-sm-10">
 																																<input type="text" class="form-control" id="name" name="name"
 																																				value="{{ $data->name }}">
-																																@error("name")
-																																				<div class="invalid-message">{{ $message }}</div>
-																																@enderror
 																												</div>
 																								</div>
 																								<div class="form-group row">
@@ -31,9 +30,6 @@
 																												<div class="col-sm-10">
 																																<input type="text" class="form-control" id="email" name="email"
 																																				value="{{ $data->email }}">
-																																@error("email")
-																																				<div class="invalid-message">{{ $message }}</div>
-																																@enderror
 																												</div>
 																								</div>
 																								<div class="form-group row">
@@ -41,9 +37,6 @@
 																												<div class="col-sm-10">
 																																<input type="text" class="form-control" id="phone" name="phone"
 																																				value="{{ $data->phone }}">
-																																@error("phone")
-																																				<div class="invalid-message">{{ $message }}</div>
-																																@enderror
 																												</div>
 																								</div>
                                                                                                 <div class="form-group row">
@@ -61,9 +54,6 @@
 																												<div class="col-sm-10">
 																																<input type="text" class="form-control" id="invoice_rate"
 																																				name="invoice_rate" value="{{ $data->invoice_rate }}">
-																																@error("invoice_rate")
-																																				<div class="invalid-message">{{ $message }}</div>
-																																@enderror
 																												</div>
 																								</div>
 																								<div class="form-group row">
@@ -71,9 +61,6 @@
 																												<div class="col-sm-10">
 																																<input type="text" class="form-control" id="audio_phone" name="audio_phone"
 																																				value="{{ $data->audio_phone }}">
-																																@error("audio_phone")
-																																				<div class="invalid-message">{{ $message }}</div>
-																																@enderror
 																												</div>
 																								</div>
 																								<div class="form-group row">
@@ -81,9 +68,6 @@
 																												<div class="col-sm-10">
 																																<input type="text" class="form-control" id="encoder_phone" name="encoder_phone"
 																																				value="{{ $data->encoder_phone }}">
-																																@error("encoder_phone")
-																																				<div class="invalid-message">{{ $message }}</div>
-																																@enderror
 																												</div>
 																								</div>
 																								<div class="form-group row">
@@ -91,9 +75,6 @@
 																												<div class="col-sm-10">
 																																<input type="text" class="form-control" id="mic_phone" name="mic_phone"
 																																				value="{{ $data->mic_phone }}">
-																																@error("mic_phone")
-																																				<div class="invalid-message">{{ $message }}</div>
-																																@enderror
 																												</div>
 																								</div>
 																								{{-- <div class="form-group row">
@@ -162,36 +143,32 @@
 																												<label class="control-label col-sm-2 align-self-center mb-0" for="address">Address:</label>
 																												<div class="col-sm-10">
 																																<textarea class="form-control" name="address" id="address" rows="5">{{ $data->address }}</textarea>
-																																@error("address")
-																																				<div class="invalid-message">{{ $message }}</div>
-																																@enderror
 																												</div>
 																								</div>
 																								<div class="form-group row">
 																												<label class="control-label col-sm-2 align-self-center mb-0" for="line_placements">Line Placements:</label>
 																												<div class="col-sm-10">
 																																<textarea class="form-control" name="line_placements" id="line_placements" rows="5">{{ $data->line_placements }}</textarea>
-																																@error("line_placements")
-																																				<div class="invalid-message">{{ $message }}</div>
-																																@enderror
 																												</div>
 																								</div>
 																								<div class="form-group row">
 																												<label class="control-label col-sm-2 align-self-center mb-0" for="notes">Notes:</label>
 																												<div class="col-sm-10">
 																																<textarea class="form-control" name="notes" id="notes" rows="5">{{ $data->notes }}</textarea>
-																																@error("notes")
-																																				<div class="invalid-message">{{ $message }}</div>
-																																@enderror
 																												</div>
 																								</div>
 																								<div class="form-group row">
 																												<label class="control-label col-sm-2 align-self-center mb-0" for="word">Words/Specifics:</label>
 																												<div class="col-sm-10">
 																																<textarea class="form-control" name="word" id="word" rows="5">{{ $data->word }}</textarea>
-																																@error("word")
-																																				<div class="invalid-message">{{ $message }}</div>
-																																@enderror
+																												</div>
+																								</div>
+                                                                                                <div class="form-group row">
+																												<label class="control-label col-sm-2 align-self-center mb-0" for="word">Documents:</label>
+																												<div class="col-sm-10">
+																																<input class="form-control filepond" type="file" name="upload" id="upload" multiple
+																																data-allow-reorder="true" data-max-file-size="5MB" data-max-files="3">
+																																<div id="document-error mt-2"></div>
 																												</div>
 																								</div>
 																								<button type="submit" id="submitBtn" class="btn btn-primary">Save</button>
@@ -205,6 +182,11 @@
 
 @section("javascript")
                 <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@24.5.0/build/js/intlTelInput.min.js"></script>
+                <script src="{{ asset("assets/js/plugins/filepond.min.js") }}"></script>
+				<script src="{{ asset("assets/js/plugins/filepond-plugin-image-preview.min.js") }}"></script>
+				<script src="{{ asset("assets/js/plugins/filepond-plugin-file-validate-size.min.js") }}"></script>
+				<script src="{{ asset("assets/js/plugins/filepond-plugin-image-exif-orientation.min.js") }}"></script>
+				<script src="{{ asset("assets/js/plugins/filepond-plugin-file-encode.min.js") }}"></script>
 
 				<script type="text/javascript" nonce="{{ csp_nonce() }}">
 								document.addEventListener("keydown", (e) => {
@@ -213,6 +195,13 @@
 																document.getElementById('submitBtn').click();
 																return false;
 												}
+								});
+
+                                FilePond.registerPlugin(FilePondPluginImagePreview);
+								const inputUploadElement = document.querySelector('#upload');
+								// Create the FilePond instance
+								const pond = FilePond.create(inputUploadElement, {
+												allowMultiple: true
 								});
 
                                 const countryData = window.intlTelInput(document.querySelector("#phone"), {
@@ -268,8 +257,124 @@
 																rule: 'required',
 																errorMessage: 'Address is required',
 												}, ])
-												.onSuccess((event) => {
-																event.target.submit();
+                                                .addField('#notes', [{
+																validator: (value, fields) => true
+												}])
+                                                .addField('#line_placements', [{
+																validator: (value, fields) => true
+												}])
+                                                .addField('#word', [{
+																validator: (value, fields) => true
+												}])
+                                                .addField('#audio_phone', [{
+																validator: (value, fields) => true
+												}])
+                                                .addField('#encoder_phone', [{
+																validator: (value, fields) => true
+												}])
+                                                .addField('#mic_phone', [{
+																validator: (value, fields) => true
+												}])
+                                                .addField('#upload', [{
+																validator: (value, fields) => true
+												}, ], {
+																errorsContainer: '#document-error',
+												})
+												.onSuccess(async (event) => {
+																var submitBtn = document.getElementById('submitBtn');
+																submitBtn.innerHTML = spinner
+																submitBtn.disabled = true;
+                                                                try {
+																				var formData = new FormData();
+																				formData.append('name', document.getElementById('name').value)
+																				formData.append('email', document.getElementById('email').value)
+																				formData.append('phone', document.getElementById('phone').value)
+																				formData.append('invoice_rate', document.getElementById('invoice_rate').value)
+																				formData.append('address', document.getElementById('address').value)
+																				formData.append('audio_phone', document.getElementById('audio_phone').value)
+																				formData.append('encoder_phone', document.getElementById('encoder_phone').value)
+																				formData.append('mic_phone', document.getElementById('mic_phone').value)
+																				formData.append('notes', document.getElementById('notes').value)
+                                                                                formData.append('line_placements', document.getElementById('line_placements').value)
+                                                                                formData.append('word', document.getElementById('word').value)
+																				for (let document_index = 0; document_index < pond.getFiles().length; document_index++) {
+																				    formData.append('documents[]', pond.getFiles()[document_index].file)
+																				}
+
+																				const response = await axios.post('{{ route("client.update.post", $data->id) }}', formData)
+																				successToast(response.data.message)
+																				event.target.reset();
+																				setInterval(window.location.replace("{{ route("client.paginate.get") }}"), 1500);
+																				// setInterval(location.reload(), 1500);
+																} catch (error) {
+																				// console.log(error);
+																				if (error?.response?.data?.errors?.name) {
+																								validation.showErrors({
+																												'#name': error?.response?.data?.errors?.name[0]
+																								})
+																				}
+																				if (error?.response?.data?.errors?.email) {
+																								validation.showErrors({
+																												'#email': error?.response?.data?.errors?.email[0]
+																								})
+																				}
+																				if (error?.response?.data?.errors?.phone) {
+																								validation.showErrors({
+																												'#phone': error?.response?.data?.errors?.phone[0]
+																								})
+																				}
+																				if (error?.response?.data?.errors?.invoice_rate) {
+																								validation.showErrors({
+																												'#invoice_rate': error?.response?.data?.errors?.invoice_rate[0]
+																								})
+																				}
+																				if (error?.response?.data?.errors?.address) {
+																								validation.showErrors({
+																												'#address': error?.response?.data?.errors?.address[0]
+																								})
+																				}
+																				if (error?.response?.data?.errors?.audio_phone) {
+																								validation.showErrors({
+																												'#audio_phone': error?.response?.data?.errors?.audio_phone[0]
+																								})
+																				}
+																				if (error?.response?.data?.errors?.encoder_phone) {
+																								validation.showErrors({
+																												'#encoder_phone': error?.response?.data?.errors?.encoder_phone[0]
+																								})
+																				}
+																				if (error?.response?.data?.errors?.mic_phone) {
+																								validation.showErrors({
+																												'#mic_phone': error?.response?.data?.errors?.mic_phone[0]
+																								})
+																				}
+																				if (error?.response?.data?.errors?.notes) {
+																								validation.showErrors({
+																												'#notes': error?.response?.data?.errors?.notes[0]
+																								})
+																				}
+																				if (error?.response?.data?.errors?.line_placements) {
+																								validation.showErrors({
+																												'#line_placements': error?.response?.data?.errors?.line_placements[0]
+																								})
+																				}
+																				if (error?.response?.data?.errors?.word) {
+																								validation.showErrors({
+																												'#word': error?.response?.data?.errors?.word[0]
+																								})
+																				}
+																				if (error?.response?.data?.errors?.documents) {
+																								validation.showErrors({
+																												'.document-input': error?.response?.data?.errors?.documents[0]
+																								})
+																				}
+																				if (error?.response?.data?.message) {
+																								errorToast(error?.response?.data?.message)
+																				}
+																} finally {
+																				submitBtn.innerHTML = `Save`
+																				submitBtn.disabled = false;
+																}
 												});
 				</script>
 

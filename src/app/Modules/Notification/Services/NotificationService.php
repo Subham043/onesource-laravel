@@ -59,11 +59,16 @@ class NotificationService
 
     public function create(NotificationRequest $request): Notification
     {
+        if(auth()->user()->timezone){
+            $tz = auth()->user()->timezone->getTimezoneName();
+            $recurring_time = Carbon::createFromFormat('H:i', $request->recurring_time, $tz)->setTimezone('UTC')->format('Y-m-d H:i:s');
+        }else{
+            $recurring_time = $request->recurring_time;
+        }
         $event = Notification::create(
             [
                 ...$request->safe()->only([
                     'label',
-                    'recurring_time',
                     'recurring_type',
                     'recurring_daily_type',
                     'recurring_daily_days',
@@ -82,6 +87,7 @@ class NotificationService
                     'recurring_monthly_second_days',
                     'recurring_monthly_second_months',
                 ]),
+                'recurring_time' => $recurring_time,
                 'created_by' => auth()->user()->current_role=='Staff-Admin' ? auth()->user()->member_profile_created_by_auth->created_by : auth()->user()->id,
             ]
         );
@@ -90,11 +96,16 @@ class NotificationService
 
     public function update(NotificationRequest $request, Notification $event): Notification
     {
+        if(auth()->user()->timezone){
+            $tz = auth()->user()->timezone->getTimezoneName();
+            $recurring_time = Carbon::createFromFormat('H:i', $request->recurring_time, $tz)->setTimezone('UTC')->format('Y-m-d H:i:s');
+        }else{
+            $recurring_time = $request->recurring_time;
+        }
         $event->update(
             [
                 ...$request->safe()->only([
                     'label',
-                    'recurring_time',
                     'recurring_type',
                     'recurring_daily_type',
                     'recurring_daily_days',
@@ -113,6 +124,7 @@ class NotificationService
                     'recurring_monthly_second_days',
                     'recurring_monthly_second_months',
                 ]),
+                'recurring_time' => $recurring_time,
             ]
         );
         return $event;

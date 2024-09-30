@@ -67,8 +67,15 @@ class CronService
                 $qry->with('writer')->where('writer_id', $user->id);
             },
         ])->where('is_active', true)
-        ->whereDate('end_date', '>=', Carbon::today()->startOfMonth())
-        ->whereDate('start_date', '<=', Carbon::today()->endOfMonth())
+        ->where(function($q){
+            $q->where(function($q){
+                $q->where('start_date', '<=', today())->where('end_date', '>=', today());
+            })->orWhere(function($q){
+                $q->where('start_date', '<=', today())->where('recurring_end_date', '>=', today());
+            });
+        })
+        // ->whereDate('end_date', '>=', Carbon::today()->startOfMonth())
+        // ->whereDate('start_date', '<=', Carbon::today()->endOfMonth())
         ->whereHas('writers', function($qry) use($user){
             $qry->where('writer_id', $user->id);
         })->get();
