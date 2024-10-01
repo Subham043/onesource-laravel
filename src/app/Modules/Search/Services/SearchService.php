@@ -38,7 +38,11 @@ class SearchService
 
     public function document_paginate(Int $total = 10): LengthAwarePaginator
     {
-        $query = EventDocument::filterByRoles();
+        $query = EventDocument::filterByRoles()
+        ->selectRaw('event_documents.*, events.*, event_writers.*')
+        ->join('events', 'events.id', '=', 'event_documents.event_id')
+        ->join('event_writers', 'event_writers.event_id', '=', 'events.id')
+        ->join('users', 'event_writers.writer_id', '=', 'users.id');
         $data = QueryBuilder::for($query)
                 ->defaultSort('document')
                 ->allowedSorts([
@@ -77,25 +81,8 @@ class CommonEventFilter implements Filter
 {
     public function __invoke(Builder $query, $value, string $property)
     {
-        $query->where('name', 'LIKE', '%' . $value . '%')
-        ->orWhereHas('writers', function($qry) use($value){
-            $qry->whereHas('writer', function($qry) use($value){
-                $qry->where('name', 'LIKE', '%' . $value . '%');
-            });
-        })
-        ->orWhereHas('client', function($qry) use($value){
-            $qry->where('name', 'LIKE', '%' . $value . '%');
-        });
-    }
-}
-
-class CommonDocumentFilter implements Filter
-{
-    public function __invoke(Builder $query, $value, string $property)
-    {
-        $query->where('document', 'LIKE', '%' . $value . '%')
-        ->orWhereHas('event', function($qryy) use($value){
-            $qryy->where('name', 'LIKE', '%' . $value . '%')
+        $query->where(function($query) use($value){
+            $query->where('name', 'LIKE', '%' . $value . '%')
             ->orWhereHas('writers', function($qry) use($value){
                 $qry->whereHas('writer', function($qry) use($value){
                     $qry->where('name', 'LIKE', '%' . $value . '%');
@@ -108,13 +95,36 @@ class CommonDocumentFilter implements Filter
     }
 }
 
+class CommonDocumentFilter implements Filter
+{
+    public function __invoke(Builder $query, $value, string $property)
+    {
+        $query->where(function($query) use($value){
+            $query->where('document', 'LIKE', '%' . $value . '%')
+            ->orWhereHas('event', function($qryy) use($value){
+                $qryy->where('name', 'LIKE', '%' . $value . '%')
+                ->orWhereHas('writers', function($qry) use($value){
+                    $qry->whereHas('writer', function($qry) use($value){
+                        $qry->where('name', 'LIKE', '%' . $value . '%');
+                    });
+                })
+                ->orWhereHas('client', function($qry) use($value){
+                    $qry->where('name', 'LIKE', '%' . $value . '%');
+                });
+            });
+        });
+    }
+}
+
 
 class CommonUserFilter implements Filter
 {
     public function __invoke(Builder $query, $value, string $property)
     {
-        $query->where('name', 'LIKE', '%' . $value . '%')
-        ->orWhere('email', 'LIKE', '%' . $value . '%');
+        $query->where(function($query) use($value){
+            $query->where('name', 'LIKE', '%' . $value . '%')
+            ->orWhere('email', 'LIKE', '%' . $value . '%');
+        });
     }
 }
 

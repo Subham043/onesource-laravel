@@ -69,13 +69,11 @@ class CronService
         ])->where('is_active', true)
         ->where(function($q){
             $q->where(function($q){
-                $q->where('start_date', '<=', today())->where('end_date', '>=', today());
+                $q->where('start_date', '<=', today())->where('end_date', '>=', today()->endOfMonth());
             })->orWhere(function($q){
-                $q->where('start_date', '<=', today())->where('recurring_end_date', '>=', today());
+                $q->where('start_date', '<=', today())->where('recurring_end_date', '>=', today()->endOfMonth());
             });
         })
-        // ->whereDate('end_date', '>=', Carbon::today()->startOfMonth())
-        // ->whereDate('start_date', '<=', Carbon::today()->endOfMonth())
         ->whereHas('writers', function($qry) use($user){
             $qry->where('writer_id', $user->id);
         })->get();
@@ -88,7 +86,7 @@ class CronService
          });
 
         if($new_data->count()>0){
-            dispatch(new SingleClientNotificationJob($user, $new_data));
+            dispatch(new SingleClientNotificationJob($user, $new_data, 'writer'));
         }
 
     }
@@ -100,8 +98,13 @@ class CronService
                 $qry->where('id',$user->cron_member_profile_created_by_auth->client->id);
             },
         ])->where('is_active', true)
-        ->whereDate('end_date', '>=', Carbon::today()->startOfMonth())
-        ->whereDate('start_date', '<=', Carbon::today()->endOfMonth())
+        ->where(function($q){
+            $q->where(function($q){
+                $q->where('start_date', '<=', today())->where('end_date', '>=', today()->endOfMonth());
+            })->orWhere(function($q){
+                $q->where('start_date', '<=', today())->where('recurring_end_date', '>=', today()->endOfMonth());
+            });
+        })
         ->whereHas('client', function($qry) use($user){
             $qry->where('id', $user->cron_member_profile_created_by_auth->client->id);
         })->get();
@@ -114,7 +117,7 @@ class CronService
          });
 
         if($new_data->count()>0){
-            dispatch(new SingleClientNotificationJob($user, $new_data));
+            dispatch(new SingleClientNotificationJob($user, $new_data, 'client'));
         }
 
     }

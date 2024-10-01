@@ -246,9 +246,22 @@
 																																																								<p
 																																																												style="font-size: 15px; line-height: 1.2; mso-line-height-alt: 26px; margin: 0;text-align:left">
                                                                                                                                                                                                                                                 @if(count($data)>0)
-																																																												<span style="font-size: 15px;">This email is a reminder
+                                                                                                                                                                                                                                                    @if($type=="writer")
+																																																												        <span style="font-size: 15px;">This email is a reminder
+																																																																that you are scheduled for the upcoming assignment(s)
+																																																																below.<br /> If you have questions or need additional
+																																																																information PRIOR to the date below, please contact the
+																																																																office at
+																																																																{{ $user->cron_member_profile_created_by_auth->creator->email ?? '' }}
+																																																																or
+																																																																{{ $user->cron_member_profile_created_by_auth->creator->phone ?? '' }}.
+																																																																<br />Please DO NOT
+																																																																contact the client or customer directly.</span>
+                                                                                                                                                                                                                                                    @else
+																																																												            <span style="font-size: 15px;">This email is a reminder
 																																																																that you are scheduled for the upcoming assignment(s)
 																																																																below.</span>
+                                                                                                                                                                                                                                                    @endif
                                                                                                                                                                                                                                                 @else
 																																																												<span style="font-size: 15px;">You have no events scheduled today.</span>
                                                                                                                                                                                                                                                 @endif
