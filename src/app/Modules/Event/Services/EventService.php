@@ -391,7 +391,7 @@ class EventService
         if($request->file('documents')){
             foreach ($request->file('documents') as $documentfile) {
                 if($documentfile->isValid()){
-                    $file = str()->snake($request->name).'_EVD'.$event_id.'_'.$documentfile->hashName();
+                    $file = str()->snake($request->name).'_EVD'.$event_id.'_'.$documentfile->getClientOriginalName();
                     $documentfile->storeAs((new EventDocument)->document_path,$file);
                     EventDocument::create([
                         'document' => $file,

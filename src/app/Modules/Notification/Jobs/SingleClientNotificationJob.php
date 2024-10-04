@@ -16,16 +16,18 @@ class SingleClientNotificationJob implements ShouldQueue
     protected $users;
     protected $data;
     protected $type;
+    protected $notification_type;
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($users, $data, $type)
+    public function __construct($users, $data, $type, $notification_type)
     {
         $this->users = $users;
         $this->data = $data;
         $this->type = $type;
+        $this->notification_type = $notification_type;
     }
 
     /**
@@ -35,6 +37,6 @@ class SingleClientNotificationJob implements ShouldQueue
      */
     public function handle()
     {
-        Mail::to($this->users['email'])->send(new SendCronNotificationEmail($this->users, $this->data, $this->type));
+        Mail::to($this->users['email'])->send(new SendCronNotificationEmail($this->users, $this->data, $this->type, $this->notification_type));
     }
 }

@@ -45,10 +45,10 @@ class CronService
                     })->get();
                     foreach ($users as $user) {
                         if($user->current_role=='Writer'){
-                            $this->sendWriterNotification($user);
+                            $this->sendWriterNotification($user, $notification->recurring_type->value);
                         }
                         else{
-                            $this->sendClientNotification($user);
+                            $this->sendClientNotification($user, $notification->recurring_type->value);
                         }
                     }
                     NotificationLog::create([
@@ -60,7 +60,7 @@ class CronService
         }
     }
 
-    public function sendWriterNotification($user)
+    public function sendWriterNotification($user, $notification_type)
     {
         $data = Event::with([
             'writers'=> function($qry) use($user){
@@ -86,12 +86,12 @@ class CronService
          });
 
         if($new_data->count()>0){
-            dispatch(new SingleClientNotificationJob($user, $new_data, 'writer'));
+            dispatch(new SingleClientNotificationJob($user, $new_data, 'writer', $notification_type));
         }
 
     }
 
-    public function sendClientNotification($user)
+    public function sendClientNotification($user, $notification_type)
     {
         $data = Event::with([
             'client'=> function($qry) use($user){
@@ -117,7 +117,7 @@ class CronService
          });
 
         if($new_data->count()>0){
-            dispatch(new SingleClientNotificationJob($user, $new_data, 'client'));
+            dispatch(new SingleClientNotificationJob($user, $new_data, 'client', $notification_type));
         }
 
     }

@@ -59,10 +59,11 @@ class ClientService
 
     public function saveDocument(ClientRequest $request, Int $client_id)
     {
+        $client = $this->getById($client_id);
         if($request->file('documents')){
             foreach ($request->file('documents') as $documentfile) {
                 if($documentfile->isValid()){
-                    $file = $documentfile->hashName();
+                    $file = str_replace(' ', '_', $client->name).'_'.$client_id.'_'.$documentfile->getClientOriginalName();
                     $documentfile->storeAs((new ClientDocument)->document_path,$file);
                     ClientDocument::create([
                         'document' => $file,
